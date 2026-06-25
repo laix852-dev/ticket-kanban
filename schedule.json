@@ -1,0 +1,109 @@
+{
+  "team": "供应商管理组",
+  "members": [
+    {
+      "name": "朱梦阳",
+      "uid": "zhumengyang@corp.netease.com",
+      "dept": "管理",
+      "vendor": "网易云音乐"
+    },
+    {
+      "name": "钱燕",
+      "uid": "qianyan@corp.netease.com",
+      "dept": "管理",
+      "vendor": "河南新阳科技（洛阳）"
+    },
+    {
+      "name": "曹梦姣",
+      "uid": "caomengjiao@corp.netease.com",
+      "dept": "管理",
+      "vendor": "河南新阳科技（洛阳）"
+    },
+    {
+      "name": "杨珂珂",
+      "uid": "wb.yangkeke@mesg.corp.netease.com",
+      "dept": "管理",
+      "vendor": "河南新阳科技（洛阳）"
+    }
+  ],
+  "schedule": {
+    "2026-06-25": {
+      "朱梦阳": "N",
+      "钱燕": "N",
+      "曹梦姣": "N",
+      "杨珂珂": "N"
+    }
+  },
+  "shift_map": {
+    "F": {
+      "start": "07:00",
+      "end": "15:30",
+      "type": "早班"
+    },
+    "A": {
+      "start": "08:00",
+      "end": "16:30",
+      "type": "白班"
+    },
+    "O": {
+      "start": "09:00",
+      "end": "18:00",
+      "type": "白班"
+    },
+    "I": {
+      "start": "10:00",
+      "end": "19:00",
+      "type": "白班"
+    },
+    "W": {
+      "start": "11:00",
+      "end": "19:30",
+      "type": "白班"
+    },
+    "G": {
+      "start": "12:30",
+      "end": "21:00",
+      "type": "白班"
+    },
+    "L": {
+      "start": "13:30",
+      "end": "22:00",
+      "type": "白班"
+    },
+    "T": {
+      "start": "09:00",
+      "end": "23:00",
+      "type": "中班"
+    },
+    "B": {
+      "start": "15:00",
+      "end": "23:30",
+      "type": "中班"
+    },
+    "P": {
+      "start": "16:30",
+      "end": "01:00",
+      "type": "晚班"
+    },
+    "N": {
+      "start": "17:00",
+      "end": "01:00",
+      "type": "晚班"
+    },
+    "M": {
+      "start": "19:30",
+      "end": "04:00",
+      "type": "晚班"
+    },
+    "Q": {
+      "start": "17:00",
+      "end": "02:00",
+      "type": "晚班"
+    },
+    "H": {
+      "start": "19:00",
+      "end": "03:00",
+      "type": "晚班"
+    }
+  }
+}
