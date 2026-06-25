@@ -663,7 +663,7 @@
         "action": "组长每周检查周考执行状态：各组长每周检查本周周考是否已指派，及时发现遗漏",
         "owner": "各组长",
         "deadline": "T+4",
-        "status": "in_progress"
+        "status": "overdue"
       }
     ],
     "timeline": [
