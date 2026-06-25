@@ -558,7 +558,7 @@
         "action": "QC直播间优先级明确：明确临汾负责审核的QC直播间及审核品类优先级",
         "owner": "克莉森(许怡)",
         "deadline": "T+11",
-        "status": "in_progress"
+        "status": "overdue"
       },
       {
         "step": 7,
@@ -816,7 +816,7 @@
         "action": "完成数据清理（6/24 0:00-6/25 11:45时段）",
         "owner": "张帅",
         "deadline": "T+1",
-        "status": "in_progress"
+        "status": "overdue"
       },
       {
         "step": 2,
@@ -830,7 +830,7 @@
         "action": "验证POPO超时提醒触达（组长+管理）",
         "owner": "李思远",
         "deadline": "T+1",
-        "status": "in_progress"
+        "status": "overdue"
       },
       {
         "step": 4,
