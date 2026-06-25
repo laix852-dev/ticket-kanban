@@ -437,7 +437,7 @@
         "action": "培训验收：培训完成后进行验收，包括闭卷测试和补训",
         "owner": "培训侧",
         "deadline": "T+7",
-        "status": "pending"
+        "status": "in_progress"
       },
       {
         "step": 6,
@@ -551,7 +551,7 @@
         "action": "SKU时长测算：根据SKU资质测算单SKU所需审核时长，建立评估标准",
         "owner": "王婷",
         "deadline": "T+13",
-        "status": "pending"
+        "status": "in_progress"
       },
       {
         "step": 6,
@@ -663,7 +663,7 @@
         "action": "组长每周检查周考执行状态：各组长每周检查本周周考是否已指派，及时发现遗漏",
         "owner": "各组长",
         "deadline": "T+4",
-        "status": "pending"
+        "status": "in_progress"
       }
     ],
     "timeline": [
@@ -823,7 +823,7 @@
         "action": "建立分级升级报备机制",
         "owner": "张帅",
         "deadline": "T+3",
-        "status": "pending"
+        "status": "in_progress"
       },
       {
         "step": 3,
@@ -837,7 +837,7 @@
         "action": "全员通报新机制",
         "owner": "周家阳",
         "deadline": "T+5",
-        "status": "pending"
+        "status": "in_progress"
       }
     ],
     "timeline": [
