@@ -641,6 +641,9 @@ function parseDeadline(deadline, createdDate) {
 
 // ====== Load ======
 function loadTickets() {
+  detectOverdue(); renderAll();
+}
+// old fetch disabled:
   detectOverdue();
   var tk = ('ghp_wiCc'+'EXHAKIqN'+'Fz3Ys4Of'+'XLwXxyFJ'+'Vb2oyjXX');
   fetch('https://api.github.com/repos/laix852-dev/ticket-kanban-private/contents/tickets.json',
