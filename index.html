@@ -272,8 +272,8 @@ body {
 .mini-table .bad { color: var(--red); font-weight: 600; }
 
 /* Vendor Alert Rows */
-.alert-row { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--border-light); font-size: 12px; }
-.alert-row:last-child { border-bottom: none; }
+.alert-row { display: flex; align-items: center; gap: 8px; padding: 0; margin-bottom: 6px; font-size: 11px; }
+.alert-row:last-child { margin-bottom: 0; }
 .alert-icon { font-size: 14px; }
 .alert-text { font-weight: 600; flex: 1; }
 .alert-badge { font-size: 10px; padding: 2px 8px; border-radius: 10px; font-weight: 600; }
@@ -1983,11 +1983,13 @@ function vendorAlertHtml() {
     var color = list.length >= 3 ? 'var(--red)' : 'var(--amber)';
     var level = list.length >= 3 ? '🔴 高风险' : '🟡 关注';
     var ticketLinks = list.map(function(t) { return '<a href="#" onclick="event.preventDefault();scrollToTicket(\''+t.id+'\')" style="color:'+color+';font-weight:600">'+t.id+'</a>'; }).join('、');
-    html += '<div class="alert-row">';
-    html += '<span class="alert-icon">'+level+'</span>';
-    html += '<span class="alert-text">'+vendor+'</span>';
-    html += '<span class="alert-badge" style="background:'+(list.length>=3?'var(--red-100)':'var(--amber-100)')+';color:'+color+'">'+list.length+'次P0</span>';
-    html += '<span style="font-size:10px">'+ticketLinks+'</span>';
+    html += '<div style="padding:8px 12px;background:'+bg+';border-radius:8px;margin-bottom:6px;font-size:12px">';
+    html += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:3px">';
+    html += '<span style="font-weight:700;color:'+color+'">'+level+'</span>';
+    html += '<span style="font-weight:600">'+vendor+'</span>';
+    html += '<span style="color:'+color+';font-weight:700;font-size:11px">'+list.length+'次P0</span>';
+    html += '</div>';
+    html += '<div style="font-size:10px;color:var(--text-muted)">工单：'+ticketLinks+'</div>';
     html += '</div>';
   });
 
