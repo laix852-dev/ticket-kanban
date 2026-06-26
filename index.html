@@ -713,14 +713,14 @@ function renderStats() {
   const closed = counts.resolved + counts.closed;
   const pct = total ? Math.round(closed / total * 100) : 0;
 
-    var sh = '';
-  sh += '<div class="stat-card" style="cursor:pointer" onclick="setPreset(\'all\',document.querySelector(\'.presets .preset\'))"><div class="stat-icon blue">📊</div><div><div class="stat-value">'+total+'</div><div class="stat-label">总工单</div></div></div>';
-  sh += '<div class="stat-card" style="cursor:pointer" onclick="setPreset(\'active\',document.querySelectorAll(\'.presets .preset\')[1])"><div class="stat-icon amber">⏳</div><div><div class="stat-value">'+active+'</div><div class="stat-label">进行中</div></div></div>';
-  sh += '<div class="stat-card" style="cursor:pointer" onclick="document.getElementById(\'filterStatus\').value=\'resolved\';currentPage=1;render()"><div class="stat-icon green">✅</div><div><div class="stat-value">'+closed+'</div><div class="stat-label">已完结 · '+pct+'%</div></div></div>';
-  sh += '<div class="stat-card" style="cursor:pointer" onclick="setPreset(\'P0\',document.querySelectorAll(\'.presets .preset\')[2])"><div class="stat-icon red">🔥</div><div><div class="stat-value">'+counts.P0+'</div><div class="stat-label">P0 紧急待处理</div></div></div>';
-  sh += '<div class="stat-card" style="cursor:pointer" onclick="setPreset(\'overdue\',document.querySelectorAll(\'.presets .preset\')[3])"><div class="stat-icon rose">⏰</div><div><div class="stat-value">'+overdueCount+'</div><div class="stat-label">含超期方案</div></div></div>';
-  sh += '<div class="stat-card"><div class="stat-icon purple">📈</div><div><div class="stat-value">'+avgDays+'d</div><div class="stat-label">平均解决天数</div></div></div>';
-  document.getElementById('statsRow').innerHTML = sh;
+  document.getElementById('statsRow').innerHTML = `
+    <div class="stat-card"><div class="stat-icon blue">📊</div><div><div class="stat-value">${total}</div><div class="stat-label">总工单</div></div></div>
+    <div class="stat-card"><div class="stat-icon amber">⏳</div><div><div class="stat-value">${active}</div><div class="stat-label">进行中</div></div></div>
+    <div class="stat-card"><div class="stat-icon green">✅</div><div><div class="stat-value">${closed}</div><div class="stat-label">已完结 · ${pct}%</div></div></div>
+    <div class="stat-card"><div class="stat-icon red">🔥</div><div><div class="stat-value">${counts.P0}</div><div class="stat-label">P0 紧急待处理</div></div></div>
+    <div class="stat-card"><div class="stat-icon rose">⏰</div><div><div class="stat-value">${overdueCount}</div><div class="stat-label">含超期方案</div></div></div>
+    <div class="stat-card"><div class="stat-icon purple">📈</div><div><div class="stat-value">${avgDays}d</div><div class="stat-label">平均解决天数</div></div></div>
+  `;
 }
 
 var vendorColors = ['#6366f1','#f59e0b','#10b981','#ef4444','#8b5cf6','#ec4899','#06b6d4','#f97316','#84cc16','#14b8a6'];
@@ -742,7 +742,7 @@ function renderVendorQuickStats() {
   allVendors.forEach(function(v, i) {
     var s = vendors[v]; var c = colors[i % colors.length];
     var cp = (m && m[v]) ? m[v] : '';
-    html += '<span style="display:inline-flex;align-items:center;gap:4px;background:#fff;border:1px solid var(--border);border-left:3px solid '+c+';border-radius:6px;padding:4px 8px;font-size:11px;cursor:pointer" onclick="document.getElementById('filterVendor').value='+v.replace(/'/g,"\\'")+';currentPage=1;render()" title="筛选 '+v+'"'>';
+    html += '<span style="display:inline-flex;align-items:center;gap:4px;background:#fff;border:1px solid var(--border);border-left:3px solid '+c+';border-radius:6px;padding:4px 8px;font-size:11px">';
     html += '<strong>'+v+'</strong> <span style="color:var(--text-muted);font-size:10px">'+cp+'</span>';
     if (s.unresolved > 0) {
       html += '<span style="background:'+c+';color:#fff;padding:1px 5px;border-radius:8px;font-size:10px;font-weight:600">'+s.unresolved+'</span>';
@@ -1907,17 +1907,6 @@ function changePageSize(size) {
   pageSize = parseInt(size);
   currentPage = 1;
   render();
-}
-
-function scrollToTicketExpand(id) {
-  // Scroll to the ticket and expand it
-  var card = document.getElementById('detail-' + id);
-  if (card) { card.classList.add('show'); card.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
-  var arrow = document.getElementById('icon-' + id);
-  if (arrow) arrow.classList.add('open');
-  // Highlight briefly
-  var row = card ? card.previousElementSibling : null;
-  if (row) { row.style.background = '#fef3c7'; setTimeout(function() { row.style.background = ''; }, 1500); }
 }
 
 function scrollToTicket(id) {
