@@ -609,6 +609,7 @@ function initData() {
   tickets = JSON.parse(JSON.stringify(DEFAULT_TICKET_DATA.tickets));
   meta = DEFAULT_TICKET_DATA.meta || {};
   detectOverdue();
+  renderAll();
   loadTickets();
 }
 
