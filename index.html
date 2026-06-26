@@ -196,46 +196,53 @@ body {
 .expand-arrow.open { transform: rotate(180deg); }
 
 /* Ticket Detail Body */
-.ticket-detail { display: none; border-top: 1px solid var(--border-light); background: var(--slate-50); }
+.ticket-detail { display: none; border-top: 1px solid var(--border); background: linear-gradient(180deg, #f8fafc 0%, #fff 100%); }
 .ticket-detail.show { display: block; }
-.ticket-detail-inner { padding: 18px 20px 20px; }
-.ticket-detail section { margin-bottom: 16px; }
+.ticket-detail-inner { padding: 20px 24px 24px; }
+.ticket-detail section { margin-bottom: 20px; }
 .ticket-detail section:last-child { margin-bottom: 0; }
 .section-label {
   font-size: 11px; font-weight: 700; color: var(--text-secondary);
-  text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px;
-  display: flex; align-items: center; gap: 6px;
+  letter-spacing: 0.5px; margin-bottom: 10px;
+  display: flex; align-items: center; gap: 8px;
+  text-transform: none;
 }
 .section-label::after {
   content: ''; flex: 1; height: 1px; background: var(--border);
 }
-.section-content { font-size: 13px; line-height: 1.7; color: #334155; white-space: pre-line; }
+.section-content {
+  font-size: 13px; line-height: 1.8; color: #334155; white-space: normal;
+  padding: 10px 14px; background: #fff;
+  border: 1px solid var(--border-light); border-radius: var(--radius-xs);
+}
 .highlight { background: #fde68a; padding: 0 2px; border-radius: 2px; }
 
 /* Solutions Table */
-.sol-table { width: 100%; border-collapse: collapse; font-size: 12px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
-.sol-table th { background: #f8fafc; text-align: left; padding: 9px 12px; font-weight: 600; color: #475569; font-size: 11px; border-bottom: 2px solid var(--border); }
-.sol-table td { padding: 9px 12px; border-bottom: 1px solid var(--border-light); color: #334155; }
+.sol-table { width: 100%; border-collapse: collapse; font-size: 12px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); background: #fff; }
+.sol-table th { background: #f1f5f9; text-align: left; padding: 10px 14px; font-weight: 600; color: #475569; font-size: 11px; border-bottom: 2px solid var(--border); letter-spacing: 0.3px; }
+.sol-table td { padding: 10px 14px; border-bottom: 1px solid var(--border-light); color: #334155; }
 .sol-table tr:last-child td { border-bottom: none; }
+.sol-table tr:hover td { background: #f8fafc; }
 .sol-table tr.overdue-row { background: var(--red-50); }
+.sol-table tr.overdue-row:hover td { background: #fef2f2; }
 .sol-status-dot {
-  display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 4px;
+  display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 12px;
 }
-.sol-status-dot.done { background: var(--green-100); color: #059669; }
-.sol-status-dot.in_progress { background: var(--amber-100); color: var(--amber); }
-.sol-status-dot.pending { background: var(--slate-100); color: var(--slate); }
-.sol-status-dot.overdue { background: var(--red-100); color: var(--red); }
+.sol-status-dot.done { background: #d1fae5; color: #065f46; }
+.sol-status-dot.in_progress { background: #fef3c7; color: #92400e; }
+.sol-status-dot.pending { background: #f1f5f9; color: #64748b; }
+.sol-status-dot.overdue { background: #fee2e2; color: #dc2626; }
 
 /* Tags */
-.tag-list { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 14px; }
-.tag { font-size: 11px; padding: 3px 10px; border-radius: 4px; background: var(--blue-50); color: var(--blue); font-weight: 500; }
+.tag-list { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+.tag { font-size: 11px; padding: 4px 12px; border-radius: 20px; background: #eff6ff; color: #3b82f6; font-weight: 500; border: 1px solid #bfdbfe; letter-spacing: 0.2px; }
 
 /* Timeline */
-.timeline { position: relative; padding-left: 20px; }
-.timeline::before { content: ''; position: absolute; left: 5px; top: 4px; bottom: 4px; width: 2px; background: var(--border); border-radius: 1px; }
-.timeline-entry { position: relative; padding: 4px 0 10px; font-size: 13px; color: #334155; }
-.timeline-entry::before { content: ''; position: absolute; left: -18px; top: 7px; width: 8px; height: 8px; border-radius: 50%; background: var(--blue); border: 2px solid var(--slate-50); }
-.timeline-time { font-size: 11px; color: var(--text-muted); font-family: 'SF Mono', 'Cascadia Code', monospace; }
+.timeline { position: relative; padding-left: 24px; margin-top: 4px; }
+.timeline::before { content: ''; position: absolute; left: 6px; top: 4px; bottom: 4px; width: 2px; background: linear-gradient(180deg, var(--blue) 0%, var(--border) 100%); border-radius: 1px; }
+.timeline-entry { position: relative; padding: 5px 0 12px; font-size: 13px; color: #334155; line-height: 1.6; }
+.timeline-entry::before { content: ''; position: absolute; left: -21px; top: 8px; width: 10px; height: 10px; border-radius: 50%; background: #fff; border: 2px solid var(--blue); }
+.timeline-time { font-size: 11px; color: var(--text-muted); font-family: 'SF Mono', 'Cascadia Code', monospace; font-weight: 500; margin-right: 4px; }
 
 /* ===== Dashboard ===== */
 .dashboard {
@@ -401,12 +408,20 @@ body {
 [data-theme="dark"] .modal .form-group textarea,
 [data-theme="dark"] .modal .form-group select,
 [data-theme="dark"] .presets .preset { background: #1e293b; color: #e2e8f0; }
-[data-theme="dark"] .ticket-detail { background: #172032; }
+[data-theme="dark"] .ticket-detail { background: linear-gradient(180deg, #0f172a 0%, #1a1f2e 100%); }
 [data-theme="dark"] .ticket-row:hover { background: #1a2744; }
 [data-theme="dark"] .ticket-card { border-color: #334155; }
-[data-theme="dark"] .section-content { color: #cbd5e1; }
+[data-theme="dark"] .section-content { color: #cbd5e1; background: #1a1f2e; border-color: #334155; }
+[data-theme="dark"] .sol-table { background: #1a1f2e; }
 [data-theme="dark"] .sol-table th { background: #1e293b; }
 [data-theme="dark"] .sol-table tr.overdue-row { background: #2d1b1b; }
+[data-theme="dark"] .sol-table tr:hover td { background: #1a2744; }
+[data-theme="dark"] .sol-table tr.overdue-row:hover td { background: #3d1b1b; }
+[data-theme="dark"] .sol-status-dot.done { background: #064e3b; color: #6ee7b7; }
+[data-theme="dark"] .sol-status-dot.in_progress { background: #78350f; color: #fcd34d; }
+[data-theme="dark"] .sol-status-dot.pending { background: #334155; color: #94a3b8; }
+[data-theme="dark"] .sol-status-dot.overdue { background: #7f1d1d; color: #fca5a5; }
+[data-theme="dark"] .tag { background: #1e3a5f; color: #93c5fd; border-color: #1e40af; }
 [data-theme="dark"] .mini-table th { background: #1e293b; }
 [data-theme="dark"] .ticket-vendor { opacity: 0.9; }
 [data-theme="dark"] .dash-card h3 { color: #cbd5e1; }
@@ -857,11 +872,12 @@ function ticketCard(t, search) {
       <div class="ticket-detail-inner">
         <div class="tag-list">${t.tags.map(tag => `<span class="tag">${search ? highlightText(tag, search) : tag}</span>`).join('')}</div>
 
-        <div style="display:flex;align-items:center;gap:16px;padding:8px 12px;background:var(--slate-50);border-radius:var(--radius-xs);margin-bottom:14px;font-size:12px;flex-wrap:wrap">
-          <span>🏢 供应商：<strong>${t.vendor || '未知'}</strong></span>
-          <span>📞 对接人：<strong>${(m && m[t.vendor]) ? m[t.vendor] : '未指定'}</strong></span>
-          ${t.sourceGroup ? `<span style="color:var(--blue);cursor:pointer;font-weight:600" onclick="navigator.clipboard.writeText('${t.sourceGroup}');alert('群号 ${t.sourceGroup} 已复制')" title="点击复制群号">💬 群 ${t.sourceGroup}</span>` : ''}
-          <span style="margin-left:auto;color:var(--text-muted)">📅 ${t.createdDate}</span>
+        <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:linear-gradient(135deg,#f8fafc 0%,#f1f5f9 100%);border-radius:10px;margin-bottom:18px;font-size:12px;flex-wrap:wrap;border:1px solid var(--border-light)">
+          <span style="display:flex;align-items:center;gap:4px"><span style="color:var(--text-muted)">🏢</span> <strong>${t.vendor || '未知'}</strong></span>
+          <span style="color:var(--border)">|</span>
+          <span style="display:flex;align-items:center;gap:4px"><span style="color:var(--text-muted)">📞</span> <strong>${(m && m[t.vendor]) ? m[t.vendor] : '未指定'}</strong></span>
+          ${t.sourceGroup ? '<span style="color:var(--border)">|</span><span style="display:flex;align-items:center;gap:4px;color:var(--blue);cursor:pointer;font-weight:600" onclick="navigator.clipboard.writeText(\''+t.sourceGroup+'\');var t=event.target;t.textContent=\'✅ 已复制\';setTimeout(function(){t.textContent=\'💬 群 '+t.sourceGroup+'\'},1500)" title="点击复制群号">💬 群 '+t.sourceGroup+'</span>' : ''}
+          <span style="margin-left:auto;display:flex;align-items:center;gap:4px;color:var(--text-muted)"><span>📅</span> ${t.createdDate}</span>
         </div>
 
         <section>
