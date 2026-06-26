@@ -423,7 +423,7 @@
         "action": "全员通报：重点宣导涉政人物清单——皇帝的（隐喻）、任大炮/任志强、雷军相关变体，防止联想误审",
         "owner": "许帅领",
         "deadline": "T+1",
-        "status": "in_progress"
+        "status": "overdue"
       },
       {
         "step": 4,
@@ -526,7 +526,7 @@
         "action": "审核SOP优化：梳理优化审核流程，联动驻场进行流程检查和技巧经验传授",
         "owner": "郭舒嫣",
         "deadline": "T+10",
-        "status": "in_progress"
+        "status": "overdue"
       },
       {
         "step": 3,
@@ -652,7 +652,7 @@
         "action": "建立任务清单，关键信息2小时内响应：培训专员亓林建立个人任务清单，群内关键任务信息必须在2小时内响应确认",
         "owner": "亓林",
         "deadline": "T+1",
-        "status": "pending"
+        "status": "overdue"
       },
       {
         "step": 2,
@@ -720,7 +720,7 @@
         "action": "立即排查延庆区客服排班与响应记录，确认漏回复根因",
         "owner": "钱燕/周丹",
         "deadline": "T+0（6月25日）",
-        "status": "in_progress"
+        "status": "overdue"
       },
       {
         "step": 2,
