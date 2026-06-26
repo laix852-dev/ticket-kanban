@@ -849,5 +849,59 @@
       "超时提醒"
     ],
     "progress": "数据清理进行中（6/24-6/25 10:50已完成，10:50-11:45清理中）。分级升级报备机制待建立。POPO超时提醒已设置。"
+  },
+  {
+    "id": "TK-2026-015",
+    "title": "洛阳新阳-得物用户资料535内容漏放",
+    "author": "钱燕",
+    "vendor": "河南新阳科技（洛阳）",
+    "contactPerson": "钱燕",
+    "status": "open",
+    "priority": "P3",
+    "sourceGroup": "2814288",
+    "createdDate": "2026-06-26",
+    "updatedDate": "2026-06-26",
+    "summary": "得物用户资料审核中发生535内容漏放。业务id：95FS11_202606162242231264391722065240064",
+    "impact": "🟡 中等",
+    "rootCause": "待排查",
+    "solutions": [
+      {
+        "step": 1,
+        "action": "知识储备摸底",
+        "owner": "牛欢欢",
+        "deadline": "T+3",
+        "status": "pending"
+      },
+      {
+        "step": 2,
+        "action": "人员评估，是否汰换",
+        "owner": "杨辉浩",
+        "deadline": "T+5",
+        "status": "pending"
+      },
+      {
+        "step": 3,
+        "action": "漏放原因定位",
+        "owner": "牛欢欢",
+        "deadline": "T+2",
+        "status": "pending"
+      }
+    ],
+    "timeline": [
+      {
+        "time": "06/26 11:02",
+        "event": "钱燕在群2814288发出535漏放通知"
+      },
+      {
+        "time": "06/26 11:51",
+        "event": "钱燕发布待跟进事项：知识储备摸底、人员评估、漏放原因定位"
+      }
+    ],
+    "tags": [
+      "得物",
+      "漏放",
+      "535"
+    ],
+    "progress": "已确认535内容漏放，待排查原因并评估人员"
   }
 ]
