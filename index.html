@@ -559,24 +559,6 @@ body {
   </div>
 </div>
 
-<script>
-function checkPassword() {
-  var pw = document.getElementById('pwInput').value;
-  if (pw === '888888') {
-    document.getElementById('pwGate').classList.add('hidden');
-    sessionStorage.setItem('kanban-auth', '1');
-  } else {
-    document.getElementById('pwError').style.display = 'block';
-    document.getElementById('pwInput').value = '';
-  }
-}
-(function() {
-  if (sessionStorage.getItem('kanban-auth') === '1') {
-    document.getElementById('pwGate').classList.add('hidden');
-  }
-})();
-</script>
-
 <div class="app-header">
   <div class="header-brand">
     <div class="logo">📋</div>
@@ -703,6 +685,24 @@ let currentPage = 1;
 let overduePreset = false;
 let activePreset = false;
 let dashRangeDays = 30;
+
+// ====== Password Gate ======
+function checkPassword() {
+  var pw = document.getElementById('pwInput').value;
+  if (pw === '888888') {
+    document.getElementById('pwGate').classList.add('hidden');
+    sessionStorage.setItem('kanban-auth', '1');
+  } else {
+    document.getElementById('pwError').style.display = 'block';
+    document.getElementById('pwInput').value = '';
+  }
+}
+(function() {
+  if (sessionStorage.getItem('kanban-auth') === '1') {
+    var gate = document.getElementById('pwGate');
+    if (gate) gate.classList.add('hidden');
+  }
+})();
 
 // ====== Init ======
 function initData() {
