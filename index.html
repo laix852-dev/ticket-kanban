@@ -642,12 +642,9 @@ function parseDeadline(deadline, createdDate) {
 // ====== Load ======
 function loadTickets() {
   detectOverdue();
-  var tk = '';
-  fetch('https://api.github.com/repos/laix852-dev/ticket-kanban-private/contents/tickets.json',
-    {headers: {'Authorization': 'Bearer ' + tk}})
+  fetch('tickets.json?_=' + Date.now())
     .then(function(r) { return r.json(); })
-    .then(function(d) {
-      var data = d;
+    .then(function(data) {
       tickets = data.tickets || data;
       meta = data.meta || {};
       renderAll();
