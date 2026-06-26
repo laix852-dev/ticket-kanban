@@ -525,11 +525,57 @@ body {
 .ticket-card { animation: fadeIn 0.25s ease-out; }
 
 .ticket-progress{font-size:11px;font-weight:600;color:#334155;background:#f1f5f9;padding:2px 8px;border-radius:6px;white-space:nowrap}
+/* Password Gate */
+.pw-gate {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: var(--bg); display: flex; align-items: center; justify-content: center;
+  z-index: 9999; flex-direction: column; gap: 16px;
+}
+.pw-gate.hidden { display: none; }
+.pw-gate .pw-box {
+  background: #fff; padding: 40px; border-radius: 16px; box-shadow: var(--shadow-lg);
+  text-align: center; max-width: 360px; width: 90%;
+}
+.pw-gate h2 { font-size: 20px; margin-bottom: 8px; color: var(--text); }
+.pw-gate p { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
+.pw-gate input {
+  width: 100%; padding: 12px 16px; border: 2px solid var(--border); border-radius: 10px;
+  font-size: 16px; text-align: center; outline: none; letter-spacing: 4px;
+}
+.pw-gate input:focus { border-color: var(--blue); }
+.pw-gate .pw-error { color: var(--red); font-size: 12px; margin-top: 8px; display: none; }
 </style>
 </head>
 <body>
 
 <div class="notify-bar" id="notifyBar"></div>
+
+<div class="pw-gate" id="pwGate">
+  <div class="pw-box">
+    <h2>🔒 工单看板</h2>
+    <p>请输入访问密码</p>
+    <input type="password" id="pwInput" placeholder="······" maxlength="20" onkeydown="if(event.key==='Enter')checkPassword()">
+    <div class="pw-error" id="pwError">密码错误</div>
+  </div>
+</div>
+
+<script>
+function checkPassword() {
+  var pw = document.getElementById('pwInput').value;
+  if (pw === '888888') {
+    document.getElementById('pwGate').classList.add('hidden');
+    sessionStorage.setItem('kanban-auth', '1');
+  } else {
+    document.getElementById('pwError').style.display = 'block';
+    document.getElementById('pwInput').value = '';
+  }
+}
+(function() {
+  if (sessionStorage.getItem('kanban-auth') === '1') {
+    document.getElementById('pwGate').classList.add('hidden');
+  }
+})();
+</script>
 
 <div class="app-header">
   <div class="header-brand">
@@ -1871,15 +1917,13 @@ function calcPenalty(ticket) {
 
 function penaltyRow(t) {
   var p = calcPenalty(t);
-  var amt = t.manualPenalty ? '¥' + t.manualPenalty : '¥' + p.total;
-  var basis = p.reason;
+  var confirmed = t.penaltyConfirmed;
+  var amt = confirmed ? (t.manualPenalty ? '¥' + t.manualPenalty : '¥' + p.total) : (t.priority || 'P?') + '扣罚';
+  var basis = confirmed ? p.reason : (t.impact || '').indexOf('🔴') >= 0 ? '重大影响' : (t.impact || '').indexOf('🟡') >= 0 ? '中等影响' : '待定';
   var h = '<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:#f8fafc;border-radius:6px;border:1px solid #e2e8f0;gap:8px;flex-wrap:nowrap;white-space:nowrap;margin-top:4px">';
-  // Amount (clickable to edit)
-  h += '<span style="font-weight:700;color:#dc2626;cursor:pointer;font-size:12px;flex-shrink:0" onclick="editPenaltyAmount(\'' + t.id + '\')" title="点击修改金额">' + amt + '</span>';
-  // Calculation basis
+  h += '<span style="font-weight:700;color:' + (confirmed ? '#dc2626' : '#92400e') + ';cursor:pointer;font-size:12px;flex-shrink:0" onclick="editPenaltyAmount(\'' + t.id + '\')" title="点击修改金额">' + amt + '</span>';
   h += '<span style="font-size:11px;color:var(--text-secondary);overflow:hidden;text-overflow:ellipsis;min-width:0">' + basis + '</span>';
-  // Confirm status or button
-  if (t.penaltyConfirmed) {
+  if (confirmed) {
     var when = t.penaltyConfirmedAt ? new Date(t.penaltyConfirmedAt).toLocaleDateString('zh-CN') : '';
     h += '<span style="font-size:11px;color:#065f46;font-weight:600;flex-shrink:0">✅ ' + (t.penaltyConfirmedBy || '已确认') + (when ? ' · ' + when : '') + '</span>';
   } else {
