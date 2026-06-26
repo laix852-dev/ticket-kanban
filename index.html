@@ -838,7 +838,15 @@ function ticketCard(t, search) {
           ${renderPenaltyRow(t)}
         </section>
         <section>
-          <div class="section-label">📌 最新进展</div>
+          <div class="section-label">📌 事故扣罚</span>
+        </h4>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:#f8fafc;border-radius:6px;border:1px solid #e2e8f0;margin-bottom:8px">
+          <span style="font-size:13px;font-weight:700;color:var(--red);cursor:pointer" title="点击修改金额" onclick="editPen('${t.id}')">${t.manualPenalty ? '¥'+t.manualPenalty : t.priority+'扣罚'}</span>
+          ${t.penaltyConfirmed ? '<span style="color:var(--green);font-weight:600">✅ '+t.penaltyConfirmedBy+'</span>' : '<button class="btn btn-accent" style="font-size:11px;padding:4px 10px" onclick="cfPen(\''+t.id+'\')">✅ 确认扣罚</button>'}
+        </div>
+      </section>
+      <section>
+        <h4><span class="section-icon">📌</span> 最新进展</div>
           <div class="section-content">${t.progress || '暂无'}</div>
         </section>
         <section>
@@ -905,6 +913,26 @@ function editPenaltyAmount(id) {
   else { var v = parseInt(a); if (v >= 0) t.manualPenalty = v; }
   saveChanges();
   render();
+}
+
+function editPen(id){
+  var t=tickets.find(function(x){return x.id===id});if(!t)return;
+  var c=t.manualPenalty||'';
+  var a=prompt('修改扣罚\n\n当前：'+(c?'¥'+c:'默认')+'\n\n输入金额（留空恢复默认）：',c);
+  if(a===null)return;
+  if(a===''){delete t.manualPenalty;}
+  else{var v=parseInt(a);if(v>=0)t.manualPenalty=v;}
+  saveChanges();render();
+}
+function cfPen(id){
+  var t=tickets.find(function(x){return x.id===id});if(!t)return;
+  var cp='';
+  if(window.m)cp=window.m[t.vendor]||'';
+  var name=prompt('确认扣罚\n\n对接人：'+cp+'\n\n请输入确认人姓名：',cp);
+  if(!name||!name.trim())return;
+  t.penaltyConfirmed=true;t.penaltyConfirmedBy=name.trim();
+  t.penaltyConfirmedAt=new Date().toISOString();
+  saveChanges();render();
 }
 
 function changeStatus(id, v) {
