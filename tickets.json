@@ -795,7 +795,7 @@
         "action": "组长每周检查周考执行状态：各组长每周检查本周周考是否已指派，及时发现遗漏",
         "owner": "各组长",
         "deadline": "T+4",
-        "status": "overdue"
+        "status": "in_progress"
       }
     ],
     "timeline": [
@@ -1035,7 +1035,7 @@
         "action": "建立分级升级报备机制",
         "owner": "张帅",
         "deadline": "T+3",
-        "status": "overdue"
+        "status": "in_progress"
       },
       {
         "step": 3,
@@ -1187,7 +1187,7 @@
         "action": "与心遇业务方沟通标准优化方案，降低新人理解门槛",
         "owner": "刘倩",
         "deadline": "T+3",
-        "status": "overdue"
+        "status": "in_progress"
       },
       {
         "step": 2,
