@@ -664,6 +664,10 @@
       {
         "time": "2026-06-27 16:34",
         "event": "系统扫描：群可访问，近24h仅有系统超期提醒，无人工进展回复 | done=5 overdue=2"
+      },
+      {
+        "time": "2026-06-27 17:04",
+        "event": "系统扫描：群可访问，群内无新消息 | done=5 overdue=2 in_progress=0"
       }
     ],
     "tags": [
@@ -673,7 +677,7 @@
       "临汾易网",
       "P0"
     ],
-    "progress": "2026-06-27T16:34:30扫描：群可访问，仅系统超期提醒无人工进展 | done=5 overdue=2 in_progress=0",
+    "progress": "2026-06-27T17:04:04扫描：群可访问，群内无新消息 | done=5 overdue=2 in_progress=0",
     "penalty": {
       "amount": 1200,
       "basis": "监管反馈: ¥+1000 | 影响加成: ¥+200",
@@ -762,6 +766,10 @@
       {
         "time": "06/27 16:28",
         "event": "系统扫描：群无权限访问(414) | done=0 overdue=1 in_progress=1"
+      },
+      {
+        "time": "2026-06-27 17:04",
+        "event": "系统扫描：群无权限访问(414) | done=0 overdue=1 in_progress=1"
       }
     ],
     "tags": [
@@ -770,7 +778,7 @@
       "培训",
       "P0"
     ],
-    "progress": "2026-06-27T16:34:30扫描：群无权限访问(414) | done=0 overdue=1 in_progress=1",
+    "progress": "2026-06-27T17:04:04扫描：群无权限访问(414) | done=0 overdue=1 in_progress=1",
     "penalty": {
       "amount": 1200,
       "basis": "监管反馈: ¥+1000 | 影响加成: ¥+200",
@@ -964,6 +972,10 @@
       {
         "time": "06/27 16:28",
         "event": "系统扫描：群无权限访问(414) | done=0 overdue=2 in_progress=2"
+      },
+      {
+        "time": "2026-06-27 17:04",
+        "event": "系统扫描：群无权限访问(414) | done=0 overdue=2 in_progress=2"
       }
     ],
     "tags": [
@@ -972,7 +984,7 @@
       "分级升级",
       "超时提醒"
     ],
-    "progress": "2026-06-27T16:34:30扫描：群无权限访问(414) | done=0 overdue=2 in_progress=2"
+    "progress": "2026-06-27T17:04:04扫描：群无权限访问(414) | done=0 overdue=2 in_progress=2"
   },
   {
     "id": "TK-2026-015",
@@ -1051,12 +1063,16 @@
       {
         "time": "06/27 16:28",
         "event": "系统扫描：群无权限访问(414) | done=0 overdue=1 in_progress=3"
+      },
+      {
+        "time": "2026-06-27 17:04",
+        "event": "系统扫描：群无权限访问(414) | done=0 overdue=1 in_progress=3"
       }
     ],
     "tags": [
       "人员",
       "离职"
     ],
-    "progress": "2026-06-27T16:34:30扫描：群无权限访问(414) | done=0 overdue=1 in_progress=3"
+    "progress": "2026-06-27T17:04:04扫描：群无权限访问(414) | done=0 overdue=1 in_progress=3"
   }
 ]
