@@ -800,6 +800,10 @@
       {
         "time": "06/28 12:31 扫描：群可访问，近2h无新消息（最近人工回复6/23王婷）| done=5 overdue=2 in_progress=0",
         "event": "06/28 12:31 扫描：群可访问，近2h无新消息（最近人工回复6/23王婷）| done=5 overdue=2 in_progress=0"
+      },
+      {
+        "time": "2026-06-28 13:01",
+        "event": "系统扫描：群可访问，最新人工消息仍为6/23王婷文档对齐，无新进展关键词 | done=5 overdue=2 in_progress=0"
       }
     ],
     "tags": [
@@ -859,7 +863,7 @@
         "action": "组长每周检查周考执行状态：各组长每周检查本周周考是否已指派，及时发现遗漏",
         "owner": "各组长",
         "deadline": "T+4",
-        "status": "overdue"
+        "status": "in_progress"
       }
     ],
     "timeline": [
@@ -1038,6 +1042,10 @@
       {
         "time": "2026-06-28 12:48",
         "event": "系统扫描：方案状态到期自动标记逾期 | done=0 overdue=2 in_progress=0"
+      },
+      {
+        "time": "2026-06-28 13:01",
+        "event": "方案状态修正：方案2 deadline T+4=6/28，截止日当天未到期，回退为 in_progress | done=0 overdue=1 in_progress=1"
       }
     ],
     "tags": [
@@ -1046,7 +1054,7 @@
       "培训",
       "P0"
     ],
-    "progress": "方案进度：0/2 已完成，2项逾期",
+    "progress": "方案进度：0/2 已完成，1项逾期",
     "penalty": {
       "amount": 1200,
       "basis": "监管反馈: ¥+1000 | 影响加成: ¥+200",
@@ -1183,7 +1191,7 @@
         "action": "建立分级升级报备机制",
         "owner": "张帅",
         "deadline": "T+3",
-        "status": "overdue"
+        "status": "in_progress"
       },
       {
         "step": 3,
@@ -1384,6 +1392,10 @@
       {
         "time": "2026-06-28 12:48",
         "event": "系统扫描：方案状态到期自动标记逾期 | done=0 overdue=3 in_progress=1"
+      },
+      {
+        "time": "2026-06-28 13:01",
+        "event": "方案状态修正：方案2 deadline T+3=6/28，截止日当天未到期，回退为 in_progress | done=0 overdue=2 in_progress=2"
       }
     ],
     "tags": [
@@ -1392,7 +1404,7 @@
       "分级升级",
       "超时提醒"
     ],
-    "progress": "方案进度：0/4 已完成，3项逾期"
+    "progress": "方案进度：0/4 已完成，2项逾期"
   },
   {
     "id": "TK-2026-015",
@@ -1415,7 +1427,7 @@
         "action": "与心遇业务方沟通标准优化方案，降低新人理解门槛",
         "owner": "刘倩",
         "deadline": "T+3",
-        "status": "overdue"
+        "status": "in_progress"
       },
       {
         "step": 2,
@@ -1611,12 +1623,16 @@
       {
         "time": "2026-06-28 12:48",
         "event": "系统扫描：方案状态到期自动标记逾期 | done=0 overdue=2 in_progress=2"
+      },
+      {
+        "time": "2026-06-28 13:01",
+        "event": "方案状态修正：方案1 deadline T+3=6/28，截止日当天未到期，回退为 in_progress | done=0 overdue=1 in_progress=3"
       }
     ],
     "tags": [
       "人员",
       "离职"
     ],
-    "progress": "方案进度：0/4 已完成，2项逾期"
+    "progress": "方案进度：0/4 已完成，1项逾期"
   }
 ]
