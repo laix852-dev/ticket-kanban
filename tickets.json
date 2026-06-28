@@ -796,6 +796,10 @@
       {
         "time": "2026-06-28 10:43",
         "event": "06/28 10:42 扫描：群可访问，最新消息仍为6/23王婷'初步搭建好'+超期提醒，无新完成关键词 | done=5 overdue=2"
+      },
+      {
+        "time": "06/28 12:31 扫描：群可访问，近2h无新消息（最近人工回复6/23王婷）| done=5 overdue=2 in_progress=0",
+        "event": "06/28 12:31 扫描：群可访问，近2h无新消息（最近人工回复6/23王婷）| done=5 overdue=2 in_progress=0"
       }
     ],
     "tags": [
@@ -1026,6 +1030,10 @@
       {
         "time": "2026-06-28 10:43",
         "event": "06/28 10:42 扫描：群无权限(414) | done=0 overdue=1 in_progress=1"
+      },
+      {
+        "time": "06/28 12:31 扫描：群无权限(414) | done=0 overdue=1 in_progress=1",
+        "event": "06/28 12:31 扫描：群无权限(414) | done=0 overdue=1 in_progress=1"
       }
     ],
     "tags": [
@@ -1364,6 +1372,10 @@
       {
         "time": "2026-06-28 10:43",
         "event": "06/28 10:42 扫描：群无权限(414) | done=0 overdue=2 in_progress=2"
+      },
+      {
+        "time": "06/28 12:31 扫描：群无权限(414) | done=0 overdue=2 in_progress=2",
+        "event": "06/28 12:31 扫描：群无权限(414) | done=0 overdue=2 in_progress=2"
       }
     ],
     "tags": [
@@ -1583,6 +1595,10 @@
       {
         "time": "2026-06-28 10:43",
         "event": "06/28 10:42 扫描：群无权限(414) | done=0 overdue=1 in_progress=3"
+      },
+      {
+        "time": "06/28 12:31 扫描：群无权限(414) | done=0 overdue=1 in_progress=3",
+        "event": "06/28 12:31 扫描：群无权限(414) | done=0 overdue=1 in_progress=3"
       }
     ],
     "tags": [
