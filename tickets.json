@@ -1117,6 +1117,64 @@
       "penaltyConfirmed": false,
       "penaltyConfirmedBy": null,
       "penaltyConfirmedAt": null
+    },
+    {
+      "id": "TK-2026-016",
+      "title": "汽车之家-舆情理解误伤导致客诉",
+      "author": "钱燕",
+      "vendor": "河南新阳科技（南宁）",
+      "status": "open",
+      "priority": "P0",
+      "sourceGroup": "8569980",
+      "createdDate": "2026-06-29",
+      "updatedDate": "2026-06-29T18:00:00.000Z",
+      "summary": "舆情「女仆车」指令理解偏差，审核错误关联导致正常文章被过严删除，引发客户投诉。taskid：bkxqqficpev3hdrrfuqx000j0500am3h。",
+      "impact": "🔴 重大 | 客户投诉",
+      "rootCause": "舆情指令理解偏差，将正常文章与涉政舆情关联误判删除",
+      "solutions": [
+        {
+          "step": 1,
+          "action": "回查误伤相关数据",
+          "owner": "黎俊",
+          "deadline": "T+1",
+          "status": "pending"
+        },
+        {
+          "step": 2,
+          "action": "排查误伤同学不通过记录",
+          "owner": "黎俊",
+          "deadline": "T+2",
+          "status": "pending"
+        },
+        {
+          "step": 3,
+          "action": "梳理舆情指令理解规则",
+          "owner": "黎俊",
+          "deadline": "T+3",
+          "status": "pending"
+        }
+      ],
+      "timeline": [
+        {
+          "time": "06/29 17:06",
+          "event": "朱莹在群6115474发现客诉，@黎俊核实"
+        },
+        {
+          "time": "06/29 17:19",
+          "event": "黎俊确认为审核误删，已安排回扫"
+        }
+      ],
+      "tags": [
+        "汽车之家",
+        "舆情",
+        "误伤",
+        "客诉"
+      ],
+      "progress": "黎俊已确认审核误删，安排回扫中",
+      "manualPenalty": null,
+      "penaltyConfirmed": false,
+      "penaltyConfirmedBy": null,
+      "penaltyConfirmedAt": null
     }
   ],
   "updatedAt": "2026-06-29 02:15:34+08:00",
