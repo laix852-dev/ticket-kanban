@@ -800,7 +800,7 @@ function renderStats() {
   sh += '<div class="stat-card" style="cursor:pointer" onclick="document.getElementById(\'filterStatus\').value=\'resolved\';currentPage=1;render()"><div class="stat-icon green">✅</div><div><div class="stat-value">'+closed+'</div><div class="stat-label">已完结 · '+pct+'%</div></div></div>';
   sh += '<div class="stat-card" style="cursor:pointer" onclick="setPreset(\'P0\',document.querySelectorAll(\'.presets .preset\')[2])"><div class="stat-icon red">🔥</div><div><div class="stat-value">'+counts.P0+'</div><div class="stat-label">P0 紧急待处理</div></div></div>';
   sh += '<div class="stat-card" style="cursor:pointer" onclick="setPreset(\'overdue\',document.querySelectorAll(\'.presets .preset\')[3])"><div class="stat-icon rose">⏰</div><div><div class="stat-value">'+overdueCount+'</div><div class="stat-label">含超期方案</div></div></div>';
-  sh += '<div class="stat-card" onclick="document.getElementById('filterStatus').value='all';document.getElementById('filterPriority').value='all';currentPage=1;render()" title="点击查看全部"><div class="stat-icon purple">📈</div><div><div class="stat-value">'+avgDays+'d</div><div class="stat-label">平均解决天数</div></div></div>';
+  sh += '<div class="stat-card" style="cursor:pointer" onclick="resetFilters();render()" title="点击查看全部"><div class="stat-icon purple">📈</div><div><div class="stat-value">'+avgDays+'d</div><div class="stat-label">平均解决天数</div></div></div>';
   document.getElementById('statsRow').innerHTML = sh;
 }
 
