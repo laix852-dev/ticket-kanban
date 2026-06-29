@@ -728,23 +728,40 @@ function checkPassword() {
 
 // ====== Init ======
 function initData() {
+  var isLocal = window.location.protocol === 'file:';
+  // Local file: restore full saved state
+  if (isLocal) {
+    try {
+      var saved = localStorage.getItem('kanban-full-data');
+      if (saved) {
+        tickets = JSON.parse(saved);
+        meta = DEFAULT_TICKET_DATA.meta || {};
+        detectOverdue();
+        renderAll();
+        return;
+      }
+    } catch(e) {}
+  }
+  // Start from embedded data
   tickets = JSON.parse(JSON.stringify(DEFAULT_TICKET_DATA.tickets));
   meta = DEFAULT_TICKET_DATA.meta || {};
-  // Apply user edits from localStorage on top of fresh data
-  try {
-    var edits = localStorage.getItem('kanban-user-edits');
-    if (edits) {
-      var userMap = JSON.parse(edits);
-      tickets.forEach(function(t) {
-        var ue = userMap[t.id];
-        if (ue) {
-          if (ue.priority) t.priority = ue.priority;
-          if (ue.status) t.status = ue.status;
-          if (ue.updatedDate) t.updatedDate = ue.updatedDate;
-        }
-      });
-    }
-  } catch(e) {}
+  // Apply web version user edits
+  if (!isLocal) {
+    try {
+      var edits = localStorage.getItem('kanban-user-edits');
+      if (edits) {
+        var userMap = JSON.parse(edits);
+        tickets.forEach(function(t) {
+          var ue = userMap[t.id];
+          if (ue) {
+            if (ue.priority) t.priority = ue.priority;
+            if (ue.status) t.status = ue.status;
+            if (ue.updatedDate) t.updatedDate = ue.updatedDate;
+          }
+        });
+      }
+    } catch(e) {}
+  }
   detectOverdue();
   renderAll();
   loadTickets();
@@ -1264,11 +1281,19 @@ function createTicket() {
 }
 
 function saveChanges() {
-  var edits = {};
-  tickets.forEach(function(t) {
-    edits[t.id] = { priority: t.priority, status: t.status, updatedDate: t.updatedDate };
-  });
-  try { localStorage.setItem('kanban-user-edits', JSON.stringify(edits)); } catch(e) {}
+  try {
+    if (window.location.protocol === 'file:') {
+      // Local file: save everything
+      localStorage.setItem('kanban-full-data', JSON.stringify(tickets));
+    } else {
+      // Web version: save only user edits (priority, status)
+      var edits = {};
+      tickets.forEach(function(t) {
+        edits[t.id] = { priority: t.priority, status: t.status, updatedDate: t.updatedDate };
+      });
+      localStorage.setItem('kanban-user-edits', JSON.stringify(edits));
+    }
+  } catch(e) {}
 }
 
 // ====== Penalty Confirmation ======
