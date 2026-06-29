@@ -728,8 +728,21 @@ function checkPassword() {
 
 // ====== Init ======
 function initData() {
-  tickets = JSON.parse(JSON.stringify(DEFAULT_TICKET_DATA.tickets));
-  meta = DEFAULT_TICKET_DATA.meta || {};
+  // Try localStorage first for user edits
+  var saved = null;
+  try { saved = localStorage.getItem('kanban-v3'); } catch(e) {}
+  if (saved) {
+    try {
+      tickets = JSON.parse(saved);
+      meta = DEFAULT_TICKET_DATA.meta || {};
+    } catch(e) {
+      tickets = JSON.parse(JSON.stringify(DEFAULT_TICKET_DATA.tickets));
+      meta = DEFAULT_TICKET_DATA.meta || {};
+    }
+  } else {
+    tickets = JSON.parse(JSON.stringify(DEFAULT_TICKET_DATA.tickets));
+    meta = DEFAULT_TICKET_DATA.meta || {};
+  }
   detectOverdue();
   renderAll();
   loadTickets();
@@ -765,11 +778,55 @@ function parseDeadline(deadline, createdDate) {
 // ====== Load ======
 function loadTickets() {
   detectOverdue();
+  // Skip fetch for local file:// protocol
+  if (window.location.protocol === 'file:') {
+    // Merge any localStorage changes
+    try {
+      var saved = localStorage.getItem('kanban-v3');
+      if (saved) {
+        var savedTickets = JSON.parse(saved);
+        var savedMap = {};
+        savedTickets.forEach(function(t) { savedMap[t.id] = t; });
+        tickets.forEach(function(t) {
+          if (savedMap[t.id]) {
+            // Preserve user-edited fields
+            t.priority = savedMap[t.id].priority || t.priority;
+            t.status = savedMap[t.id].status || t.status;
+            t.updatedDate = savedMap[t.id].updatedDate || t.updatedDate;
+            t.progress = savedMap[t.id].progress || t.progress;
+            t.solutions = savedMap[t.id].solutions || t.solutions;
+            t.timeline = savedMap[t.id].timeline || t.timeline;
+          }
+        });
+      }
+    } catch(e) {}
+    renderAll();
+    return;
+  }
   fetch('tickets.json?_=' + Date.now())
     .then(function(r) { return r.json(); })
     .then(function(data) {
-      tickets = data.tickets || data;
+      var serverTickets = data.tickets || data;
       meta = data.meta || {};
+      // Merge with localStorage changes
+      try {
+        var savedLocal = localStorage.getItem('kanban-v3');
+        if (savedLocal) {
+          var localMap = {};
+          JSON.parse(savedLocal).forEach(function(t) { localMap[t.id] = t; });
+          serverTickets.forEach(function(t) {
+            if (localMap[t.id]) {
+              t.priority = localMap[t.id].priority || t.priority;
+              t.status = localMap[t.id].status || t.status;
+              t.updatedDate = localMap[t.id].updatedDate || t.updatedDate;
+              if (localMap[t.id].progress) t.progress = localMap[t.id].progress;
+              if (localMap[t.id].solutions) t.solutions = localMap[t.id].solutions;
+              if (localMap[t.id].timeline) t.timeline = localMap[t.id].timeline;
+            }
+          });
+        }
+      } catch(e) {}
+      tickets = serverTickets;
       renderAll();
     })
     .catch(function() { renderAll(); });
