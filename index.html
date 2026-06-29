@@ -2083,6 +2083,71 @@ function exportCSV() {
 }
 
 // ====== Dashboard ======
+
+function renderTagAnalysis() {
+  var tagCount = {};
+  var vendorTagWarnings = [];
+  
+  tickets.forEach(function(t) {
+    (t.tags || []).forEach(function(tag) {
+      tagCount[tag] = (tagCount[tag] || 0) + 1;
+    });
+  });
+  
+  // Detect systemic issues: same tag appears 2+ times for same vendor
+  var vendorTags = {};
+  tickets.forEach(function(t) {
+    if (!t.vendor) return;
+    (t.tags || []).forEach(function(tag) {
+      var key = t.vendor + '|||' + tag;
+      if (!vendorTags[key]) vendorTags[key] = { vendor: t.vendor, tag: tag, ids: [], count: 0 };
+      vendorTags[key].count++;
+      vendorTags[key].ids.push(t.id);
+    });
+  });
+  
+  Object.values(vendorTags).forEach(function(vt) {
+    if (vt.count >= 2) vendorTagWarnings.push(vt);
+  });
+  vendorTagWarnings.sort(function(a, b) { return b.count - a.count; });
+  
+  // Top tags
+  var topTags = Object.entries(tagCount).sort(function(a, b) { return b[1] - a[1]; }).slice(0, 6);
+  
+  var h = '';
+  
+  // Tag ranking
+  h += '<div style="font-size:11px;font-weight:600;color:var(--text-secondary);margin-bottom:6px">🏷️ 高频标签</div>';
+  if (topTags.length === 0) {
+    h += '<div style="font-size:12px;color:var(--text-muted)">暂无数据</div>';
+  } else {
+    var maxCount = topTags[0][1];
+    topTags.forEach(function(e) {
+      var pct = Math.round(e[1] / maxCount * 100);
+      var color = e[1] >= 4 ? 'var(--red)' : e[1] >= 2 ? 'var(--amber)' : 'var(--green)';
+      h += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;font-size:11px">';
+      h += '<span style="width:70px;text-align:right;font-weight:500">' + e[0] + '</span>';
+      h += '<div class="progress-bar" style="flex:1;height:5px"><div class="fill" style="width:' + pct + '%;background:' + color + '"></div></div>';
+      h += '<span style="width:20px;text-align:right;font-weight:600;color:' + color + '">' + e[1] + '</span>';
+      h += '</div>';
+    });
+  }
+  
+  // Systemic warnings
+  if (vendorTagWarnings.length > 0) {
+    h += '<div style="font-size:11px;font-weight:600;color:var(--text-secondary);margin:10px 0 6px;border-top:1px solid var(--border);padding-top:8px">🔁 同类问题预警</div>';
+    vendorTagWarnings.slice(0, 4).forEach(function(vt) {
+      h += '<div style="display:flex;align-items:center;gap:6px;padding:4px 0;font-size:11px;border-bottom:1px solid var(--border-light)">';
+      h += '<span style="background:var(--red-50);color:var(--red);padding:1px 6px;border-radius:10px;font-size:10px;font-weight:600">×' + vt.count + '</span>';
+      h += '<span style="flex:1"><strong>' + vt.vendor + '</strong> · ' + vt.tag + '</span>';
+      h += '<span style="color:var(--text-muted);font-size:10px">' + vt.ids.join(' ') + '</span>';
+      h += '</div>';
+    });
+  }
+  
+  return h || '<div style="font-size:12px;color:var(--text-muted)">暂无数据</div>';
+}
+
 function renderDashboard() {
   // Filter by date range
   var rangeStart = null;
@@ -2146,6 +2211,7 @@ function renderDashboard() {
   dashHTML += '</div></div></div>';
   dashHTML += '<div class="dash-card half-width"><h3>\u23f1\ufe0f 平均解决天数</h3>'+timeHtml+'</div>';
   dashHTML += '<div class="dash-card full-width"><h3>\ud83d\udccb 供应商明细</h3><table class="mini-table"><tr><th>供应商</th><th>总</th><th>待处理</th><th>已完结</th><th>P0</th><th>均天</th><th>完结率</th></tr>'+tbl+'</table></div>';
+  dashHTML += '<div class="dash-card full-width"><h3>\ud83d\udcca 标签分析 \u0026 同类预警</h3>'+renderTagAnalysis()+'</div>';
   dashHTML += '<div class="dash-card full-width"><h3>\ud83d\udea8 供应商预警 '+(vendorAlertHtml()!==''?'<span style="color:var(--red);">\u26a0</span>':'<span style="color:var(--green);">\u2705</span>')+'</h3>'+(vendorAlertHtml()||'<div style="font-size:12px;color:var(--text-muted);">本月无异常供应商</div>')+'</div>';
   // 事故扣罚汇总已隐藏
   
