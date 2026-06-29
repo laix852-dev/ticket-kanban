@@ -438,10 +438,12 @@ body {
 
 /* Ticket detail - fix 2-column layout */
 .ticket-detail-inner { 
-  display: grid; grid-template-columns: 1fr 1fr; gap: 16px 28px; align-items: start; 
+  display: flex; flex-direction: column; gap: 20px; max-width: 900px;
 }
-.ticket-detail section.full-width { grid-column: 1 / -1; }
-@media (max-width: 900px) { .ticket-detail-inner { grid-template-columns: 1fr; } }
+.ticket-detail-inner .detail-grid { 
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px 28px; 
+}
+@media (max-width: 700px) { .ticket-detail-inner .detail-grid { grid-template-columns: 1fr; } }
 
 /* Solution table in detail - consistent cell alignment */
 .sol-table td { vertical-align: middle; }
@@ -884,17 +886,19 @@ function ticketCard(t, search) {
           <span style="margin-left:auto;display:flex;align-items:center;gap:4px;color:var(--text-muted)"><span>📅</span> ${t.createdDate}</span>
         </div>
 
-        <section>
-          <div class="section-label">📝 事件摘要</div>
-          <div class="section-content">${(search ? highlightText(t.summary, search) : t.summary).replace(/\n/g, '<br>')}</div>
-        </section>
-        <section>
-          <div class="section-label">💥 影响分析</div>
-          <div class="section-content">${(t.impact || '').replace(/\n/g, '<br>')}</div>
-        </section>
+        <div class="detail-grid">
+          <section>
+            <div class="section-label">📝 事件摘要</div>
+            <div class="section-content">${(search ? highlightText(t.summary, search) : t.summary).replace(/\\n/g, '<br>').replace(/\n/g, '<br>')}</div>
+          </section>
+          <section>
+            <div class="section-label">💥 影响分析</div>
+            <div class="section-content">${(t.impact || '').replace(/\\n/g, '<br>').replace(/\n/g, '<br>')}</div>
+          </section>
+        </div>
         <section>
           <div class="section-label">🔍 根本原因</div>
-          <div class="section-content">${(t.rootCause || '').replace(/\n/g, '<br>')}</div>
+          <div class="section-content">${(t.rootCause || '').replace(/\\n/g, '<br>').replace(/\n/g, '<br>')}</div>
         </section>
         <section>
           <div class="section-label">🔧 解决方案 ${(t.status==='resolved'||t.status==='closed') ? '<span style="font-size:11px;color:var(--green);">✅ 全部完成</span>' : (t._hasOverdue ? `<span style="font-size:11px;color:var(--red);">⚠ ${t._overdueCount}项超期</span>` : `<span style="font-size:11px;color:var(--green);">${t.solutions.filter(s=>s.status==='done').length}/${t.solutions.length} 完成</span>`)}</div>
