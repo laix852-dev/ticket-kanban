@@ -1402,31 +1402,17 @@ function showMorningReport() {
   if (unresolved.length === 0) {
     html += '<div style="padding:12px;background:var(--green-50);border-radius:6px;font-size:12px;color:#065f46;margin-bottom:12px">✅ 无未完结工单</div>';
   } else {
-    var tbl1 = '<table class="mini-table" style="width:100%;font-size:11px"><tr><th>#</th><th>问题</th><th>今日进展</th><th>状态</th><th>对接人</th><th>处理时长</th><th>下一步</th><th>历史</th></tr>';
+    var tbl1 = '<table class="mini-table" style="width:100%;font-size:12px"><tr><th style="width:28px">#</th><th>工单</th><th style="width:60px">状态</th><th style="width:70px">方案</th><th>重点</th><th style="width:60px">天数</th></tr>';
     unresolved.forEach(function(t, i) {
-      var s = t.status === 'in_progress' ? '🔄处理中' : t.status === 'open' ? '📋待处理' : t.status === 'pending' ? '⏳待分配' : t.status;
-      var nextStep = t.solutions.filter(function(s) { return s.status !== 'done'; }).slice(0, 2).map(function(s) { return (s.status==='overdue'?'🔴':'') + s.action.slice(0,12); }).join('; ') || '—';
-      var progressText = (t.progress || '').slice(0, 20) || '—';
+      var statusLabel = t.status === 'in_progress' ? '🔄处理中' : t.status === 'open' ? '📋待处理' : '⏳待分配';
+      var doneCount = t.solutions.filter(function(s) { return s.status === 'done'; }).length;
+      var overdueCount = t.solutions.filter(function(s) { return s.status === 'overdue'; }).length;
+      var solText = doneCount + '/' + t.solutions.length;
+      if (overdueCount > 0) solText += ' ⚠' + overdueCount;
       var bgRow = t._hasOverdue ? 'background:#fef2f2' : (t.priority === 'P0' ? 'background:#fffbeb' : '');
-      // Smart natural language summary
-      var firstDate = t.timeline[0] ? t.timeline[0].time.slice(-5) : '';
-      var doneSols = t.solutions.filter(function(s) { return s.status === 'done'; });
-      var totalSols = t.solutions.length;
-      var summary = firstDate + '创建';
-      if (t.status === 'resolved' || t.status === 'closed') {
-        var doneNames = doneSols.slice(0, 2).map(function(s) { return s.action.slice(0,12); }).join('、');
-        summary += '，完成' + doneNames + (doneSols.length > 2 ? '等' + doneSols.length + '项' : '') + '后完结';
-      } else {
-        if (doneSols.length > 0) {
-          var doneNames = doneSols.map(function(s) { return s.action.slice(0,10); }).join('、');
-          summary += '，已完成' + doneNames;
-        }
-        var overdueCount = t.solutions.filter(function(s) { return s.status === 'overdue'; }).length;
-        if (overdueCount > 0) summary += '，' + overdueCount + '项超期待跟进';
-        else if (doneSols.length < totalSols) summary += '，' + (totalSols - doneSols.length) + '项推进中';
-      }
-      var histHtml = summary;
-      tbl1 += '<tr style="' + bgRow + '"><td>' + (i+1) + '</td><td><strong>' + t.id + '</strong> ' + (t.title||'').slice(0,15) + '</td><td>' + progressText + '</td><td>' + s + '</td><td>' + cp(t) + '</td><td>' + daysOpen(t) + '天</td><td>' + nextStep + '</td><td style="font-size:11px;color:var(--text-secondary);max-width:180px">' + histHtml + '</td></tr>';
+      var overdueItems = t.solutions.filter(function(s) { return s.status === 'overdue'; }).map(function(s) { return s.action.slice(0,18); }).join('、');
+      var focusText = overdueCount > 0 ? '🔴 超期：' + overdueItems : (t.priority === 'P0' ? '⚡ P0优先跟进 · ' + cp(t) : '正常推进');
+      tbl1 += '<tr style="' + bgRow + '"><td style="color:var(--text-muted)">' + (i+1) + '</td><td><strong>' + t.id + '</strong> <span style="color:var(--text-secondary);font-size:11px">' + (t.title||'').slice(0,22) + ((t.title||'').length > 22 ? '…' : '') + '</span></td><td>' + statusLabel + '</td><td style="font-weight:600;color:' + (overdueCount>0?'var(--red)':doneCount===t.solutions.length?'var(--green)':'var(--text)') + '">' + solText + '</td><td style="font-size:11px">' + focusText + '</td><td style="color:' + (daysOpen(t)>7?'var(--red)':daysOpen(t)>3?'var(--amber)':'var(--text-secondary)') + ';font-weight:600">' + daysOpen(t) + '天</td></tr>';
     });
     tbl1 += '</table>';
     html += '<div style="margin-bottom:12px;overflow-x:auto">' + tbl1 + '</div>';
