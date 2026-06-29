@@ -698,7 +698,7 @@ let tickets = [];
 let m={"河南新阳科技（洛阳）":"钱燕","河南新阳科技（南宁）":"钱燕","山西易网视界（临汾）":"刘倩","河南徽音网络科技":"刘倩","驻马店网创运营":"张思语","贵州硅易（绥阳）":"张思语","四川淘金（忻州）":"张思语","河南诺达信息科技":"张思语","新疆众合天易":"俞晓倩","天津长翔科技（佛山）":"俞晓倩","芜湖晟律科技":"俞晓倩","成都唯准科技":"俞晓倩","长远数字科技":"俞晓倩","上海小咖邦":"俞晓倩"};
 let meta = {};
 let viewMode = 'card';
-let pageSize = 5;
+let pageSize = 10;
 let currentPage = 1;
 let overduePreset = false;
 let activePreset = false;
@@ -825,6 +825,7 @@ function loadTickets() {
 }
 
 function renderAll() {
+  try {
   const authors = [...new Set(tickets.map(t => t.author))];
   const asel = document.getElementById('filterAuthor');
   asel.innerHTML = '<option value="all">全部龙虾</option>';
@@ -838,6 +839,7 @@ function renderAll() {
   const lu = meta.lastUpdated || '';
   document.getElementById('lastUpdated').textContent = lu ? '更新于 ' + formatDate(lu) : '';
   render(); renderDashboard();
+  } catch(e) { console.error("Render error:", e); }
 }
 
 function formatDate(d) { return d ? d.slice(0,10) + ' ' + (d.slice(11,16) || '') : ''; }
