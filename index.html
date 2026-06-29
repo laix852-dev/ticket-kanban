@@ -486,6 +486,63 @@ body {
 /* Timeline in detail */
 .timeline { margin-bottom: 0; }
 
+
+/* === Enhancement CSS === */
+
+/* Sticky stats on scroll */
+.stats-grid { position: sticky; top: 60px; z-index: 50; background: var(--bg); padding-bottom: 4px; margin-bottom: 16px; }
+
+/* Clickable stat cards */
+.stats-grid .stat-card { cursor: pointer; }
+.stats-grid .stat-card:active { transform: scale(0.98); }
+
+/* Resolved tickets dimmed */
+.ticket-card.status-resolved { opacity: 0.72; }
+.ticket-card.status-resolved:hover { opacity: 0.92; }
+.ticket-card.status-closed { opacity: 0.6; }
+.ticket-card.status-closed:hover { opacity: 0.85; }
+
+/* Overdue flash animation */
+@keyframes overduePulse {
+  0%, 100% { border-left-color: var(--red); }
+  50% { border-left-color: #fca5a5; }
+}
+.ticket-card.has-overdue { animation: overduePulse 2s ease-in-out infinite; }
+
+/* Card progress bar */
+.ticket-progress-bar {
+  height: 3px; background: var(--slate-100); margin: 0 20px;
+  border-radius: 0 0 3px 3px; overflow: hidden;
+}
+.ticket-progress-bar .fill {
+  height: 100%; border-radius: 3px;
+  background: linear-gradient(90deg, #16a34a, #22c55e);
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.ticket-progress-bar .fill.warning { background: linear-gradient(90deg, #d97706, #f59e0b); }
+.ticket-progress-bar .fill.danger { background: linear-gradient(90deg, #dc2626, #ef4444); }
+
+/* Search highlight */
+.search-highlight { background: #fde68a; padding: 1px 3px; border-radius: 2px; font-weight: 600; }
+
+/* List view compact */
+.ticket-list.list-view .ticket-row { padding: 10px 16px; }
+.ticket-list.list-view .ticket-title { font-size: 13px; }
+.ticket-list.list-view .ticket-vendor,
+.ticket-list.list-view .ticket-author { font-size: 10px; padding: 2px 7px; }
+
+/* Gradient progress bars in dashboard */
+.dash-card .progress-bar .fill {
+  background: linear-gradient(90deg, #16a34a, #22c55e) !important;
+}
+
+/* Compact ticket meta */
+.ticket-meta-compact {
+  display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
+  font-size: 11px; color: var(--text-secondary);
+}
+.ticket-meta-compact span { white-space: nowrap; }
+
 </style>
 </head>
 <body>
@@ -738,7 +795,7 @@ function renderStats() {
   sh += '<div class="stat-card" style="cursor:pointer" onclick="document.getElementById(\'filterStatus\').value=\'resolved\';currentPage=1;render()"><div class="stat-icon green">✅</div><div><div class="stat-value">'+closed+'</div><div class="stat-label">已完结 · '+pct+'%</div></div></div>';
   sh += '<div class="stat-card" style="cursor:pointer" onclick="setPreset(\'P0\',document.querySelectorAll(\'.presets .preset\')[2])"><div class="stat-icon red">🔥</div><div><div class="stat-value">'+counts.P0+'</div><div class="stat-label">P0 紧急待处理</div></div></div>';
   sh += '<div class="stat-card" style="cursor:pointer" onclick="setPreset(\'overdue\',document.querySelectorAll(\'.presets .preset\')[3])"><div class="stat-icon rose">⏰</div><div><div class="stat-value">'+overdueCount+'</div><div class="stat-label">含超期方案</div></div></div>';
-  sh += '<div class="stat-card"><div class="stat-icon purple">📈</div><div><div class="stat-value">'+avgDays+'d</div><div class="stat-label">平均解决天数</div></div></div>';
+  sh += '<div class="stat-card" onclick="document.getElementById('filterStatus').value='all';document.getElementById('filterPriority').value='all';currentPage=1;render()" title="点击查看全部"><div class="stat-icon purple">📈</div><div><div class="stat-value">'+avgDays+'d</div><div class="stat-label">平均解决天数</div></div></div>';
   document.getElementById('statsRow').innerHTML = sh;
 }
 
@@ -872,6 +929,7 @@ function ticketCard(t, search) {
 
       <span class="expand-arrow" id="icon-${t.id}">▾</span>
     </div>
+    <div class="ticket-progress-bar"><div class="fill${t._hasOverdue ? ' danger' : (t.solutions.filter(function(s){return s.status==='done'}).length / t.solutions.length < 0.5 ? ' warning' : '')}" style="width:${t.solutions.filter(function(s){return s.status==='done'}).length / t.solutions.length * 100}%"></div></div>
     <div class="ticket-detail" id="detail-${t.id}">
       <div class="ticket-detail-inner">
         <div class="tag-list">${t.tags.map(tag => `<span class="tag">${search ? highlightText(tag, search) : tag}</span>`).join('')}</div>
