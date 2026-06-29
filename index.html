@@ -2142,7 +2142,7 @@ function renderDashboard() {
   dashHTML += '<div class="dash-card"><h3>\ud83d\udccb 供应商明细</h3><table class="mini-table"><tr><th>供应商</th><th>总</th><th>待处理</th><th>已完结</th><th>P0</th><th>均天</th><th>完结率</th></tr>'+tbl+'</table></div>';
   dashHTML += '<div class="dash-card"><h3>\u23f1\ufe0f 平均解决天数</h3>'+timeHtml+'</div>';
   dashHTML += '<div class="dash-card"><h3>\ud83d\udea8 供应商预警 '+(vendorAlertHtml()!==''?'<span style="color:var(--red);">\u26a0</span>':'<span style="color:var(--green);">\u2705</span>')+'</h3>'+(vendorAlertHtml()||'<div style="font-size:12px;color:var(--text-muted);">本月无异常供应商</div>')+'</div>';
-  dashHTML += '<div class="dash-card"><h3>\ud83d\udcb0 事故扣罚汇总</h3>'+penaltyDashHtml()+'</div>';
+  // 事故扣罚汇总已隐藏
   
   document.getElementById('dashboard').innerHTML = dashHTML;
 
