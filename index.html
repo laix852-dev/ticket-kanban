@@ -438,12 +438,8 @@ body {
 
 /* Ticket detail - fix 2-column layout */
 .ticket-detail-inner { 
-  display: flex; flex-direction: column; gap: 20px; max-width: 900px;
+  display: flex; flex-direction: column; gap: 20px;
 }
-.ticket-detail-inner .detail-grid { 
-  display: grid; grid-template-columns: 1fr 1fr; gap: 16px 28px; 
-}
-@media (max-width: 700px) { .ticket-detail-inner .detail-grid { grid-template-columns: 1fr; } }
 
 /* Solution table in detail - consistent cell alignment */
 .sol-table td { vertical-align: middle; }
@@ -886,16 +882,14 @@ function ticketCard(t, search) {
           <span style="margin-left:auto;display:flex;align-items:center;gap:4px;color:var(--text-muted)"><span>📅</span> ${t.createdDate}</span>
         </div>
 
-        <div class="detail-grid">
-          <section>
-            <div class="section-label">📝 事件摘要</div>
-            <div class="section-content">${(search ? highlightText(t.summary, search) : t.summary).replace(/\\n/g, '<br>').replace(/\n/g, '<br>')}</div>
-          </section>
-          <section>
-            <div class="section-label">💥 影响分析</div>
-            <div class="section-content">${(t.impact || '').replace(/\\n/g, '<br>').replace(/\n/g, '<br>')}</div>
-          </section>
-        </div>
+        <section>
+          <div class="section-label">📝 事件摘要</div>
+          <div class="section-content">${(search ? highlightText(t.summary, search) : t.summary).replace(/\\n/g, '<br>').replace(/\n/g, '<br>')}</div>
+        </section>
+        <section>
+          <div class="section-label">💥 影响分析</div>
+          <div class="section-content">${(t.impact || '').replace(/\\n/g, '<br>').replace(/\n/g, '<br>')}</div>
+        </section>
         <section>
           <div class="section-label">🔍 根本原因</div>
           <div class="section-content">${(t.rootCause || '').replace(/\\n/g, '<br>').replace(/\n/g, '<br>')}</div>
