@@ -86,11 +86,13 @@
     "penaltyAmount": 1500,
     "penaltyConfirmed": false,
     "penaltyReason": "P0 监管反馈 10%（¥1000）+ 重大影响×1.5",
-    "contactPerson": "钱燕"
+    "contactPerson": "钱燕",
+    "penaltyConfirmedBy": null,
+    "penaltyConfirmedAt": null
   },
   {
     "id": "TK-2026-002",
-    "title": "æå°é¾PICå·®å¼å¤ç",
+    "title": "秒级链PIC差异处理",
     "author": "Tom",
     "vendor": "山西易网视界（临汾）",
     "status": "resolved",
@@ -98,27 +100,27 @@
     "sourceGroup": "7107130",
     "createdDate": "2026-06-05",
     "updatedDate": "2026-06-25T07:45:20.331Z",
-    "summary": "æå°é¾ï¼yidun01ï¼ç»çPICè´¨æ£ç³è¯æåçä¸º68.9%ï¼è¿é«äºå¶ä»PICï¼éè¦å¯¹å·®å¼è¿è¡å¤çåæã",
-    "impact": "ð¡ PICè´¨æ£å¬å¹³æ§åå°è´¨çï¼ç³è¯æåçå·®å¼è¶è¿40ä¸ªç¾åç¹ã",
-    "rootCause": "1. æ¢æ¾å¤å®æ åæ´å®½æ¾ 2. åç§/æ¯æ·±çè¯å®æ åå­å¨åå·® 3. æ¸æ°åº¦éå¼ä¸ä¸è´ 4. ä¸»è§å¤æ­å°ºåº¦å·®å¼",
+    "summary": "秒级链（yidun01）给的PIC质检申诉驳回率为68.9%，远高于其他PIC，需要对差异进行处理分析。",
+    "impact": "🟡 PIC质检公平性受到质疑，申诉驳回率差异超过40个百分点。",
+    "rootCause": "1. 机审/复审标准更宽松 2. 初审/复审的认定标准存在偏差 3. 清晰度阈值不一致 4. 主观判断尺度差异",
     "solutions": [
       {
         "step": 1,
-        "action": "ç»ä¸æ¢æ¾/åç§/æ¯æ·±/æ¸æ°åº¦å¤å®æ å",
-        "owner": "å¼ ä¸°ç",
+        "action": "统一机审/初审/复审/清晰度判定标准",
+        "owner": "张丰平",
         "deadline": "2026-06-12",
         "status": "done"
       },
       {
         "step": 2,
-        "action": "å¯¹PICè¿è¡äº¤åå¤æ ¸è®­ç»ï¼åå°ä¸»è§åå·®",
-        "owner": "å¼ ä¸°ç",
+        "action": "对PIC进行交叉复核训练，减少主观偏差",
+        "owner": "张丰平",
         "deadline": "2026-06-19",
         "status": "done"
       },
       {
         "step": 3,
-        "action": "å»ºç«PICè´¨æ£ç³è¯æåº¦è¿½è¸ªæºå¶",
+        "action": "建立PIC质检申诉率追踪机制",
         "owner": "Tom",
         "deadline": "2026-06-30",
         "status": "in_progress"
@@ -127,24 +129,30 @@
     "timeline": [
       {
         "time": "06/05",
-        "event": "åå©åå¸å¤çè¦æ±"
+        "event": "朱梦阳发布处理要求"
       },
       {
         "time": "06/05",
-        "event": "å®æPICå·®å¼åææ¥å"
+        "event": "完成PIC差异分析报告"
       },
       {
         "time": "06/12",
-        "event": "æå°é¾åæ¥æ¥ï¼ç³è¯æåçè¾¾æ å"
+        "event": "秒级链复审报告：申诉驳回率达标记"
       }
     ],
     "tags": [
-      "PICè´¨æ£",
+      "PIC质检",
       "AIGC",
-      "ç³è¯"
+      "申诉"
     ],
-    "progress": "æå°é¾æ¯æ¥è´¨æ£æ¥æ¥æç»­è³6/12ï¼ç³è¯æåç25-37.5%å·²è¾¾æ ã",
-    "groupId": "7107130"
+    "progress": "秒级链每日质检报表持续至6/12，申诉驳回率25-37.5%已达标。",
+    "groupId": "7107130",
+    "penaltyAmount": null,
+    "penaltyConfirmed": false,
+    "penaltyConfirmedBy": null,
+    "penaltyConfirmedAt": null,
+    "penaltyReason": null,
+    "contactPerson": null
   },
   {
     "id": "TK-2026-003",
@@ -248,7 +256,9 @@
     "penaltyAmount": 1500,
     "penaltyConfirmed": false,
     "penaltyReason": "P0 监管反馈 10%（¥1000）+ 重大影响×1.5",
-    "contactPerson": "张思语"
+    "contactPerson": "张思语",
+    "penaltyConfirmedBy": null,
+    "penaltyConfirmedAt": null
   },
   {
     "id": "TK-2026-004",
@@ -341,7 +351,9 @@
     "penaltyAmount": 1000,
     "penaltyConfirmed": false,
     "penaltyReason": "P0 监管反馈 10%（¥1000）",
-    "contactPerson": "—"
+    "contactPerson": "—",
+    "penaltyConfirmedBy": null,
+    "penaltyConfirmedAt": null
   },
   {
     "id": "TK-2026-009",
@@ -440,7 +452,9 @@
     "penaltyAmount": 1000,
     "penaltyConfirmed": false,
     "penaltyReason": "P0 监管反馈 10%（¥1000）",
-    "contactPerson": "钱燕"
+    "contactPerson": "钱燕",
+    "penaltyConfirmedBy": null,
+    "penaltyConfirmedAt": null
   },
   {
     "id": "TK-2026-010",
@@ -554,7 +568,13 @@
       ],
       "calculatedAt": "2026-06-24T10:27:47.150Z"
     },
-    "groupId": "8549438"
+    "groupId": "8549438",
+    "penaltyAmount": null,
+    "penaltyConfirmed": false,
+    "penaltyConfirmedBy": null,
+    "penaltyConfirmedAt": null,
+    "penaltyReason": null,
+    "contactPerson": null
   },
   {
     "id": "TK-2026-011",
@@ -687,7 +707,13 @@
       ],
       "calculatedAt": "2026-06-24T10:27:47.159Z"
     },
-    "groupId": "8523601"
+    "groupId": "8523601",
+    "penaltyAmount": null,
+    "penaltyConfirmed": false,
+    "penaltyConfirmedBy": null,
+    "penaltyConfirmedAt": null,
+    "penaltyReason": null,
+    "contactPerson": null
   },
   {
     "id": "TK-2026-012",
@@ -756,7 +782,13 @@
       ],
       "calculatedAt": "2026-06-24T10:27:47.160Z"
     },
-    "groupId": "8553918"
+    "groupId": "8553918",
+    "penaltyAmount": null,
+    "penaltyConfirmed": false,
+    "penaltyConfirmedBy": null,
+    "penaltyConfirmedAt": null,
+    "penaltyReason": null,
+    "contactPerson": null
   },
   {
     "id": "TK-2026-013",
@@ -852,7 +884,9 @@
     "manualPenalty": null,
     "penaltyConfirmed": false,
     "penaltyConfirmedBy": null,
-    "penaltyConfirmedAt": null
+    "penaltyConfirmedAt": null,
+    "penaltyAmount": null,
+    "penaltyReason": null
   },
   {
     "id": "TK-2026-014",
@@ -921,6 +955,12 @@
       "分级升级",
       "超时提醒"
     ],
-    "progress": "0/4 完成：完成数据清理（6/24 0:00-6/2🔴 建立分级升级报备机制⏳ 验证POPO超时提醒触达（组长+管理）🔴 全员通报新机制⏳"
+    "progress": "0/4 完成：完成数据清理（6/24 0:00-6/2🔴 建立分级升级报备机制⏳ 验证POPO超时提醒触达（组长+管理）🔴 全员通报新机制⏳",
+    "penaltyAmount": null,
+    "penaltyConfirmed": false,
+    "penaltyConfirmedBy": null,
+    "penaltyConfirmedAt": null,
+    "penaltyReason": null,
+    "contactPerson": null
   }
 ]
