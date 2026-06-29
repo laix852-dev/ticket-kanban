@@ -963,6 +963,160 @@
       "penaltyConfirmedAt": null,
       "penaltyReason": null,
       "contactPerson": null
+    },
+    {
+      "id": "TK-2026-015",
+      "title": "洛阳新阳-得物用户资料535内容漏放",
+      "author": "钱燕",
+      "vendor": "河南新阳科技（洛阳）",
+      "status": "in_progress",
+      "priority": "P2",
+      "sourceGroup": "8562099",
+      "createdDate": "2026-06-26",
+      "updatedDate": "2026-06-29T18:00:00.000Z",
+      "summary": "得物用户资料审核中发生535内容漏放，漏放内容未在审核环节被有效拦截。",
+      "impact": "🟡 中等 | 个例漏放",
+      "rootCause": "风险防范意识不足，专项结束后放松警惕；未严格按照审核操作流程执行。",
+      "solutions": [
+        {
+          "step": 1,
+          "action": "知识储备摸底",
+          "owner": "牛欢欢",
+          "deadline": "T+3",
+          "status": "pending"
+        },
+        {
+          "step": 2,
+          "action": "人员评估是否汰换",
+          "owner": "杨辉浩",
+          "deadline": "T+5",
+          "status": "pending"
+        },
+        {
+          "step": 3,
+          "action": "漏放原因定位",
+          "owner": "牛欢欢",
+          "deadline": "T+2",
+          "status": "pending"
+        }
+      ],
+      "timeline": [
+        {
+          "time": "06/26 11:51",
+          "event": "钱燕在群2814288发现漏放，@牛欢欢"
+        }
+      ],
+      "tags": [
+        "得物",
+        "漏放",
+        "用户资料"
+      ],
+      "progress": "牛欢欢已回复：已当面提问王梦昭同学，定位为风险意识不足+未严格按流程操作。该同学已安排汰换。",
+      "manualPenalty": null,
+      "penaltyConfirmed": false,
+      "penaltyConfirmedBy": null,
+      "penaltyConfirmedAt": null
+    },
+    {
+      "id": "TK-2026-017",
+      "title": "洛阳新阳-得物-用户资料涉政漏放",
+      "author": "钱燕",
+      "vendor": "河南新阳科技（洛阳）",
+      "status": "open",
+      "priority": "P1",
+      "sourceGroup": "8570126",
+      "createdDate": "2026-06-29",
+      "updatedDate": "2026-06-29T18:00:00.000Z",
+      "summary": "得物用户资料审核，昵称「富平都敏俊」涉1号内容漏放。业务id：2586844374，工单id：193199908。",
+      "impact": "🟡 中等 | 个例漏判反馈",
+      "rootCause": "待定位",
+      "solutions": [
+        {
+          "step": 1,
+          "action": "漏放原因定位",
+          "owner": "牛欢欢",
+          "deadline": "T+2",
+          "status": "pending"
+        },
+        {
+          "step": 2,
+          "action": "涉一号内容培训",
+          "owner": "牛欢欢",
+          "deadline": "T+3",
+          "status": "pending"
+        },
+        {
+          "step": 3,
+          "action": "数据回扫",
+          "owner": "牛欢欢",
+          "deadline": "T+2",
+          "status": "pending"
+        }
+      ],
+      "timeline": [
+        {
+          "time": "06/29 18:00",
+          "event": "钱燕创建工单，建群8570126"
+        }
+      ],
+      "tags": [
+        "得物",
+        "涉政",
+        "漏放",
+        "用户资料"
+      ],
+      "progress": "",
+      "manualPenalty": null,
+      "penaltyConfirmed": false,
+      "penaltyConfirmedBy": null,
+      "penaltyConfirmedAt": null
+    },
+    {
+      "id": "TK-2026-018",
+      "title": "洛阳新阳-得物-用户资料横向负反馈",
+      "author": "钱燕",
+      "vendor": "河南新阳科技（洛阳）",
+      "status": "open",
+      "priority": "P1",
+      "sourceGroup": "8570267",
+      "createdDate": "2026-06-29",
+      "updatedDate": "2026-06-29T18:00:00.000Z",
+      "summary": "审核超时等5条内容误伤/漏放，客户发起横向负反馈。业务id：2729310253、433067030283837984、45953451、2779986678等。",
+      "impact": "🟡 中等 | 客户横向负反馈",
+      "rootCause": "待定位",
+      "solutions": [
+        {
+          "step": 1,
+          "action": "漏放原因定位",
+          "owner": "牛欢欢",
+          "deadline": "T+2",
+          "status": "pending"
+        },
+        {
+          "step": 2,
+          "action": "提升标签打标准确性",
+          "owner": "牛欢欢",
+          "deadline": "T+5",
+          "status": "pending"
+        }
+      ],
+      "timeline": [
+        {
+          "time": "06/29 18:18",
+          "event": "钱燕创建工单，建群8570267"
+        }
+      ],
+      "tags": [
+        "得物",
+        "漏放",
+        "误伤",
+        "用户资料"
+      ],
+      "progress": "",
+      "manualPenalty": null,
+      "penaltyConfirmed": false,
+      "penaltyConfirmedBy": null,
+      "penaltyConfirmedAt": null
     }
   ],
   "updatedAt": "2026-06-29 02:15:34+08:00",
