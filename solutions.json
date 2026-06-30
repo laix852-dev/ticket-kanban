@@ -1,0 +1,784 @@
+[
+  {
+    "id": "SOL-001",
+    "category": "培训管理",
+    "vendor": "河南新阳科技（南宁）",
+    "priority": "P0",
+    "impact": "🔴",
+    "solutions": [
+      {
+        "action": "暂停该小二在线客服权限，完成练习并通过考核后再恢复",
+        "owner": "梁宁",
+        "deadline": "T+1"
+      }
+    ],
+    "source": "TK-2026-001",
+    "usedCount": 1,
+    "lastUsed": "2026-06-22T17:48:00+08:00"
+  },
+  {
+    "id": "SOL-002",
+    "category": "培训管理",
+    "vendor": "河南新阳科技（南宁）",
+    "priority": "P0",
+    "impact": "🔴",
+    "solutions": [
+      {
+        "action": "逐一核查团队内所有客服小二是否掌握行政区查询等基础操作",
+        "owner": "梁宁",
+        "deadline": "T+3"
+      }
+    ],
+    "source": "TK-2026-001",
+    "usedCount": 1,
+    "lastUsed": "2026-06-22T17:48:00+08:00"
+  },
+  {
+    "id": "SOL-003",
+    "category": "培训管理",
+    "vendor": "河南新阳科技（南宁）",
+    "priority": "P0",
+    "impact": "🔴",
+    "solutions": [
+      {
+        "action": "建立客服小二错误预警机制：单日同一错误≥2次自动同步管理方",
+        "owner": "梁宁/来昕怡",
+        "deadline": "T+5"
+      }
+    ],
+    "source": "TK-2026-001",
+    "usedCount": 1,
+    "lastUsed": "2026-06-22T17:48:00+08:00"
+  },
+  {
+    "id": "SOL-004",
+    "category": "培训管理",
+    "vendor": "河南新阳科技（南宁）",
+    "priority": "P0",
+    "impact": "🔴",
+    "solutions": [
+      {
+        "action": "制定客服小二定期考核表（月度），确保基础操作不退化",
+        "owner": "梁宁",
+        "deadline": "T+10"
+      }
+    ],
+    "source": "TK-2026-001",
+    "usedCount": 1,
+    "lastUsed": "2026-06-22T17:48:00+08:00"
+  },
+  {
+    "id": "SOL-005",
+    "category": "培训管理",
+    "vendor": "河南新阳科技（南宁）",
+    "priority": "P0",
+    "impact": "🔴",
+    "solutions": [
+      {
+        "action": "将本次案例作为反面教材纳入新小二入职培训",
+        "owner": "梁宁",
+        "deadline": "持续"
+      }
+    ],
+    "source": "TK-2026-001",
+    "usedCount": 1,
+    "lastUsed": "2026-06-22T17:48:00+08:00"
+  },
+  {
+    "id": "SOL-006",
+    "category": "质检管理",
+    "vendor": "山西易网视界（临汾）",
+    "priority": "P0",
+    "impact": "🟡",
+    "solutions": [
+      {
+        "action": "统一机审/初审/复审/清晰度判定标准",
+        "owner": "张丰平",
+        "deadline": "2026-06-12"
+      }
+    ],
+    "source": "TK-2026-002",
+    "usedCount": 1,
+    "lastUsed": "2026-06-25T07:45:20.331Z"
+  },
+  {
+    "id": "SOL-007",
+    "category": "质检管理",
+    "vendor": "山西易网视界（临汾）",
+    "priority": "P0",
+    "impact": "🟡",
+    "solutions": [
+      {
+        "action": "对PIC进行交叉复核训练，减少主观偏差",
+        "owner": "张丰平",
+        "deadline": "2026-06-19"
+      }
+    ],
+    "source": "TK-2026-002",
+    "usedCount": 1,
+    "lastUsed": "2026-06-25T07:45:20.331Z"
+  },
+  {
+    "id": "SOL-008",
+    "category": "培训管理",
+    "vendor": "贵州硅易（绥阳）",
+    "priority": "P0",
+    "impact": "🔴",
+    "solutions": [
+      {
+        "action": "日度异常预警：单人次品≥5条标注姓名+类型；次品环比>100%追加原因",
+        "owner": "付林",
+        "deadline": "本周"
+      }
+    ],
+    "source": "TK-2026-003",
+    "usedCount": 1,
+    "lastUsed": "2026-06-16"
+  },
+  {
+    "id": "SOL-009",
+    "category": "培训管理",
+    "vendor": "贵州硅易（绥阳）",
+    "priority": "P0",
+    "impact": "🔴",
+    "solutions": [
+      {
+        "action": "王钦鹏专项纠偏：48条逐条回查 + 车牌录入培训 + 3天抽检1.5倍",
+        "owner": "付林",
+        "deadline": "本周"
+      }
+    ],
+    "source": "TK-2026-003",
+    "usedCount": 1,
+    "lastUsed": "2026-06-16"
+  },
+  {
+    "id": "SOL-010",
+    "category": "培训管理",
+    "vendor": "贵州硅易（绥阳）",
+    "priority": "P0",
+    "impact": "🔴",
+    "solutions": [
+      {
+        "action": "补充6/7缺失日报，标注异常人员明细",
+        "owner": "付林",
+        "deadline": "本周"
+      }
+    ],
+    "source": "TK-2026-003",
+    "usedCount": 1,
+    "lastUsed": "2026-06-16"
+  },
+  {
+    "id": "SOL-011",
+    "category": "培训管理",
+    "vendor": "贵州硅易（绥阳）",
+    "priority": "P0",
+    "impact": "🔴",
+    "solutions": [
+      {
+        "action": "建立异常响应SOP：次品率>0.5%暂停审核→回查→培训→重新上线",
+        "owner": "付林",
+        "deadline": "2周内"
+      }
+    ],
+    "source": "TK-2026-003",
+    "usedCount": 1,
+    "lastUsed": "2026-06-16"
+  },
+  {
+    "id": "SOL-012",
+    "category": "培训管理",
+    "vendor": "贵州硅易（绥阳）",
+    "priority": "P0",
+    "impact": "🔴",
+    "solutions": [
+      {
+        "action": "日报模板升级：增加人员排名表、TOP3次品类型、环比变化",
+        "owner": "付林",
+        "deadline": "2周内"
+      }
+    ],
+    "source": "TK-2026-003",
+    "usedCount": 1,
+    "lastUsed": "2026-06-16"
+  },
+  {
+    "id": "SOL-013",
+    "category": "培训管理",
+    "vendor": "贵州硅易（绥阳）",
+    "priority": "P0",
+    "impact": "🔴",
+    "solutions": [
+      {
+        "action": "管理岗KPI明确：异常响应≤4小时，日报覆盖率100%",
+        "owner": "付林",
+        "deadline": "1个月"
+      }
+    ],
+    "source": "TK-2026-003",
+    "usedCount": 1,
+    "lastUsed": "2026-06-16"
+  },
+  {
+    "id": "SOL-014",
+    "category": "培训管理",
+    "vendor": "贵州硅易（绥阳）",
+    "priority": "P0",
+    "impact": "🔴",
+    "solutions": [
+      {
+        "action": "车牌录入系统优化：OCR二次校验或关键字符高亮 + 每周专项回查",
+        "owner": "付林",
+        "deadline": "1个月"
+      }
+    ],
+    "source": "TK-2026-003",
+    "usedCount": 1,
+    "lastUsed": "2026-06-16"
+  },
+  {
+    "id": "SOL-015",
+    "category": "数据管理",
+    "vendor": "河南新阳科技（南宁）",
+    "priority": "P0",
+    "impact": "🔴",
+    "solutions": [
+      {
+        "action": "修复CMA登录态自动续期逻辑，增加session过期前主动刷新",
+        "owner": "董超",
+        "deadline": "T+3"
+      }
+    ],
+    "source": "TK-2026-004",
+    "usedCount": 1,
+    "lastUsed": "2026-06-15T17:05:00+08:00"
+  },
+  {
+    "id": "SOL-016",
+    "category": "数据管理",
+    "vendor": "河南新阳科技（南宁）",
+    "priority": "P0",
+    "impact": "🔴",
+    "solutions": [
+      {
+        "action": "巡检车告警机器人增加CMA在线数字段，在线数<5自动@管理方",
+        "owner": "董超",
+        "deadline": "T+5"
+      }
+    ],
+    "source": "TK-2026-004",
+    "usedCount": 1,
+    "lastUsed": "2026-06-15T17:05:00+08:00"
+  },
+  {
+    "id": "SOL-017",
+    "category": "数据管理",
+    "vendor": "河南新阳科技（南宁）",
+    "priority": "P0",
+    "impact": "🔴",
+    "solutions": [
+      {
+        "action": "制定CMA掉线应急预案：退出→重登→验证三步骤",
+        "owner": "来昕怡",
+        "deadline": "T+3"
+      }
+    ],
+    "source": "TK-2026-004",
+    "usedCount": 1,
+    "lastUsed": "2026-06-15T17:05:00+08:00"
+  },
+  {
+    "id": "SOL-018",
+    "category": "数据管理",
+    "vendor": "河南新阳科技（南宁）",
+    "priority": "P0",
+    "impact": "🔴",
+    "solutions": [
+      {
+        "action": "建立CMA健康度dashboard，每小时检测登录态/识别率/人审率",
+        "owner": "董超",
+        "deadline": "T+10"
+      }
+    ],
+    "source": "TK-2026-004",
+    "usedCount": 1,
+    "lastUsed": "2026-06-15T17:05:00+08:00"
+  },
+  {
+    "id": "SOL-019",
+    "category": "数据管理",
+    "vendor": "河南新阳科技（南宁）",
+    "priority": "P0",
+    "impact": "🔴",
+    "solutions": [
+      {
+        "action": "审核人员上岗前增加CMA状态自查环节，纳入日常checklist",
+        "owner": "来昕怡",
+        "deadline": "持续"
+      }
+    ],
+    "source": "TK-2026-004",
+    "usedCount": 1,
+    "lastUsed": "2026-06-15T17:05:00+08:00"
+  },
+  {
+    "id": "SOL-020",
+    "category": "培训管理",
+    "vendor": "河南新阳科技（洛阳）",
+    "priority": "P0",
+    "impact": "🔴",
+    "solutions": [
+      {
+        "action": "全组集中复培涉政敏感人物名单（含任大炮/任志强等），典型一号负面玩梗风险意识",
+        "owner": "郭嘉锋",
+        "deadline": "T+1（6月25日）"
+      }
+    ],
+    "source": "TK-2026-009",
+    "usedCount": 1,
+    "lastUsed": "2026-06-24"
+  },
+  {
+    "id": "SOL-021",
+    "category": "培训管理",
+    "vendor": "河南新阳科技（洛阳）",
+    "priority": "P0",
+    "impact": "🔴",
+    "solutions": [
+      {
+        "action": "整合本案+历史案例，以模拟实操形式全组测试验收，准确率100%为目标值",
+        "owner": "郭嘉锋",
+        "deadline": "T+3（6月26日）"
+      }
+    ],
+    "source": "TK-2026-009",
+    "usedCount": 1,
+    "lastUsed": "2026-06-24"
+  },
+  {
+    "id": "SOL-022",
+    "category": "培训管理",
+    "vendor": "河南新阳科技（洛阳）",
+    "priority": "P0",
+    "impact": "🔴",
+    "solutions": [
+      {
+        "action": "对漏放人韦苏蕾及汽车组其他同学随机抽问，验收其他风险类型知识储备",
+        "owner": "郭嘉锋",
+        "deadline": "T+3（6月26日）"
+      }
+    ],
+    "source": "TK-2026-009",
+    "usedCount": 1,
+    "lastUsed": "2026-06-24"
+  },
+  {
+    "id": "SOL-023",
+    "category": "培训管理",
+    "vendor": "河南新阳科技（洛阳）",
+    "priority": "P0",
+    "impact": "🔴",
+    "solutions": [
+      {
+        "action": "评估DHS删除人审通过涉政数据的兜底保障方案",
+        "owner": "钱燕",
+        "deadline": "T+5（6月28日）"
+      }
+    ],
+    "source": "TK-2026-009",
+    "usedCount": 1,
+    "lastUsed": "2026-06-24"
+  },
+  {
+    "id": "SOL-024",
+    "category": "培训管理",
+    "vendor": "河南新阳科技（洛阳）",
+    "priority": "P0",
+    "impact": "🔴",
+    "solutions": [
+      {
+        "action": "优化回扫流程：涉政相关内容的回扫增加专项复核环节",
+        "owner": "黎俊",
+        "deadline": "T+5（6月28日）"
+      }
+    ],
+    "source": "TK-2026-009",
+    "usedCount": 1,
+    "lastUsed": "2026-06-24"
+  },
+  {
+    "id": "SOL-025",
+    "category": "涉政漏判",
+    "vendor": "河南徽音网络科技",
+    "priority": "P0",
+    "impact": "🔴",
+    "solutions": [
+      {
+        "action": "问题定级确认：关键词排查（皇帝的、大炮、吃早餐、吃包子、雷军早餐、雷军女孩、雷军吃饭、任大炮、任志强），排查数据已登记；时间段排查完成3751条",
+        "owner": "胡娜娜/许帅领",
+        "deadline": "T+1"
+      }
+    ],
+    "source": "TK-2026-010",
+    "usedCount": 1,
+    "lastUsed": "2026-06-30"
+  },
+  {
+    "id": "SOL-026",
+    "category": "涉政漏判",
+    "vendor": "河南徽音网络科技",
+    "priority": "P0",
+    "impact": "🔴",
+    "solutions": [
+      {
+        "action": "初版复盘输出：复盘文档已完成，同步全员进行重点宣导",
+        "owner": "胡娜娜",
+        "deadline": "T+1"
+      }
+    ],
+    "source": "TK-2026-010",
+    "usedCount": 1,
+    "lastUsed": "2026-06-30"
+  },
+  {
+    "id": "SOL-027",
+    "category": "涉政漏判",
+    "vendor": "河南徽音网络科技",
+    "priority": "P0",
+    "impact": "🔴",
+    "solutions": [
+      {
+        "action": "全员通报：重点宣导涉政人物清单——皇帝的（隐喻）、任大炮/任志强、雷军相关变体，防止联想误审",
+        "owner": "许帅领",
+        "deadline": "T+1"
+      }
+    ],
+    "source": "TK-2026-010",
+    "usedCount": 1,
+    "lastUsed": "2026-06-30"
+  },
+  {
+    "id": "SOL-028",
+    "category": "涉政漏判",
+    "vendor": "河南徽音网络科技",
+    "priority": "P0",
+    "impact": "🔴",
+    "solutions": [
+      {
+        "action": "反华人物专项培训：舆情专员培训已安排；6.25日进行相关测试；持续收集添加涉政案例",
+        "owner": "培训侧",
+        "deadline": "T+4"
+      }
+    ],
+    "source": "TK-2026-010",
+    "usedCount": 1,
+    "lastUsed": "2026-06-30"
+  },
+  {
+    "id": "SOL-029",
+    "category": "涉政漏判",
+    "vendor": "河南徽音网络科技",
+    "priority": "P0",
+    "impact": "🔴",
+    "solutions": [
+      {
+        "action": "培训验收：培训完成后进行验收，包括闭卷测试和补训",
+        "owner": "培训侧",
+        "deadline": "T+7"
+      }
+    ],
+    "source": "TK-2026-010",
+    "usedCount": 1,
+    "lastUsed": "2026-06-30"
+  },
+  {
+    "id": "SOL-030",
+    "category": "涉政漏判",
+    "vendor": "河南徽音网络科技",
+    "priority": "P0",
+    "impact": "🔴",
+    "solutions": [
+      {
+        "action": "定期抽问：组长不定期进行涉政案例抽查，每两周涉政/反华案例抽问",
+        "owner": "质量侧",
+        "deadline": "持续"
+      }
+    ],
+    "source": "TK-2026-010",
+    "usedCount": 1,
+    "lastUsed": "2026-06-30"
+  },
+  {
+    "id": "SOL-031",
+    "category": "客户投诉",
+    "vendor": "河南新阳科技（南宁）",
+    "priority": "P0",
+    "impact": "🔴",
+    "solutions": [
+      {
+        "action": "立即排查延庆区客服排班与响应记录，确认漏回复根因",
+        "owner": "钱燕/周丹",
+        "deadline": "T+0（6月25日）"
+      }
+    ],
+    "source": "TK-2026-013",
+    "usedCount": 1,
+    "lastUsed": "2026-06-26"
+  },
+  {
+    "id": "SOL-032",
+    "category": "客户投诉",
+    "vendor": "河南新阳科技（南宁）",
+    "priority": "P0",
+    "impact": "🔴",
+    "solutions": [
+      {
+        "action": "建立客服响应时效监控，超时X分钟自动告警",
+        "owner": "钱燕",
+        "deadline": "T+5（6月30日）"
+      }
+    ],
+    "source": "TK-2026-013",
+    "usedCount": 1,
+    "lastUsed": "2026-06-26"
+  },
+  {
+    "id": "SOL-033",
+    "category": "客户投诉",
+    "vendor": "河南新阳科技（南宁）",
+    "priority": "P0",
+    "impact": "🔴",
+    "solutions": [
+      {
+        "action": "评估延庆区客服人力是否充足，必要时增配或调整排班",
+        "owner": "钱燕/朱梦阳",
+        "deadline": "T+7（7月2日）"
+      }
+    ],
+    "source": "TK-2026-013",
+    "usedCount": 1,
+    "lastUsed": "2026-06-26"
+  },
+  {
+    "id": "SOL-034",
+    "category": "客户投诉",
+    "vendor": "河南新阳科技（南宁）",
+    "priority": "P0",
+    "impact": "🔴",
+    "solutions": [
+      {
+        "action": "向甲方提交事件说明及改进措施，修复客户关系",
+        "owner": "来昕怡/钱燕",
+        "deadline": "T+2（6月27日）"
+      }
+    ],
+    "source": "TK-2026-013",
+    "usedCount": 1,
+    "lastUsed": "2026-06-26"
+  },
+  {
+    "id": "SOL-035",
+    "category": "漏放处理",
+    "vendor": "河南新阳科技（洛阳）",
+    "priority": "P2",
+    "impact": "🟡",
+    "solutions": [
+      {
+        "action": "知识储备摸底",
+        "owner": "牛欢欢",
+        "deadline": "T+3"
+      }
+    ],
+    "source": "TK-2026-015",
+    "usedCount": 1,
+    "lastUsed": "2026-06-30T12:43:59+08:00"
+  },
+  {
+    "id": "SOL-036",
+    "category": "漏放处理",
+    "vendor": "河南新阳科技（洛阳）",
+    "priority": "P2",
+    "impact": "🟡",
+    "solutions": [
+      {
+        "action": "人员评估是否汰换",
+        "owner": "杨辉浩",
+        "deadline": "T+5"
+      }
+    ],
+    "source": "TK-2026-015",
+    "usedCount": 1,
+    "lastUsed": "2026-06-30T12:43:59+08:00"
+  },
+  {
+    "id": "SOL-037",
+    "category": "漏放处理",
+    "vendor": "河南新阳科技（洛阳）",
+    "priority": "P2",
+    "impact": "🟡",
+    "solutions": [
+      {
+        "action": "漏放原因定位",
+        "owner": "牛欢欢",
+        "deadline": "T+2"
+      }
+    ],
+    "source": "TK-2026-015",
+    "usedCount": 1,
+    "lastUsed": "2026-06-30T12:43:59+08:00"
+  },
+  {
+    "id": "SOL-038",
+    "category": "漏放处理",
+    "vendor": "河南新阳科技（洛阳）",
+    "priority": "P1",
+    "impact": "🟡",
+    "solutions": [
+      {
+        "action": "漏放原因定位：钱紫玉知违规点但无印象+关键词库缺「富平」",
+        "owner": "牛欢欢",
+        "deadline": "2026-06-29"
+      }
+    ],
+    "source": "TK-2026-017",
+    "usedCount": 1,
+    "lastUsed": "2026-06-30T14:54:00+08:00"
+  },
+  {
+    "id": "SOL-039",
+    "category": "漏放处理",
+    "vendor": "河南新阳科技（洛阳）",
+    "priority": "P1",
+    "impact": "🟡",
+    "solutions": [
+      {
+        "action": "涉一号内容培训：全员当面验证+关键词库持续完善更新",
+        "owner": "牛欢欢",
+        "deadline": "2026-07-01"
+      }
+    ],
+    "source": "TK-2026-017",
+    "usedCount": 1,
+    "lastUsed": "2026-06-30T14:54:00+08:00"
+  },
+  {
+    "id": "SOL-040",
+    "category": "漏放处理",
+    "vendor": "河南新阳科技（洛阳）",
+    "priority": "P1",
+    "impact": "🟡",
+    "solutions": [
+      {
+        "action": "数据回扫：各通道关键词+用户ID紧急回查",
+        "owner": "牛欢欢",
+        "deadline": "2026-06-29"
+      }
+    ],
+    "source": "TK-2026-017",
+    "usedCount": 1,
+    "lastUsed": "2026-06-30T14:54:00+08:00"
+  },
+  {
+    "id": "SOL-041",
+    "category": "漏放处理",
+    "vendor": "河南新阳科技（洛阳）",
+    "priority": "P1",
+    "impact": "🟡",
+    "solutions": [
+      {
+        "action": "提升标签打标准确性（通晒学习+流程重申+状态监控+通道澄清）",
+        "owner": "牛欢欢",
+        "deadline": "2026-07-04"
+      }
+    ],
+    "source": "TK-2026-018",
+    "usedCount": 1,
+    "lastUsed": "2026-06-30T14:52:00+08:00"
+  },
+  {
+    "id": "SOL-042",
+    "category": "其他",
+    "vendor": "河南新阳科技（南宁）",
+    "priority": "P2",
+    "impact": "🟡",
+    "solutions": [
+      {
+        "action": "定位误伤前后原因，确认指令误删根因",
+        "owner": "黎俊",
+        "deadline": "2026-06-30"
+      }
+    ],
+    "source": "TK-2026-019",
+    "usedCount": 1,
+    "lastUsed": "2026-06-30T15:41:00.000+08:00"
+  },
+  {
+    "id": "SOL-043",
+    "category": "其他",
+    "vendor": "河南新阳科技（南宁）",
+    "priority": "P2",
+    "impact": "🟡",
+    "solutions": [
+      {
+        "action": "回扫近一月误伤数据（融媒体/论坛/用户资料）",
+        "owner": "黎俊",
+        "deadline": "2026-06-30"
+      }
+    ],
+    "source": "TK-2026-019",
+    "usedCount": 1,
+    "lastUsed": "2026-06-30T15:41:00.000+08:00"
+  },
+  {
+    "id": "SOL-044",
+    "category": "其他",
+    "vendor": "河南新阳科技（南宁）",
+    "priority": "P2",
+    "impact": "🟡",
+    "solutions": [
+      {
+        "action": "指令传达优化：转发一线时整理具体关键词",
+        "owner": "吴胜海",
+        "deadline": "持续"
+      }
+    ],
+    "source": "TK-2026-019",
+    "usedCount": 1,
+    "lastUsed": "2026-06-30T15:41:00.000+08:00"
+  },
+  {
+    "id": "SOL-045",
+    "category": "其他",
+    "vendor": "河南新阳科技（南宁）",
+    "priority": "P2",
+    "impact": "🟡",
+    "solutions": [
+      {
+        "action": "舆情指令不再一刀切，明确拦截敏感点",
+        "owner": "朱莹",
+        "deadline": "持续"
+      }
+    ],
+    "source": "TK-2026-019",
+    "usedCount": 1,
+    "lastUsed": "2026-06-30T15:41:00.000+08:00"
+  },
+  {
+    "id": "SOL-046",
+    "category": "其他",
+    "vendor": "河南新阳科技（南宁）",
+    "priority": "P2",
+    "impact": "🟡",
+    "solutions": [
+      {
+        "action": "排查是否有未经确认即删除的漏报备案例",
+        "owner": "吴胜海",
+        "deadline": "2026-07-01"
+      }
+    ],
+    "source": "TK-2026-019",
+    "usedCount": 1,
+    "lastUsed": "2026-06-30T15:41:00.000+08:00"
+  }
+]
