@@ -932,7 +932,7 @@
         "action": "全员通报新机制",
         "owner": "周家阳",
         "deadline": "T+5",
-        "status": "overdue"
+        "status": "in_progress"
       }
     ],
     "timeline": [
@@ -959,7 +959,7 @@
       "分级升级",
       "超时提醒"
     ],
-    "progress": "方案4（全员通报新机制）已超期",
+    "progress": "方案4截止日为今日(T+5=6/30)，未逾期，修正为进行中；方案1/2/3已逾期",
     "penaltyAmount": null,
     "penaltyConfirmed": false,
     "penaltyConfirmedBy": null,
