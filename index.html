@@ -980,6 +980,22 @@ function render() {
   document.getElementById('ticketList').innerHTML = pageItems.map(t => ticketCard(t, search)).join('');
   document.getElementById('ticketList').classList.toggle('list-view', viewMode === 'list');
   renderPagination(totalFiltered, totalPages);
+  setTimeout(function() {
+    pageItems.forEach(function(t) {
+      var body = document.getElementById('body-' + t.id);
+      if (!body) return;
+      if (body.querySelector('.penalty-row')) return;
+      var amt = t.manualPenalty ? '¥' + t.manualPenalty : (t.priority || 'P?') + '扣罚';
+      var cp = (window.m && window.m[t.vendor]) ? window.m[t.vendor] : '';
+      var btn = t.penaltyConfirmed
+        ? '<span style="color:#059669;font-weight:600;font-size:13px">✅ ' + (t.penaltyConfirmedBy || '已确认') + '</span>'
+        : '<button class="btn" style="background:#dc2626;color:#fff;border:none;padding:6px 14px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600" onclick="cfPen('' + t.id + '')">确认扣罚</button>';
+      var row = document.createElement('section');
+      row.className = 'penalty-row';
+      row.innerHTML = '<h4><span class="section-icon">💰</span> 事故扣罚</h4><div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:#fef2f2;border-radius:8px;border:1px solid #fecaca;gap:12px;flex-wrap:wrap"><span style="font-size:15px;font-weight:700;color:#dc2626;cursor:pointer" onclick="editPen('' + t.id + '')" title="点击修改">' + amt + '</span>' + btn + '</div>';
+      body.insertBefore(row, body.firstChild);
+    });
+  }, 100);
 }
 
 function ticketCard(t, search) {
