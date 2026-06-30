@@ -1041,41 +1041,61 @@
     "title": "洛阳新阳-得物-用户资料涉政漏放",
     "author": "钱燕",
     "vendor": "河南新阳科技（洛阳）",
-    "status": "in_progress",
+    "status": "closed",
     "priority": "P1",
     "sourceGroup": "8570126",
     "createdDate": "2026-06-29",
-    "updatedDate": "2026-06-30T12:57:00",
-    "summary": "得物用户资料审核，昵称「富平都敏俊」涉1号内容漏放。业务id：2586844374，工单id：193199908。",
+    "updatedDate": "2026-06-30T14:54:00+08:00",
+    "summary": "得物用户资料审核，昵称「富平都敏俊」涉1号内容漏放。业务id：2586844374，工单id：193199908。扣罚1000元。",
     "impact": "🟡 中等 | 个例漏判反馈",
-    "rootCause": "待定位",
+    "rootCause": "案例于2025-06-06进入高危通道，聂明月（已离职）和钱紫玉未拦截。钱紫玉知晓对应违规点但对案例无印象。关键词库中缺少「富平」未覆盖。",
     "solutions": [
       {
         "step": 1,
-        "action": "漏放原因定位",
+        "action": "漏放原因定位：钱紫玉知违规点但无印象+关键词库缺「富平」",
         "owner": "牛欢欢",
-        "deadline": "T+2",
-        "status": "in_progress"
+        "deadline": "2026-06-29",
+        "status": "done"
       },
       {
         "step": 2,
-        "action": "涉一号内容培训",
+        "action": "涉一号内容培训：全员当面验证+关键词库持续完善更新",
         "owner": "牛欢欢",
-        "deadline": "T+3",
-        "status": "in_progress"
+        "deadline": "2026-07-01",
+        "status": "done"
       },
       {
         "step": 3,
-        "action": "数据回扫",
+        "action": "数据回扫：各通道关键词+用户ID紧急回查",
         "owner": "牛欢欢",
-        "deadline": "T+2",
-        "status": "in_progress"
+        "deadline": "2026-06-29",
+        "status": "done"
       }
     ],
     "timeline": [
       {
         "time": "06/29 18:00",
         "event": "钱燕创建工单，建群8570126"
+      },
+      {
+        "time": "06/29 18:16",
+        "event": "牛欢欢提交复盘：根因定位+全员验证+关键词更新+紧急回查"
+      },
+      {
+        "time": "06/29 18:19",
+        "event": "钱燕确认扣罚1000元"
+      },
+      {
+        "time": "06/29 18:20",
+        "event": "机器人记录扣罚"
+      },
+      {
+        "time": "06/30 14:49",
+        "event": "钱燕确认完结"
+      },
+      {
+        "time": "06/30 14:54",
+        "event": "正式完结，全部方案完成"
       }
     ],
     "tags": [
@@ -1084,7 +1104,7 @@
       "漏放",
       "用户资料"
     ],
-    "progress": "0/3 完成：🔄 漏放原因定位... | 🔄 涉一号内容培训... | 🔄 数据回扫...",
+    "progress": "全部已完成。原因定位（钱紫玉知违规点但无印象+关键词未覆盖）✅ 涉一号培训（全员当面验证+关键词更新）✅ 数据回扫（各通道紧急回查）✅",
     "manualPenalty": null,
     "penaltyConfirmed": false,
     "penaltyConfirmedBy": null,
