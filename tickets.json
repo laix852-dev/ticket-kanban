@@ -976,7 +976,7 @@
     "priority": "P2",
     "sourceGroup": "8562099",
     "createdDate": "2026-06-26",
-    "updatedDate": "2026-06-30T11:16:00+08:00",
+    "updatedDate": "2026-06-30T11:23:36+08:00",
     "summary": "得物用户资料审核中发生535内容漏放，漏放内容未在审核环节被有效拦截。",
     "impact": "🟡 中等 | 个例漏放",
     "rootCause": "风险防范意识不足，专项结束后放松警惕；未严格按照审核操作流程执行。",
@@ -986,7 +986,7 @@
         "action": "知识储备摸底",
         "owner": "牛欢欢",
         "deadline": "T+3",
-        "status": "in_progress"
+        "status": "overdue"
       },
       {
         "step": 2,
