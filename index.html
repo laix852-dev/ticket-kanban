@@ -6,134 +6,156 @@
 <title>工单看板 · Ticket Kanban</title>
 <style>
 :root {
-  --bg: #f1f5f9;
+  --bg: #f7f6f3;
   --surface: #ffffff;
-  --text: #0f172a;
-  --text-secondary: #64748b;
-  --text-muted: #94a3b8;
-  --border: #e2e8f0;
-  --border-light: #f1f5f9;
-  --blue: #3b82f6; --blue-50: #eff6ff; --blue-100: #dbeafe;
-  --red: #ef4444; --red-50: #fef2f2; --red-100: #fee2e2;
-  --green: #10b981; --green-50: #ecfdf5; --green-100: #d1fae5;
-  --amber: #f59e0b; --amber-50: #fffbeb; --amber-100: #fef3c7;
-  --slate: #64748b; --slate-50: #f8fafc; --slate-100: #f1f5f9;
-  --purple: #8b5cf6; --purple-50: #f5f3ff; --purple-100: #ede9fe;
-  --rose: #f43f5e; --rose-50: #fff1f2; --rose-100: #ffe4e6;
-  --radius: 12px; --radius-sm: 8px; --radius-xs: 6px;
-  --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
-  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-  --shadow-md: 0 4px 6px rgba(0,0,0,0.05), 0 2px 4px rgba(0,0,0,0.04);
-  --shadow-lg: 0 10px 15px rgba(0,0,0,0.06), 0 4px 6px rgba(0,0,0,0.04);
+  --text: #1c1917;
+  --text-secondary: #78716c;
+  --text-muted: #a8a29e;
+  --border: #e7e5e4;
+  --border-light: #f5f5f4;
+  --blue: #2563eb; --blue-50: #eff6ff; --blue-100: #dbeafe;
+  --red: #dc2626; --red-50: #fef2f2; --red-100: #fee2e2;
+  --green: #16a34a; --green-50: #f0fdf4; --green-100: #dcfce7;
+  --amber: #d97706; --amber-50: #fffbeb; --amber-100: #fef3c7;
+  --slate: #78716c; --slate-50: #fafaf9; --slate-100: #f5f5f4;
+  --purple: #7c3aed; --purple-50: #f5f3ff; --purple-100: #ede9fe;
+  --rose: #e11d48; --rose-50: #fff1f2; --rose-100: #ffe4e6;
+  --radius: 14px; --radius-sm: 10px; --radius-xs: 7px;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.03);
+  --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.03);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.05), 0 2px 4px rgba(0,0,0,0.03);
+  --shadow-lg: 0 12px 24px rgba(0,0,0,0.06), 0 4px 8px rgba(0,0,0,0.03);
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
-  background: var(--bg); color: var(--text); min-height: 100vh; line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
+  background: var(--bg); color: var(--text); min-height: 100vh; line-height: 1.6;
+  -webkit-font-smoothing: antialiased; font-size: 14px;
 }
 
-/* ===== Header ===== */
+/* Header */
 .app-header {
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #1e3a5f 100%);
-  color: #fff; padding: 16px 28px;
+  background: linear-gradient(135deg, #1c1917 0%, #292524 50%, #1c1917 100%);
+  color: #fff; padding: 14px 28px;
   display: flex; align-items: center; justify-content: space-between;
   gap: 16px; flex-wrap: wrap;
   position: sticky; top: 0; z-index: 100;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
 }
-.header-brand { display: flex; align-items: center; gap: 12px; }
+.header-brand { display: flex; align-items: center; gap: 10px; }
 .header-brand .logo {
-  width: 38px; height: 38px; border-radius: 10px;
-  background: rgba(255,255,255,0.15); display: flex; align-items: center;
-  justify-content: center; font-size: 20px;
+  width: 36px; height: 36px; border-radius: 10px;
+  background: rgba(255,255,255,0.1); display: flex; align-items: center;
+  justify-content: center; font-size: 18px;
+  backdrop-filter: blur(8px);
 }
-.header-brand h1 { font-size: 18px; font-weight: 600; letter-spacing: 0.3px; }
-.header-brand .subtitle { font-size: 11px; color: #94a3b8; margin-top: 1px; }
+.header-brand h1 { font-size: 17px; font-weight: 600; letter-spacing: -0.2px; }
+.header-brand .subtitle { font-size: 11px; color: #a8a29e; }
 .header-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.header-actions .meta-time { font-size: 11px; color: #94a3b8; }
+.header-actions .meta-time { font-size: 11px; color: #a8a29e; }
 .btn {
   display: inline-flex; align-items: center; gap: 5px;
-  padding: 7px 14px; border-radius: var(--radius-xs); font-size: 12px;
-  font-weight: 500; cursor: pointer; border: none; transition: all 0.2s;
-  white-space: nowrap; letter-spacing: 0.2px;
+  padding: 6px 14px; border-radius: var(--radius-xs); font-size: 12px;
+  font-weight: 500; cursor: pointer; border: none; transition: all 0.15s;
+  white-space: nowrap; letter-spacing: 0.1px;
 }
 .btn-ghost {
-  background: rgba(255,255,255,0.08); color: #cbd5e1;
-  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.06); color: #d6d3d1;
+  border: 1px solid rgba(255,255,255,0.08);
 }
-.btn-ghost:hover { background: rgba(255,255,255,0.16); color: #fff; }
-.btn-accent { background: var(--blue); color: #fff; }
-.btn-accent:hover { background: #2563eb; }
+.btn-ghost:hover { background: rgba(255,255,255,0.12); color: #fff; }
+.btn-accent { background: var(--blue); color: #fff; border-radius: 7px; }
+.btn-accent:hover { background: #1d4ed8; }
 
-/* ===== Content Container ===== */
-.container { max-width: 1400px; margin: 0 auto; padding: 20px 24px 32px; }
+/* Container */
+.container { max-width: 1400px; margin: 0 auto; padding: 24px 28px 40px; }
 
-/* ===== Stats Grid ===== */
+/* Stats Grid */
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 12px; margin-bottom: 20px;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px; margin-bottom: 24px;
 }
+@media (max-width: 1100px) { .stats-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 640px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
 .stat-card {
   background: var(--surface); border-radius: var(--radius);
-  padding: 16px 18px; box-shadow: var(--shadow);
+  padding: 18px 20px; box-shadow: var(--shadow);
   display: flex; align-items: center; gap: 14px;
   transition: box-shadow 0.2s, transform 0.2s;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border); position: relative; overflow: hidden;
+}
+.stat-card::after {
+  content: ''; position: absolute; top: 0; right: 0; width: 80px; height: 80px;
+  border-radius: 0 0 0 80px; opacity: 0.04;
 }
 .stat-card:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }
 .stat-icon {
-  width: 42px; height: 42px; border-radius: 10px;
-  display: flex; align-items: center; justify-content: center; font-size: 18px;
+  width: 44px; height: 44px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center; font-size: 20px;
   flex-shrink: 0;
 }
-.stat-icon.slate { background: var(--slate-100); color: var(--slate); }
-.stat-icon.blue { background: var(--blue-100); color: var(--blue); }
-.stat-icon.green { background: var(--green-100); color: var(--green); }
-.stat-icon.amber { background: var(--amber-100); color: var(--amber); }
-.stat-icon.red { background: var(--red-100); color: var(--red); }
-.stat-icon.purple { background: var(--purple-100); color: var(--purple); }
-.stat-icon.rose { background: var(--rose-100); color: var(--rose); }
-.stat-value { font-size: 24px; font-weight: 700; line-height: 1.1; }
-.stat-label { font-size: 11px; color: var(--text-secondary); }
+.stat-icon.slate { background: #f5f5f4; color: #78716c; }
+.stat-icon.blue { background: #eff6ff; color: #2563eb; }
+.stat-icon.green { background: #f0fdf4; color: #16a34a; }
+.stat-icon.amber { background: #fffbeb; color: #d97706; }
+.stat-icon.red { background: #fef2f2; color: #dc2626; }
+.stat-icon.purple { background: #f5f3ff; color: #7c3aed; }
+.stat-icon.rose { background: #fff1f2; color: #e11d48; }
+.stat-value { font-size: 26px; font-weight: 700; line-height: 1.1; letter-spacing: -0.5px; }
+.stat-label { font-size: 11px; color: var(--text-secondary); font-weight: 500; }
 
-/* ===== Toolbar ===== */
+/* Presets */
+.presets { display: flex; gap: 6px; margin-bottom: 16px; flex-wrap: wrap; }
+.preset {
+  font-size: 12px; padding: 6px 16px; border-radius: 20px; cursor: pointer;
+  background: var(--surface); color: var(--text-secondary); border: 1px solid var(--border);
+  font-weight: 500; transition: all 0.15s; user-select: none;
+}
+.preset:hover { border-color: #a8a29e; color: var(--text); }
+.preset.active { background: #1c1917; color: #fff; border-color: #1c1917; }
+
+/* Toolbar */
 .toolbar {
-  display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
-  margin-bottom: 16px; background: var(--surface); padding: 12px 16px;
-  border-radius: var(--radius); box-shadow: var(--shadow-sm);
+  display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 16px;
+}
+.toolbar-left {
+  display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
+  flex: 1; min-width: 0;
+  background: var(--surface); padding: 10px 14px;
+  border-radius: var(--radius-sm); box-shadow: var(--shadow-sm);
   border: 1px solid var(--border);
 }
 .toolbar select, .toolbar input {
-  padding: 8px 12px; border: 1px solid var(--border);
-  border-radius: var(--radius-xs); font-size: 13px; background: #fff;
-  color: var(--text); outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+  padding: 7px 10px; border: 1px solid var(--border);
+  border-radius: var(--radius-xs); font-size: 12px; background: #fff;
+  color: var(--text); outline: none; transition: border-color 0.15s, box-shadow 0.15s;
 }
 .toolbar select { appearance: none; -webkit-appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='%2364748b' d='M5 7L1 3h8z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat; background-position: right 10px center;
-  padding-right: 30px; cursor: pointer; min-width: 110px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='%2378716c' d='M5 7L1 3h8z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 8px center;
+  padding-right: 26px; cursor: pointer;
 }
-.toolbar select:focus, .toolbar input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(59,130,246,0.1); }
-.toolbar input { flex: 1; min-width: 160px; max-width: 300px; }
+.toolbar select:focus, .toolbar input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+.toolbar input { width: 140px; }
 .toolbar input::placeholder { color: var(--text-muted); }
-.toolbar-right { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+.toolbar-right { display: flex; align-items: center; gap: 8px; }
 .result-count { font-size: 12px; color: var(--text-secondary); white-space: nowrap; }
 
-/* View toggle */
+/* View Switch */
 .view-switch {
   display: flex; border-radius: var(--radius-xs); overflow: hidden;
   border: 1px solid var(--border); background: var(--slate-50);
 }
 .view-switch button {
-  padding: 7px 12px; border: none; cursor: pointer; font-size: 12px;
+  padding: 6px 12px; border: none; cursor: pointer; font-size: 12px;
   background: transparent; color: var(--text-secondary);
   transition: all 0.15s; font-weight: 500;
 }
-.view-switch button.active { background: #fff; color: var(--text); box-shadow: var(--shadow-sm); }
+.view-switch button.active { background: #fff; color: var(--text); box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
 
-/* ===== Ticket Cards ===== */
+/* Ticket Cards */
 .ticket-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
 .ticket-card {
   background: var(--surface); border-radius: var(--radius);
@@ -141,47 +163,52 @@ body {
   transition: box-shadow 0.2s, border-color 0.2s;
   border: 1px solid var(--border);
 }
-.ticket-card:hover { box-shadow: var(--shadow-md); }
+.ticket-card:hover { box-shadow: var(--shadow-md); border-color: #d6d3d1; }
 .ticket-card.status-pending { border-left: 3px solid var(--slate); }
 .ticket-card.status-open { border-left: 3px solid var(--blue); }
 .ticket-card.status-in_progress { border-left: 3px solid var(--amber); }
 .ticket-card.status-resolved { border-left: 3px solid var(--green); }
-.ticket-card.status-closed { border-left: 3px solid #cbd5e1; }
+.ticket-card.status-closed { border-left: 3px solid #d6d3d1; }
 .ticket-card.has-overdue { border-left-color: var(--red); border-left-width: 4px; }
 
 .ticket-row {
   display: flex; align-items: center; gap: 12px;
-  padding: 14px 18px; cursor: pointer; user-select: none;
-  transition: background 0.15s;
+  padding: 15px 20px; cursor: pointer; user-select: none;
+  transition: background 0.12s;
 }
-.ticket-row:hover { background: var(--slate-50); }
-.ticket-id { font-size: 11px; color: var(--text-muted); font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', monospace; min-width: 80px; letter-spacing: 0.5px; }
+.ticket-row:hover { background: #fafaf9; }
+
+.ticket-id {
+  font-size: 12px; color: var(--text); font-family: 'SF Mono', 'JetBrains Mono', 'Fira Code', monospace;
+  min-width: 82px; letter-spacing: 0.3px; font-weight: 600; opacity: 0.85;
+}
 
 .pill {
-  font-size: 10px; font-weight: 700; padding: 2px 9px; border-radius: 4px;
-  letter-spacing: 0.5px; text-transform: uppercase; white-space: nowrap;
+  font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 5px;
+  letter-spacing: 0.3px; text-transform: uppercase; white-space: nowrap;
 }
-.pill.p0 { background: var(--red-100); color: var(--red); }
-.pill.p1 { background: var(--amber-100); color: var(--amber); }
-.pill.p2 { background: var(--green-100); color: var(--green); }
-.pill.status-pending { background: var(--slate-100); color: var(--slate); }
-.pill.status-open { background: var(--blue-100); color: var(--blue); }
-.pill.status-in_progress { background: var(--amber-100); color: var(--amber); }
-.pill.status-resolved { background: var(--green-100); color: #059669; }
-.pill.status-closed { background: #e5e7eb; color: #6b7280; }
-.pill.overdue { background: var(--red-100); color: var(--red); }
+.pill.p0 { background: var(--red-50); color: var(--red); border: 1px solid var(--red-100); }
+.pill.p1 { background: var(--amber-50); color: var(--amber); border: 1px solid var(--amber-100); }
+.pill.p2 { background: var(--green-50); color: var(--green); border: 1px solid var(--green-100); }
+.pill.status-pending { background: var(--slate-50); color: var(--slate); border: 1px solid #e7e5e4; }
+.pill.status-open { background: var(--blue-50); color: var(--blue); border: 1px solid var(--blue-100); }
+.pill.status-in_progress { background: var(--amber-50); color: var(--amber); border: 1px solid var(--amber-100); }
+.pill.status-resolved { background: var(--green-50); color: #15803d; border: 1px solid var(--green-100); }
+.pill.status-closed { background: #f5f5f4; color: #78716c; border: 1px solid #e7e5e4; }
+.pill.overdue { background: var(--red-50); color: var(--red); border: 1px solid var(--red-100); }
 
 .ticket-title { font-size: 14px; font-weight: 600; flex: 1; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.ticket-author { font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: 600; white-space: nowrap; }
-.ticket-author.Tom { background: var(--purple-100); color: var(--purple); }
-.ticket-author.来昕怡 { background: var(--rose-100); color: var(--rose); }
-.ticket-vendor { font-size: 11px; padding: 2px 8px; border-radius: 10px; background: var(--blue-50); color: var(--blue); font-weight: 500; white-space: nowrap; }
+.ticket-author { font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 600; white-space: nowrap; }
+.ticket-author.Tom { background: var(--purple-50); color: var(--purple); }
+.ticket-author.来昕怡 { background: var(--rose-50); color: var(--rose); }
+.ticket-vendor { font-size: 11px; padding: 3px 10px; border-radius: 20px; color: #fff; font-weight: 500; white-space: nowrap; }
+.ticket-vendor-overdue { padding: 2px 6px; border-radius: 6px; color: #fff; font-size: 10px; font-weight: 600; }
 .ticket-actions { display: flex; gap: 4px; margin-left: auto; }
 .ticket-actions select {
-  font-size: 10px; padding: 3px 8px; border: 1px solid var(--border);
-  border-radius: 4px; cursor: pointer; background: #fff; font-weight: 600;
+  font-size: 10px; padding: 4px 8px; border: 1px solid var(--border);
+  border-radius: 5px; cursor: pointer; background: #fff; font-weight: 600;
   outline: none; appearance: none; -webkit-appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cpath fill='%2394a3b8' d='M4 5L1 2h6z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cpath fill='%23a8a29e' d='M4 5L1 2h6z'/%3E%3C/svg%3E");
   background-repeat: no-repeat; background-position: right 5px center;
   padding-right: 18px; text-align: center;
 }
@@ -189,306 +216,357 @@ body {
 .expand-arrow { font-size: 13px; color: var(--text-muted); transition: transform 0.2s; margin-left: 4px; }
 .expand-arrow.open { transform: rotate(180deg); }
 
-/* Ticket Detail Body */
-.ticket-detail { display: none; border-top: 1px solid var(--border-light); background: var(--slate-50); }
+/* Ticket Detail */
+.ticket-detail { display: none; border-top: 1px solid var(--border); background: #fafaf9; }
 .ticket-detail.show { display: block; }
-.ticket-detail-inner { padding: 18px 20px 20px; }
-.ticket-detail section { margin-bottom: 16px; }
-.ticket-detail section:last-child { margin-bottom: 0; }
+.ticket-detail-inner { padding: 22px 24px 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px 32px; }
+@media (max-width: 900px) { .ticket-detail-inner { grid-template-columns: 1fr; } }
+.ticket-detail section { margin-bottom: 0; }
 .section-label {
   font-size: 11px; font-weight: 700; color: var(--text-secondary);
-  text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px;
-  display: flex; align-items: center; gap: 6px;
+  letter-spacing: 0.3px; margin-bottom: 8px;
+  display: flex; align-items: center; gap: 8px;
 }
-.section-label::after {
-  content: ''; flex: 1; height: 1px; background: var(--border);
+.section-content {
+  font-size: 13px; line-height: 1.75; color: #44403c;
+  padding: 12px 14px; background: #fff;
+  border: 1px solid var(--border); border-radius: var(--radius-xs);
 }
-.section-content { font-size: 13px; line-height: 1.7; color: #334155; white-space: pre-line; }
-.highlight { background: #fde68a; padding: 0 2px; border-radius: 2px; }
+.highlight { background: #fef3c7; padding: 0 3px; border-radius: 3px; }
 
 /* Solutions Table */
-.sol-table { width: 100%; border-collapse: collapse; font-size: 12px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
-.sol-table th { background: #f8fafc; text-align: left; padding: 9px 12px; font-weight: 600; color: #475569; font-size: 11px; border-bottom: 2px solid var(--border); }
-.sol-table td { padding: 9px 12px; border-bottom: 1px solid var(--border-light); color: #334155; }
+.sol-table { width: 100%; border-collapse: collapse; font-size: 12px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); background: #fff; }
+.sol-table th { background: #fafaf9; text-align: left; padding: 10px 14px; font-weight: 600; color: #57534e; font-size: 11px; border-bottom: 2px solid var(--border); letter-spacing: 0.3px; }
+.sol-table td { padding: 10px 14px; border-bottom: 1px solid var(--border-light); color: #44403c; }
 .sol-table tr:last-child td { border-bottom: none; }
+.sol-table tr:hover td { background: #fafaf9; }
 .sol-table tr.overdue-row { background: var(--red-50); }
+.sol-table tr.overdue-row:hover td { background: #fef2f2; }
 .sol-status-dot {
-  display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 4px;
+  display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px;
 }
-.sol-status-dot.done { background: var(--green-100); color: #059669; }
-.sol-status-dot.in_progress { background: var(--amber-100); color: var(--amber); }
-.sol-status-dot.pending { background: var(--slate-100); color: var(--slate); }
-.sol-status-dot.overdue { background: var(--red-100); color: var(--red); }
+.sol-status-dot.done { background: #dcfce7; color: #166534; }
+.sol-status-dot.in_progress { background: #fef3c7; color: #92400e; }
+.sol-status-dot.pending { background: #f5f5f4; color: #78716c; }
+.sol-status-dot.overdue { background: #fee2e2; color: #dc2626; }
 
 /* Tags */
-.tag-list { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 14px; }
-.tag { font-size: 11px; padding: 3px 10px; border-radius: 4px; background: var(--blue-50); color: var(--blue); font-weight: 500; }
+.tag-list { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+.tag { font-size: 11px; padding: 4px 12px; border-radius: 20px; background: #eff6ff; color: #2563eb; font-weight: 500; border: 1px solid #bfdbfe; }
 
 /* Timeline */
-.timeline { position: relative; padding-left: 20px; }
-.timeline::before { content: ''; position: absolute; left: 5px; top: 4px; bottom: 4px; width: 2px; background: var(--border); border-radius: 1px; }
-.timeline-entry { position: relative; padding: 4px 0 10px; font-size: 13px; color: #334155; }
-.timeline-entry::before { content: ''; position: absolute; left: -18px; top: 7px; width: 8px; height: 8px; border-radius: 50%; background: var(--blue); border: 2px solid var(--slate-50); }
-.timeline-time { font-size: 11px; color: var(--text-muted); font-family: 'SF Mono', 'Cascadia Code', monospace; }
+.timeline { position: relative; padding-left: 24px; margin-top: 4px; }
+.timeline::before { content: ''; position: absolute; left: 7px; top: 4px; bottom: 4px; width: 1.5px; background: #e7e5e4; border-radius: 1px; }
+.timeline-entry { position: relative; padding: 4px 0 12px; font-size: 13px; color: #44403c; line-height: 1.6; }
+.timeline-entry::before { content: ''; position: absolute; left: -20px; top: 9px; width: 8px; height: 8px; border-radius: 50%; background: #fff; border: 2px solid #d6d3d1; }
+.timeline-time { font-size: 11px; color: var(--text-muted); font-family: 'SF Mono', 'JetBrains Mono', monospace; font-weight: 500; margin-right: 4px; }
 
-/* ===== Dashboard ===== */
+/* Dashboard */
 .dashboard {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 16px; margin-top: 28px;
 }
+.dashboard .dash-card.full-width { grid-column: 1 / -1; }
+.dashboard .dash-card.half-width { grid-column: span 1; }
+@media (max-width: 700px) { .dashboard { grid-template-columns: 1fr; } .dashboard .dash-card.half-width { grid-column: 1 / -1; } }
 .dash-card {
   background: var(--surface); border-radius: var(--radius);
-  padding: 20px; box-shadow: var(--shadow); border: 1px solid var(--border);
+  padding: 22px; box-shadow: var(--shadow); border: 1px solid var(--border);
 }
-.dash-card h3 { font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 14px; letter-spacing: 0.3px; }
+.dash-card h3 { font-size: 13px; font-weight: 700; color: #44403c; margin-bottom: 16px; letter-spacing: -0.1px; }
 
 .bar-wrap { display: flex; align-items: flex-end; gap: 12px; height: 120px; padding-bottom: 22px; }
 .bar-col { display: flex; flex-direction: column; align-items: center; flex: 1; height: 100%; justify-content: flex-end; gap: 4px; }
-.bar-col .bar { width: 100%; max-width: 38px; border-radius: 5px 5px 0 0; transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1); min-height: 4px; }
-.bar-col .bar-num { font-size: 11px; font-weight: 700; color: #334155; }
+.bar-col .bar { width: 100%; max-width: 36px; border-radius: 5px 5px 0 0; transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1); min-height: 4px; }
+.bar-col .bar-num { font-size: 11px; font-weight: 700; color: #44403c; }
 .bar-col .bar-label { font-size: 10px; color: var(--text-secondary); text-align: center; line-height: 1.3; }
 
-.donut-wrap { display: flex; align-items: center; gap: 18px; }
-.donut-legend { font-size: 11px; flex: 1; }
-.donut-legend .leg-row { display: flex; align-items: center; gap: 6px; margin-bottom: 5px; }
-.donut-legend .leg-dot { width: 9px; height: 9px; border-radius: 3px; flex-shrink: 0; }
-.donut-legend .leg-val { margin-left: auto; font-weight: 600; }
-
-.mini-table { width: 100%; font-size: 11px; border-collapse: collapse; }
-.mini-table th { background: #f8fafc; padding: 7px 10px; text-align: left; font-weight: 600; color: #475569; border-bottom: 2px solid var(--border); }
-.mini-table td { padding: 7px 10px; border-bottom: 1px solid var(--border-light); color: #334155; }
+.mini-table { width: 100%; font-size: 12px; border-collapse: collapse; }
+.mini-table th { background: #fafaf9; padding: 8px 12px; text-align: left; font-weight: 600; color: #57534e; border-bottom: 2px solid var(--border); font-size: 11px; }
+.mini-table td { padding: 8px 12px; border-bottom: 1px solid var(--border-light); color: #44403c; }
 .mini-table .good { color: var(--green); font-weight: 600; }
 .mini-table .warn { color: var(--amber); font-weight: 600; }
 .mini-table .bad { color: var(--red); font-weight: 600; }
 
+.alert-row { display: flex; align-items: center; gap: 8px; padding: 0; margin-bottom: 8px; font-size: 12px; }
+.alert-row:last-child { margin-bottom: 0; }
+.alert-icon { font-size: 15px; }
+.alert-text { font-weight: 600; flex: 1; }
+.alert-badge { font-size: 10px; padding: 3px 10px; border-radius: 20px; font-weight: 600; }
+
+.dash-penalty-row { display: flex; align-items: center; gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--border-light); font-size: 12px; }
+.dash-penalty-row:last-child { border-bottom: none; }
+.penalty-name { flex: 1; font-weight: 500; }
+.penalty-count { font-size: 11px; color: var(--text-muted); }
+.penalty-total { font-weight: 700; color: var(--red); }
+.dash-penalty-total { display: flex; justify-content: space-between; padding-top: 10px; margin-top: 6px; border-top: 1px solid var(--border); font-size: 13px; font-weight: 700; }
+
+/* Progress */
 .progress-bar { height: 6px; background: var(--slate-100); border-radius: 3px; overflow: hidden; flex: 1; }
 .progress-bar .fill { height: 100%; border-radius: 3px; transition: width 0.5s ease; }
+.threshold-bar { height: 4px; background: #f5f5f4; border-radius: 2px; overflow: hidden; margin-top: 2px; }
+.threshold-bar .fill { height: 100%; border-radius: 2px; }
 
+/* Alignment fixes */
+.stat-card { min-height: 72px; }
+.stat-value { min-width: 32px; text-align: left; }
+.ticket-row { min-height: 52px; }
+.ticket-detail-inner { align-items: start; }
+.ticket-detail section:last-child { grid-column: 1 / -1; }
+.dash-card { height: fit-content; }
+.bar-wrap { align-items: flex-end; justify-content: space-around; padding: 0 8px; }
+.mini-table th:last-child, .mini-table td:last-child { text-align: center; }
+
+/* Empty State */
 .empty-state { text-align: center; padding: 48px 20px; color: var(--text-muted); grid-column: 1 / -1; }
-.empty-state .empty-icon { font-size: 36px; margin-bottom: 10px; }
+.empty-state .empty-icon { font-size: 40px; margin-bottom: 12px; opacity: 0.5; }
 
-/* ===== List View Overrides ===== */
+/* List View Overrides */
 .ticket-list.list-view .ticket-detail { display: none !important; }
-.ticket-list.list-view .expand-arrow { display: none; }
+
+/* Password Gate */
+.pw-gate {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: var(--bg); display: flex; align-items: center; justify-content: center;
+  z-index: 9999; flex-direction: column; gap: 16px;
+}
+.pw-box {
+  background: var(--surface); padding: 36px 40px; border-radius: var(--radius);
+  box-shadow: var(--shadow-lg); border: 1px solid var(--border);
+  text-align: center; max-width: 360px; width: 90%;
+}
+.pw-box h2 { font-size: 20px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+.pw-box p { font-size: 13px; color: var(--text-secondary); margin-bottom: 20px; }
+.pw-box input {
+  width: 100%; padding: 10px 14px; border: 1px solid var(--border);
+  border-radius: var(--radius-xs); font-size: 14px; text-align: center;
+  outline: none; transition: border-color 0.15s;
+}
+.pw-box input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+.pw-error { color: var(--red); font-size: 12px; margin-top: 8px; display: none; }
+.hidden { display: none !important; }
+
+/* Pagination */
+.pagination { display: flex; justify-content: center; align-items: center; gap: 6px; margin-bottom: 24px; }
+.pagination button {
+  padding: 7px 14px; border: 1px solid var(--border); border-radius: var(--radius-xs);
+  background: var(--surface); color: var(--text-secondary); cursor: pointer;
+  font-size: 12px; font-weight: 500; transition: all 0.15s;
+}
+.pagination button:hover:not(:disabled) { border-color: #a8a29e; color: var(--text); }
+.pagination button:disabled { opacity: 0.35; cursor: default; }
+.pagination .current { background: #1c1917; color: #fff; border-color: #1c1917; font-weight: 600; }
+
+/* Progress bar in ticket summary */
+.ticket-progress {
+  font-size: 12px; font-weight: 600; color: #44403c; background: #f5f5f4;
+  padding: 3px 10px; border-radius: 20px; white-space: nowrap; max-width: 300px;
+  overflow: hidden; text-overflow: ellipsis; display: inline-block;
+}
+
+/* Vendor quick filter tags */
+#vendorQuickStats { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
+.vendor-chip {
+  font-size: 11px; padding: 5px 12px; border-radius: 20px; cursor: pointer;
+  background: var(--surface); color: var(--text-secondary); border: 1px solid var(--border);
+  font-weight: 500; transition: all 0.15s; user-select: none;
+}
+.vendor-chip:hover { border-color: #a8a29e; color: var(--text); }
+.vendor-chip.active { background: #1c1917; color: #fff; border-color: #1c1917; }
+
+/* Sort select */
+.sort-select { font-weight: 600; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #d6d3d1; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #a8a29e; }
+
+/* Back to top */
+.back-to-top {
+  position: fixed; bottom: 28px; right: 28px;
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--surface); border: 1px solid var(--border);
+  box-shadow: var(--shadow-md); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; color: var(--text-secondary);
+  transition: all 0.15s; z-index: 50;
+}
+.back-to-top:hover { box-shadow: var(--shadow-lg); color: var(--text); transform: translateY(-2px); }
+
+/* Modal */
+.modal-overlay {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.4); backdrop-filter: blur(4px);
+  display: none; align-items: center; justify-content: center; z-index: 200;
+}
+.modal-overlay.show { display: flex; }
+.modal {
+  background: var(--surface); border-radius: var(--radius);
+  padding: 28px 32px; box-shadow: var(--shadow-lg); max-width: 540px; width: 92%;
+  max-height: 85vh; overflow-y: auto;
+}
+.modal h3 { font-size: 17px; font-weight: 700; margin-bottom: 20px; color: var(--text); }
+.form-group { margin-bottom: 14px; }
+.form-group label { display: block; font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-bottom: 5px; }
+.form-group input, .form-group select, .form-group textarea {
+  width: 100%; padding: 8px 12px; border: 1px solid var(--border);
+  border-radius: var(--radius-xs); font-size: 13px; outline: none;
+  font-family: inherit; transition: border-color 0.15s;
+}
+.form-group textarea { resize: vertical; min-height: 60px; }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+  border-color: var(--blue); box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+}
+.form-row { display: flex; gap: 10px; }
+.form-row .form-group { flex: 1; }
+.btn-row { display: flex; gap: 8px; justify-content: flex-end; margin-top: 20px; }
+.btn-cancel { background: var(--slate-50); color: var(--text-secondary); border: 1px solid var(--border); }
+
+/* ====== Alignment & Layout Fixes ====== */
+
+/* Stats grid - equal height cards */
+.stats-grid { align-items: stretch; }
+.stats-grid .stat-card { height: 100%; }
+
+/* Dashboard - align cards to top, not stretch */
+.dashboard { align-items: stretch; }
+.dash-card { display: flex; flex-direction: column; }
+
+/* Ticket list - consistent row heights */
+.ticket-row { align-items: center; min-height: 56px; }
+
+/* Ticket detail - fix 2-column layout */
+.ticket-detail-inner { 
+  display: flex; flex-direction: column; gap: 20px;
+}
+
+/* Solution table in detail - consistent cell alignment */
+.sol-table td { vertical-align: middle; }
+.sol-table td:first-child { width: 40px; text-align: center; }
+
+/* Ticket card - equal spacing */
+.ticket-card + .ticket-card { margin-top: 0; }
+
+/* Toolbar alignment */
+.toolbar-left { align-items: center; }
+.toolbar select, .toolbar input { height: 34px; }
+
+/* Vendor quick stats */
+#vendorQuickStats { align-items: center; }
+
+/* Pagination center */
+.pagination { margin-top: 4px; }
+
+/* Fix vendor chip alignment */
+.vendor-chip { display: inline-flex; align-items: center; }
+
+/* Ensure mini-table consistent */
+.mini-table td { vertical-align: middle; }
+.mini-table th:first-child, .mini-table td:first-child { min-width: 120px; }
+
+/* Bar chart alignment */
+.bar-wrap { align-items: flex-end; justify-content: center; gap: 20px; }
+.bar-col .bar-label { max-width: 80px; word-break: keep-all; }
+
+/* Donut chart card alignment */
+.dash-card canvas { display: block; margin: 0 auto; }
+
+/* Ticket title truncation */
+.ticket-title { min-width: 0; }
+
+/* Filter presets */
+.presets { align-items: center; }
+
+/* Tags in detail */
+.tag-list { margin-bottom: 0; }
+
+/* Timeline in detail */
+.timeline { margin-bottom: 0; }
+
+/* === Enhancement CSS === */
+
+/* Sticky stats on scroll */
+.stats-grid { position: sticky; top: 60px; z-index: 50; background: var(--bg); padding-bottom: 4px; margin-bottom: 16px; }
+
+/* Clickable stat cards */
+.stats-grid .stat-card { cursor: pointer; }
+.stats-grid .stat-card:active { transform: scale(0.98); }
+
+/* Resolved tickets dimmed */
+.ticket-card.status-resolved { opacity: 0.72; }
+.ticket-card.status-resolved:hover { opacity: 0.92; }
+.ticket-card.status-closed { opacity: 0.6; }
+.ticket-card.status-closed:hover { opacity: 0.85; }
+
+/* Overdue flash animation */
+@keyframes overduePulse {
+  0%, 100% { border-left-color: var(--red); }
+  50% { border-left-color: #fca5a5; }
+}
+.ticket-card.has-overdue { animation: overduePulse 2s ease-in-out infinite; }
+
+/* Card progress bar */
+.ticket-progress-bar {
+  height: 3px; background: var(--slate-100); margin: 0 20px;
+  border-radius: 0 0 3px 3px; overflow: hidden;
+}
+.ticket-progress-bar .fill {
+  height: 100%; border-radius: 3px;
+  background: linear-gradient(90deg, #16a34a, #22c55e);
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.ticket-progress-bar .fill.warning { background: linear-gradient(90deg, #d97706, #f59e0b); }
+.ticket-progress-bar .fill.danger { background: linear-gradient(90deg, #dc2626, #ef4444); }
+
+/* Search highlight */
+.search-highlight { background: #fde68a; padding: 1px 3px; border-radius: 2px; font-weight: 600; }
+
+/* List view compact */
 .ticket-list.list-view .ticket-row { padding: 10px 16px; }
 .ticket-list.list-view .ticket-title { font-size: 13px; }
-.ticket-list.list-view .ticket-vendor { font-size: 10px; padding: 1px 6px; }
+.ticket-list.list-view .ticket-vendor,
+.ticket-list.list-view .ticket-author { font-size: 10px; padding: 2px 7px; }
 
-/* ===== Responsive ===== */
-@media (max-width: 1000px) { .dashboard { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 640px) {
-  .container { padding: 12px 14px 20px; }
-  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
-  .stat-card { padding: 12px 14px; gap: 10px; }
-  .stat-value { font-size: 20px; }
-  .dashboard { grid-template-columns: 1fr; }
-  .ticket-row { flex-wrap: wrap; gap: 8px; }
-  .ticket-actions { width: 100%; justify-content: flex-end; }
-  .toolbar { flex-direction: column; align-items: stretch; }
-  .toolbar input { max-width: none; }
-  .toolbar-right { margin-left: 0; justify-content: space-between; }
-  .app-header { padding: 12px 16px; }
+/* Gradient progress bars in dashboard */
+.dash-card .progress-bar .fill {
+  background: linear-gradient(90deg, #16a34a, #22c55e) !important;
 }
 
-/* ===== Notification Banner ===== */
-.notify-bar {
-  position: fixed; top: 12px; left: 50%; transform: translateX(-50%); z-index: 300;
-  padding: 10px 20px; border-radius: 8px; font-size: 13px; font-weight: 600;
-  box-shadow: var(--shadow-lg); opacity: 0; transition: opacity 0.3s, transform 0.3s;
-  pointer-events: none; white-space: nowrap;
+/* Compact ticket meta */
+.ticket-meta-compact {
+  display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
+  font-size: 11px; color: var(--text-secondary);
 }
-.notify-bar.show { opacity: 1; pointer-events: auto; }
-.notify-bar.info { background: #dbeafe; color: #1e40af; }
-.notify-bar.success { background: #d1fae5; color: #065f46; }
-.notify-bar.warn { background: #fef3c7; color: #92400e; }
+.ticket-meta-compact span { white-space: nowrap; }
 
-/* Indicate polling status */
-.polling-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 6px; }
-.polling-dot.live { background: #10b981; animation: pulse 2s infinite; }
-.polling-dot.stale { background: #f59e0b; }
-@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+/* === Report Modal Styles === */
+.modal { font-family: inherit; }
+.modal h3 { color: var(--text); }
+.modal .stat-card { border: 1px solid var(--border); background: var(--surface); margin: 0; }
+.modal .mini-table { font-size: 12px; }
+.modal .mini-table th { background: #fafaf9; color: #57534e; font-size: 11px; }
+.modal .section-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 12px; }
+.modal .highlight-box { border-radius: var(--radius-sm); padding: 14px; margin-bottom: 12px; }
+.modal .highlight-box.red { background: var(--red-50); border: 1px solid var(--red-100); }
+.modal .highlight-box.amber { background: var(--amber-50); border: 1px solid var(--amber-100); }
+.modal .highlight-box.green { background: var(--green-50); border: 1px solid var(--green-100); }
+.modal .highlight-box.slate { background: var(--slate-50); border: 1px solid var(--border); }
+.modal .action-item { background: #fff; border-radius: var(--radius-xs); padding: 10px 12px; margin-bottom: 6px; font-size: 13px; line-height: 1.7; border: 1px solid var(--border-light); }
+.modal .action-item .action-title { font-weight: 700; font-size: 13px; margin-bottom: 4px; color: var(--text); }
+.modal .action-item .action-meta { font-size: 12px; color: var(--text-secondary); }
+.modal .vendor-alert-item { background: #fff; border-radius: var(--radius-xs); padding: 12px; margin-bottom: 6px; font-size: 13px; line-height: 1.7; border: 1px solid var(--border-light); }
 
-/* ===== Preset Filters ===== */
-.presets { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
-.presets .preset {
-  padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 500;
-  border: 1px solid var(--border); background: var(--surface);
-  color: var(--text-secondary); cursor: pointer; transition: all 0.15s; white-space: nowrap;
-}
-.presets .preset:hover { border-color: var(--blue); color: var(--blue); }
-.presets .preset.active { background: var(--blue); color: #fff; border-color: var(--blue); }
-
-/* ===== Sort ===== */
-.sort-select {
-  padding: 7px 11px; border: 1px solid var(--border); border-radius: var(--radius-xs);
-  font-size: 12px; background: #fff; color: var(--text); outline: none; cursor: pointer; min-width: 110px;
-  appearance: none; -webkit-appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='%2364748b' d='M5 7L1 3h8z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat; background-position: right 10px center; padding-right: 28px;
-}
-.sort-select:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(59,130,246,0.1); }
-
-/* ===== Deadline Countdown ===== */
-.dl-countdown { font-size: 10px; margin-left: 6px; font-weight: 600; }
-.dl-countdown.ok { color: var(--green); }
-.dl-countdown.warn { color: var(--amber); }
-.dl-countdown.bad { color: var(--red); font-weight: 700; }
-
-/* ===== Back to Top ===== */
-.back-to-top {
-  position: fixed; bottom: 28px; right: 28px; z-index: 90;
-  width: 40px; height: 40px; border-radius: 50%; background: var(--blue);
-  color: #fff; border: none; cursor: pointer; font-size: 18px;
-  box-shadow: var(--shadow-md); opacity: 0; transform: translateY(10px);
-  transition: opacity 0.25s, transform 0.25s; pointer-events: none;
-  display: flex; align-items: center; justify-content: center;
-}
-.back-to-top.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
-.back-to-top:hover { background: #2563eb; }
-
-/* ===== Modal ===== */
-.modal-overlay {
-  position: fixed; inset: 0; z-index: 200; background: rgba(15,23,42,0.5);
-  display: flex; align-items: center; justify-content: center;
-  opacity: 0; pointer-events: none; transition: opacity 0.2s;
-}
-.modal-overlay.show { opacity: 1; pointer-events: auto; }
-.modal {
-  background: var(--surface); border-radius: var(--radius); padding: 24px;
-  width: 90%; max-width: 560px; max-height: 85vh; overflow-y: auto;
-  box-shadow: var(--shadow-lg); border: 1px solid var(--border);
-}
-.modal h3 { font-size: 16px; margin-bottom: 16px; color: var(--text); }
-.modal .form-group { margin-bottom: 12px; }
-.modal .form-group label { display: block; font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-bottom: 4px; }
-.modal .form-group input, .modal .form-group textarea, .modal .form-group select {
-  width: 100%; padding: 8px 12px; border: 1px solid var(--border); border-radius: var(--radius-xs);
-  font-size: 13px; font-family: inherit; outline: none; background: #fff; color: var(--text);
-}
-.modal .form-group input:focus, .modal .form-group textarea:focus, .modal .form-group select:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(59,130,246,0.1); }
-.modal .form-group textarea { resize: vertical; min-height: 60px; }
-.modal .form-row { display: flex; gap: 10px; }
-.modal .form-row .form-group { flex: 1; }
-.modal .btn-row { display: flex; gap: 8px; justify-content: flex-end; margin-top: 16px; }
-.modal .btn-cancel { background: var(--slate-100); color: var(--text-secondary); }
-.modal .btn-cancel:hover { background: var(--slate-200); }
-
-/* ===== Dark Mode ===== */
-[data-theme="dark"] {
-  --bg: #0f172a; --surface: #1e293b; --text: #e2e8f0;
-  --text-secondary: #94a3b8; --text-muted: #64748b;
-  --border: #334155; --border-light: #1e293b;
-  --slate-50: #1e293b; --slate-100: #334155;
-  --shadow-sm: 0 1px 2px rgba(0,0,0,0.2);
-  --shadow: 0 1px 3px rgba(0,0,0,0.25), 0 1px 2px rgba(0,0,0,0.2);
-  --shadow-md: 0 4px 6px rgba(0,0,0,0.25), 0 2px 4px rgba(0,0,0,0.2);
-  --shadow-lg: 0 10px 15px rgba(0,0,0,0.3);
-}
-[data-theme="dark"] .toolbar select,
-[data-theme="dark"] .toolbar input,
-[data-theme="dark"] .ticket-actions select,
-[data-theme="dark"] .sort-select,
-[data-theme="dark"] .pagination .page-size select,
-[data-theme="dark"] .modal .form-group input,
-[data-theme="dark"] .modal .form-group textarea,
-[data-theme="dark"] .modal .form-group select,
-[data-theme="dark"] .presets .preset { background: #1e293b; color: #e2e8f0; }
-[data-theme="dark"] .ticket-detail { background: #172032; }
-[data-theme="dark"] .ticket-row:hover { background: #1a2744; }
-[data-theme="dark"] .ticket-card { border-color: #334155; }
-[data-theme="dark"] .section-content { color: #cbd5e1; }
-[data-theme="dark"] .sol-table th { background: #1e293b; }
-[data-theme="dark"] .sol-table tr.overdue-row { background: #2d1b1b; }
-[data-theme="dark"] .mini-table th { background: #1e293b; }
-[data-theme="dark"] .ticket-vendor { background: #1e3a5f; color: #60a5fa; }
-[data-theme="dark"] .dash-card h3 { color: #cbd5e1; }
-[data-theme="dark"] .bar-col .bar-num,
-[data-theme="dark"] .mini-table td,
-[data-theme="dark"] .sol-table td { color: #cbd5e1; }
-[data-theme="dark"] .timeline-entry { color: #cbd5e1; }
-[data-theme="dark"] .timeline-entry::before { border-color: #1e293b; }
-[data-theme="dark"] .modal-overlay { background: rgba(0,0,0,0.6); }
-[data-theme="dark"] .view-switch { background: #334155; }
-[data-theme="dark"] .view-switch button.active { background: #475569; color: #e2e8f0; }
-
-/* ===== Penalty Section ===== */
-.penalty-summary {
-  display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px;
-}
-.penalty-item {
-  background: var(--red-50); border: 1px solid var(--red-100);
-  border-radius: var(--radius-xs); padding: 6px 12px; font-size: 12px;
-  display: flex; align-items: center; gap: 8px;
-}
-.penalty-item .penalty-amount {
-  font-size: 16px; font-weight: 700; color: var(--red);
-}
-.penalty-item .penalty-detail { color: #64748b; font-size: 11px; line-height: 1.3; }
-.penalty-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 8px; }
-.penalty-table th { background: #fef2f2; text-align: left; padding: 7px 10px; font-weight: 600; color: #991b1b; border-bottom: 2px solid #fecaca; }
-.penalty-table td { padding: 7px 10px; border-bottom: 1px solid #fee2e2; }
-.penalty-table .total-row { font-weight: 700; background: #fef2f2; }
-.penalty-table .total-row td { border-top: 2px solid #fca5a5; }
-.penalty-badge {
-  font-size: 10px; padding: 1px 7px; border-radius: 3px; font-weight: 700;
-  background: var(--red-100); color: var(--red); margin-left: 4px;
-}
-.dash-penalty-row { display: flex; align-items: center; gap: 10px; padding: 6px 0; font-size: 12px; border-bottom: 1px solid var(--border-light); }
-.dash-penalty-row:last-child { border-bottom: none; }
-.dash-penalty-row .penalty-name { flex: 1; color: #334155; font-weight: 500; }
-.dash-penalty-row .penalty-count { color: var(--text-muted); font-size: 11px; }
-.dash-penalty-row .penalty-total { font-weight: 700; color: var(--red); min-width: 60px; text-align: right; }
-.dash-penalty-total { display: flex; justify-content: space-between; padding-top: 8px; margin-top: 8px; border-top: 2px solid var(--border); font-weight: 700; font-size: 14px; }
-.dash-penalty-total .total-label { color: #374151; }
-.dash-penalty-total .total-amount { color: var(--red); }
-.alert-row { display: flex; align-items: center; gap: 8px; padding: 6px 0; font-size: 12px; }
-.alert-row .alert-icon { font-size: 16px; }
-.alert-row .alert-text { flex: 1; color: #374151; }
-.alert-row .alert-badge { font-size: 10px; padding: 2px 8px; border-radius: 4px; background: var(--red-100); color: var(--red); font-weight: 700; }
-.threshold-bar { height: 6px; background: #f3f4f6; border-radius: 3px; margin-top: 4px; }
-.threshold-bar .fill { height: 100%; border-radius: 3px; transition: width 0.5s; }
-
-/* ===== Pagination ===== */
-.pagination {
-  display: flex; align-items: center; justify-content: center; gap: 6px;
-  padding: 16px 0; flex-wrap: wrap;
-}
-.pagination button {
-  min-width: 34px; height: 34px; border: 1px solid var(--border);
-  border-radius: var(--radius-xs); background: var(--surface);
-  color: var(--text-secondary); font-size: 13px; font-weight: 500;
-  cursor: pointer; transition: all 0.15s; display: flex; align-items: center; justify-content: center;
-}
-.pagination button:hover:not(:disabled) { border-color: var(--blue); color: var(--blue); }
-.pagination button.active { background: var(--blue); color: #fff; border-color: var(--blue); font-weight: 700; }
-.pagination button:disabled { opacity: 0.35; cursor: default; }
-.pagination .page-info { font-size: 12px; color: var(--text-muted); margin: 0 8px; white-space: nowrap; }
-.pagination .page-size {
-  display: flex; align-items: center; gap: 4px; margin-left: 12px;
-  font-size: 12px; color: var(--text-secondary);
-}
-.pagination .page-size select {
-  padding: 4px 8px; border: 1px solid var(--border); border-radius: var(--radius-xs);
-  font-size: 12px; background: #fff; outline: none; cursor: pointer;
-}
-
-@media print {
-  .app-header { position: static; }
-  .btn, .toolbar, .ticket-actions select, .expand-arrow, .header-actions { display: none !important; }
-  .ticket-detail { display: block !important; background: #fff; }
-  .ticket-card { break-inside: avoid; box-shadow: none; border: 1px solid #ddd; margin-bottom: 6px; }
-  body { background: #fff; }
-  .container { max-width: 100%; padding: 0 12px; }
-}
-
-/* ===== Animations ===== */
-@keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
-.ticket-card { animation: fadeIn 0.25s ease-out; }
 </style>
 </head>
 <body>
 
+</div>
+
 <div class="notify-bar" id="notifyBar"></div>
+
+</div>
 
 <div class="app-header">
   <div class="header-brand">
@@ -503,53 +581,57 @@ body {
     <button class="btn btn-ghost" onclick="toggleTheme()" id="themeBtn">🌙 暗色</button>
     <button class="btn btn-ghost" onclick="exportCSV()">📥 导出 CSV</button>
     <button class="btn btn-ghost" onclick="window.print()">🖨️ 打印</button>
-    <button class="btn btn-accent" onclick="loadTickets()">🔄 刷新</button>
+    <button class="btn btn-ghost" onclick="window.open('https://github.com/laix852-dev/ticket-kanban/blob/main/solutions.json')">📚 方案库</button>
+      <button class="btn btn-accent" onclick="loadTickets()">🔄 刷新</button>
   </div>
 </div>
 
 <div class="container">
   <div class="stats-grid" id="statsRow"></div>
   <div id="vendorAlertBanner" style="margin-bottom:14px;"></div>
-
   <div class="presets">
     <span class="preset active" onclick="setPreset('all', this)">全部</span>
     <span class="preset" onclick="setPreset('active', this)">未完结</span>
     <span class="preset" onclick="setPreset('P0', this)">仅 P0</span>
-    <span class="preset" onclick="setPreset('my', this)">🦞 我的</span>
-    <span class="preset" onclick="setPreset('month', this)">📅 本月新增</span>
     <span class="preset" onclick="setPreset('overdue', this)">⏰ 含超期</span>
+    <span class="preset" onclick="setPreset('my', this)">🦞 我的</span>
   </div>
 
+  <div id="vendorQuickStats" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;font-size:11px"></div>
+
   <div class="toolbar">
-    <select class="sort-select" id="sortBy" onchange="currentPage=1;render()">
-      <option value="created-desc">创建日期 ↓</option>
-      <option value="created-asc">创建日期 ↑</option>
-      <option value="updated-desc">更新日期 ↓</option>
-      <option value="priority">优先级 P0→P2</option>
-      <option value="status">状态顺序</option>
-    </select>
-    <select id="filterStatus" onchange="currentPage=1;render()">
-      <option value="all">全部状态</option>
-      <option value="pending">待分配</option>
-      <option value="open">待处理</option>
-      <option value="in_progress">处理中</option>
-      <option value="resolved">已解决</option>
-      <option value="closed">已关闭</option>
-    </select>
-    <select id="filterPriority" onchange="currentPage=1;render()">
-      <option value="all">全部优先级</option>
-      <option value="P0">P0 紧急</option>
-      <option value="P1">P1 高</option>
-      <option value="P2">P2 中</option>
-    </select>
-    <select id="filterAuthor" onchange="currentPage=1;render()"><option value="all">全部龙虾</option></select>
-    <select id="filterVendor" onchange="currentPage=1;render()"><option value="all">全部供应商</option></select>
-    <input type="text" id="filterSearch" placeholder="搜索工单…" oninput="currentPage=1;render()">
+    <div class="toolbar-left">
+      <select id="filterStatus" onchange="currentPage=1;render()">
+        <option value="all">全部状态</option>
+        <option value="pending">待分配</option>
+        <option value="open">待处理</option>
+        <option value="in_progress">处理中</option>
+        <option value="resolved">已解决</option>
+        <option value="closed">已关闭</option>
+      </select>
+      <select id="filterPriority" onchange="currentPage=1;render()">
+        <option value="all">全部优先级</option>
+        <option value="P0">P0</option>
+        <option value="P1">P1</option>
+        <option value="P2">P2</option>
+      </select>
+      <select id="filterVendor" onchange="currentPage=1;render()"><option value="all">全部供应商</option></select>
+      <select id="filterAuthor" onchange="currentPage=1;render()"><option value="all">全部龙虾</option></select>
+      <select class="sort-select" id="sortBy" onchange="currentPage=1;render()">
+        <option value="created-desc">最新创建</option>
+        <option value="created-asc">最早创建</option>
+        <option value="updated-desc">最近更新</option>
+        <option value="priority">优先级</option>
+      </select>
+      <input type="text" id="filterSearch" placeholder="搜索…" oninput="currentPage=1;debouncedRender()">
+      <button class="btn" style="background:var(--slate-100);color:var(--text-secondary);border:1px solid var(--border);padding:5px 10px;font-size:11px;" onclick="resetFilters()" title="清空筛选">🔄</button>
+    </div>
     <div class="toolbar-right">
-      <button class="btn" style="background:var(--slate-100);color:var(--text-secondary);border:1px solid var(--border);padding:5px 10px;font-size:11px;" onclick="toggleAllTickets()" id="expandAllBtn">📂 全部展开</button>
-      <button class="btn" style="background:var(--purple-100);color:var(--purple);border:1px solid var(--purple);padding:5px 10px;font-size:11px;" onclick="showWeeklyReport()">📊 生成周报</button>
-      <button class="btn" style="background:var(--green-100);color:var(--green);border:1px solid var(--green);padding:5px 10px;font-size:11px;" onclick="showNewTicketModal()">＋ 新建工单</button>
       <span class="result-count" id="filterCount"></span>
+      <button class="btn" style="background:var(--slate-100);color:var(--text-secondary);border:1px solid var(--border);padding:5px 10px;font-size:11px;" onclick="toggleAllTickets()" id="expandAllBtn">📂 展开</button>
+      <button class="btn" style="background:var(--purple-100);color:var(--purple);border:1px solid var(--purple);padding:5px 10px;font-size:11px;" onclick="showWeeklyReport()">📊 周报</button>
+      <button class="btn" style="background:var(--amber-100);color:#92400e;border:1px solid var(--amber);padding:5px 10px;font-size:11px;" onclick="showMorningReport()">📰 早报</button>
+      <button class="btn" style="background:var(--green-100);color:var(--green);border:1px solid var(--green);padding:5px 10px;font-size:11px;" onclick="showNewTicketModal()">＋ 新建</button>
       <div class="view-switch">
         <button id="btnCard" class="active" onclick="setView('card')">卡片</button>
         <button id="btnList" onclick="setView('list')">列表</button>
@@ -560,6 +642,17 @@ body {
   <div class="ticket-list" id="ticketList"></div>
 
   <div class="pagination" id="pagination"></div>
+
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;font-size:12px;color:var(--text-secondary);flex-wrap:wrap">
+    <span style="font-weight:600">📊 汇总范围</span>
+    <select id="dashRange" onchange="changeDashRange(this.value)" style="padding:5px 8px;border:1px solid var(--border);border-radius:6px;font-size:11px;background:#fff">
+      <option value="7">近 7 天</option>
+      <option value="14">近 14 天</option>
+      <option value="30" selected>近 30 天</option>
+      <option value="all">全部</option>
+    </select>
+    <span id="dashRangeLabel" style="font-size:10px;color:var(--text-muted)"></span>
+  </div>
 
   <div class="dashboard" id="dashboard"></div>
 
@@ -591,21 +684,57 @@ body {
 
 <script>
 // ====== Data ======
-const DEFAULT_TICKET_DATA = {"tickets": [{"id": "TK-2026-001", "title": "客服小二连续错误导致客户投诉", "author": "来昕怡", "vendor": "河南新阳科技（南宁）", "status": "resolved", "priority": "P0", "sourceGroup": "8522560", "createdDate": "2026-06-15", "updatedDate": "2026-06-22T17:48:00+08:00", "summary": "客服小二在群内回复盛通时，未按标准流程操作——查询时未选行政区选项，导致结果不准确。客户投诉至来昕怡，追问：客服有问题为什么没有同步？培训了吗？责任方梁宁。该小二已做客服一年，基础操作仍出错。", "impact": "🔴 客户体验：连续错误操作导致投诉，损害公司服务形象\n🔴 团队信任：一年经验的客服重复低级错误，客户对专业性产生质疑\n🟡 管理漏洞：已知问题未同步未闭环，培训跟进滞后\n🟡 工作流程：行政区选项是基础操作，说明工作标准和核查流程有缺失", "rootCause": "直接原因：客服小二查询时遗漏行政区选项，导致结果错误\n深层原因：1) 已做一年但基础操作仍出错——培训或考核标准不足 2) 存在错误但未及时同步给管理方 3) 整改措施滞后——投诉发生后才安排练习", "solutions": [{"step": 1, "action": "暂停该小二在线客服权限，完成练习并通过考核后再恢复", "owner": "梁宁", "deadline": "T+1", "status": "done"}, {"step": 2, "action": "逐一核查团队内所有客服小二是否掌握行政区查询等基础操作", "owner": "梁宁", "deadline": "T+3", "status": "done"}, {"step": 3, "action": "建立客服小二错误预警机制：单日同一错误≥2次自动同步管理方", "owner": "梁宁/来昕怡", "deadline": "T+5", "status": "done"}, {"step": 4, "action": "制定客服小二定期考核表（月度），确保基础操作不退化", "owner": "梁宁", "deadline": "T+10", "status": "done"}, {"step": 5, "action": "将本次案例作为反面教材纳入新小二入职培训", "owner": "梁宁", "deadline": "持续", "status": "done"}], "timeline": [{"time": "06/15", "event": "客服小二回复盛通时未选行政区选项，查询结果错误"}, {"time": "06/15", "event": "客户投诉至来昕怡，追问同步和培训问题"}, {"time": "06/15", "event": "梁宁反馈：已安排该小二练习"}, {"time": "06/15", "event": "来昕怡发布复盘要求：书面复盘 + 考核标准 + 团队核查"}, {"time": "06/15", "event": "周丹创建工单并@吴胜海，附改进方向5条"}, {"time": "06/15 14:59", "event": "吴胜海回复：6/15回查、6/17培训梳理、6/18复培、每日全查至7/1"}], "tags": ["投诉", "客服", "培训", "管理"], "progress": "6/22 老板确认工单完结。全部5项方案已完成。", "groupId": "8522560", "penaltyAmount": 1500, "penaltyConfirmed": false, "penaltyReason": "P0 监管反馈 10%（¥1000）+ 重大影响×1.5", "contactPerson": "钱燕", "penaltyConfirmedBy": null, "penaltyConfirmedAt": null}, {"id": "TK-2026-002", "title": "秒级链PIC差异处理", "author": "Tom", "vendor": "山西易网视界（临汾）", "status": "resolved", "priority": "P0", "sourceGroup": "7107130", "createdDate": "2026-06-05", "updatedDate": "2026-06-25T07:45:20.331Z", "summary": "秒级链（yidun01）给的PIC质检申诉驳回率为68.9%，远高于其他PIC，需要对差异进行处理分析。", "impact": "🟡 PIC质检公平性受到质疑，申诉驳回率差异超过40个百分点。", "rootCause": "1. 机审/复审标准更宽松 2. 初审/复审的认定标准存在偏差 3. 清晰度阈值不一致 4. 主观判断尺度差异", "solutions": [{"step": 1, "action": "统一机审/初审/复审/清晰度判定标准", "owner": "张丰平", "deadline": "2026-06-12", "status": "done"}, {"step": 2, "action": "对PIC进行交叉复核训练，减少主观偏差", "owner": "张丰平", "deadline": "2026-06-19", "status": "done"}, {"step": 3, "action": "建立PIC质检申诉率追踪机制", "owner": "Tom", "deadline": "2026-06-30", "status": "in_progress"}], "timeline": [{"time": "06/05", "event": "朱梦阳发布处理要求"}, {"time": "06/05", "event": "完成PIC差异分析报告"}, {"time": "06/12", "event": "秒级链复审报告：申诉驳回率达标记"}], "tags": ["PIC质检", "AIGC", "申诉"], "progress": "秒级链每日质检报表持续至6/12，申诉驳回率25-37.5%已达标。", "groupId": "7107130", "penaltyAmount": null, "penaltyConfirmed": false, "penaltyConfirmedBy": null, "penaltyConfirmedAt": null, "penaltyReason": null, "contactPerson": null}, {"id": "TK-2026-003", "title": "绥阳团队付林组质检管理复盘", "author": "Tom", "vendor": "贵州硅易（绥阳）", "status": "resolved", "priority": "P0", "sourceGroup": "8210337", "createdDate": "2026-06-09", "updatedDate": "2026-06-16", "summary": "6/1-6/8期间，付林管理的绥阳质检团队出现严重质量管控缺失。6/6王钦鹏次品率0.66%（正常3倍），全组次品从8条暴增362%至37条，管理侧仍正常发日报、无预警无纠偏。6/7日报缺失，次品35条继续高位。直到6/9来昕怡追问后才被动回应。", "impact": "🔴 质量失控：次品暴增362%，管理侧无阻断，48条错误数据进入后续链路\n🔴 人员风险：2天高次品后王钦鹏仍正常上线，无纠偏或轮换\n🟡 信息断层：排班表与实际出勤7处不一致\n🟡 制度空转：日报仅做数量汇总，无异常标注和改善措施", "rootCause": "1. 管理岗角色定位模糊：日报仅做数据汇总，未下沉到异常→纠偏→改善闭环\n2. 缺乏异常预警阈值：次品率0.18%→0.66%跨越3天，无预警信号\n3. 日报内容缺少管理价值：不区分人员、不标注异常、不追溯类型\n4. 车牌错误系统性存在无人关注：114条占79%，8天未见专项治理", "solutions": [{"step": 1, "action": "日度异常预警：单人次品≥5条标注姓名+类型；次品环比>100%追加原因", "owner": "付林", "deadline": "本周", "status": "done"}, {"step": 2, "action": "王钦鹏专项纠偏：48条逐条回查 + 车牌录入培训 + 3天抽检1.5倍", "owner": "付林", "deadline": "本周", "status": "done"}, {"step": 3, "action": "补充6/7缺失日报，标注异常人员明细", "owner": "付林", "deadline": "本周", "status": "done"}, {"step": 4, "action": "建立异常响应SOP：次品率>0.5%暂停审核→回查→培训→重新上线", "owner": "付林", "deadline": "2周内", "status": "done"}, {"step": 5, "action": "日报模板升级：增加人员排名表、TOP3次品类型、环比变化", "owner": "付林", "deadline": "2周内", "status": "done"}, {"step": 6, "action": "管理岗KPI明确：异常响应≤4小时，日报覆盖率100%", "owner": "付林", "deadline": "1个月", "status": "done"}, {"step": 7, "action": "车牌录入系统优化：OCR二次校验或关键字符高亮 + 每周专项回查", "owner": "付林", "deadline": "1个月", "status": "done"}], "timeline": [{"time": "06/01-03", "event": "王钦鹏次品率从0.18%持续上升至0.34%，日报正常但未标注异常"}, {"time": "06/06", "event": "王钦鹏次品26条（0.66%），全组暴增至37条，增幅362%"}, {"time": "06/07", "event": "全组次品35条继续高位，日报缺失"}, {"time": "06/09", "event": "来昕怡群内追问：6号7号问题已暴露，管理侧无纠偏记录"}, {"time": "06/09", "event": "来昕怡发布绥阳团队质检管理复盘工单"}, {"time": "06/16", "event": "来昕怡确认工单完结"}], "tags": ["质检管理", "次品", "管理失职", "日报", "培训"], "progress": "6/16 老板确认工单完结。", "groupId": "8210337", "penaltyAmount": 1500, "penaltyConfirmed": false, "penaltyReason": "P0 监管反馈 10%（¥1000）+ 重大影响×1.5", "contactPerson": "张思语", "penaltyConfirmedBy": null, "penaltyConfirmedAt": null}, {"id": "TK-2026-004", "title": "巡检车CMA登录态频繁过期导致审核积压", "author": "来昕怡", "vendor": "河南新阳科技（南宁）", "status": "resolved", "priority": "P0", "sourceGroup": "8485321", "createdDate": "2026-06-15", "updatedDate": "2026-06-15T17:05:00+08:00", "summary": "2026年6月期间，巡检车CMA系统多次出现登录态过期问题。6月4日早高峰，入场审核积压371条、出场169条，累计影响超过90分钟。审核人员反馈CMA总是弹出来识别不了，人工介入率从30%飙升至80%。", "impact": "🔴 审核时效：单次积压最高371条，环比增长300%\n🔴 人工成本：人审率从30%升至80%，6台CMA仅4台正常运作\n🟡 准确率风险：人工审核比例激增，次品率存在反弹风险\n🟡 供应商管理：杭州职场日均额外消耗2人处理积压", "rootCause": "直接原因：CMA登录态过期后未自动续期，审核人员未及时退出重登\n深层原因：1) CMA无登录态监控告警 2) 审核人员缺乏CMA掉线识别培训 3) 巡检车告警仅提示积压量，未关联登录态异常", "solutions": [{"step": 1, "action": "修复CMA登录态自动续期逻辑，增加session过期前主动刷新", "owner": "董超", "deadline": "T+3", "status": "done"}, {"step": 2, "action": "巡检车告警机器人增加CMA在线数字段，在线数<5自动@管理方", "owner": "董超", "deadline": "T+5", "status": "done"}, {"step": 3, "action": "制定CMA掉线应急预案：退出→重登→验证三步骤", "owner": "来昕怡", "deadline": "T+3", "status": "done"}, {"step": 4, "action": "建立CMA健康度dashboard，每小时检测登录态/识别率/人审率", "owner": "董超", "deadline": "T+10", "status": "done"}, {"step": 5, "action": "审核人员上岗前增加CMA状态自查环节，纳入日常checklist", "owner": "来昕怡", "deadline": "持续", "status": "done"}], "timeline": [{"time": "06/04 07:09", "event": "巡检车入场审核积压371条，CMA在线数异常"}, {"time": "06/04 09:10", "event": "发现sh28人审率80%，确认CMA掉线"}, {"time": "06/04 09:12", "event": "梁宁确认没有爆量，但实际为CMA未分配"}, {"time": "06/04 08:55-09:15", "event": "连续6条告警，积压峰值371条"}, {"time": "06/15", "event": "发起工单复盘"}, {"time": "06/15 16:19", "event": "董超回复：CMA自动续期已修复，告警已加在线数"}, {"time": "06/15 17:05", "event": "来昕怡：所有方案完结"}], "tags": ["巡检车", "CMA", "审核积压", "系统稳定性"], "progress": "6/15 董超：CMA自动续期已修复，告警已加在线数。Dashboard已完成。来昕怡：所有方案完结。", "groupId": "8485321", "penaltyAmount": 1000, "penaltyConfirmed": false, "penaltyReason": "P0 监管反馈 10%（¥1000）", "contactPerson": "—", "penaltyConfirmedBy": null, "penaltyConfirmedAt": null}, {"id": "TK-2026-009", "title": "汽车之家任大炮涉政漏放复盘", "author": "朱梦阳", "vendor": "河南新阳科技（洛阳）", "status": "resolved", "priority": "P0", "sourceGroup": "6115474", "createdDate": "2026-06-24", "updatedDate": "2026-06-24", "summary": "6月23日汽车之家论坛评论中，审核员韦苏蕾一审不通过(打标谩骂)，李玉盈回扫修正为通过，导致包含涉政敏感人物任大炮(任志强)的评论漏放。漏放原因：审核员不了解任大炮为涉政敏感人物，原贴讲雷军相关内容，评论\"任大炮也说了同样的话\"被误判为普通言论，未识别涉政风险。回扫结果：各模块近一月OCR关键词回扫任大炮、任志强无关联数据。", "impact": "🔴 涉政漏放：敏感人物任大炮相关内容未拦截，存在政治风险\n🔴 客户投诉风险：若被外部发现可升级为重大事故\n🟡 流程漏洞：一审不通过→回扫通过的操作不一致，两轮审核结果矛盾\n🟡 人员认知盲区：审核员对任大炮等涉政人物缺乏知识储备", "rootCause": "1. 直接原因：审核员韦苏蕾对敏感人物\"任大炮\"（任志强）缺乏认知，仅按谩骂标签处理，未识别涉政风险\n2. 深层原因1：回扫审核李玉盈未充分核查评论内容的政治敏感性，仅按文本字面判断\n3. 深层原因2：涉政敏感人物培训未覆盖任大炮等历史人物，知识库存在盲区\n4. 深层原因3：一审不通过→回扫修正通过的流程缺乏涉政专项复核环节", "solutions": [{"step": 1, "action": "全组集中复培涉政敏感人物名单（含任大炮/任志强等），典型一号负面玩梗风险意识", "owner": "郭嘉锋", "deadline": "T+1（6月25日）", "status": "done"}, {"step": 2, "action": "整合本案+历史案例，以模拟实操形式全组测试验收，准确率100%为目标值", "owner": "郭嘉锋", "deadline": "T+3（6月26日）", "status": "done"}, {"step": 3, "action": "对漏放人韦苏蕾及汽车组其他同学随机抽问，验收其他风险类型知识储备", "owner": "郭嘉锋", "deadline": "T+3（6月26日）", "status": "done"}, {"step": 4, "action": "评估DHS删除人审通过涉政数据的兜底保障方案", "owner": "钱燕", "deadline": "T+5（6月28日）", "status": "done"}, {"step": 5, "action": "优化回扫流程：涉政相关内容的回扫增加专项复核环节", "owner": "黎俊", "deadline": "T+5（6月28日）", "status": "done"}], "timeline": [{"time": "2026-06-21 20:04", "event": "一审韦苏蕾不通过，打标谩骂"}, {"time": "2026-06-22 09:34", "event": "李玉盈回扫修正为通过"}, {"time": "2026-06-23 16:47", "event": "客户朱莹发现涉政漏放，通知黎俊排查"}, {"time": "2026-06-23 17:08", "event": "黎俊确认漏放原因，回扫近一月数据无关联"}, {"time": "2026-06-23 18:27", "event": "郭嘉锋输出培训方案（复培+验收）"}, {"time": "2026-06-24", "event": "工单TK-TK-2026-002创建，全流程跟踪启动"}, {"time": "2026-06-24 15:36", "event": "定时扫描：所有方案已进入处理中状态"}, {"time": "2026-06-24 16:19", "event": "全部方案完成，工单完结"}], "tags": ["涉政", "任大炮", "漏放", "汽车之家", "洛阳笋尖", "培训"], "progress": "全部方案已完成：培训复培+验收+抽问+DHS兜底+回扫流程优化均已落地", "groupId": "6115474", "penaltyAmount": 1000, "penaltyConfirmed": false, "penaltyReason": "P0 监管反馈 10%（¥1000）", "contactPerson": "钱燕", "penaltyConfirmedBy": null, "penaltyConfirmedAt": null}, {"id": "TK-2026-010", "title": "6.23汽车之家涉政漏放复盘", "author": "刘倩", "vendor": "河南徽音网络科技", "project": "汽车之家", "priority": "P0", "status": "resolved", "issueType": "涉政漏放（反华人物）", "assignee": "胡娜娜", "sourceGroup": "8549438", "createdDate": "2026-06-24", "updatedDate": "2026-06-30", "summary": "汽车之家严重涉政漏放案例2条：任大炮相关+政治隐喻未识别", "impact": "🔴 重大影响：严重涉政漏放，涉及反华人物识别失效", "rootCause": "审核员将'任大炮'误联想为'任正非'，对明确涉政敏感人物未执行删除；同时对'皇帝的新装'政治隐喻敏感度不足。人员层面：政治敏感人物别称/代称知识储备严重不足。管理层面：机审+dhs双命中后人审未跟进拦截。系统层面：缺乏系统命中→人审必查的强制校验机制。规则层面：反华人物清单更新不及时，别称/代称未充分宣导。", "solutions": [{"step": 1, "action": "问题定级确认：关键词排查（皇帝的、大炮、吃早餐、吃包子、雷军早餐、雷军女孩、雷军吃饭、任大炮、任志强），排查数据已登记；时间段排查完成3751条", "owner": "胡娜娜/许帅领", "deadline": "T+1", "status": "done"}, {"step": 2, "action": "初版复盘输出：复盘文档已完成，同步全员进行重点宣导", "owner": "胡娜娜", "deadline": "T+1", "status": "done"}, {"step": 3, "action": "全员通报：重点宣导涉政人物清单——皇帝的（隐喻）、任大炮/任志强、雷军相关变体，防止联想误审", "owner": "许帅领", "deadline": "T+1", "status": "done"}, {"step": 4, "action": "反华人物专项培训：舆情专员培训已安排；6.25日进行相关测试；持续收集添加涉政案例", "owner": "培训侧", "deadline": "T+4", "status": "done"}, {"step": 5, "action": "培训验收：培训完成后进行验收，包括闭卷测试和补训", "owner": "培训侧", "deadline": "T+7", "status": "done"}, {"step": 6, "action": "定期抽问：组长不定期进行涉政案例抽查，每两周涉政/反华案例抽问", "owner": "质量侧", "deadline": "持续", "status": "done"}], "timeline": [{"time": "06/24 02:40", "event": "工单创建 | 操作人：刘倩"}, {"time": "06/24 03:23", "event": "胡娜娜确认初版复盘输出+问题定级确认已完成"}, {"time": "06/24 03:28", "event": "胡娜娜汇报进展：关键词排查已登记、时间段排查3751条进行中、舆情培训已安排、6.25测试、组长不定期抽查"}, {"time": "06/24 05:18", "event": "胡娜娜：关键词排查完成（9个关键词），排查数据已登记；时间段排查3751条；舆情专员培训10:00-11:00已安排；6.25日进行测试；后续持续收集涉政案例"}, {"time": "06/24 08:28", "event": "系统扫描确认：初版复盘输出✅ 问题定级确认✅"}, {"time": "06/25 13:36", "event": "胡娜娜汇报：反华人物培训第二场10:30-11:30已完成；测试题已出，培训同学参加中，截止6.28；李豪数据排查累计10507条；现场管理持续强调反华人物清单"}, {"time": "2026-06-30 07:23", "event": "系统标记完结，全部方案完成"}], "tags": ["涉政", "反华人物", "汽车之家", "河南徽音", "P0"], "progress": "全部6项方案已完成：涉政人物识别宣导、涉政案例排查回查、反华人物专项培训、闭卷测试验收（覆盖率97.3%）、李豪数据排查、质检防线加固", "penalty": {"amount": 750, "basis": "涉政反馈: ¥+500 | 影响加成: ¥+250", "status": "calculated", "breakdown": [{"item": "涉政反馈", "value": 500, "desc": "涉政反馈固定扣罚 -¥500"}, {"item": "影响加成", "value": 250, "desc": "🔴 重大影响 ×1.5"}], "calculatedAt": "2026-06-24T10:27:47.150Z"}, "groupId": "8549438", "penaltyAmount": null, "penaltyConfirmed": false, "penaltyConfirmedBy": null, "penaltyConfirmedAt": null, "penaltyReason": null, "contactPerson": null}, {"id": "TK-2026-011", "title": "6.15广告法QC人效未达标整改", "author": "易盾工单", "vendor": "山西易网视界（临汾）", "project": "广告法", "priority": "P0", "status": "overdue", "issueType": "人效未达标", "assignee": "郭舒嫣/王婷", "sourceGroup": "8523601", "createdDate": "2026-06-15", "updatedDate": "2026-06-30T16:58:19+08:00", "summary": "6月12日截至至21点，QC新品审核量级仅17条，离日标准值35-40条差距近一半。临汾团队月审核目标1100条新品，日均需35-40条。", "impact": "🟡 中等影响：人效未达标，影响客户交付预期", "rootCause": "直接原因：人审接审人身审核速度加快导致漏放；未识别黑灰产数据。人员层面：黑灰产识别能力不足（测试中）。管理层面：审出后同步质检回查，15:09驳回（质检响应存在延迟）。系统层面：待补充。规则层面：待补充。", "solutions": [{"step": 1, "action": "现场管理优化：密切关注审核状态及实时审核量级，异常及时介入上报", "owner": "郭舒嫣", "deadline": "持续", "status": "in_progress"}, {"step": 2, "action": "审核SOP优化：梳理优化审核流程，联动驻场进行流程检查和技巧经验传授", "owner": "郭舒嫣", "deadline": "T+10", "status": "overdue"}, {"step": 3, "action": "人效提升达成：核心组员15条/日，尾部人员12条/日（不含补充返修）", "owner": "郭舒嫣", "deadline": "T+16", "status": "in_progress"}, {"step": 4, "action": "人员审核录屏分析：找到审核效率低的痛点，驻场分享审核流程技巧", "owner": "郭舒嫣", "deadline": "T+6", "status": "done"}, {"step": 5, "action": "SKU时长测算：根据SKU资质测算单SKU所需审核时长，建立评估标准", "owner": "王婷", "deadline": "T+13", "status": "done"}, {"step": 6, "action": "QC直播间优先级明确：明确临汾负责审核的QC直播间及审核品类优先级", "owner": "克莉森(许怡)", "deadline": "T+11", "status": "overdue"}, {"step": 7, "action": "新人培训计划：QC审核流程优化、新人培训计划和效率爬坡", "owner": "王婷", "deadline": "T+13", "status": "overdue"}], "timeline": [{"time": "06/15 12:08", "event": "易盾工单下发：QC人效指标未达成问题整改（紧急）"}, {"time": "06/15 17:03", "event": "郭舒嫣回复：效率不符合预期归因分析+提升动作"}, {"time": "06/15 17:05", "event": "郭舒嫣：正在压测人员审核时长，找审核痛点，评估完成量级"}, {"time": "06/15 20:07", "event": "郭舒嫣：完成审核操作录屏（按审核板块录的）"}, {"time": "06/17 14:50", "event": "王婷：16:00对齐工单内容，涉及大促QC、审核流程、直播间优先级"}, {"time": "06/17 16:39", "event": "王婷输出后续待办和对齐事项（5项）"}, {"time": "06/22 11:47", "event": "克莉森：审核SOP优化要求在24日前完成"}, {"time": "06/23 15:54", "event": "王婷：初步已搭建好，本周涉及QC审核流程优化、新人培训计划和QC效率爬坡"}, {"time": "06/24 06:31", "event": "群8552538收到归因回复 | 系统自动追问规则层面+系统层面"}], "tags": ["人效", "广告法", "QC", "临汾易网", "P0"], "progress": "方案4(录屏分析)已完成；方案5(SKU时长测算)已完成；其余方案推进中", "penalty": {"amount": 1200, "basis": "监管反馈: ¥+1000 | 影响加成: ¥+200", "status": "calculated", "breakdown": [{"item": "监管反馈", "value": 1000, "desc": "监管反馈 -10%（基数¥10000）"}, {"item": "影响加成", "value": 200, "desc": "🟡 中等影响 ×1.2"}], "calculatedAt": "2026-06-24T10:27:47.159Z"}, "groupId": "8523601", "penaltyAmount": null, "penaltyConfirmed": false, "penaltyConfirmedBy": null, "penaltyConfirmedAt": null, "penaltyReason": null, "contactPerson": null}, {"id": "TK-2026-012", "title": "6.6-6.10周期周考漏指派复盘", "author": "刘倩", "vendor": "河南徽音网络科技", "project": "待确认", "priority": "P0", "status": "overdue", "issueType": "周考漏指派", "assignee": "待确认", "sourceGroup": "8553918", "createdDate": "2026-06-24", "updatedDate": "2026-06-30T16:58:19+08:00", "summary": "6月6日至6月10日周期周考存在漏指派问题，群内已开始复盘", "impact": "🟡 中等影响：培训考核遗漏，影响团队能力评估", "rootCause": "直接原因：培训专员连续两周进行新人通用培训，工作事项较忙导致漏指派。人员层面：亓林未能重点关注舆情群内信息，查看信息后未及时响应。管理层面：各组长及管理未及时发现本周没有舆情周考，未能及时提醒。系统层面：（供应商未提供）。规则层面：（供应商未提供）。", "solutions": [{"step": 1, "action": "建立任务清单，关键信息2小时内响应：培训专员亓林建立个人任务清单，群内关键任务信息必须在2小时内响应确认", "owner": "亓林", "deadline": "T+1", "status": "overdue"}, {"step": 2, "action": "组长每周检查周考执行状态：各组长每周检查本周周考是否已指派，及时发现遗漏", "owner": "各组长", "deadline": "T+4", "status": "overdue"}], "timeline": [{"time": "06/24 17:10", "event": "工单创建 | 操作人：刘倩"}, {"time": "06/24 09:34", "event": "供应商回复归因（人员+管理），归因明确，直接保存"}], "tags": ["周考", "漏指派", "培训", "P0"], "progress": "0/2 完成：🔴 建立任务清单，关键信息2小时内响应：培训... | 🔴 组长每周检查周考执行状态：各组长每周检查...", "penalty": {"amount": 1200, "basis": "监管反馈: ¥+1000 | 影响加成: ¥+200", "status": "calculated", "breakdown": [{"item": "监管反馈", "value": 1000, "desc": "监管反馈 -10%（基数¥10000）"}, {"item": "影响加成", "value": 200, "desc": "🟡 中等影响 ×1.2"}], "calculatedAt": "2026-06-24T10:27:47.160Z"}, "groupId": "8553918", "penaltyAmount": null, "penaltyConfirmed": false, "penaltyConfirmedBy": null, "penaltyConfirmedAt": null, "penaltyReason": null, "contactPerson": null}, {"id": "TK-2026-013", "title": "市政延庆区客服未及时回复致甲方投诉", "author": "来昕怡", "vendor": "河南新阳科技（南宁）", "contactPerson": "钱燕", "status": "resolved", "priority": "P0", "sourceGroup": "8556155", "groupCreated": "", "createdDate": "2026-06-25", "updatedDate": "2026-06-26", "summary": "6月25日上午，来昕怡在群内反馈市政高位延庆区客服小二未及时回复用户核实需求，导致被业务甲方直接投诉。6月16日来昕怡已在群内预警客服实时同步机制重要性（实时同步，有一条发一条，不能打包发送），但延庆区仍有漏回复。", "impact": "🔴 客户信任：甲方直接投诉，影响市政停车业务合作信任基础\\n🟡 服务质量：客服响应时效不达标，违反甲方实时回复要求\\n🟡 供应商考核：南宁笋尖客服团队可能涉及KPI扣分", "rootCause": "1. 直接原因：客服小二未及时查看并回复用户核实消息\\n2. 深层原因1：客服人力安排或排班覆盖不足，6/16已预警实时同步对客服人力的占用，延庆区未针对性加强\\n3. 深层原因2：缺少客服响应时效监控告警机制，无法在超时未回复时主动预警", "solutions": [{"step": 1, "action": "立即排查延庆区客服排班与响应记录，确认漏回复根因", "owner": "钱燕/周丹", "deadline": "T+0（6月25日）", "status": "done"}, {"step": 2, "action": "建立客服响应时效监控，超时X分钟自动告警", "owner": "钱燕", "deadline": "T+5（6月30日）", "status": "done"}, {"step": 3, "action": "评估延庆区客服人力是否充足，必要时增配或调整排班", "owner": "钱燕/朱梦阳", "deadline": "T+7（7月2日）", "status": "done"}, {"step": 4, "action": "向甲方提交事件说明及改进措施，修复客户关系", "owner": "来昕怡/钱燕", "deadline": "T+2（6月27日）", "status": "done"}], "timeline": [{"time": "2026-06-16 10:28", "event": "来昕怡同步朝阳区切换，强调实时同步要求"}, {"time": "2026-06-25 09:42", "event": "来昕怡反馈延庆区客服未及时回复，被甲方投诉"}, {"time": "2026-06-25 09:59", "event": "工单复盘发群8556155，方案全部进入处理中"}, {"time": "2026-06-25 10:18", "event": "周丹在群内@吴胜海 跟进来回排查项（DDL 6.25/6.26），吴胜海确认收到"}, {"time": "2026-06-25 12:41", "event": "吴胜海回复：6/19客服电脑死机致回复超时11分钟，6/18未开提醒声音致超时12分钟，均超7分钟时效"}, {"time": "2026-06-25 12:59", "event": "吴胜海上传统计截图，确认6/18还有一条超时记录"}, {"time": "2026-06-25 16:19", "event": "吴胜海提交原因定位及改进措施文档"}, {"time": "2026-06-26 11:36", "event": "来昕怡确认OK，要求长期跟踪避免第三次投诉"}, {"time": "2026-06-26 11:43", "event": "千玺在群内确认「已完成」，工单完结"}], "tags": ["客服", "投诉", "响应时效", "市政停车", "南宁笋尖"], "progress": "全部方案已完成。6/25吴胜海完成根因排查、优化措施及提醒设置；6/26来昕怡确认OK，钱燕指示重点关注客服，千玺确认完结。", "manualPenalty": null, "penaltyConfirmed": false, "penaltyConfirmedBy": null, "penaltyConfirmedAt": null, "penaltyAmount": null, "penaltyReason": null}, {"id": "TK-2026-014", "title": "6.25 审核卡审数据清理及分级升级报备机制建立", "author": "刘倩", "vendor": "山西易网视界（临汾）", "status": "overdue", "priority": "P1", "sourceGroup": "8556744", "createdDate": "2026-06-25", "updatedDate": "2026-06-30", "summary": "6月25日，张帅汇报数据清理进展：6/24 0:00-6/25 10:50 数据清理完成，正在清理10:50-11:45数据。清理完毕后将建立分级升级报备机制。李思远确认POPO超时提醒已设置（站内+POPO）。周家阳询问组长和管理能否第一时间收到超时提醒。", "impact": "🔴 审核时效：卡审数据持续积压，影响审核效率🟡 管理机制：分级升级报备机制尚未建立，异常响应存在延迟风险🟡 监控盲区：需确认超时提醒是否能触达管理层", "rootCause": "1. 数据清理进度未达预期，持续卡审2. 分级升级报备机制缺失，异常处理流程不明确3. 超时提醒触达路径待验证（组长/管理是否能及时收到）", "solutions": [{"step": 1, "action": "完成数据清理（6/24 0:00-6/25 11:45时段）", "owner": "张帅", "deadline": "T+1", "status": "overdue"}, {"step": 2, "action": "建立分级升级报备机制", "owner": "张帅", "deadline": "T+3", "status": "overdue"}, {"step": 3, "action": "验证POPO超时提醒触达（组长+管理）", "owner": "李思远", "deadline": "T+1", "status": "overdue"}, {"step": 4, "action": "全员通报新机制", "owner": "周家阳", "deadline": "T+5", "status": "in_progress"}], "timeline": [{"time": "06/25 11:46", "event": "周家阳询问进展"}, {"time": "06/25 11:48", "event": "张帅汇报：数据清理完成（6/24 0:00-6/25 10:50），正在清理10:50-11:45数据"}, {"time": "06/25 11:50", "event": "李思远：POPO超时提醒已设置（站内+POPO均有）"}, {"time": "06/25 11:59", "event": "李思远：站内和POPO提醒均有设置，截图确认"}], "tags": ["审核积压", "数据清理", "分级升级", "超时提醒"], "progress": "方案4截止日为今日(T+5=6/30)，未逾期，修正为进行中；方案1/2/3已逾期", "penaltyAmount": null, "penaltyConfirmed": false, "penaltyConfirmedBy": null, "penaltyConfirmedAt": null, "penaltyReason": null, "contactPerson": null}, {"id": "TK-2026-015", "title": "洛阳新阳-得物用户资料535内容漏放", "author": "钱燕", "vendor": "河南新阳科技（洛阳）", "status": "resolved", "priority": "P2", "sourceGroup": "8562099", "createdDate": "2026-06-26", "updatedDate": "2026-06-30T12:43:59+08:00", "summary": "得物用户资料审核中发生535内容漏放，漏放内容未在审核环节被有效拦截。", "impact": "🟡 中等 | 个例漏放", "rootCause": "风险防范意识不足，专项结束后放松警惕；未严格按照审核操作流程执行。", "solutions": [{"step": 1, "action": "知识储备摸底", "owner": "牛欢欢", "deadline": "T+3", "status": "done"}, {"step": 2, "action": "人员评估是否汰换", "owner": "杨辉浩", "deadline": "T+5", "status": "done"}, {"step": 3, "action": "漏放原因定位", "owner": "牛欢欢", "deadline": "T+2", "status": "done"}], "timeline": [{"time": "06/26 11:51", "event": "钱燕在群2814288发现漏放，@牛欢欢"}, {"time": "06/26 14:04", "event": "牛欢欢回复：漏放原因为风险意识不足+未严格按流程，王梦昭已汰换，团队10人当面提问验证"}, {"time": "06/26 15:31", "event": "潘本龙指派得物用户资料工单测试（6/26-7/1），覆盖率全组"}, {"time": "06/30 09:27", "event": "系统扫描：漏放原因定位✅ 人员汰换✅ 知识储备摸底🔄（工单测试进行中）"}, {"time": "06/30 12:43", "event": "系统自动闭单：全部方案已完成，工单完结"}], "tags": ["得物", "漏放", "用户资料"], "progress": "3/3 完成：✅ 知识储备摸底 ✅ 人员评估是否汰换 ✅ 漏放原因定位", "manualPenalty": null, "penaltyConfirmed": false, "penaltyConfirmedBy": null, "penaltyConfirmedAt": null}, {"id": "TK-2026-017", "title": "洛阳新阳-得物-用户资料涉政漏放", "author": "钱燕", "vendor": "河南新阳科技（洛阳）", "status": "closed", "priority": "P1", "sourceGroup": "8570126", "createdDate": "2026-06-29", "updatedDate": "2026-06-30T14:54:00+08:00", "summary": "得物用户资料审核，昵称「富平都敏俊」涉1号内容漏放。业务id：2586844374，工单id：193199908。扣罚1000元。", "impact": "🟡 中等 | 个例漏判反馈", "rootCause": "案例于2025-06-06进入高危通道，聂明月（已离职）和钱紫玉未拦截。钱紫玉知晓对应违规点但对案例无印象。关键词库中缺少「富平」未覆盖。", "solutions": [{"step": 1, "action": "漏放原因定位：钱紫玉知违规点但无印象+关键词库缺「富平」", "owner": "牛欢欢", "deadline": "2026-06-29", "status": "done"}, {"step": 2, "action": "涉一号内容培训：全员当面验证+关键词库持续完善更新", "owner": "牛欢欢", "deadline": "2026-07-01", "status": "done"}, {"step": 3, "action": "数据回扫：各通道关键词+用户ID紧急回查", "owner": "牛欢欢", "deadline": "2026-06-29", "status": "done"}], "timeline": [{"time": "06/29 18:00", "event": "钱燕创建工单，建群8570126"}, {"time": "06/29 18:16", "event": "牛欢欢提交复盘：根因定位+全员验证+关键词更新+紧急回查"}, {"time": "06/29 18:19", "event": "钱燕确认扣罚1000元"}, {"time": "06/29 18:20", "event": "机器人记录扣罚"}, {"time": "06/30 14:49", "event": "钱燕确认完结"}, {"time": "06/30 14:54", "event": "正式完结，全部方案完成"}], "tags": ["得物", "涉政", "漏放", "用户资料"], "progress": "全部已完成。原因定位（钱紫玉知违规点但无印象+关键词未覆盖）✅ 涉一号培训（全员当面验证+关键词更新）✅ 数据回扫（各通道紧急回查）✅", "manualPenalty": null, "penaltyConfirmed": false, "penaltyConfirmedBy": null, "penaltyConfirmedAt": null}, {"id": "TK-2026-018", "title": "洛阳新阳-得物-用户资料横向负反馈", "author": "钱燕", "vendor": "河南新阳科技（洛阳）", "status": "closed", "priority": "P1", "sourceGroup": "8570267", "createdDate": "2026-06-29", "updatedDate": "2026-06-30T14:52:00+08:00", "summary": "审核超时等5条内容误伤/漏放，客户发起横向负反馈。涉及：微信号漏打标、违规内容未拦截、高危通道漏放、专项通道超时。", "impact": "🟡 中等 | 客户横向负反馈", "rootCause": "1.王博：昵称「新盛公司dhr9989」+车头像，理解为无广告交易意图，未搜微信号→漏打标\n2.李月月：背景赌博网站+头像色情网站，OCR/机审均有提示但无印象→流程执行不到位\n3.买鹏程/张鼎：背景FLG违规，高危通道未拦截，机审OCR均有提示→在班状态及流程存疑\n4.王博：专项通道关闭期间进审，理解错误未及时关注→超时扣罚", "solutions": [{"step": 1, "action": "漏放原因定位", "owner": "牛欢欢", "deadline": "2026-06-29", "status": "done"}, {"step": 2, "action": "提升标签打标准确性（通晒学习+流程重申+状态监控+通道澄清）", "owner": "牛欢欢", "deadline": "2026-07-04", "status": "done"}], "timeline": [{"time": "06/29 18:18", "event": "钱燕创建工单，建群8570267"}, {"time": "06/29 18:58", "event": "牛欢欢提交完整复盘：4起案例原因定位及5项改善举措"}, {"time": "06/30 14:49", "event": "钱燕确认完结"}, {"time": "06/30 14:52", "event": "正式完结，全部方案完成"}], "tags": ["得物", "漏放", "误伤", "用户资料"], "progress": "全部已完成。原因定位✅ 改善举措已落地：案例通晒学习、操作流程重申、在班状态监控、通道逻辑澄清。", "manualPenalty": null, "penaltyConfirmed": false, "penaltyConfirmedBy": null, "penaltyConfirmedAt": null}, {"id": "TK-2026-019", "title": "舆情指令「苏芒」误删事件复盘", "author": "钱燕", "vendor": "河南新阳科技（南宁）", "status": "closed", "priority": "P2", "sourceGroup": "8569980", "createdDate": "2026-06-30", "updatedDate": "2026-06-30T15:41:00.000+08:00", "summary": "审核执行「苏芒」舆情指令时，未结合指令具体拦截要求，对涉及「启境+该人物」的内容误判删除。通告群无法通过关键词「苏芒」定位指令，仅能通过「女仆」定位，存在指令传达与解读问题。", "impact": "🟡 内容误删，影响平台内容完整性\n🟡 指令传达与解读流程存在漏洞\n🟡 关键词定位不统一，审核效率受影响", "rootCause": "审核知晓舆情指令涉及人物事件，看到相关描述时从严管控导致误删，未结合指令拦截要求确认；指令通告关键词覆盖不全（仅定位「女仆」未同步「苏芒」）", "solutions": [{"step": 1, "action": "定位误伤前后原因，确认指令误删根因", "owner": "黎俊", "deadline": "2026-06-30", "status": "done"}, {"step": 2, "action": "回扫近一月误伤数据（融媒体/论坛/用户资料）", "owner": "黎俊", "deadline": "2026-06-30", "status": "done"}, {"step": 3, "action": "指令传达优化：转发一线时整理具体关键词", "owner": "吴胜海", "deadline": "持续", "status": "done"}, {"step": 4, "action": "明确处理尺度：查删负面/无法提及/其他", "owner": "吴胜海", "deadline": "持续", "status": "in_progress"}, {"step": 5, "action": "舆情指令不再一刀切，明确拦截敏感点", "owner": "朱莹", "deadline": "持续", "status": "done"}, {"step": 6, "action": "排查是否有未经确认即删除的漏报备案例", "owner": "吴胜海", "deadline": "2026-07-01", "status": "done"}], "timeline": [{"time": "06/30 10:02", "event": "朱莹发现舆情指令误删，要求回查"}, {"time": "06/30 10:04", "event": "黎俊确认根因：指令涉及启境和人物导致从严误删"}, {"time": "06/30 10:20", "event": "黎俊完成近一月数据回扫，修改9条"}, {"time": "06/30 10:53", "event": "明确后续管控要求：先查看拦截要求再执行"}, {"time": "06/30 14:23", "event": "钱燕发起会议，梳理舆情问题流程"}, {"time": "06/30 14:30", "event": "会议召开，确认后续优化方向"}, {"time": "06/30 14:42", "event": "全部方案完成，正式完结"}, {"time": "06/30 15:41", "event": "王世亚报告方案2(复盘培训+录屏)和方案3(通宵班录屏监控)已完成"}], "tags": ["舆情", "误删", "指令传达", "新阳南宁"], "progress": "方案1(回扫)已完成。方案2(复盘培训+录屏)已完成。方案3(通宵班录屏监控)已完成。方案4(培训5天)进行中。方案5(班前提醒)持续中。方案6(整体排查)待启动。", "manualPenalty": null, "penaltyConfirmed": false, "penaltyConfirmedBy": null, "penaltyConfirmedAt": null}, {"id": "TK-2026-021", "title": "商汤低俗导向内容尺度拉齐与人员摸底", "author": "杨珂珂", "vendor": "河南诺达信息科技", "status": "open", "priority": "P1", "sourceGroup": "", "createdDate": "2026-06-30", "updatedDate": "2026-06-30T17:39:03+08:00", "summary": "商汤近期客户反馈案例中，针对低俗导向内容审核尺度不明确的问题，需汇总同类型案例做整体拉齐；同时对组内人员进行摸底，确保人员尺度执行一致，避免因标准不一导致客户投诉。\n\n参考文档：https://docs.popo.netease.com/lingxi/e8d36196362a42feabfff441fe0e559e", "impact": "🟡中等影响\n- 低俗导向内容审核尺度不统一，可能导致客户投诉\n- 组内人员执行标准不一致，存在质量隐患\n- 需系统性拉齐，影响审核质量和客户满意度", "rootCause": "1. 低俗导向内容审核尺度缺乏统一明确判定标准\n2. 组内人员对低俗内容的认知和执行尺度存在差异\n3. 缺少同类型案例汇总及培训拉齐机制", "solutions": [{"step": 1, "action": "汇总商汤近期客户反馈中的同类型低俗导向案例", "owner": "杨珂珂", "deadline": "T+2", "status": "in_progress"}, {"step": 2, "action": "梳理并输出低俗导向内容统一审核尺度文档", "owner": "杨珂珂", "deadline": "T+5", "status": "in_progress"}, {"step": 3, "action": "组内人员摸底测试，验收尺度执行一致性", "owner": "杨珂珂", "deadline": "T+7", "status": "in_progress"}, {"step": 4, "action": "针对偏差人员进行专项培训拉齐", "owner": "杨珂珂", "deadline": "T+10", "status": "in_progress"}], "timeline": [{"time": "06/30 16:48", "event": "杨珂珂发起工单，背景：商汤客户反馈低俗导向尺度问题"}], "tags": ["低俗导向", "尺度拉齐", "人员摸底", "商汤AI"], "progress": "方案已分配，推进中。方案1-2(杨珂珂)：案例汇总+尺度文档；方案3-4(杨珂珂)：人员摸底+专项培训", "penaltyConfirmed": false}, {"id": "TK-2026-022", "title": "河南诺达信息科技-商汤-低俗导向尺度拉齐与人员摸底", "author": "杨柯柯", "vendor": "河南诺达信息科技", "status": "open", "priority": "P1", "sourceGroup": "", "createdDate": "2026-06-30", "updatedDate": "2026-06-30T17:54:00.000+08:00", "summary": "商汤项目近期收到客户低俗导向相关反馈案例。当前低俗导向内容尺度不明确，需汇总同类型案例做整体拉齐，同时对组内人员执行尺度进行摸底，确保一致性。", "impact": "低俗导向尺度不统一可能导致审核结果不一致、客户投诉升级，影响项目交付质量。", "rootCause": "低俗导向内容判定标准不够细化，组内人员对尺度理解存在偏差。", "solutions": [{"step": 1, "action": "汇总近期商汤客户反馈的低俗导向案例，形成案例库", "owner": "杨柯柯", "deadline": "T+3", "status": "pending"}, {"step": 2, "action": "组织组内尺度对齐会议，统一低俗导向判定标准", "owner": "杨柯柯", "deadline": "T+5", "status": "pending"}, {"step": 3, "action": "人员摸底考核，确保每位审核员对新尺度掌握一致", "owner": "杨柯柯", "deadline": "T+7", "status": "pending"}, {"step": 4, "action": "输出拉齐后的低俗导向判定细则文档", "owner": "杨柯柯", "deadline": "T+10", "status": "pending"}], "timeline": [{"time": "06/30 17:54", "event": "杨柯柯发起工单，背景为商汤客户近期反馈低俗导向案例，需尺度拉齐与人员摸底"}], "tags": ["商汤", "尺度拉齐", "低俗导向", "人员摸底"], "progress": "工单新建，待启动案例汇总与尺度对齐。", "penaltyConfirmed": false}], "meta": {}};;
+const DEFAULT_TICKET_DATA = {"tickets": [{"id": "TK-2026-001", "title": "客服小二连续错误导致客户投诉", "author": "来昕怡", "vendor": "河南新阳科技（南宁）", "status": "resolved", "priority": "P0", "sourceGroup": "8522560", "createdDate": "2026-06-15", "updatedDate": "2026-06-22T17:48:00+08:00", "summary": "客服小二在群内回复盛通时，未按标准流程操作——查询时未选行政区选项，导致结果不准确。客户投诉至来昕怡，追问：客服有问题为什么没有同步？培训了吗？责任方梁宁。该小二已做客服一年，基础操作仍出错。", "impact": "🔴 客户体验：连续错误操作导致投诉，损害公司服务形象\n🔴 团队信任：一年经验的客服重复低级错误，客户对专业性产生质疑\n🟡 管理漏洞：已知问题未同步未闭环，培训跟进滞后\n🟡 工作流程：行政区选项是基础操作，说明工作标准和核查流程有缺失", "rootCause": "直接原因：客服小二查询时遗漏行政区选项，导致结果错误\n深层原因：1) 已做一年但基础操作仍出错——培训或考核标准不足 2) 存在错误但未及时同步给管理方 3) 整改措施滞后——投诉发生后才安排练习", "solutions": [{"step": 1, "action": "暂停该小二在线客服权限，完成练习并通过考核后再恢复", "owner": "梁宁", "deadline": "T+1", "status": "done"}, {"step": 2, "action": "逐一核查团队内所有客服小二是否掌握行政区查询等基础操作", "owner": "梁宁", "deadline": "T+3", "status": "done"}, {"step": 3, "action": "建立客服小二错误预警机制：单日同一错误≥2次自动同步管理方", "owner": "梁宁/来昕怡", "deadline": "T+5", "status": "done"}, {"step": 4, "action": "制定客服小二定期考核表（月度），确保基础操作不退化", "owner": "梁宁", "deadline": "T+10", "status": "done"}, {"step": 5, "action": "将本次案例作为反面教材纳入新小二入职培训", "owner": "梁宁", "deadline": "持续", "status": "done"}], "timeline": [{"time": "06/15", "event": "客服小二回复盛通时未选行政区选项，查询结果错误"}, {"time": "06/15", "event": "客户投诉至来昕怡，追问同步和培训问题"}, {"time": "06/15", "event": "梁宁反馈：已安排该小二练习"}, {"time": "06/15", "event": "来昕怡发布复盘要求：书面复盘 + 考核标准 + 团队核查"}, {"time": "06/15", "event": "周丹创建工单并@吴胜海，附改进方向5条"}, {"time": "06/15 14:59", "event": "吴胜海回复：6/15回查、6/17培训梳理、6/18复培、每日全查至7/1"}], "tags": ["投诉", "客服", "培训", "管理"], "progress": "6/22 老板确认工单完结。全部5项方案已完成。", "groupId": "8522560", "penaltyAmount": 1500, "penaltyConfirmed": false, "penaltyReason": "P0 监管反馈 10%（¥1000）+ 重大影响×1.5", "contactPerson": "钱燕", "penaltyConfirmedBy": null, "penaltyConfirmedAt": null}, {"id": "TK-2026-002", "title": "秒级链PIC差异处理", "author": "Tom", "vendor": "山西易网视界（临汾）", "status": "resolved", "priority": "P0", "sourceGroup": "7107130", "createdDate": "2026-06-05", "updatedDate": "2026-06-25T07:45:20.331Z", "summary": "秒级链（yidun01）给的PIC质检申诉驳回率为68.9%，远高于其他PIC，需要对差异进行处理分析。", "impact": "🟡 PIC质检公平性受到质疑，申诉驳回率差异超过40个百分点。", "rootCause": "1. 机审/复审标准更宽松 2. 初审/复审的认定标准存在偏差 3. 清晰度阈值不一致 4. 主观判断尺度差异", "solutions": [{"step": 1, "action": "统一机审/初审/复审/清晰度判定标准", "owner": "张丰平", "deadline": "2026-06-12", "status": "done"}, {"step": 2, "action": "对PIC进行交叉复核训练，减少主观偏差", "owner": "张丰平", "deadline": "2026-06-19", "status": "done"}, {"step": 3, "action": "建立PIC质检申诉率追踪机制", "owner": "Tom", "deadline": "2026-06-30", "status": "in_progress"}], "timeline": [{"time": "06/05", "event": "朱梦阳发布处理要求"}, {"time": "06/05", "event": "完成PIC差异分析报告"}, {"time": "06/12", "event": "秒级链复审报告：申诉驳回率达标记"}], "tags": ["PIC质检", "AIGC", "申诉"], "progress": "秒级链每日质检报表持续至6/12，申诉驳回率25-37.5%已达标。", "groupId": "7107130", "penaltyAmount": null, "penaltyConfirmed": false, "penaltyConfirmedBy": null, "penaltyConfirmedAt": null, "penaltyReason": null, "contactPerson": null}, {"id": "TK-2026-003", "title": "绥阳团队付林组质检管理复盘", "author": "Tom", "vendor": "贵州硅易（绥阳）", "status": "resolved", "priority": "P0", "sourceGroup": "8210337", "createdDate": "2026-06-09", "updatedDate": "2026-06-16", "summary": "6/1-6/8期间，付林管理的绥阳质检团队出现严重质量管控缺失。6/6王钦鹏次品率0.66%（正常3倍），全组次品从8条暴增362%至37条，管理侧仍正常发日报、无预警无纠偏。6/7日报缺失，次品35条继续高位。直到6/9来昕怡追问后才被动回应。", "impact": "🔴 质量失控：次品暴增362%，管理侧无阻断，48条错误数据进入后续链路\n🔴 人员风险：2天高次品后王钦鹏仍正常上线，无纠偏或轮换\n🟡 信息断层：排班表与实际出勤7处不一致\n🟡 制度空转：日报仅做数量汇总，无异常标注和改善措施", "rootCause": "1. 管理岗角色定位模糊：日报仅做数据汇总，未下沉到异常→纠偏→改善闭环\n2. 缺乏异常预警阈值：次品率0.18%→0.66%跨越3天，无预警信号\n3. 日报内容缺少管理价值：不区分人员、不标注异常、不追溯类型\n4. 车牌错误系统性存在无人关注：114条占79%，8天未见专项治理", "solutions": [{"step": 1, "action": "日度异常预警：单人次品≥5条标注姓名+类型；次品环比>100%追加原因", "owner": "付林", "deadline": "本周", "status": "done"}, {"step": 2, "action": "王钦鹏专项纠偏：48条逐条回查 + 车牌录入培训 + 3天抽检1.5倍", "owner": "付林", "deadline": "本周", "status": "done"}, {"step": 3, "action": "补充6/7缺失日报，标注异常人员明细", "owner": "付林", "deadline": "本周", "status": "done"}, {"step": 4, "action": "建立异常响应SOP：次品率>0.5%暂停审核→回查→培训→重新上线", "owner": "付林", "deadline": "2周内", "status": "done"}, {"step": 5, "action": "日报模板升级：增加人员排名表、TOP3次品类型、环比变化", "owner": "付林", "deadline": "2周内", "status": "done"}, {"step": 6, "action": "管理岗KPI明确：异常响应≤4小时，日报覆盖率100%", "owner": "付林", "deadline": "1个月", "status": "done"}, {"step": 7, "action": "车牌录入系统优化：OCR二次校验或关键字符高亮 + 每周专项回查", "owner": "付林", "deadline": "1个月", "status": "done"}], "timeline": [{"time": "06/01-03", "event": "王钦鹏次品率从0.18%持续上升至0.34%，日报正常但未标注异常"}, {"time": "06/06", "event": "王钦鹏次品26条（0.66%），全组暴增至37条，增幅362%"}, {"time": "06/07", "event": "全组次品35条继续高位，日报缺失"}, {"time": "06/09", "event": "来昕怡群内追问：6号7号问题已暴露，管理侧无纠偏记录"}, {"time": "06/09", "event": "来昕怡发布绥阳团队质检管理复盘工单"}, {"time": "06/16", "event": "来昕怡确认工单完结"}], "tags": ["质检管理", "次品", "管理失职", "日报", "培训"], "progress": "6/16 老板确认工单完结。", "groupId": "8210337", "penaltyAmount": 1500, "penaltyConfirmed": false, "penaltyReason": "P0 监管反馈 10%（¥1000）+ 重大影响×1.5", "contactPerson": "张思语", "penaltyConfirmedBy": null, "penaltyConfirmedAt": null}, {"id": "TK-2026-004", "title": "巡检车CMA登录态频繁过期导致审核积压", "author": "来昕怡", "vendor": "河南新阳科技（南宁）", "status": "resolved", "priority": "P0", "sourceGroup": "8485321", "createdDate": "2026-06-15", "updatedDate": "2026-06-15T17:05:00+08:00", "summary": "2026年6月期间，巡检车CMA系统多次出现登录态过期问题。6月4日早高峰，入场审核积压371条、出场169条，累计影响超过90分钟。审核人员反馈CMA总是弹出来识别不了，人工介入率从30%飙升至80%。", "impact": "🔴 审核时效：单次积压最高371条，环比增长300%\n🔴 人工成本：人审率从30%升至80%，6台CMA仅4台正常运作\n🟡 准确率风险：人工审核比例激增，次品率存在反弹风险\n🟡 供应商管理：杭州职场日均额外消耗2人处理积压", "rootCause": "直接原因：CMA登录态过期后未自动续期，审核人员未及时退出重登\n深层原因：1) CMA无登录态监控告警 2) 审核人员缺乏CMA掉线识别培训 3) 巡检车告警仅提示积压量，未关联登录态异常", "solutions": [{"step": 1, "action": "修复CMA登录态自动续期逻辑，增加session过期前主动刷新", "owner": "董超", "deadline": "T+3", "status": "done"}, {"step": 2, "action": "巡检车告警机器人增加CMA在线数字段，在线数<5自动@管理方", "owner": "董超", "deadline": "T+5", "status": "done"}, {"step": 3, "action": "制定CMA掉线应急预案：退出→重登→验证三步骤", "owner": "来昕怡", "deadline": "T+3", "status": "done"}, {"step": 4, "action": "建立CMA健康度dashboard，每小时检测登录态/识别率/人审率", "owner": "董超", "deadline": "T+10", "status": "done"}, {"step": 5, "action": "审核人员上岗前增加CMA状态自查环节，纳入日常checklist", "owner": "来昕怡", "deadline": "持续", "status": "done"}], "timeline": [{"time": "06/04 07:09", "event": "巡检车入场审核积压371条，CMA在线数异常"}, {"time": "06/04 09:10", "event": "发现sh28人审率80%，确认CMA掉线"}, {"time": "06/04 09:12", "event": "梁宁确认没有爆量，但实际为CMA未分配"}, {"time": "06/04 08:55-09:15", "event": "连续6条告警，积压峰值371条"}, {"time": "06/15", "event": "发起工单复盘"}, {"time": "06/15 16:19", "event": "董超回复：CMA自动续期已修复，告警已加在线数"}, {"time": "06/15 17:05", "event": "来昕怡：所有方案完结"}], "tags": ["巡检车", "CMA", "审核积压", "系统稳定性"], "progress": "6/15 董超：CMA自动续期已修复，告警已加在线数。Dashboard已完成。来昕怡：所有方案完结。", "groupId": "8485321", "penaltyAmount": 1000, "penaltyConfirmed": false, "penaltyReason": "P0 监管反馈 10%（¥1000）", "contactPerson": "—", "penaltyConfirmedBy": null, "penaltyConfirmedAt": null}, {"id": "TK-2026-009", "title": "汽车之家任大炮涉政漏放复盘", "author": "朱梦阳", "vendor": "河南新阳科技（洛阳）", "status": "resolved", "priority": "P0", "sourceGroup": "6115474", "createdDate": "2026-06-24", "updatedDate": "2026-06-24", "summary": "6月23日汽车之家论坛评论中，审核员韦苏蕾一审不通过(打标谩骂)，李玉盈回扫修正为通过，导致包含涉政敏感人物任大炮(任志强)的评论漏放。漏放原因：审核员不了解任大炮为涉政敏感人物，原贴讲雷军相关内容，评论\"任大炮也说了同样的话\"被误判为普通言论，未识别涉政风险。回扫结果：各模块近一月OCR关键词回扫任大炮、任志强无关联数据。", "impact": "🔴 涉政漏放：敏感人物任大炮相关内容未拦截，存在政治风险\n🔴 客户投诉风险：若被外部发现可升级为重大事故\n🟡 流程漏洞：一审不通过→回扫通过的操作不一致，两轮审核结果矛盾\n🟡 人员认知盲区：审核员对任大炮等涉政人物缺乏知识储备", "rootCause": "1. 直接原因：审核员韦苏蕾对敏感人物\"任大炮\"（任志强）缺乏认知，仅按谩骂标签处理，未识别涉政风险\n2. 深层原因1：回扫审核李玉盈未充分核查评论内容的政治敏感性，仅按文本字面判断\n3. 深层原因2：涉政敏感人物培训未覆盖任大炮等历史人物，知识库存在盲区\n4. 深层原因3：一审不通过→回扫修正通过的流程缺乏涉政专项复核环节", "solutions": [{"step": 1, "action": "全组集中复培涉政敏感人物名单（含任大炮/任志强等），典型一号负面玩梗风险意识", "owner": "郭嘉锋", "deadline": "T+1（6月25日）", "status": "done"}, {"step": 2, "action": "整合本案+历史案例，以模拟实操形式全组测试验收，准确率100%为目标值", "owner": "郭嘉锋", "deadline": "T+3（6月26日）", "status": "done"}, {"step": 3, "action": "对漏放人韦苏蕾及汽车组其他同学随机抽问，验收其他风险类型知识储备", "owner": "郭嘉锋", "deadline": "T+3（6月26日）", "status": "done"}, {"step": 4, "action": "评估DHS删除人审通过涉政数据的兜底保障方案", "owner": "钱燕", "deadline": "T+5（6月28日）", "status": "done"}, {"step": 5, "action": "优化回扫流程：涉政相关内容的回扫增加专项复核环节", "owner": "黎俊", "deadline": "T+5（6月28日）", "status": "done"}], "timeline": [{"time": "2026-06-21 20:04", "event": "一审韦苏蕾不通过，打标谩骂"}, {"time": "2026-06-22 09:34", "event": "李玉盈回扫修正为通过"}, {"time": "2026-06-23 16:47", "event": "客户朱莹发现涉政漏放，通知黎俊排查"}, {"time": "2026-06-23 17:08", "event": "黎俊确认漏放原因，回扫近一月数据无关联"}, {"time": "2026-06-23 18:27", "event": "郭嘉锋输出培训方案（复培+验收）"}, {"time": "2026-06-24", "event": "工单TK-TK-2026-002创建，全流程跟踪启动"}, {"time": "2026-06-24 15:36", "event": "定时扫描：所有方案已进入处理中状态"}, {"time": "2026-06-24 16:19", "event": "全部方案完成，工单完结"}], "tags": ["涉政", "任大炮", "漏放", "汽车之家", "洛阳笋尖", "培训"], "progress": "全部方案已完成：培训复培+验收+抽问+DHS兜底+回扫流程优化均已落地", "groupId": "6115474", "penaltyAmount": 1000, "penaltyConfirmed": false, "penaltyReason": "P0 监管反馈 10%（¥1000）", "contactPerson": "钱燕", "penaltyConfirmedBy": null, "penaltyConfirmedAt": null}, {"id": "TK-2026-010", "title": "6.23汽车之家涉政漏放复盘", "author": "刘倩", "vendor": "河南徽音网络科技", "project": "汽车之家", "priority": "P0", "status": "in_progress", "issueType": "涉政漏放（反华人物）", "assignee": "胡娜娜", "sourceGroup": "8549438", "createdDate": "2026-06-24", "updatedDate": "2026-06-26T12:30:00.000000", "summary": "汽车之家严重涉政漏放案例2条：任大炮相关+政治隐喻未识别", "impact": "🔴 重大影响：严重涉政漏放，涉及反华人物识别失效", "rootCause": "审核员将'任大炮'误联想为'任正非'，对明确涉政敏感人物未执行删除；同时对'皇帝的新装'政治隐喻敏感度不足。人员层面：政治敏感人物别称/代称知识储备严重不足。管理层面：机审+dhs双命中后人审未跟进拦截。系统层面：缺乏系统命中→人审必查的强制校验机制。规则层面：反华人物清单更新不及时，别称/代称未充分宣导。", "solutions": [{"step": 1, "action": "问题定级确认：关键词排查（皇帝的、大炮、吃早餐、吃包子、雷军早餐、雷军女孩、雷军吃饭、任大炮、任志强），排查数据已登记；时间段排查完成3751条", "owner": "胡娜娜/许帅领", "deadline": "T+1", "status": "done"}, {"step": 2, "action": "初版复盘输出：复盘文档已完成，同步全员进行重点宣导", "owner": "胡娜娜", "deadline": "T+1", "status": "done"}, {"step": 3, "action": "全员通报：重点宣导涉政人物清单——皇帝的（隐喻）、任大炮/任志强、雷军相关变体，防止联想误审", "owner": "许帅领", "deadline": "T+1", "status": "overdue"}, {"step": 4, "action": "反华人物专项培训：舆情专员培训已安排；6.25日进行相关测试；持续收集添加涉政案例", "owner": "培训侧", "deadline": "T+4", "status": "in_progress"}, {"step": 5, "action": "培训验收：培训完成后进行验收，包括闭卷测试和补训", "owner": "培训侧", "deadline": "T+7", "status": "in_progress"}, {"step": 6, "action": "定期抽问：组长不定期进行涉政案例抽查，每两周涉政/反华案例抽问", "owner": "质量侧", "deadline": "持续", "status": "in_progress"}], "timeline": [{"time": "06/24 02:40", "event": "工单创建 | 操作人：刘倩"}, {"time": "06/24 03:23", "event": "胡娜娜确认初版复盘输出+问题定级确认已完成"}, {"time": "06/24 03:28", "event": "胡娜娜汇报进展：关键词排查已登记、时间段排查3751条进行中、舆情培训已安排、6.25测试、组长不定期抽查"}, {"time": "06/24 05:18", "event": "胡娜娜：关键词排查完成（9个关键词），排查数据已登记；时间段排查3751条；舆情专员培训10:00-11:00已安排；6.25日进行测试；后续持续收集涉政案例"}, {"time": "06/24 08:28", "event": "系统扫描确认：初版复盘输出✅ 问题定级确认✅"}, {"time": "06/25 13:36", "event": "胡娜娜汇报：反华人物培训第二场10:30-11:30已完成；测试题已出，培训同学参加中，截止6.28；李豪数据排查累计10507条；现场管理持续强调反华人物清单"}], "tags": ["涉政", "反华人物", "汽车之家", "河南徽音", "P0"], "progress": "2/6 完成：问题定级确认✅ 初版复盘输出✅ 全员通报🔴(逾期) 反华人物专项培训🔄 培训验收⏳ 定期抽问🔄", "penalty": {"amount": 750, "basis": "涉政反馈: ¥+500 | 影响加成: ¥+250", "status": "calculated", "breakdown": [{"item": "涉政反馈", "value": 500, "desc": "涉政反馈固定扣罚 -¥500"}, {"item": "影响加成", "value": 250, "desc": "🔴 重大影响 ×1.5"}], "calculatedAt": "2026-06-24T10:27:47.150Z"}, "groupId": "8549438", "penaltyAmount": null, "penaltyConfirmed": false, "penaltyConfirmedBy": null, "penaltyConfirmedAt": null, "penaltyReason": null, "contactPerson": null}, {"id": "TK-2026-011", "title": "6.15广告法QC人效未达标整改", "author": "易盾工单", "vendor": "山西易网视界（临汾）", "project": "广告法", "priority": "P0", "status": "in_progress", "issueType": "人效未达标", "assignee": "郭舒嫣/王婷", "sourceGroup": "8523601", "createdDate": "2026-06-15", "updatedDate": "2026-06-26T12:12:00", "summary": "6月12日截至至21点，QC新品审核量级仅17条，离日标准值35-40条差距近一半。临汾团队月审核目标1100条新品，日均需35-40条。", "impact": "🟡 中等影响：人效未达标，影响客户交付预期", "rootCause": "直接原因：人审接审人身审核速度加快导致漏放；未识别黑灰产数据。人员层面：黑灰产识别能力不足（测试中）。管理层面：审出后同步质检回查，15:09驳回（质检响应存在延迟）。系统层面：待补充。规则层面：待补充。", "solutions": [{"step": 1, "action": "现场管理优化：密切关注审核状态及实时审核量级，异常及时介入上报", "owner": "郭舒嫣", "deadline": "持续", "status": "in_progress"}, {"step": 2, "action": "审核SOP优化：梳理优化审核流程，联动驻场进行流程检查和技巧经验传授", "owner": "郭舒嫣", "deadline": "T+10", "status": "overdue"}, {"step": 3, "action": "人效提升达成：核心组员15条/日，尾部人员12条/日（不含补充返修）", "owner": "郭舒嫣", "deadline": "T+16", "status": "in_progress"}, {"step": 4, "action": "人员审核录屏分析：找到审核效率低的痛点，驻场分享审核流程技巧", "owner": "郭舒嫣", "deadline": "T+6", "status": "done"}, {"step": 5, "action": "SKU时长测算：根据SKU资质测算单SKU所需审核时长，建立评估标准", "owner": "王婷", "deadline": "T+13", "status": "in_progress"}, {"step": 6, "action": "QC直播间优先级明确：明确临汾负责审核的QC直播间及审核品类优先级", "owner": "克莉森(许怡)", "deadline": "T+11", "status": "overdue"}, {"step": 7, "action": "新人培训计划：QC审核流程优化、新人培训计划和效率爬坡", "owner": "王婷", "deadline": "T+13", "status": "in_progress"}], "timeline": [{"time": "06/15 12:08", "event": "易盾工单下发：QC人效指标未达成问题整改（紧急）"}, {"time": "06/15 17:03", "event": "郭舒嫣回复：效率不符合预期归因分析+提升动作"}, {"time": "06/15 17:05", "event": "郭舒嫣：正在压测人员审核时长，找审核痛点，评估完成量级"}, {"time": "06/15 20:07", "event": "郭舒嫣：完成审核操作录屏（按审核板块录的）"}, {"time": "06/17 14:50", "event": "王婷：16:00对齐工单内容，涉及大促QC、审核流程、直播间优先级"}, {"time": "06/17 16:39", "event": "王婷输出后续待办和对齐事项（5项）"}, {"time": "06/22 11:47", "event": "克莉森：审核SOP优化要求在24日前完成"}, {"time": "06/23 15:54", "event": "王婷：初步已搭建好，本周涉及QC审核流程优化、新人培训计划和QC效率爬坡"}, {"time": "06/24 06:31", "event": "群8552538收到归因回复 | 系统自动追问规则层面+系统层面"}], "tags": ["人效", "广告法", "QC", "临汾易网", "P0"], "progress": "1/7 完成：现场管理优化：密切关注审核状态及实时审核🔄 审核SOP优化：梳理优化审核流程，联动驻🔴 人效提升达成：核心组员15条/日，尾部人🔄 人员审核录屏分析：找到审核效率低的痛点，✅ SKU时长测算：根据SKU资质测算单SK⏳ QC直播间优先级明确：明确临汾负责审核的🔴 新人培训计划：QC审核流程优化、新人培训🔄", "penalty": {"amount": 1200, "basis": "监管反馈: ¥+1000 | 影响加成: ¥+200", "status": "calculated", "breakdown": [{"item": "监管反馈", "value": 1000, "desc": "监管反馈 -10%（基数¥10000）"}, {"item": "影响加成", "value": 200, "desc": "🟡 中等影响 ×1.2"}], "calculatedAt": "2026-06-24T10:27:47.159Z"}, "groupId": "8523601", "penaltyAmount": null, "penaltyConfirmed": false, "penaltyConfirmedBy": null, "penaltyConfirmedAt": null, "penaltyReason": null, "contactPerson": null}, {"id": "TK-2026-012", "title": "6.6-6.10周期周考漏指派复盘", "author": "刘倩", "vendor": "河南徽音网络科技", "project": "待确认", "priority": "P0", "status": "in_progress", "issueType": "周考漏指派", "assignee": "待确认", "sourceGroup": "8553918", "createdDate": "2026-06-24", "updatedDate": "2026-06-25T10:23:00Z", "summary": "6月6日至6月10日周期周考存在漏指派问题，群内已开始复盘", "impact": "🟡 中等影响：培训考核遗漏，影响团队能力评估", "rootCause": "直接原因：培训专员连续两周进行新人通用培训，工作事项较忙导致漏指派。人员层面：亓林未能重点关注舆情群内信息，查看信息后未及时响应。管理层面：各组长及管理未及时发现本周没有舆情周考，未能及时提醒。系统层面：（供应商未提供）。规则层面：（供应商未提供）。", "solutions": [{"step": 1, "action": "建立任务清单，关键信息2小时内响应：培训专员亓林建立个人任务清单，群内关键任务信息必须在2小时内响应确认", "owner": "亓林", "deadline": "T+1", "status": "overdue"}, {"step": 2, "action": "组长每周检查周考执行状态：各组长每周检查本周周考是否已指派，及时发现遗漏", "owner": "各组长", "deadline": "T+4", "status": "overdue"}], "timeline": [{"time": "06/24 17:10", "event": "工单创建 | 操作人：刘倩"}, {"time": "06/24 09:34", "event": "供应商回复归因（人员+管理），归因明确，直接保存"}], "tags": ["周考", "漏指派", "培训", "P0"], "progress": "0/2 完成：建立任务清单，关键信息2小时内响应🔴(逾期) 组长每周检查周考执行状态⏳", "penalty": {"amount": 1200, "basis": "监管反馈: ¥+1000 | 影响加成: ¥+200", "status": "calculated", "breakdown": [{"item": "监管反馈", "value": 1000, "desc": "监管反馈 -10%（基数¥10000）"}, {"item": "影响加成", "value": 200, "desc": "🟡 中等影响 ×1.2"}], "calculatedAt": "2026-06-24T10:27:47.160Z"}, "groupId": "8553918", "penaltyAmount": null, "penaltyConfirmed": false, "penaltyConfirmedBy": null, "penaltyConfirmedAt": null, "penaltyReason": null, "contactPerson": null}, {"id": "TK-2026-013", "title": "市政延庆区客服未及时回复致甲方投诉", "author": "来昕怡", "vendor": "河南新阳科技（南宁）", "contactPerson": "钱燕", "status": "resolved", "priority": "P0", "sourceGroup": "8556155", "groupCreated": "", "createdDate": "2026-06-25", "updatedDate": "2026-06-26", "summary": "6月25日上午，来昕怡在群内反馈市政高位延庆区客服小二未及时回复用户核实需求，导致被业务甲方直接投诉。6月16日来昕怡已在群内预警客服实时同步机制重要性（实时同步，有一条发一条，不能打包发送），但延庆区仍有漏回复。", "impact": "🔴 客户信任：甲方直接投诉，影响市政停车业务合作信任基础\\n🟡 服务质量：客服响应时效不达标，违反甲方实时回复要求\\n🟡 供应商考核：南宁笋尖客服团队可能涉及KPI扣分", "rootCause": "1. 直接原因：客服小二未及时查看并回复用户核实消息\\n2. 深层原因1：客服人力安排或排班覆盖不足，6/16已预警实时同步对客服人力的占用，延庆区未针对性加强\\n3. 深层原因2：缺少客服响应时效监控告警机制，无法在超时未回复时主动预警", "solutions": [{"step": 1, "action": "立即排查延庆区客服排班与响应记录，确认漏回复根因", "owner": "钱燕/周丹", "deadline": "T+0（6月25日）", "status": "done"}, {"step": 2, "action": "建立客服响应时效监控，超时X分钟自动告警", "owner": "钱燕", "deadline": "T+5（6月30日）", "status": "done"}, {"step": 3, "action": "评估延庆区客服人力是否充足，必要时增配或调整排班", "owner": "钱燕/朱梦阳", "deadline": "T+7（7月2日）", "status": "done"}, {"step": 4, "action": "向甲方提交事件说明及改进措施，修复客户关系", "owner": "来昕怡/钱燕", "deadline": "T+2（6月27日）", "status": "done"}], "timeline": [{"time": "2026-06-16 10:28", "event": "来昕怡同步朝阳区切换，强调实时同步要求"}, {"time": "2026-06-25 09:42", "event": "来昕怡反馈延庆区客服未及时回复，被甲方投诉"}, {"time": "2026-06-25 09:59", "event": "工单复盘发群8556155，方案全部进入处理中"}, {"time": "2026-06-25 10:18", "event": "周丹在群内@吴胜海 跟进来回排查项（DDL 6.25/6.26），吴胜海确认收到"}, {"time": "2026-06-25 12:41", "event": "吴胜海回复：6/19客服电脑死机致回复超时11分钟，6/18未开提醒声音致超时12分钟，均超7分钟时效"}, {"time": "2026-06-25 12:59", "event": "吴胜海上传统计截图，确认6/18还有一条超时记录"}, {"time": "2026-06-25 16:19", "event": "吴胜海提交原因定位及改进措施文档"}, {"time": "2026-06-26 11:36", "event": "来昕怡确认OK，要求长期跟踪避免第三次投诉"}, {"time": "2026-06-26 11:43", "event": "千玺在群内确认「已完成」，工单完结"}], "tags": ["客服", "投诉", "响应时效", "市政停车", "南宁笋尖"], "progress": "全部方案已完成。6/25吴胜海完成根因排查、优化措施及提醒设置；6/26来昕怡确认OK，钱燕指示重点关注客服，千玺确认完结。", "manualPenalty": null, "penaltyConfirmed": false, "penaltyConfirmedBy": null, "penaltyConfirmedAt": null, "penaltyAmount": null, "penaltyReason": null}, {"id": "TK-2026-014", "title": "6.25 审核卡审数据清理及分级升级报备机制建立", "author": "刘倩", "vendor": "山西易网视界（临汾）", "status": "in_progress", "priority": "P1", "sourceGroup": "8556744", "createdDate": "2026-06-25", "updatedDate": "2026-06-26T12:12:00", "summary": "6月25日，张帅汇报数据清理进展：6/24 0:00-6/25 10:50 数据清理完成，正在清理10:50-11:45数据。清理完毕后将建立分级升级报备机制。李思远确认POPO超时提醒已设置（站内+POPO）。周家阳询问组长和管理能否第一时间收到超时提醒。", "impact": "🔴 审核时效：卡审数据持续积压，影响审核效率🟡 管理机制：分级升级报备机制尚未建立，异常响应存在延迟风险🟡 监控盲区：需确认超时提醒是否能触达管理层", "rootCause": "1. 数据清理进度未达预期，持续卡审2. 分级升级报备机制缺失，异常处理流程不明确3. 超时提醒触达路径待验证（组长/管理是否能及时收到）", "solutions": [{"step": 1, "action": "完成数据清理（6/24 0:00-6/25 11:45时段）", "owner": "张帅", "deadline": "T+1", "status": "overdue"}, {"step": 2, "action": "建立分级升级报备机制", "owner": "张帅", "deadline": "T+3", "status": "in_progress"}, {"step": 3, "action": "验证POPO超时提醒触达（组长+管理）", "owner": "李思远", "deadline": "T+1", "status": "overdue"}, {"step": 4, "action": "全员通报新机制", "owner": "周家阳", "deadline": "T+5", "status": "in_progress"}], "timeline": [{"time": "06/25 11:46", "event": "周家阳询问进展"}, {"time": "06/25 11:48", "event": "张帅汇报：数据清理完成（6/24 0:00-6/25 10:50），正在清理10:50-11:45数据"}, {"time": "06/25 11:50", "event": "李思远：POPO超时提醒已设置（站内+POPO均有）"}, {"time": "06/25 11:59", "event": "李思远：站内和POPO提醒均有设置，截图确认"}], "tags": ["审核积压", "数据清理", "分级升级", "超时提醒"], "progress": "0/4 完成：完成数据清理（6/24 0:00-6/2🔴 建立分级升级报备机制⏳ 验证POPO超时提醒触达（组长+管理）🔴 全员通报新机制⏳", "penaltyAmount": null, "penaltyConfirmed": false, "penaltyConfirmedBy": null, "penaltyConfirmedAt": null, "penaltyReason": null, "contactPerson": null}], "meta": {"version": "3.0", "description": "工单看板数据文件 - 供应商管理", "lastUpdated": "2026-06-29 02:15:34+08:00", "contactPersons": {"钱燕": "河南新阳科技（洛阳）、河南新阳科技（南宁）", "刘倩": "河南徽音网络科技、山西易网视界（临汾）", "张思语": "驻马店网创运营、贵州硅易（绥阳）、四川淘金（忻州）、河南诺达信息科技", "俞晓倩": "新疆众合天易、天津长翔科技（佛山）、芜湖晟律科技、成都唯准科技、长远数字科技、上海小咖邦"}}};;
 
 let tickets = [];
+let m={"河南新阳科技（洛阳）":"钱燕","河南新阳科技（南宁）":"钱燕","山西易网视界（临汾）":"刘倩","河南徽音网络科技":"刘倩","驻马店网创运营":"张思语","贵州硅易（绥阳）":"张思语","四川淘金（忻州）":"张思语","河南诺达信息科技":"张思语","新疆众合天易":"俞晓倩","天津长翔科技（佛山）":"俞晓倩","芜湖晟律科技":"俞晓倩","成都唯准科技":"俞晓倩","长远数字科技":"俞晓倩","上海小咖邦":"俞晓倩"};
 let meta = {};
 let viewMode = 'card';
-let pageSize = 5;
+let pageSize = 10;
 let currentPage = 1;
 let overduePreset = false;
 let activePreset = false;
+let dashRangeDays = 30;
 
+// ====== Password Gate ======
 // ====== Init ======
 function initData() {
+  var isLocal = window.location.protocol === 'file:';
+  // Local file: restore full saved state
+  if (isLocal) {
+    try {
+      var saved = localStorage.getItem('kanban-full-data');
+      if (saved) {
+        tickets = JSON.parse(saved);
+        meta = DEFAULT_TICKET_DATA.meta || {};
+        detectOverdue();
+        renderAll();
+        return;
+      }
+    } catch(e) {}
+  }
+  // Start from embedded data
   tickets = JSON.parse(JSON.stringify(DEFAULT_TICKET_DATA.tickets));
   meta = DEFAULT_TICKET_DATA.meta || {};
+  // Apply web version user edits
+  if (!isLocal) {
+    try {
+      var edits = localStorage.getItem('kanban-user-edits');
+      if (edits) {
+        var userMap = JSON.parse(edits);
+        tickets.forEach(function(t) {
+          var ue = userMap[t.id];
+          if (ue) {
+            if (ue.priority) t.priority = ue.priority;
+            if (ue.status) t.status = ue.status;
+            if (ue.updatedDate) t.updatedDate = ue.updatedDate;
+          }
+        });
+      }
+    } catch(e) {}
+  }
   detectOverdue();
+  renderAll();
   loadTickets();
 }
 
@@ -638,24 +767,50 @@ function parseDeadline(deadline, createdDate) {
 
 // ====== Load ======
 function loadTickets() {
-  fetch('tickets.json').then(r => r.json()).then(data => {
-    tickets = data.tickets; meta = data.meta || {};
-    detectOverdue(); renderAll();
-  }).catch(() => { detectOverdue(); renderAll(); });
+  detectOverdue();
+  if (window.location.protocol === 'file:') { renderAll(); return; }
+  fetch('tickets.json?_=' + Date.now())
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      tickets = data.tickets || data;
+      meta = data.meta || {};
+      // Re-apply user edits on top of fetched data
+      try {
+        var edits = localStorage.getItem('kanban-user-edits');
+        if (edits) {
+          var userMap = JSON.parse(edits);
+          tickets.forEach(function(t) {
+            var ue = userMap[t.id];
+            if (ue) {
+              if (ue.priority) t.priority = ue.priority;
+              if (ue.status) t.status = ue.status;
+              if (ue.updatedDate) t.updatedDate = ue.updatedDate;
+            }
+          });
+        }
+      } catch(e) {}
+      detectOverdue();
+      renderAll();
+    })
+    .catch(function() { renderAll(); });
 }
 
 function renderAll() {
+  try {
   const authors = [...new Set(tickets.map(t => t.author))];
   const asel = document.getElementById('filterAuthor');
   asel.innerHTML = '<option value="all">全部龙虾</option>';
   authors.forEach(a => asel.innerHTML += `<option value="${a}">${a}</option>`);
-  const vendors = [...new Set(tickets.map(t => t.vendor).filter(Boolean))];
-  const vsel = document.getElementById('filterVendor');
+  var vendors = []; tickets.forEach(function(t) { if (t.vendor && vendors.indexOf(t.vendor) < 0) vendors.push(t.vendor); });
+  // Also add vendors from m mapping that don't have tickets yet
+  if (typeof m !== 'undefined') { for (var mk in m) { if (vendors.indexOf(mk) < 0) vendors.push(mk); } }
+  var vsel = document.getElementById('filterVendor');
   vsel.innerHTML = '<option value="all">全部供应商</option>';
-  vendors.forEach(v => vsel.innerHTML += `<option value="${v}">${v}</option>`);
+  vendors.forEach(function(v) { vsel.innerHTML += '<option value="'+v+'">'+v+'</option>'; });
   const lu = meta.lastUpdated || '';
   document.getElementById('lastUpdated').textContent = lu ? '更新于 ' + formatDate(lu) : '';
   render(); renderDashboard();
+  } catch(e) { console.error("Render error:", e); }
 }
 
 function formatDate(d) { return d ? d.slice(0,10) + ' ' + (d.slice(11,16) || '') : ''; }
@@ -679,14 +834,47 @@ function renderStats() {
   const closed = counts.resolved + counts.closed;
   const pct = total ? Math.round(closed / total * 100) : 0;
 
-  document.getElementById('statsRow').innerHTML = `
-    <div class="stat-card"><div class="stat-icon blue">📊</div><div><div class="stat-value">${total}</div><div class="stat-label">总工单</div></div></div>
-    <div class="stat-card"><div class="stat-icon amber">⏳</div><div><div class="stat-value">${active}</div><div class="stat-label">进行中</div></div></div>
-    <div class="stat-card"><div class="stat-icon green">✅</div><div><div class="stat-value">${closed}</div><div class="stat-label">已完结 · ${pct}%</div></div></div>
-    <div class="stat-card"><div class="stat-icon red">🔥</div><div><div class="stat-value">${counts.P0}</div><div class="stat-label">P0 紧急待处理</div></div></div>
-    <div class="stat-card"><div class="stat-icon rose">⏰</div><div><div class="stat-value">${overdueCount}</div><div class="stat-label">含超期方案</div></div></div>
-    <div class="stat-card"><div class="stat-icon purple">📈</div><div><div class="stat-value">${avgDays}d</div><div class="stat-label">平均解决天数</div></div></div>
-  `;
+    var sh = '';
+  sh += '<div class="stat-card" style="cursor:pointer" onclick="setPreset(\'all\',document.querySelector(\'.presets .preset\'))"><div class="stat-icon blue">📊</div><div><div class="stat-value">'+total+'</div><div class="stat-label">总工单</div></div></div>';
+  sh += '<div class="stat-card" style="cursor:pointer" onclick="setPreset(\'active\',document.querySelectorAll(\'.presets .preset\')[1])"><div class="stat-icon amber">⏳</div><div><div class="stat-value">'+active+'</div><div class="stat-label">进行中</div></div></div>';
+  sh += '<div class="stat-card" style="cursor:pointer" onclick="document.getElementById(\'filterStatus\').value=\'resolved\';currentPage=1;render()"><div class="stat-icon green">✅</div><div><div class="stat-value">'+closed+'</div><div class="stat-label">已完结 · '+pct+'%</div></div></div>';
+  sh += '<div class="stat-card" style="cursor:pointer" onclick="setPreset(\'P0\',document.querySelectorAll(\'.presets .preset\')[2])"><div class="stat-icon red">🔥</div><div><div class="stat-value">'+counts.P0+'</div><div class="stat-label">P0 紧急待处理</div></div></div>';
+  sh += '<div class="stat-card" style="cursor:pointer" onclick="setPreset(\'overdue\',document.querySelectorAll(\'.presets .preset\')[3])"><div class="stat-icon rose">⏰</div><div><div class="stat-value">'+overdueCount+'</div><div class="stat-label">含超期方案</div></div></div>';
+  sh += '<div class="stat-card" style="cursor:pointer" onclick="resetFilters();render()" title="点击查看全部"><div class="stat-icon purple">📈</div><div><div class="stat-value">'+avgDays+'d</div><div class="stat-label">平均解决天数</div></div></div>';
+  document.getElementById('statsRow').innerHTML = sh;
+}
+
+var vendorColors = ['#6366f1','#f59e0b','#10b981','#ef4444','#8b5cf6','#ec4899','#06b6d4','#f97316','#84cc16','#14b8a6'];
+function vendorColor(v) {
+  var hash = 0; for (var i = 0; i < v.length; i++) hash = v.charCodeAt(i) + ((hash << 5) - hash);
+  return vendorColors[Math.abs(hash) % vendorColors.length];
+}
+
+function renderVendorQuickStats() {
+  var colors = ['#6366f1','#f59e0b','#10b981','#ef4444','#8b5cf6','#ec4899','#06b6d4','#f97316','#84cc16','#14b8a6'];
+  var vendors = {}; var allVendors = []; tickets.forEach(function(t) {
+    if (t.vendor && allVendors.indexOf(t.vendor) < 0) allVendors.push(t.vendor);
+    if (!vendors[t.vendor]) vendors[t.vendor] = {unresolved:0,p0:0,overdue:0};
+    if (t.status !== 'resolved' && t.status !== 'closed') { vendors[t.vendor].unresolved++; if (t._hasOverdue) vendors[t.vendor].overdue++; if (t.priority==='P0') vendors[t.vendor].p0++; }
+  });
+
+  var html = '';
+  allVendors.forEach(function(v, i) {
+    var s = vendors[v]; var c = colors[i % colors.length];
+    if (s.unresolved === 0) return; // skip resolved vendors
+    var cp = (m && m[v]) ? m[v] : '';
+    html += '<span style="display:inline-flex;align-items:center;gap:4px;background:#fff;border:1px solid var(--border);border-left:3px solid '+c+';border-radius:6px;padding:4px 8px;font-size:11px;cursor:pointer" onclick="var fs=document.getElementById(\'filterVendor\');fs.value=\''+v.replace(/'/g,"\\'")+'\';currentPage=1;render()" title="筛选 '+v+'">';
+    html += '<strong>'+v+'</strong> <span style="color:var(--text-muted);font-size:10px">'+cp+'</span>';
+    if (s.unresolved > 0) {
+      html += '<span style="background:'+c+';color:#fff;padding:1px 5px;border-radius:8px;font-size:10px;font-weight:600">'+s.unresolved+'</span>';
+      if (s.p0 > 0) html += '<span style="background:var(--red);color:#fff;padding:1px 4px;border-radius:8px;font-size:10px;font-weight:600">P0</span>';
+      if (s.overdue > 0) html += '<span style="background:var(--amber);color:#fff;padding:1px 4px;border-radius:8px;font-size:10px;font-weight:600">!'+s.overdue+'</span>';
+    } else {
+      html += '<span style="color:var(--green);font-size:10px">\u2705</span>';
+    }
+    html += '</span>';
+  });
+  document.getElementById('vendorQuickStats').innerHTML = html;
 }
 
 // ====== Filters ======
@@ -749,7 +937,7 @@ function render() {
   const pageItems = filtered.slice(start, start + pageSize);
 
   renderStats();
-  renderVendorAlertBanner();
+  renderVendorQuickStats();
   document.getElementById('filterCount').textContent = `共 ${totalFiltered} / ${tickets.length} 条 · 第 ${currentPage}/${totalPages} 页`;
 
   if (totalFiltered === 0) {
@@ -762,6 +950,22 @@ function render() {
   document.getElementById('ticketList').innerHTML = pageItems.map(t => ticketCard(t, search)).join('');
   document.getElementById('ticketList').classList.toggle('list-view', viewMode === 'list');
   renderPagination(totalFiltered, totalPages);
+  setTimeout(function() {
+    pageItems.forEach(function(t) {
+      var body = document.getElementById('body-' + t.id);
+      if (!body) return;
+      if (body.querySelector('.penalty-row')) return;
+      var amt = t.manualPenalty ? '¥' + t.manualPenalty : (t.priority || 'P?') + '扣罚';
+      var cp = (window.m && window.m[t.vendor]) ? window.m[t.vendor] : '';
+      var btn = t.penaltyConfirmed
+        ? '<span style="color:#059669;font-weight:600;font-size:13px">✅ ' + (t.penaltyConfirmedBy || '已确认') + '</span>'
+        : '<button class="btn" style="background:#dc2626;color:#fff;border:none;padding:6px 14px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600" onclick="cfPen('' + t.id + '')">确认扣罚</button>';
+      var row = document.createElement('section');
+      row.className = 'penalty-row';
+      row.innerHTML = '<h4><span class="section-icon">💰</span> 事故扣罚</h4><div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:#fef2f2;border-radius:8px;border:1px solid #fecaca;gap:12px;flex-wrap:wrap"><span style="font-size:15px;font-weight:700;color:#dc2626;cursor:pointer" onclick="editPen('' + t.id + '')" title="点击修改">' + amt + '</span>' + btn + '</div>';
+      body.insertBefore(row, body.firstChild);
+    });
+  }, 100);
 }
 
 function ticketCard(t, search) {
@@ -771,38 +975,45 @@ function ticketCard(t, search) {
   return `<div class="${cls}">
     <div class="ticket-row" onclick="toggleTicket('${t.id}')">
       <span class="ticket-id">${t.id}</span>
-      <span class="pill p${t.priority.slice(1)}">${t.priority}</span>
-      <span class="pill status-${t.status}">${statusLabels[t.status]}</span>
-      <span class="ticket-title">${titleDisp}</span>
-      <span class="ticket-author ${t.author}">${t.author}</span>
-      ${t.vendor ? `<span class="ticket-vendor">${t.vendor}</span>` : ''}
-      ${t._hasOverdue ? `<span class="pill overdue">${t._overdueCount}项超期</span>` : ''}
-      <span class="penalty-badge">💰 ¥${calcPenalty(t).total}</span>
       <div class="ticket-actions" onclick="event.stopPropagation()">
-        <select onchange="changePriority('${t.id}',this.value)">
+        <select onchange="changePriority('${t.id}',this.value)" style="font-weight:700;background:${t.priority==='P0'?'#fef2f2':t.priority==='P1'?'#fffbeb':'#f8fafc'};color:${t.priority==='P0'?'#dc2626':t.priority==='P1'?'#d97706':'#64748b'};border-color:${t.priority==='P0'?'#fecaca':t.priority==='P1'?'#fde68a':'#e2e8f0'}">
           ${['P0','P1','P2'].map(p => `<option${t.priority===p?' selected':''}>${p}</option>`).join('')}
         </select>
-        <select onchange="changeStatus('${t.id}',this.value)">
+        <select onchange="changeStatus('${t.id}',this.value)" style="background:${t.status==='pending'?'#f8fafc':t.status==='open'?'#eff6ff':t.status==='in_progress'?'#fffbeb':t.status==='resolved'?'#ecfdf5':'#f1f5f9'};color:${t.status==='pending'?'#64748b':t.status==='open'?'#2563eb':t.status==='in_progress'?'#d97706':t.status==='resolved'?'#059669':'#64748b'};border-color:${t.status==='pending'?'#e2e8f0':t.status==='open'?'#bfdbfe':t.status==='in_progress'?'#fde68a':t.status==='resolved'?'#a7f3d0':'#e2e8f0'};font-weight:600">
           ${allStatuses.map(s => `<option value="${s.key}"${t.status===s.key?' selected':''}>${s.label}</option>`).join('')}
         </select>
       </div>
+      <span class="ticket-progress">${(t.solutions||[]).filter(function(s){return s.status==="done"}).length}/${(t.solutions||[]).length}</span>
+      <span class="ticket-title">${titleDisp}</span>
+      ${t._hasOverdue ? `<span class="ticket-vendor-overdue" style="background:var(--red)">超${t._overdueCount}项</span>` : ''}
+      ${t.vendor ? `<span class="ticket-vendor" style="background:${vendorColor(t.vendor)}">${t.vendor}</span>` : ''}
+
       <span class="expand-arrow" id="icon-${t.id}">▾</span>
     </div>
+    <div class="ticket-progress-bar"><div class="fill${t._hasOverdue ? ' danger' : (t.solutions.filter(function(s){return s.status==='done'}).length / t.solutions.length < 0.5 ? ' warning' : '')}" style="width:${t.solutions.filter(function(s){return s.status==='done'}).length / t.solutions.length * 100}%"></div></div>
     <div class="ticket-detail" id="detail-${t.id}">
       <div class="ticket-detail-inner">
         <div class="tag-list">${t.tags.map(tag => `<span class="tag">${search ? highlightText(tag, search) : tag}</span>`).join('')}</div>
 
+        <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:linear-gradient(135deg,#f8fafc 0%,#f1f5f9 100%);border-radius:10px;margin-bottom:18px;font-size:12px;flex-wrap:wrap;border:1px solid var(--border-light)">
+          <span style="display:flex;align-items:center;gap:4px"><span style="color:var(--text-muted)">🏢</span> <strong>${t.vendor || '未知'}</strong></span>
+          <span style="color:var(--border)">|</span>
+          <span style="display:flex;align-items:center;gap:4px"><span style="color:var(--text-muted)">📞</span> <strong>${(m && m[t.vendor]) ? m[t.vendor] : '未指定'}</strong></span>
+          ${t.sourceGroup ? '<span style="color:var(--border)">|</span><span style="display:flex;align-items:center;gap:4px;color:var(--blue);cursor:pointer;font-weight:600" onclick="navigator.clipboard.writeText(\''+t.sourceGroup+'\');var t=event.target;t.textContent=\'✅ 已复制\';setTimeout(function(){t.textContent=\'💬 群 '+t.sourceGroup+'\'},1500)" title="点击复制群号">💬 群 '+t.sourceGroup+'</span>' : ''}
+          <span style="margin-left:auto;display:flex;align-items:center;gap:4px;color:var(--text-muted)"><span>📅</span> ${t.createdDate}</span>
+        </div>
+
         <section>
           <div class="section-label">📝 事件摘要</div>
-          <div class="section-content">${search ? highlightText(t.summary, search) : t.summary}</div>
+          <div class="section-content">${(search ? highlightText(t.summary, search) : t.summary).replace(/\\n/g, '<br>').replace(/\n/g, '<br>')}</div>
         </section>
         <section>
           <div class="section-label">💥 影响分析</div>
-          <div class="section-content">${t.impact}</div>
+          <div class="section-content">${(t.impact || '').replace(/\\n/g, '<br>').replace(/\n/g, '<br>')}</div>
         </section>
         <section>
           <div class="section-label">🔍 根本原因</div>
-          <div class="section-content">${t.rootCause}</div>
+          <div class="section-content">${(t.rootCause || '').replace(/\\n/g, '<br>').replace(/\n/g, '<br>')}</div>
         </section>
         <section>
           <div class="section-label">🔧 解决方案 ${(t.status==='resolved'||t.status==='closed') ? '<span style="font-size:11px;color:var(--green);">✅ 全部完成</span>' : (t._hasOverdue ? `<span style="font-size:11px;color:var(--red);">⚠ ${t._overdueCount}项超期</span>` : `<span style="font-size:11px;color:var(--green);">${t.solutions.filter(s=>s.status==='done').length}/${t.solutions.length} 完成</span>`)}</div>
@@ -815,20 +1026,12 @@ function ticketCard(t, search) {
           </table>
         </section>
         <section>
-          <div class="section-label">💰 事故扣罚</div>
-          ${penaltySection(t)}
-        </section>
-        <section>
-          <div class="section-label">✅ 扣罚确认</div>
-          ${penaltyConfirmSection(t)}
-        </section>
-        <section>
-          <div class="section-label">📌 最新进展</div>
+          <div class="section-label" style="display:flex;align-items:center;justify-content:space-between;cursor:pointer" onclick="toggleTimeline('${t.id}')">
+            <span>📌 最新进展 / 时间线</span>
+            <span id="tl-arrow-${t.id}" style="font-size:11px;color:var(--text-muted);font-weight:400">展开时间线 ▾</span>
+          </div>
           <div class="section-content">${t.progress || '暂无'}</div>
-        </section>
-        <section>
-          <div class="section-label">⏱️ 事件时间线</div>
-          <div class="timeline">
+          <div class="timeline" id="tl-${t.id}" style="display:none">
             ${t.timeline.map(e => `<div class="timeline-entry"><span class="timeline-time">${e.time}</span> ${e.event}</div>`).join('')}
           </div>
         </section>
@@ -844,10 +1047,68 @@ function toggleTicket(id) {
   d.classList.toggle('show'); i.classList.toggle('open');
 }
 
+function toggleTimeline(id) {
+  var tl = document.getElementById('tl-' + id);
+  var arrow = document.getElementById('tl-arrow-' + id);
+  if (!tl || !arrow) return;
+  if (tl.style.display === 'none') {
+    tl.style.display = 'block';
+    arrow.textContent = '收起时间线 ▴';
+  } else {
+    tl.style.display = 'none';
+    arrow.textContent = '展开时间线 ▾';
+  }
+}
+
 function changePriority(id, v) {
   const t = tickets.find(t => t.id === id); if (!t) return;
   t.priority = v; t.updatedDate = new Date().toISOString().slice(0,10);
   saveChanges(); render();
+}
+
+function confirmPenalty(id) {
+  var t = tickets.find(function(x) { return x.id === id; });
+  if (!t) return;
+  var cp = (m && m[t.vendor]) ? m[t.vendor] : '';
+  var name = prompt('确认扣罚\n\n对接人：' + cp + '\n\n请输入确认人姓名：', cp);
+  if (!name || !name.trim()) return;
+  var now = new Date().toISOString();
+  t.penaltyConfirmed = true;
+  t.penaltyConfirmedBy = name.trim();
+  t.penaltyConfirmedAt = now;
+  t.penaltyAmount = calcPenalty(t).total;
+  t.updatedDate = now;
+  saveChanges();
+  render();
+  notify('✅ ' + id + ' 扣罚已确认', 'success');
+}
+
+function editPenaltyAmount(id) {
+  var t = tickets.find(function(x) { return x.id === id; });
+  if (!t) return;
+  var current = t.manualPenalty || '';
+  var a = prompt('修改扣罚金额\n\n当前：' + (current ? '¥'+current : '默认') + '\n\n输入金额（留空恢复默认）：', current);
+  if (a === null) return;
+  if (a === '') { delete t.manualPenalty; }
+  else { var v = parseInt(a); if (v >= 0) t.manualPenalty = v; }
+  saveChanges();
+  render();
+}
+
+function cfPen(id){
+  var t=tickets.find(function(x){return x.id===id});if(!t)return;
+  var cp=window.m?window.m[t.vendor]||'':'';
+  var name=prompt('确认扣罚\n\n'+(t.title||'').substring(0,30)+'\n对接人：'+cp+'\n请输入姓名确认：',cp);
+  if(!name||!name.trim())return;
+  t.penaltyConfirmed=true;t.penaltyConfirmedBy=name.trim();t.penaltyConfirmedAt=new Date().toISOString();
+  saveChanges();render();
+}
+function editPen(id){
+  var t=tickets.find(function(x){return x.id===id});if(!t)return;
+  var c=t.manualPenalty||'';
+  var a=prompt('修改金额\n\n当前：'+(c?'¥'+c:'按P级')+'\n输入金额(留空恢复)：',c);
+  if(a===null)return;if(a==='')delete t.manualPenalty;else{var v=parseInt(a);if(v>=0)t.manualPenalty=v;}
+  saveChanges();render();
 }
 
 function changeStatus(id, v) {
@@ -926,6 +1187,29 @@ function setPreset(type, el) {
   }
 }
 
+function changeDashRange(v) {
+  dashRangeDays = v === 'all' ? 9999 : parseInt(v);
+  var now = new Date();
+  var start = new Date(now); start.setDate(start.getDate() - dashRangeDays);
+  document.getElementById('dashRangeLabel').textContent = v === 'all' ? '' : '(' + start.toISOString().slice(0,10) + ' ~ ' + now.toISOString().slice(0,10) + ')';
+  renderDashboard();
+}
+
+function resetFilters() {
+  document.getElementById('filterStatus').value = 'all';
+  document.getElementById('filterPriority').value = 'all';
+  document.getElementById('filterAuthor').value = 'all';
+  document.getElementById('filterVendor').value = 'all';
+  document.getElementById('filterSearch').value = '';
+  document.getElementById('sortBy').value = 'created-desc';
+  document.querySelectorAll('.presets .preset').forEach(function(p) { p.classList.remove('active'); });
+  document.querySelector('.presets .preset').classList.add('active');
+  overduePreset = false;
+  activePreset = false;
+  currentPage = 1;
+  render();
+}
+
 // ====== Theme ======
 function toggleTheme() {
   const html = document.documentElement;
@@ -1002,120 +1286,655 @@ function createTicket() {
 }
 
 function saveChanges() {
-  const c = {}; tickets.forEach(t => c[t.id] = { status:t.status, priority:t.priority });
-  localStorage.setItem('kanban-v3', JSON.stringify(c));
+  try {
+    if (window.location.protocol === 'file:') {
+      // Local file: save everything
+      localStorage.setItem('kanban-full-data', JSON.stringify(tickets));
+    } else {
+      // Web version: save only user edits (priority, status)
+      var edits = {};
+      tickets.forEach(function(t) {
+        edits[t.id] = { priority: t.priority, status: t.status, updatedDate: t.updatedDate };
+      });
+      localStorage.setItem('kanban-user-edits', JSON.stringify(edits));
+    }
+  } catch(e) {}
 }
 
 // ====== Penalty Confirmation ======
-function penaltyConfirmSection(t) {
-  const confirmed = t.penaltyConfirmed !== false;
-  if (confirmed) {
-    const who = t.penaltyConfirmedBy || '未知';
-    const when = t.penaltyConfirmedAt ? new Date(t.penaltyConfirmedAt).toLocaleString('zh-CN') : '未知';
-    return `<div style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--green-50);border-radius:var(--radius-xs);border:1px solid var(--green-100);">
-      <span style="font-size:16px;">✅</span>
-      <span style="font-size:12px;color:#065f46;">已确认 · ${who} · ${when}</span>
-    </div>`;
-  }
-  return `<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:var(--amber-50);border-radius:var(--radius-xs);border:1px solid var(--amber-100);flex-wrap:wrap;gap:8px;">
-    <span style="font-size:12px;color:#92400e;">⚠️ 扣罚未确认 — 请供应商确认扣罚金额</span>
-    <button class="btn btn-accent" style="font-size:11px;" onclick="confirmPenalty('${t.id}')">✅ 确认扣罚</button>
-  </div>`;
-}
 
-function confirmPenalty(id) {
-  const t = tickets.find(t => t.id === id);
-  if (!t) return;
-  const now = new Date().toISOString();
-  t.penaltyConfirmed = true;
-  t.penaltyConfirmedBy = '来昕怡';
-  t.penaltyConfirmedAt = now;
-  t.penaltyAmount = calcPenalty(t).total;
-  t.updatedDate = now;
-  saveChanges();
-  render();
-  notify('✅ ' + id + ' 扣罚已确认', 'success');
-}
-
-// ====== Weekly Report ======
-function showWeeklyReport() {
+// ====== Morning Report ======
+function showMorningReport() {
   const now = new Date();
-  const dayOfWeek = now.getDay();
-  const monday = new Date(now);
-  monday.setDate(now.getDate() - ((dayOfWeek + 6) % 7));
-  const sunday = new Date(monday);
-  sunday.setDate(monday.getDate() + 6);
+  const today = now.toISOString().slice(0, 10);
+  const yesterday = new Date(now); yesterday.setDate(yesterday.getDate() - 1);
+  const yestStr = yesterday.toISOString().slice(0, 10);
+  const weekAgo = new Date(now); weekAgo.setDate(weekAgo.getDate() - 7);
+  const weekAgoStr = weekAgo.toISOString().slice(0, 10);
+  const fmt = function(d) { return d.toISOString().slice(0, 10); };
 
-  const fmt = d => d.toISOString().slice(0, 10);
-  const weekStart = fmt(monday);
-  const weekEnd = fmt(sunday);
+  // Section 1: 历史长期问题动态 (unresolved tickets, sorted by age)
+  const unresolved = tickets.filter(function(t) {
+    return t.status !== 'resolved' && t.status !== 'closed';
+  }).sort(function(a, b) { return a.createdDate.localeCompare(b.createdDate); });
 
-  // Filter this week's tickets
-  const weekNew = tickets.filter(t => t.createdDate >= weekStart && t.createdDate <= weekEnd);
-  const weekResolved = tickets.filter(t =>
-    (t.status === 'resolved' || t.status === 'closed') &&
-    t.updatedDate && t.updatedDate.slice(0, 10) >= weekStart && t.updatedDate.slice(0, 10) <= weekEnd
-  );
-  const unresolved = tickets.filter(t => t.status !== 'resolved' && t.status !== 'closed');
+  // Section 2: 今日新增工单
+  const todayNew = tickets.filter(function(t) { return t.createdDate === today; });
 
-  // By vendor
-  const vendorStats = {};
-  const allVendors = [...new Set(tickets.map(t => t.vendor).filter(Boolean))];
-  allVendors.forEach(v => {
-    vendorStats[v] = { newCount: 0, resolvedCount: 0, p0Count: 0, penaltyTotal: 0 };
+  // Section 3: 今日已解决工单
+  const todayResolved = tickets.filter(function(t) {
+    return (t.status === 'resolved' || t.status === 'closed') && t.updatedDate.slice(0, 10) === today;
   });
-  weekNew.forEach(t => { if (vendorStats[t.vendor]) vendorStats[t.vendor].newCount++; });
-  weekResolved.forEach(t => { if (vendorStats[t.vendor]) vendorStats[t.vendor].resolvedCount++; });
-  tickets.forEach(t => {
-    if (t.priority === 'P0' && t.createdDate >= weekStart && t.createdDate <= weekEnd) {
-      if (vendorStats[t.vendor]) vendorStats[t.vendor].p0Count++;
+
+  // Build report
+  const cp = function(t) { return (m && m[t.vendor]) ? m[t.vendor] : ''; };
+  const daysOpen = function(t) { return Math.round((now - new Date(t.createdDate)) / 86400000); };
+  const solProgress = function(t) { var done = t.solutions.filter(function(s) { return s.status === 'done'; }).length; return done + '/' + t.solutions.length; };
+  const solSummary = function(t) { return t.solutions.map(function(s) { return (s.status==='done'?'✅':s.status==='overdue'?'🔴':'🔄') + s.action.slice(0,20); }).join('；'); };
+  const deadlines = function(t) { return t.solutions.filter(function(s) { return s.status !== 'done'; }).map(function(s) { return s.deadline; }).join(', ') || '—'; };
+
+  var text = '📰 工单早报 | ' + today + '\n';
+  text += '━━━━━━━━━━━━━━━━━━━━━━━━\n\n';
+
+  // Section 1
+  text += '一、历史长期问题动态（重点追踪）\n';
+  if (unresolved.length === 0) {
+    text += '   ✅ 无未完结工单\n';
+  } else {
+    text += '| # | 工单 | 问题 | 状态 | 方案进度 | 对接人 | 处理天数 |\n';
+    text += '|---|------|------|------|------|------|------|\n';
+    unresolved.forEach(function(t, i) {
+      var title = (t.title || '').slice(0, 18);
+      var statusText = t.status === 'in_progress' ? '🔄处理中' : t.status === 'open' ? '📋待处理' : t.status === 'pending' ? '⏳待分配' : t.status;
+      text += '| ' + (i+1) + ' | ' + t.id + ' | ' + title + ' | ' + statusText + ' | ' + solProgress(t) + ' | ' + cp(t) + ' | ' + daysOpen(t) + '天 |\n';
+    });
+    text += '\n';
+  }
+
+  // Section 2
+  text += '二、今日新增工单\n';
+  if (todayNew.length === 0) {
+    text += '   📭 今日无新增工单\n';
+  } else {
+    text += '| # | 工单 | 问题 | 优先级 | 对接人 | 方案 |\n';
+    text += '|---|------|------|------|------|------|\n';
+    todayNew.forEach(function(t, i) {
+      var title = (t.title || '').slice(0, 20);
+      text += '| ' + (i+1) + ' | ' + t.id + ' | ' + title + ' | ' + t.priority + ' | ' + cp(t) + ' | ' + solProgress(t) + ' ' + deadlines(t) + ' |\n';
+    });
+    text += '\n';
+  }
+
+  // Section 3
+  text += '三、今日已解决工单\n';
+  if (todayResolved.length === 0) {
+    text += '   📭 今日无已解决工单\n';
+  } else {
+    todayResolved.forEach(function(t, i) {
+      var days = daysOpen(t);
+      text += '   ✅ ' + t.id + ' ' + (t.title||'').slice(0,25) + ' · 耗时' + days + '天\n';
+    });
+    text += '\n';
+  }
+
+  // Section 4: Summary
+  text += '四、今日工单总结\n';
+  var totalOpen = unresolved.length;
+  var totalToday = todayNew.length;
+  var totalResolved = todayResolved.length;
+  var overdueCount = unresolved.filter(function(t) { return t._hasOverdue; }).length;
+  var p0Count = unresolved.filter(function(t) { return t.priority === 'P0'; }).length;
+  text += '   当前未完结：' + totalOpen + ' 条 | 今日新增：' + totalToday + ' 条 | 今日解决：' + totalResolved + ' 条\n';
+  text += '   含超期方案：' + overdueCount + ' 条 | P0 紧急：' + p0Count + ' 条\n';
+  text += '\n';
+
+  // Section 5: Action Guide
+  text += '五、行动指南与建议\n';
+
+  // Generate per-ticket recommendations
+  var recs = [];
+  unresolved.forEach(function(t) {
+    var r = { id: t.id, title: t.title, c: cp(t), days: daysOpen(t), priority: t.priority, hasOverdue: t._hasOverdue, overdueCount: t._overdueCount, status: t.status };
+    var overdueSols = t.solutions.filter(function(s) { return s.status === 'overdue'; });
+    var pendingSols = t.solutions.filter(function(s) { return s.status !== 'done'; });
+    
+    if (t._hasOverdue) {
+      r.level = 'high';
+      r.action = '立即联系' + r.c + '跟进超期方案：' + overdueSols.map(function(s) { return s.action.slice(0,15); }).join('、');
+      r.escalation = '今日18:00前未更新→升级至管理群';
+    } else if (t.priority === 'P0' && t.status !== 'in_progress') {
+      r.level = 'high';
+      r.action = 'P0工单尚未进入处理状态，需' + r.c + '确认负责人和启动时间';
+      r.escalation = '4小时内无响应→电话联系';
+    } else if (daysOpen(t) > 7) {
+      r.level = 'mid';
+      r.action = '已超7天未关闭，建议' + r.c + '加快收尾';
+      r.escalation = '超10天→升级周会';
+    } else if (t.priority === 'P0') {
+      r.level = 'mid';
+      r.action = '持续推进中，关注' + pendingSols.slice(0,2).map(function(s) { return s.action.slice(0,15); }).join('、');
+      r.escalation = '方案无进展超2天→升级';
+    } else {
+      r.level = 'low';
+      r.action = '正常推进，无需额外介入';
+      r.escalation = '';
     }
-    if (vendorStats[t.vendor]) vendorStats[t.vendor].penaltyTotal += calcPenalty(t).total;
+    recs.push(r);
   });
 
-  let report = `📊 工单周报（${weekStart} ~ ${weekEnd}）\n`;
-  report += `本周新增：${weekNew.length} | 本周完结：${weekResolved.length} | 累计未完结：${unresolved.length}\n\n`;
-  report += `| 供应商 | 新增 | 完结 | P0 | 扣罚 |\n`;
-  report += `|--------|------|------|----|------|\n`;
-  allVendors.forEach(v => {
-    const s = vendorStats[v];
-    report += `| ${v} | ${s.newCount} | ${s.resolvedCount} | ${s.p0Count} | ¥${s.penaltyTotal} |\n`;
-  });
+  // Sort: high > mid > low
+  var levelOrder = { high: 0, mid: 1, low: 2 };
+  recs.sort(function(a, b) { return levelOrder[a.level] - levelOrder[b.level]; });
+
+  var highRecs = recs.filter(function(r) { return r.level === 'high'; });
+  var midRecs = recs.filter(function(r) { return r.level === 'mid'; });
+  var lowRecs = recs.filter(function(r) { return r.level === 'low'; });
+
+  if (highRecs.length > 0) {
+    text += '\n   🔴 高优先级\n';
+    highRecs.forEach(function(r) { text += '   · ' + r.id + ' ' + (r.title||'').slice(0,20) + ' | ' + r.action + '\n'; });
+  }
+  if (midRecs.length > 0) {
+    text += '\n   🟡 中优先级\n';
+    midRecs.forEach(function(r) { text += '   · ' + r.id + ' ' + (r.title||'').slice(0,20) + ' | ' + r.action + '\n'; });
+  }
+  if (lowRecs.length > 0) {
+    text += '\n   🟢 低优先级\n';
+    lowRecs.slice(0, 3).forEach(function(r) { text += '   · ' + r.id + ' 正常推进中 · ' + r.c + '\n'; });
+  }
+
+  var unconfirmedText = unresolved.filter(function(t) { return !t.penaltyConfirmed; }).map(function(t) { return t.id; }).join('、');
+  if (unconfirmedText) text += '\n   💰 待确认扣罚：' + unconfirmedText + '\n';
 
   // Build HTML modal
-  let html = `<div class="modal-overlay show" id="weeklyReportModal" onclick="if(event.target===this)closeWeeklyReport()">
-    <div class="modal" style="max-width:680px;">
-      <h3>📊 工单周报</h3>
-      <div style="margin-bottom:12px;font-size:13px;color:var(--text-secondary);">${weekStart} ~ ${weekEnd}</div>
-      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;">
-        <div class="stat-card" style="flex:1;min-width:100px;"><div><div class="stat-value" style="font-size:20px;">${weekNew.length}</div><div class="stat-label">本周新增</div></div></div>
-        <div class="stat-card" style="flex:1;min-width:100px;"><div><div class="stat-value" style="font-size:20px;">${weekResolved.length}</div><div class="stat-label">本周完结</div></div></div>
-        <div class="stat-card" style="flex:1;min-width:100px;"><div><div class="stat-value" style="font-size:20px;">${unresolved.length}</div><div class="stat-label">累计未完结</div></div></div>
-      </div>
-      <table class="mini-table" style="width:100%;">
-        <tr><th>供应商</th><th>新增</th><th>完结</th><th>P0</th><th>扣罚</th></tr>
-        ${allVendors.map(v => {
-          const s = vendorStats[v];
-          return `<tr><td><strong>${v}</strong></td><td>${s.newCount}</td><td>${s.resolvedCount}</td><td style="color:${s.p0Count>=3?'var(--red)':s.p0Count>=2?'var(--amber)':''};">${s.p0Count}${s.p0Count>=3?' 🔴':s.p0Count>=2?' 🟡':''}</td><td style="font-weight:700;color:var(--red);">¥${s.penaltyTotal}</td></tr>`;
-        }).join('')}
-      </table>
-      <div class="btn-row" style="margin-top:14px;">
-        <button class="btn btn-cancel" onclick="closeWeeklyReport()">关闭</button>
-        <button class="btn btn-accent" onclick="copyWeeklyReport()">📋 复制周报文本</button>
-      </div>
-    </div>
-  </div>`;
+  var bg = function(list, n) { return list.length >= n ? 'var(--red-50)' : list.length > 0 ? 'var(--amber-50)' : 'var(--green-50)'; };
+  var border = function(list, n) { return list.length >= n ? 'var(--red-100)' : list.length > 0 ? 'var(--amber-100)' : 'var(--green-100)'; };
+  var textColor = function(list, n) { return list.length >= n ? 'var(--red)' : list.length > 0 ? '#92400e' : '#065f46'; };
 
-  // Store report text for copy
-  window._weeklyReportText = report;
+  var html = '<div class="modal-overlay show" id="morningReportModal" onclick="if(event.target===this)closeMorningReport()">';
+  html += '<div class="modal" style="max-width:780px;max-height:85vh;overflow-y:auto;padding:28px 32px">';
+  html += '<h3>📰 工单早报 <span style="font-size:12px;color:var(--text-muted)">' + today + '</span></h3>';
+
+  // Quick stats bar
+  html += '<div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap">';
+  html += '<div class="stat-card" style="flex:1;min-width:80px;padding:14px 16px"><div class="stat-value" style="font-size:22px;font-weight:700;letter-spacing:-0.5px;color:' + textColor(unresolved, 5) + '">' + totalOpen + '</div><div class="stat-label">未完结</div></div>';
+  html += '<div class="stat-card" style="flex:1;min-width:80px;padding:14px 16px"><div class="stat-value" style="font-size:22px;font-weight:700;letter-spacing:-0.5px">' + totalToday + '</div><div class="stat-label">今日新增</div></div>';
+  html += '<div class="stat-card" style="flex:1;min-width:80px;padding:14px 16px"><div class="stat-value" style="font-size:22px;font-weight:700;letter-spacing:-0.5px;color:var(--green)">' + totalResolved + '</div><div class="stat-label">今日解决</div></div>';
+  html += '<div class="stat-card" style="flex:1;min-width:80px;padding:14px 16px"><div class="stat-value" style="font-size:18px;color:' + (overdueCount > 0 ? 'var(--red)' : 'var(--text)') + '">' + overdueCount + '</div><div class="stat-label">含超期</div></div>';
+  html += '</div>';
+
+  // Section 1: 历史长期问题
+  html += '<div style="margin-bottom:12px"><strong style="font-size:13px">一、历史长期问题动态</strong></div>';
+  if (unresolved.length === 0) {
+    html += '<div style="padding:12px;background:var(--green-50);border-radius:6px;font-size:12px;color:#065f46;margin-bottom:12px">✅ 无未完结工单</div>';
+  } else {
+    var tbl1 = '<table class="mini-table" style="width:100%;font-size:12px"><tr><th style="width:28px">#</th><th>工单</th><th style="width:60px">状态</th><th style="width:70px">方案</th><th>重点</th><th style="width:60px">天数</th></tr>';
+    unresolved.forEach(function(t, i) {
+      var statusLabel = t.status === 'in_progress' ? '🔄处理中' : t.status === 'open' ? '📋待处理' : '⏳待分配';
+      var doneCount = t.solutions.filter(function(s) { return s.status === 'done'; }).length;
+      var overdueCount = t.solutions.filter(function(s) { return s.status === 'overdue'; }).length;
+      var solText = doneCount + '/' + t.solutions.length;
+      if (overdueCount > 0) solText += ' ⚠' + overdueCount;
+      var bgRow = t._hasOverdue ? 'background:#fef2f2' : (t.priority === 'P0' ? 'background:#fffbeb' : '');
+      var overdueItems = t.solutions.filter(function(s) { return s.status === 'overdue'; }).map(function(s) { return s.action.slice(0,18); }).join('、');
+      var focusText = overdueCount > 0 ? '🔴 超期：' + overdueItems : (t.priority === 'P0' ? '⚡ P0优先跟进 · ' + cp(t) : '正常推进');
+      tbl1 += '<tr style="' + bgRow + '"><td style="color:var(--text-muted)">' + (i+1) + '</td><td><strong>' + t.id + '</strong> <span style="color:var(--text-secondary);font-size:11px">' + (t.title||'').slice(0,22) + ((t.title||'').length > 22 ? '…' : '') + '</span></td><td>' + statusLabel + '</td><td style="font-weight:600;color:' + (overdueCount>0?'var(--red)':doneCount===t.solutions.length?'var(--green)':'var(--text)') + '">' + solText + '</td><td style="font-size:11px">' + focusText + '</td><td style="color:' + (daysOpen(t)>7?'var(--red)':daysOpen(t)>3?'var(--amber)':'var(--text-secondary)') + ';font-weight:600">' + daysOpen(t) + '天</td></tr>';
+    });
+    tbl1 += '</table>';
+    html += '<div style="margin-bottom:12px;overflow-x:auto">' + tbl1 + '</div>';
+  }
+
+  // Section 2+3: 今日工单动态（新增 + 已解决）
+  html += '<div style="margin-bottom:12px"><strong style="font-size:13px">二、今日工单动态</strong></div>';
+  
+  // Merged: left=new tickets, right=resolved
+  html += '<div style="display:flex;gap:12px;flex-wrap:wrap">';
+  
+  // New tickets (left)
+  html += '<div style="flex:1;min-width:250px">';
+  html += '<div style="font-size:11px;color:var(--blue);font-weight:600;margin-bottom:4px">📥 新增 ' + todayNew.length + ' 条</div>';
+  if (todayNew.length === 0) {
+    html += '<div style="padding:8px;background:var(--slate-50);border-radius:4px;font-size:11px;color:var(--text-muted)">无</div>';
+  } else {
+    todayNew.forEach(function(t) {
+      html += '<div style="padding:7px 10px;background:var(--blue-50);border-radius:var(--radius-xs);margin-bottom:4px;font-size:12px;border:1px solid var(--blue-100)"><strong>' + t.id + '</strong> <span style="color:' + (t.priority==='P0'?'var(--red)':'var(--text)') + '">' + t.priority + '</span> ' + (t.title||'').slice(0,25) + ' · ' + cp(t) + '</div>';
+    });
+  }
+  html += '</div>';
+  
+  // Resolved tickets (right)
+  html += '<div style="flex:1;min-width:250px">';
+  html += '<div style="font-size:11px;color:var(--green);font-weight:600;margin-bottom:4px">✅ 已解决 ' + todayResolved.length + ' 条</div>';
+  if (todayResolved.length === 0) {
+    html += '<div style="padding:8px;background:var(--slate-50);border-radius:4px;font-size:11px;color:var(--text-muted)">无</div>';
+  } else {
+    todayResolved.forEach(function(t) {
+      html += '<div style="padding:7px 10px;background:var(--green-50);border-radius:var(--radius-xs);margin-bottom:4px;font-size:12px;border:1px solid var(--green-100)">' + t.id + ' ' + (t.title||'').slice(0,25) + ' · ' + daysOpen(t) + '天</div>';
+    });
+  }
+  html += '</div></div>';
+
+  // Section 4: Summary
+  html += '<div style="margin-bottom:12px"><strong style="font-size:13px">四、今日工单总结</strong></div>';
+  html += '<div style="padding:14px 18px;background:var(--slate-50);border-radius:var(--radius-xs);font-size:13px;line-height:2;border:1px solid var(--border)">';
+  html += '当前未完结：<strong>' + totalOpen + '</strong> 条 &nbsp;|&nbsp; 今日新增：<strong>' + totalToday + '</strong> 条 &nbsp;|&nbsp; 今日解决：<strong style="color:var(--green)">' + totalResolved + '</strong> 条<br>';
+  html += '含超期方案：<strong style="color:' + (overdueCount > 0 ? 'var(--red)' : 'var(--green)') + '">' + overdueCount + '</strong> 条 &nbsp;|&nbsp; P0 紧急：<strong style="color:var(--red)">' + p0Count + '</strong> 条';
+  html += '</div>';
+
+  // Section 5: Action Guide (detailed)
+  html += '<div style="margin-bottom:12px;margin-top:12px"><strong style="font-size:13px">三、行动指南与建议</strong></div>';
+  
+  // High priority: detailed per-ticket
+  if (highRecs.length > 0) {
+    html += '<div style="background:var(--red-50);border:1px solid var(--red-100);border-radius:8px;padding:12px;margin-bottom:10px">';
+    html += '<div style="font-weight:700;color:var(--red);font-size:13px;margin-bottom:8px">🔴 高优先级 — 今日必须处理（' + highRecs.length + '项）</div>';
+    highRecs.forEach(function(r) {
+      html += '<div style="background:var(--surface);border-radius:var(--radius-xs);padding:12px 14px;margin-bottom:8px;font-size:13px;line-height:1.8;border:1px solid var(--border-light)">';
+      html += '<div style="font-weight:700;margin-bottom:4px">' + r.id + ' ' + (r.title||'').slice(0,30) + '</div>';
+      html += '<div><span style="color:var(--text-secondary)">📋 处理建议：</span>' + r.action + '</div>';
+      if (r.escalation) {
+        html += '<div><span style="color:var(--text-secondary)">⬆ 升级路径：</span>' + r.escalation + '</div>';
+      }
+      // Add specific next step based on status
+      var pendSols = tickets.filter(function(x){return x.id===r.id})[0];
+      if (pendSols) {
+        var overdueSols = pendSols.solutions.filter(function(s){return s.status==='overdue'});
+        if (overdueSols.length > 0) {
+          html += '<div><span style="color:var(--text-secondary)">⏰ 超期方案：</span>' + overdueSols.map(function(s){return s.action.slice(0,20)+'（'+s.owner+'）';}).join('、') + '</div>';
+        }
+        html += '<div><span style="color:var(--text-secondary)">📞 对接人：</span>' + r.c + '</div>';
+      }
+      html += '</div>';
+    });
+    html += '</div>';
+  }
+  
+  // Mid priority
+  if (midRecs.length > 0) {
+    html += '<div style="background:var(--amber-50);border:1px solid var(--amber-100);border-radius:8px;padding:12px;margin-bottom:10px">';
+    html += '<div style="font-weight:700;color:#92400e;font-size:13px;margin-bottom:8px">🟡 中优先级 — 本周关注（' + midRecs.length + '项）</div>';
+    midRecs.forEach(function(r) {
+      html += '<div style="background:#fff;border-radius:6px;padding:8px;margin-bottom:4px;font-size:12px">';
+      html += '<strong>' + r.id + '</strong> ' + (r.title||'').slice(0,30) + '<br>';
+      html += '<span style="color:var(--text-secondary)">建议：</span>' + r.action;
+      html += ' · <span style="color:var(--text-muted)">' + r.c + '</span>';
+      if (r.escalation) html += ' · <span style="color:#92400e">' + r.escalation + '</span>';
+      html += '</div>';
+    });
+    html += '</div>';
+  }
+  
+  // Vendor-level summary advice
+  var vendorRisk = {};
+  unresolved.forEach(function(t) {
+    if (!vendorRisk[t.vendor]) vendorRisk[t.vendor] = { count: 0, p0: 0, overdue: 0 };
+    vendorRisk[t.vendor].count++;
+    if (t.priority === 'P0') vendorRisk[t.vendor].p0++;
+    if (t._hasOverdue) vendorRisk[t.vendor].overdue++;
+  });
+  var riskyVendors = Object.entries(vendorRisk).filter(function(e) { return e[1].count >= 3 || e[1].overdue >= 2 || e[1].p0 >= 2; });
+  if (riskyVendors.length > 0) {
+    html += '<div style="background:var(--red-50);border:1px solid var(--red-100);border-radius:8px;padding:12px;margin-bottom:10px">';
+    html += '<div style="font-weight:700;color:var(--red);font-size:13px;margin-bottom:8px">⚠ 供应商层面建议</div>';
+    riskyVendors.forEach(function(e) {
+      var v = e[0], d = e[1];
+      var cp_v = (m && m[v]) ? m[v] : '';
+      html += '<div style="background:var(--surface);border-radius:var(--radius-xs);padding:12px 14px;margin-bottom:8px;font-size:13px;line-height:1.8;border:1px solid var(--border-light)">';
+      html += '<strong>🏢 ' + v + '</strong> · 对接人：' + cp_v + ' · 累计' + d.count + '条工单（P0×' + d.p0 + '，超期×' + d.overdue + '）<br>';
+      html += '<span style="color:var(--text-secondary)">建议：</span>';
+      if (d.p0 >= 2) html += 'P0工单集中，建议安排专项质量沟通会议，评估培训和管理流程是否存在系统性漏洞；';
+      if (d.overdue >= 2) html += '超期严重，建议要求' + cp_v + '建立内部进度跟踪机制，每日同步方案执行情况；';
+      if (d.count >= 3) html += '工单密度高，建议评估是否需要驻场支持或增加质量管理人员；';
+      html += '</div>';
+    });
+    html += '</div>';
+  }
+  
+
+  
+  html += '<div class="btn-row" style="margin-top:14px;">';
+  html += '<button class="btn btn-cancel" onclick="closeMorningReport()">关闭</button>';
+  html += '<button class="btn btn-accent" onclick="copyMorningReport()">📋 复制早报文本</button>';
+  html += '</div>';
+
+  html += '</div></div>';
+
+  // Store report text
+  window._morningReportText = text;
 
   // Append to body
-  const existing = document.getElementById('weeklyReportModal');
+  var existing = document.getElementById('morningReportModal');
   if (existing) existing.remove();
-  const div = document.createElement('div');
+  var div = document.createElement('div');
+  div.id = 'morningReportModal';
+  div.innerHTML = html;
+  document.body.appendChild(div);
+}
+
+function closeMorningReport() {
+  var el = document.getElementById('morningReportModal');
+  if (el) el.remove();
+}
+
+function copyMorningReport() {
+  if (window._morningReportText) {
+    navigator.clipboard.writeText(window._morningReportText).then(function() {
+      notify('📋 早报已复制到剪贴板', 'success');
+    }).catch(function() { notify('复制失败，请手动复制', 'warn'); });
+  }
+}
+// ====== Weekly Report ======
+function showWeeklyReport() {
+  var now = new Date();
+  var dayOfWeek = now.getDay();
+  var monday = new Date(now);
+  monday.setDate(now.getDate() - ((dayOfWeek + 6) % 7));
+  var sunday = new Date(monday);
+  sunday.setDate(monday.getDate() + 6);
+  var fmt = function(d) { return d.toISOString().slice(0, 10); };
+  var weekStart = fmt(monday);
+  var weekEnd = fmt(sunday);
+
+  // Last week for comparison
+  var lastMonday = new Date(monday); lastMonday.setDate(monday.getDate() - 7);
+  var lastSunday = new Date(sunday); lastSunday.setDate(sunday.getDate() - 7);
+  var lastWeekStart = fmt(lastMonday);
+  var lastWeekEnd = fmt(lastSunday);
+
+  var weekRange = weekStart + ' ~ ' + weekEnd;
+  var cp = function(t) { return (m && m[t.vendor]) ? m[t.vendor] : ''; };
+
+  // Day-by-day data
+  var days = [];
+  for (var d = new Date(monday); d <= sunday; d.setDate(d.getDate() + 1)) {
+    var ds = fmt(d);
+    var dayNew = tickets.filter(function(t) { return t.createdDate === ds; });
+    var dayResolved = tickets.filter(function(t) { return (t.status==='resolved'||t.status==='closed') && t.updatedDate.slice(0,10) === ds; });
+    days.push({ date: ds, label: ds.slice(5), newCount: dayNew.length, resolvedCount: dayResolved.length, newTickets: dayNew, resolvedTickets: dayResolved });
+  }
+
+  // Week totals
+  var weekNew = []; days.forEach(function(d) { weekNew = weekNew.concat(d.newTickets); });
+  var weekResolved = []; days.forEach(function(d) { weekResolved = weekResolved.concat(d.resolvedTickets); });
+  var unresolved = tickets.filter(function(t) { return t.status !== 'resolved' && t.status !== 'closed'; });
+
+  // Last week
+  var lastWeekNew = tickets.filter(function(t) { return t.createdDate >= lastWeekStart && t.createdDate <= lastWeekEnd; });
+  var lastWeekResolved = tickets.filter(function(t) { return (t.status==='resolved'||t.status==='closed') && t.updatedDate.slice(0,10) >= lastWeekStart && t.updatedDate.slice(0,10) <= lastWeekEnd; });
+
+  // Vendor stats (this week)
+  var vendorMap = {};
+  var allVendors = []; tickets.forEach(function(t) { if (t.vendor && allVendors.indexOf(t.vendor) < 0) allVendors.push(t.vendor); });
+  allVendors.forEach(function(v) { vendorMap[v] = { newCount:0, resolvedCount:0, p0Week:0, penaltyTotal:0, avgDays:0, daysN:0, unresolved:0, overdue:0 }; });
+  tickets.forEach(function(t) {
+    if (!vendorMap[t.vendor]) return;
+    // All tickets (not just this week) for penalty + unresolved
+    vendorMap[t.vendor].penaltyTotal += calcPenalty(t).total;
+    if (t.status !== 'resolved' && t.status !== 'closed') {
+      vendorMap[t.vendor].unresolved++;
+      if (t._hasOverdue) vendorMap[t.vendor].overdue++;
+    }
+    if (t.status === 'resolved' || t.status === 'closed') {
+      var dd = Math.round((new Date(t.updatedDate.slice(0,10)) - new Date(t.createdDate)) / 86400000);
+      if (dd >= 0) { vendorMap[t.vendor].avgDays += dd; vendorMap[t.vendor].daysN++; }
+    }
+  });
+  weekNew.forEach(function(t) {
+    if (vendorMap[t.vendor]) vendorMap[t.vendor].newCount++;
+    if (t.priority === 'P0') vendorMap[t.vendor].p0Week++;
+  });
+  weekResolved.forEach(function(t) {
+    if (vendorMap[t.vendor]) vendorMap[t.vendor].resolvedCount++;
+  });
+
+  // This week P0
+  var weekP0 = weekNew.filter(function(t) { return t.priority === 'P0'; });
+  var lastWeekP0 = lastWeekNew.filter(function(t) { return t.priority === 'P0'; });
+
+  // Overdue summary
+  var overdueTickets = unresolved.filter(function(t) { return t._hasOverdue; });
+  var totalOverdueItems = 0; overdueTickets.forEach(function(t) { totalOverdueItems += t._overdueCount; });
+
+  // Most problematic vendors
+  var topVendors = allVendors.filter(function(v) { return vendorMap[v].unresolved > 0; }).sort(function(a, b) { return vendorMap[b].unresolved - vendorMap[a].unresolved; }).slice(0, 5);
+
+  // ===== TEXT REPORT =====
+  var report = '📊 工单周报 | ' + weekRange + '\n';
+  report += '━━━━━━━━━━━━━━━━━━\n\n';
+  report += '一、本周总览\n';
+  report += '  新增：' + weekNew.length + ' 条（上周' + lastWeekNew.length + '，' + (weekNew.length >= lastWeekNew.length ? '↑' : '↓') + Math.abs(weekNew.length - lastWeekNew.length) + '）\n';
+  report += '  完结：' + weekResolved.length + ' 条（上周' + lastWeekResolved.length + '，' + (weekResolved.length >= lastWeekResolved.length ? '↑' : '↓') + Math.abs(weekResolved.length - lastWeekResolved.length) + '）\n';
+  report += '  P0：' + weekP0.length + ' 条（上周' + lastWeekP0.length + '）\n';
+  report += '  未完结：' + unresolved.length + ' 条 | 含超期：' + overdueTickets.length + ' 条（' + totalOverdueItems + '项方案超期）\n\n';
+
+  report += '二、每日动态\n';
+  days.forEach(function(d) {
+    var dayLabel = d.label;
+    var bar = '';
+    for (var i = 0; i < d.newCount; i++) bar += '▌';
+    for (var i = 0; i < d.resolvedCount; i++) bar += '✅';
+    report += '  ' + dayLabel + ' 新增' + d.newCount + ' 解决' + d.resolvedCount + ' ' + (bar || '—') + '\n';
+  });
+  report += '\n';
+
+  report += '三、供应商汇总\n';
+  report += '| 供应商 | 新增 | 完结 | P0 | 均天 | 未完结 | 超期 | 扣罚 |\n';
+  report += '|--------|------|------|----|------|--------|------|------|\n';
+  allVendors.forEach(function(v) {
+    var s = vendorMap[v];
+    if (s.newCount + s.resolvedCount + s.unresolved === 0) return;
+    var avg = s.daysN ? Math.round(s.avgDays / s.daysN) : 0;
+    report += '| ' + v + ' | ' + s.newCount + ' | ' + s.resolvedCount + ' | ' + s.p0Week + ' | ' + avg + 'd | ' + s.unresolved + ' | ' + s.overdue + ' | ¥' + s.penaltyTotal + ' |\n';
+  });
+  report += '\n';
+
+  report += '四、本周新增工单清单\n';
+  if (weekNew.length === 0) {
+    report += '  无新增\n';
+  } else {
+    weekNew.forEach(function(t) {
+      report += '  ' + t.id + ' ' + t.priority + ' ' + (t.title||'').slice(0,30) + ' · ' + cp(t) + '\n';
+    });
+    report += '\n';
+  }
+
+  report += '五、本周已解决工单\n';
+  if (weekResolved.length === 0) {
+    report += '  无已解决\n';
+  } else {
+    weekResolved.forEach(function(t) {
+      var days = Math.round((new Date(t.updatedDate.slice(0,10)) - new Date(t.createdDate)) / 86400000);
+      report += '  ✅ ' + t.id + ' ' + (t.title||'').slice(0,25) + ' · ' + days + '天\n';
+    });
+    report += '\n';
+  }
+
+  report += '六、行动建议\n';
+  if (overdueTickets.length > 0) {
+    report += '  🔴 超期工单：' + overdueTickets.map(function(t){return t.id;}).join('、') + '\n';
+  }
+  if (topVendors.length > 0) {
+    report += '  ⚠ 重点关注供应商：\n';
+    topVendors.forEach(function(v) {
+      var s = vendorMap[v];
+      report += '    ' + v + ' · ' + cp({vendor:v}) + ' · 未完结' + s.unresolved + '条（超期' + s.overdue + '）\n';
+    });
+  }
+
+  // ===== HTML =====
+  var cp_fn = function(t) { return (m && m[t.vendor]) ? m[t.vendor] : ''; };
+  var trendId = 'weekly-trend-' + Date.now();
+  var upDown = function(a, b) { return a > b ? '↑' + (a-b) : a < b ? '↓' + (b-a) : '→'; };
+  var trendColor = function(a, b) { return a > b ? 'var(--red)' : a < b ? 'var(--green)' : 'var(--text-muted)'; };
+
+  var html = '<div class="modal-overlay show" id="weeklyReportModal" onclick="if(event.target===this)closeWeeklyReport()">';
+  html += '<div class="modal" style="max-width:820px;max-height:85vh;overflow-y:auto;padding:28px 32px">';
+  html += '<h3>📊 工单周报 <span style="font-size:12px;color:var(--text-muted)">' + weekRange + '</span></h3>';
+
+  // Section 1: Overview with comparison
+  html += '<div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:12px">一、本周总览</div>';
+  html += '<div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;">';
+  html += '<div class="stat-card" style="flex:1;min-width:85px;padding:10px"><div class="stat-value" style="font-size:18px">' + weekNew.length + ' <span style="font-size:11px;color:' + trendColor(weekNew.length, lastWeekNew.length) + '">' + upDown(weekNew.length, lastWeekNew.length) + '</span></div><div class="stat-label">新增（上周' + lastWeekNew.length + '）</div></div>';
+  html += '<div class="stat-card" style="flex:1;min-width:85px;padding:10px"><div class="stat-value" style="font-size:18px">' + weekResolved.length + ' <span style="font-size:11px;color:' + trendColor(weekResolved.length, lastWeekResolved.length) + '">' + upDown(weekResolved.length, lastWeekResolved.length) + '</span></div><div class="stat-label">完结（上周' + lastWeekResolved.length + '）</div></div>';
+  html += '<div class="stat-card" style="flex:1;min-width:85px;padding:10px"><div class="stat-value" style="font-size:18px;color:var(--red)">' + weekP0.length + '</div><div class="stat-label">P0 新增</div></div>';
+  html += '<div class="stat-card" style="flex:1;min-width:85px;padding:10px"><div class="stat-value" style="font-size:18px;color:' + (unresolved.length >= 5 ? 'var(--red)' : 'var(--text)') + '">' + unresolved.length + '</div><div class="stat-label">未完结</div></div>';
+  html += '<div class="stat-card" style="flex:1;min-width:85px;padding:10px"><div class="stat-value" style="font-size:18px;color:' + (overdueTickets.length > 0 ? 'var(--red)' : 'var(--green)') + '">' + overdueTickets.length + '</div><div class="stat-label">含超期（' + totalOverdueItems + '项）</div></div>';
+  html += '</div>';
+
+  // Section 2: Daily breakdown
+  html += '<div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:12px">二、每日动态</div>';
+  html += '<div style="display:flex;gap:4px;margin-bottom:12px;flex-wrap:wrap">';
+  days.forEach(function(d) {
+    var hasActivity = d.newCount + d.resolvedCount > 0;
+    var bg = hasActivity ? (d.newCount > 0 ? 'var(--blue-50)' : 'var(--green-50)') : 'var(--slate-50)';
+    var text = hasActivity ? 'var(--text)' : 'var(--text-muted)';
+    html += '<div style="flex:1;min-width:70px;background:' + bg + ';border-radius:6px;padding:6px 8px;text-align:center;font-size:10px;color:' + text + '">';
+    html += '<div style="font-weight:600">' + d.label + '</div>';
+    html += '<div>' + (d.newCount > 0 ? '📥' + d.newCount + ' ' : '') + (d.resolvedCount > 0 ? '✅' + d.resolvedCount : '') + (hasActivity ? '' : '—') + '</div>';
+    html += '</div>';
+  });
+  html += '</div>';
+
+  // Section 3: Weekly trend chart
+  html += '<div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:12px">三、四周趋势</div>';
+  html += '<canvas id="' + trendId + '" width="700" height="180" style="width:100%;height:auto;margin-bottom:12px;"></canvas>';
+
+  // Section 4: Vendor summary
+  html += '<div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:12px">四、供应商汇总</div>';
+  html += '<table class="mini-table" style="width:100%;">';
+  html += '<tr><th>供应商</th><th>新增</th><th>完结</th><th>P0</th><th>均天</th><th>未完结</th><th>超期</th><th>扣罚</th></tr>';
+  allVendors.forEach(function(v) {
+    var s = vendorMap[v];
+    if (s.newCount + s.resolvedCount + s.unresolved === 0) return;
+    var avg = s.daysN ? Math.round(s.avgDays / s.daysN) : 0;
+    html += '<tr><td><strong>' + v + '</strong></td><td>' + s.newCount + '</td><td>' + s.resolvedCount + '</td><td style="color:' + (s.p0Week>=3?'var(--red)':s.p0Week>=2?'var(--amber)':'') + '">' + s.p0Week + '</td><td>' + avg + '天</td><td style="color:' + (s.unresolved>=3?'var(--red)':'') + ';font-weight:' + (s.unresolved>=3?'700':'') + '">' + s.unresolved + '</td><td style="color:' + (s.overdue>=2?'var(--red)':'') + '">' + s.overdue + '</td><td style="font-weight:700;color:var(--red);">¥' + s.penaltyTotal + '</td></tr>';
+  });
+  html += '</table>';
+
+  // Section 5: This week new tickets
+  html += '<div style="margin-top:14px;font-size:14px;font-weight:700;color:var(--text);margin-bottom:12px">五、本周新增工单</div>';
+  if (weekNew.length === 0) {
+    html += '<div style="padding:8px;background:var(--slate-50);border-radius:4px;font-size:11px;color:var(--text-muted)">无新增</div>';
+  } else {
+    weekNew.forEach(function(t) {
+      html += '<div style="padding:4px 8px;margin-bottom:2px;font-size:11px"><strong>' + t.id + '</strong> <span style="color:' + (t.priority==='P0'?'var(--red)':'var(--text)') + '">' + t.priority + '</span> ' + (t.title||'').slice(0,35) + ' · ' + cp_fn(t) + ' · ' + t.createdDate.slice(5) + '</div>';
+    });
+  }
+
+  // Section 6: This week resolved
+  html += '<div style="margin-top:14px;font-size:14px;font-weight:700;color:var(--text);margin-bottom:12px">六、本周已解决工单</div>';
+  if (weekResolved.length === 0) {
+    html += '<div style="padding:8px;background:var(--slate-50);border-radius:4px;font-size:11px;color:var(--text-muted)">无已解决</div>';
+  } else {
+    weekResolved.forEach(function(t) {
+      var days = Math.round((new Date(t.updatedDate.slice(0,10)) - new Date(t.createdDate)) / 86400000);
+      html += '<div style="padding:4px 8px;margin-bottom:2px;background:var(--green-50);border-radius:4px;font-size:11px">✅ ' + t.id + ' ' + (t.title||'').slice(0,30) + ' · ' + days + '天 · ' + cp_fn(t) + '</div>';
+    });
+  }
+
+  // Section 7: Action recommendations
+  html += '<div style="margin-top:14px;font-size:14px;font-weight:700;color:var(--text);margin-bottom:12px">七、行动建议</div>';
+  
+  if (overdueTickets.length > 0) {
+    html += '<div style="background:var(--red-50);border:1px solid var(--red-100);border-radius:6px;padding:10px;margin-bottom:8px;font-size:11px">';
+    html += '<div style="font-weight:700;color:var(--red);margin-bottom:4px">🔴 超期工单 — 本周必须清零</div>';
+    overdueTickets.forEach(function(t) {
+      html += '<div style="padding:2px 0">' + t.id + ' ' + (t.title||'').slice(0,25) + ' · ' + t._overdueCount + '项超期 · ' + cp_fn(t) + '</div>';
+    });
+    html += '</div>';
+  }
+
+  if (topVendors.length > 0) {
+    html += '<div style="background:var(--amber-50);border:1px solid var(--amber-100);border-radius:6px;padding:10px;margin-bottom:8px;font-size:11px">';
+    html += '<div style="font-weight:700;color:#92400e;margin-bottom:4px">⚠ 供应商关注</div>';
+    topVendors.forEach(function(v) {
+      var s = vendorMap[v];
+      html += '<div style="padding:2px 0"><strong>' + v + '</strong> · ' + cp_fn({vendor:v}) + ' · 未完结' + s.unresolved + '条' + (s.overdue > 0 ? '（超期' + s.overdue + '）' : '') + '</div>';
+    });
+    html += '</div>';
+  }
+
+  // Summary
+  var totalPenalty = 0; allVendors.forEach(function(v) { totalPenalty += vendorMap[v].penaltyTotal; });
+  html += '<div style="padding:14px 18px;background:var(--slate-50);border-radius:var(--radius-xs);font-size:13px;line-height:2;border:1px solid var(--border)">';
+  html += '<strong>📋 周度总结</strong><br>';
+  html += '新增环比：' + lastWeekNew.length + ' → ' + weekNew.length + '（' + upDown(weekNew.length, lastWeekNew.length) + '） &nbsp;|&nbsp; ';
+  html += '完结环比：' + lastWeekResolved.length + ' → ' + weekResolved.length + '（' + upDown(weekResolved.length, lastWeekResolved.length) + '） &nbsp;|&nbsp; ';
+  html += 'P0：' + weekP0.length + ' 条<br>';
+  html += '超期方案：' + totalOverdueItems + ' 项 &nbsp;|&nbsp; 扣罚合计：<strong style="color:var(--red)">¥' + totalPenalty + '</strong>';
+  html += '</div>';
+
+  html += '<div class="btn-row" style="margin-top:14px;">';
+  html += '<button class="btn btn-cancel" onclick="closeWeeklyReport()">关闭</button>';
+  html += '<button class="btn btn-accent" onclick="copyWeeklyReport()">📋 复制周报文本</button>';
+  html += '</div>';
+  html += '</div></div>';
+
+  window._weeklyReportText = report;
+
+  var existing = document.getElementById('weeklyReportModal');
+  if (existing) existing.remove();
+  var div = document.createElement('div');
   div.id = 'weeklyReportModal';
   div.innerHTML = html;
   document.body.appendChild(div);
+
+  // Draw trend chart
+  setTimeout(function() {
+    var canvas = document.getElementById(trendId);
+    if (!canvas) return;
+    var dpr = window.devicePixelRatio || 1;
+    var w = canvas.parentElement.clientWidth - 40;
+    var h = 180;
+    canvas.width = w * dpr; canvas.height = h * dpr;
+    canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+    var ctx = canvas.getContext('2d');
+    ctx.scale(dpr, dpr);
+
+    // 4 weeks of data
+    var chartDays = [];
+    for (var d = new Date(lastMonday); d <= sunday; d.setDate(d.getDate() + 1)) {
+      var ds = fmt(d);
+      chartDays.push({
+        label: ds.slice(5),
+        n: tickets.filter(function(t) { return t.createdDate === ds; }).length,
+        r: tickets.filter(function(t) { return (t.status==='resolved'||t.status==='closed') && t.updatedDate.slice(0,10) === ds; }).length
+      });
+    }
+
+    var pad = { top: 15, right: 15, bottom: 25, left: 35 };
+    var ch = h - pad.top - pad.bottom;
+    var cw = w - pad.left - pad.right;
+    var maxVal = Math.max(1); chartDays.forEach(function(d) { if (d.n > maxVal) maxVal = d.n; if (d.r > maxVal) maxVal = d.r; });
+    var barW = Math.max(2, cw / chartDays.length - 2);
+
+    ctx.strokeStyle = '#e2e8f0'; ctx.lineWidth = 0.5;
+    for (var i = 0; i <= 3; i++) {
+      var y = pad.top + (ch / 3) * i;
+      ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(w - pad.right, y); ctx.stroke();
+      ctx.fillStyle = '#94a3b8'; ctx.font = '9px sans-serif'; ctx.textAlign = 'right';
+      ctx.fillText(Math.round(maxVal * (3-i) / 3), pad.left - 6, y + 3);
+    }
+
+    // Week dividers
+    [0, 7, 14, 21, 28].forEach(function(wl) {
+      if (wl >= chartDays.length) return;
+      var x = pad.left + wl * (cw / chartDays.length);
+      ctx.strokeStyle = '#cbd5e1'; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(x, pad.top); ctx.lineTo(x, pad.top + ch); ctx.stroke();
+      if (wl + 7 <= chartDays.length) {
+        ctx.fillStyle = '#94a3b8'; ctx.font = '8px sans-serif'; ctx.textAlign = 'center';
+        ctx.fillText('W' + (Math.floor(wl/7)+1), x + cw / chartDays.length * 3.5, pad.top - 2);
+      }
+    });
+
+    chartDays.forEach(function(d, i) {
+      var x = pad.left + i * (cw / chartDays.length) + 1;
+      if (d.n > 0) { ctx.fillStyle = '#3b82f6'; ctx.fillRect(x, pad.top + ch - (d.n/maxVal)*ch, barW/2, Math.max((d.n/maxVal)*ch, 1)); }
+      if (d.r > 0) { ctx.fillStyle = '#10b981'; ctx.fillRect(x + barW/2, pad.top + ch - (d.r/maxVal)*ch, barW/2, Math.max((d.r/maxVal)*ch, 1)); }
+      if (i % 7 === 0) { ctx.fillStyle = '#64748b'; ctx.font = 'bold 9px sans-serif'; ctx.textAlign = 'center'; ctx.fillText(d.label, x + barW/2, pad.top + ch + 14); }
+    });
+  }, 100);
 }
 
 function closeWeeklyReport() {
@@ -1166,12 +1985,22 @@ function calcPenalty(ticket) {
   return { total: amount, multiplier: multiplier.toFixed(1), vendor: ticket.vendor, reason: reasons.join('+') };
 }
 
-function penaltySection(t) {
-  const p = calcPenalty(t);
-  return `<table class="penalty-table" style="margin-top:4px;">
-    <tr><th>供应商</th><th>扣罚金额</th><th>计算依据</th></tr>
-    <tr><td>${p.vendor}</td><td style="font-weight:700;color:var(--red);">¥${p.total}</td><td style="font-size:11px;color:var(--text-secondary);">${p.reason}</td></tr>
-  </table>`;
+function penaltyRow(t) {
+  var p = calcPenalty(t);
+  var confirmed = t.penaltyConfirmed;
+  var amt = confirmed ? (t.manualPenalty ? '¥' + t.manualPenalty : '¥' + p.total) : (t.priority || 'P?') + '扣罚';
+  var basis = confirmed ? p.reason : (t.impact || '').indexOf('🔴') >= 0 ? '重大影响' : (t.impact || '').indexOf('🟡') >= 0 ? '中等影响' : '待定';
+  var h = '<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:#f8fafc;border-radius:6px;border:1px solid #e2e8f0;gap:8px;flex-wrap:nowrap;white-space:nowrap;margin-top:4px">';
+  h += '<span style="font-weight:700;color:' + (confirmed ? '#dc2626' : '#92400e') + ';cursor:pointer;font-size:12px;flex-shrink:0" onclick="editPenaltyAmount(\'' + t.id + '\')" title="点击修改金额">' + amt + '</span>';
+  h += '<span style="font-size:11px;color:var(--text-secondary);overflow:hidden;text-overflow:ellipsis;min-width:0">' + basis + '</span>';
+  if (confirmed) {
+    var when = t.penaltyConfirmedAt ? new Date(t.penaltyConfirmedAt).toLocaleDateString('zh-CN') : '';
+    h += '<span style="font-size:11px;color:#065f46;font-weight:600;flex-shrink:0">✅ ' + (t.penaltyConfirmedBy || '已确认') + (when ? ' · ' + when : '') + '</span>';
+  } else {
+    h += '<button class="btn btn-accent" style="font-size:11px;padding:4px 10px;flex-shrink:0;white-space:nowrap" onclick="confirmPenalty(\'' + t.id + '\')">✅ 确认扣罚</button>';
+  }
+  h += '</div>';
+  return h;
 }
 
 // ====== Pagination ======
@@ -1226,40 +2055,6 @@ function changePageSize(size) {
   render();
 }
 
-// ====== Vendor Alert Banner (top of page) ======
-function renderVendorAlertBanner() {
-  const container = document.getElementById('vendorAlertBanner');
-  if (!container) return;
-  const now = new Date();
-  const currentMonth = now.toISOString().slice(0, 7);
-  const vendorP0 = {};
-  tickets.forEach(t => {
-    if (t.priority !== 'P0') return;
-    if (!t.createdDate.startsWith(currentMonth)) return;
-    if (!vendorP0[t.vendor]) vendorP0[t.vendor] = [];
-    vendorP0[t.vendor].push(t);
-  });
-
-  const alerts = Object.entries(vendorP0).filter(([_, list]) => list.length >= 2);
-  if (alerts.length === 0) {
-    container.innerHTML = '';
-    return;
-  }
-
-  container.innerHTML = alerts.map(([vendor, list]) => {
-    const level = list.length >= 3 ? '🔴 高风险' : '🟡 关注';
-    const bg = list.length >= 3 ? 'var(--red-50)' : 'var(--amber-50)';
-    const border = list.length >= 3 ? 'var(--red-100)' : 'var(--amber-100)';
-    const color = list.length >= 3 ? 'var(--red)' : 'var(--amber)';
-    return `<div style="display:flex;align-items:center;gap:10px;padding:10px 16px;background:${bg};border-radius:var(--radius);border:1px solid ${border};margin-bottom:8px;">
-      <span style="font-size:20px;">${level}</span>
-      <span style="font-weight:600;font-size:13px;">供应商：${vendor}</span>
-      <span style="font-size:12px;color:${color};">当月P0累计 ${list.length} 次</span>
-      <span style="font-size:11px;color:var(--text-muted);margin-left:auto;">${list.map(t => '<a href="#" onclick="event.preventDefault();scrollToTicket(\''+t.id+'\')">'+t.id+'</a>').join('、')}</span>
-    </div>`;
-  }).join('');
-}
-
 function scrollToTicket(id) {
   const t = tickets.find(t => t.id === id);
   if (!t) return;
@@ -1280,30 +2075,33 @@ function scrollToTicket(id) {
 // ====== Vendor Alert (dashboard) ======
 function vendorAlertHtml() {
   const now = new Date();
-  const currentMonth = now.toISOString().slice(0, 7); // YYYY-MM
+  const currentMonth = now.toISOString().slice(0, 7);
   const vendorP0 = {};
-  tickets.forEach(t => {
+  tickets.forEach(function(t) {
     if (t.priority !== 'P0') return;
     if (!t.createdDate.startsWith(currentMonth)) return;
     if (!vendorP0[t.vendor]) vendorP0[t.vendor] = [];
     vendorP0[t.vendor].push(t);
   });
 
-  const alerts = Object.entries(vendorP0).filter(([_, list]) => list.length >= 2);
+  var alerts = Object.entries(vendorP0).filter(function(e) { return e[1].length >= 2; });
   if (alerts.length === 0) return '';
 
-  let html = '';
-  const maxCount = Math.max(...alerts.map(([_, l]) => l.length), 3);
-  alerts.forEach(([vendor, list]) => {
-    const level = list.length >= 3 ? '🔴' : '🟡';
-    const severity = list.length >= 3 ? '高风险' : '关注';
-    html += `<div class="alert-row">
-      <span class="alert-icon">${level}</span>
-      <span class="alert-text">${vendor}</span>
-      <span class="alert-badge" style="background:${list.length>=3?'var(--red-100)':'var(--amber-100)'};color:${list.length>=3?'var(--red)':'var(--amber)'};">${severity}</span>
-      <span style="font-weight:700;color:var(--red);">${list.length}次P0</span>
-    </div>
-    <div class="threshold-bar"><div class="fill" style="width:${Math.min(100,list.length/maxCount*100)}%;background:${list.length>=3?'var(--red)':'var(--amber)'};"></div></div>`;
+  var html = '';
+  alerts.forEach(function(e) {
+    var vendor = e[0], list = e[1];
+    var bg = list.length >= 3 ? 'var(--red-50)' : 'var(--amber-50)';
+    var color = list.length >= 3 ? 'var(--red)' : 'var(--amber)';
+    var level = list.length >= 3 ? '🔴 高风险' : '🟡 关注';
+    var ticketLinks = list.map(function(t) { return '<a href="#" onclick="event.preventDefault();scrollToTicket(\''+t.id+'\')" style="color:'+color+';font-weight:600">'+t.id+'</a>'; }).join('、');
+    html += '<div style="padding:8px 12px;background:'+bg+';border-radius:8px;margin-bottom:6px;font-size:12px">';
+    html += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:3px">';
+    html += '<span style="font-weight:700;color:'+color+'">'+level+'</span>';
+    html += '<span style="font-weight:600">'+vendor+'</span>';
+    html += '<span style="color:'+color+';font-weight:700;font-size:11px">'+list.length+'次P0</span>';
+    html += '</div>';
+    html += '<div style="font-size:10px;color:var(--text-muted)">工单：'+ticketLinks+'</div>';
+    html += '</div>';
   });
 
   return html;
@@ -1350,128 +2148,236 @@ function exportCSV() {
 }
 
 // ====== Dashboard ======
+
+function renderTagAnalysis() {
+  var tagCount = {};
+  var vendorTagWarnings = [];
+  
+  tickets.forEach(function(t) {
+    (t.tags || []).forEach(function(tag) {
+      tagCount[tag] = (tagCount[tag] || 0) + 1;
+    });
+  });
+  
+  // Detect systemic issues: same tag appears 2+ times for same vendor
+  var vendorTags = {};
+  tickets.forEach(function(t) {
+    if (!t.vendor) return;
+    (t.tags || []).forEach(function(tag) {
+      var key = t.vendor + '|||' + tag;
+      if (!vendorTags[key]) vendorTags[key] = { vendor: t.vendor, tag: tag, ids: [], count: 0 };
+      vendorTags[key].count++;
+      vendorTags[key].ids.push(t.id);
+    });
+  });
+  
+  Object.values(vendorTags).forEach(function(vt) {
+    if (vt.count >= 2) vendorTagWarnings.push(vt);
+  });
+  vendorTagWarnings.sort(function(a, b) { return b.count - a.count; });
+  
+  // Top tags
+  var topTags = Object.entries(tagCount).sort(function(a, b) { return b[1] - a[1]; }).slice(0, 6);
+  
+  var h = '';
+  
+  // Tag ranking
+  h += '<div style="font-size:11px;font-weight:600;color:var(--text-secondary);margin-bottom:6px">🏷️ 高频标签</div>';
+  if (topTags.length === 0) {
+    h += '<div style="font-size:12px;color:var(--text-muted)">暂无数据</div>';
+  } else {
+    var maxCount = topTags[0][1];
+    topTags.forEach(function(e) {
+      var pct = Math.round(e[1] / maxCount * 100);
+      var color = e[1] >= 4 ? 'var(--red)' : e[1] >= 2 ? 'var(--amber)' : 'var(--green)';
+      h += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;font-size:11px">';
+      h += '<span style="width:70px;text-align:right;font-weight:500">' + e[0] + '</span>';
+      h += '<div class="progress-bar" style="flex:1;height:5px"><div class="fill" style="width:' + pct + '%;background:' + color + '"></div></div>';
+      h += '<span style="width:20px;text-align:right;font-weight:600;color:' + color + '">' + e[1] + '</span>';
+      h += '</div>';
+    });
+  }
+  
+  // Systemic warnings
+  if (vendorTagWarnings.length > 0) {
+    h += '<div style="font-size:11px;font-weight:600;color:var(--text-secondary);margin:10px 0 6px;border-top:1px solid var(--border);padding-top:8px">🔁 同类问题预警</div>';
+    vendorTagWarnings.slice(0, 4).forEach(function(vt) {
+      h += '<div style="display:flex;align-items:center;gap:6px;padding:4px 0;font-size:11px;border-bottom:1px solid var(--border-light)">';
+      h += '<span style="background:var(--red-50);color:var(--red);padding:1px 6px;border-radius:10px;font-size:10px;font-weight:600">×' + vt.count + '</span>';
+      h += '<span style="flex:1"><strong>' + vt.vendor + '</strong> · ' + vt.tag + '</span>';
+      h += '<span style="color:var(--text-muted);font-size:10px">' + vt.ids.join(' ') + '</span>';
+      h += '</div>';
+    });
+  }
+  
+  return h || '<div style="font-size:12px;color:var(--text-muted)">暂无数据</div>';
+}
+
 function renderDashboard() {
-  const vendors = {}; const priorities = {P0:0,P1:0,P2:0}; const statusC = {pending:0,open:0,in_progress:0,resolved:0,closed:0};
-  tickets.forEach(t => {
+  // Filter by date range
+  var rangeStart = null;
+  if (dashRangeDays < 9999) {
+    var now = new Date();
+    rangeStart = new Date(now); rangeStart.setDate(rangeStart.getDate() - dashRangeDays);
+    rangeStart = rangeStart.toISOString().slice(0, 10);
+  }
+  var dashTickets = rangeStart ? tickets.filter(function(t) { return t.createdDate >= rangeStart; }) : tickets;
+
+  var vendors = {}; var priorities = {P0:0,P1:0,P2:0}; var statusC = {pending:0,open:0,in_progress:0,resolved:0,closed:0};
+  dashTickets.forEach(function(t) {
     if (!vendors[t.vendor]) vendors[t.vendor] = {total:0,open:0,resolved:0,p0:0,days:0,rn:0};
     vendors[t.vendor].total++;
     if (t.status !== 'resolved' && t.status !== 'closed') vendors[t.vendor].open++;
-    else { vendors[t.vendor].resolved++; const d = Math.round((new Date(t.updatedDate.slice(0,10))-new Date(t.createdDate))/86400000); if (d>=0) { vendors[t.vendor].days+=d; vendors[t.vendor].rn++; } }
+    else { vendors[t.vendor].resolved++; var dd = Math.round((new Date(t.updatedDate.slice(0,10))-new Date(t.createdDate))/86400000); if (dd>=0) { vendors[t.vendor].days+=dd; vendors[t.vendor].rn++; } }
     if (t.priority==='P0' && t.status!=='resolved' && t.status!=='closed') vendors[t.vendor].p0++;
     priorities[t.priority]++; statusC[t.status]++;
   });
-  const vn = Object.keys(vendors);
-  const vc = ['#6366f1','#f59e0b','#10b981','#ef4444','#8b5cf6','#ec4899'];
-  const mv = Math.max(1,...vn.map(v => vendors[v].total));
 
-  // Card 1: Vendor bars
-  const barHtml = vn.map((v,i) => {
-    const h = vendors[v].total/mv*100;
-    return `<div class="bar-col"><div class="bar-num">${vendors[v].total}</div><div class="bar" style="height:${h}px;background:${vc[i%vc.length]};"></div><div class="bar-label">${v}</div></div>`;
+  var vn = Object.keys(vendors);
+  var vc = ['#6366f1','#f59e0b','#10b981','#ef4444','#8b5cf6','#ec4899'];
+  var mv = Math.max(1); vn.forEach(function(v) { if (vendors[v].total > mv) mv = vendors[v].total; });
+
+  // Vendor bars
+  var barHtml = vn.map(function(v, i) {
+    var h = vendors[v].total/mv*100;
+    return '<div class="bar-col"><div class="bar-num">'+vendors[v].total+'</div><div class="bar" style="height:'+h+'px;background:'+vc[i%vc.length]+';"></div><div class="bar-label">'+v+'</div></div>';
   }).join('');
 
-  // Card 2: Priority donut
-  const dId1 = 'd1-'+Date.now();
-  const dId2 = 'd2-'+Date.now();
-
-  // Card 3: Vendor table
-  const tbl = vn.map(v => {
-    const d = vendors[v]; const rate = d.total?Math.round(d.resolved/d.total*100):0; const avg = d.rn?Math.round(d.days/d.rn):0;
-    return `<tr><td><strong>${v}</strong></td><td>${d.total}</td><td>${d.open}</td><td>${d.resolved}</td><td>${d.p0}</td><td>${avg}d</td><td class="${rate>=80?'good':rate>=50?'warn':'bad'}">${rate}%</td></tr>`;
+  // Vendor table
+  var tbl = vn.map(function(v) {
+    var d = vendors[v]; var rate = d.total?Math.round(d.resolved/d.total*100):0; var avg = d.rn?Math.round(d.days/d.rn):0;
+    return '<tr><td><strong>'+v+'</strong></td><td>'+d.total+'</td><td>'+d.open+'</td><td>'+d.resolved+'</td><td>'+d.p0+'</td><td>'+avg+'d</td><td class="'+(rate>=80?'good':rate>=50?'warn':'bad')+'">'+rate+'%</td></tr>';
   }).join('');
 
-  // Card 4: Resolution time bars
-  const timeHtml = vn.map(v => {
-    const d = vendors[v]; const avg = d.rn?Math.round(d.days/d.rn):0;
-    return `<div style="display:flex;align-items:center;gap:8px;margin-bottom:7px;font-size:11px;">
-      <span style="flex:1;color:#334155;">${v}</span>
-      <span style="font-weight:700;color:${avg>7?'var(--red)':avg>3?'var(--amber)':'var(--green)'};width:24px;text-align:right;">${avg}d</span>
-      <div class="progress-bar"><div class="fill" style="width:${Math.min(100,avg/14*100)}%;background:${avg>7?'var(--red)':avg>3?'var(--amber)':'var(--green)'};"></div></div>
-    </div>`;
+  // Resolution time
+  var timeHtml = vn.map(function(v) {
+    var d = vendors[v]; var avg = d.rn?Math.round(d.days/d.rn):0;
+    return '<div style="display:flex;align-items:center;gap:8px;margin-bottom:7px;font-size:11px;"><span style="flex:1;color:#334155;">'+v+'</span><span style="font-weight:700;color:'+(avg>7?'var(--red)':avg>3?'var(--amber)':'var(--green)')+';width:24px;text-align:right;">'+avg+'d</span><div class="progress-bar"><div class="fill" style="width:'+Math.min(100,avg/14*100)+'%;background:'+(avg>7?'var(--red)':avg>3?'var(--amber)':'var(--green)')+';"></div></div></div>';
   }).join('');
 
-  // Card 5: Solution completion
-  const solHtml = tickets.map(t => {
-    const done = t.solutions.filter(s => s.status === 'done').length;
-    const tot = t.solutions.length; const pct = Math.round(done/tot*100);
-    const isDone = t.status === 'resolved' || t.status === 'closed';
-    return `<div style="display:flex;align-items:center;gap:6px;margin-bottom:5px;font-size:11px;">
-      <span style="width:64px;color:#334155;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="${t.title}">${t.id}</span>
-      ${isDone ? `<span style="font-size:10px;color:var(--green);flex:1;text-align:right;">✅ 完结</span>` : `<div class="progress-bar"><div class="fill" style="width:${pct}%;background:${pct>=50?'var(--amber)':'var(--red)'};min-width:4px;"></div></div><span style="width:28px;text-align:right;font-weight:700;color:${pct>=50?'var(--amber)':'var(--red)'};">${pct}%</span>`}
-    </div>`;
-  }).join('');
+  
 
-  // Card 6: Status donut
-  document.getElementById('dashboard').innerHTML = `
-    <div class="dash-card"><h3>📊 供应商工单分布</h3><div class="bar-wrap">${barHtml}</div></div>
-    <div class="dash-card"><h3>🏷️ 优先级分布</h3>
-      <div class="donut-wrap">
-        <canvas id="${dId1}" width="110" height="110"></canvas>
-        <div class="donut-legend">
-          ${['P0','P1','P2'].map((k,i) => {
-            const colors = ['#ef4444','#f59e0b','#10b981'];
-            const pct = tickets.length ? Math.round(priorities[k]/tickets.length*100) : 0;
-            return `<div class="leg-row"><span class="leg-dot" style="background:${colors[i]};"></span>${k}  <span class="leg-val">${priorities[k]} 条 (${pct}%)</span></div>`;
-          }).join('')}
-        </div>
-      </div>
-    </div>
-    <div class="dash-card"><h3>📋 供应商明细</h3>
-      <table class="mini-table"><tr><th>供应商</th><th>总</th><th>待处理</th><th>已完结</th><th>P0</th><th>均天</th><th>完结率</th></tr>${tbl}</table>
-    </div>
-    <div class="dash-card"><h3>⏱️ 平均解决天数</h3>${timeHtml}</div>
-    <div class="dash-card"><h3>🔧 方案完成进度</h3><div>${solHtml}</div></div>
-    <div class="dash-card"><h3>📈 状态分布</h3>
-      <div class="donut-wrap">
-        <canvas id="${dId2}" width="110" height="110"></canvas>
-        <div class="donut-legend">
-          ${[{k:'pending',c:'#94a3b8',l:'待分配'},{k:'open',c:'#3b82f6',l:'待处理'},{k:'in_progress',c:'#f59e0b',l:'处理中'},{k:'resolved',c:'#10b981',l:'已解决'},{k:'closed',c:'#94a3b8',l:'已关闭'}].map(x => {
-            const n = statusC[x.k]||0; const pct = tickets.length ? Math.round(n/tickets.length*100) : 0;
-            return `<div class="leg-row"><span class="leg-dot" style="background:${x.c};"></span>${x.l} <span class="leg-val">${n}</span></div>`;
-          }).join('')}
-        </div>
-      </div>
-    </div>
-    <div class="dash-card"><h3>🚨 供应商预警 ${vendorAlertHtml() !== '' ? '<span style="color:var(--red);">⚠</span>' : '<span style="color:var(--green);">✅</span>'}</h3>
-      ${vendorAlertHtml() || '<div style="font-size:12px;color:var(--text-muted);">本月无异常供应商</div>'}
-    </div>
-    <div class="dash-card"><h3>💰 事故扣罚汇总</h3>
-      ${penaltyDashHtml()}
-    </div>
-    <div class="dash-card"><h3>📅 月度新增趋势</h3>
-      <canvas id="trend-${Date.now()}" width="300" height="150" style="width:100%;height:auto;"></canvas>
-    </div>
-  `;
-
-  setTimeout(() => {
-    drawDonut(dId1, [{v:priorities.P0,c:'#ef4444'},{v:priorities.P1,c:'#f59e0b'},{v:priorities.P2,c:'#10b981'}]);
-    drawDonut(dId2, [{v:statusC.pending||0,c:'#94a3b8'},{v:statusC.open||0,c:'#3b82f6'},{v:statusC.in_progress||0,c:'#f59e0b'},{v:statusC.resolved||0,c:'#10b981'},{v:statusC.closed||0,c:'#cbd5e1'}]);
-    drawTrendChart('trend-' + Date.now());
-  }, 80);
-}
-
-function drawDonut(canvasId, segs) {
-  const c = document.getElementById(canvasId); if (!c) return;
-  const ctx = c.getContext('2d'); const cx=55, cy=55, r=38, lw=12;
-  const tot = segs.reduce((s,x)=>s+x.v,0) || 1;
-  let start = -Math.PI/2;
-  segs.forEach(s => {
-    if (s.v===0) return;
-    const a = s.v/tot*2*Math.PI;
-    ctx.beginPath(); ctx.arc(cx,cy,r,start,start+a);
-    ctx.lineWidth=lw; ctx.strokeStyle=s.c; ctx.stroke();
-    start+=a;
+  var dId1 = 'd1-'+Date.now();
+  var dId2 = 'd2-'+Date.now();
+  var dashHTML = '';
+  dashHTML += '<div class="dash-card full-width"><h3>\ud83d\udcca 供应商工单分布</h3><div class="bar-wrap">'+barHtml+'</div></div>';
+  dashHTML += '<div class="dash-card half-width"><h3>\ud83c\udff7\ufe0f 优先级 & 状态</h3>';
+  dashHTML += '<div style="display:flex;gap:16px;flex-wrap:wrap">';
+  dashHTML += '<div style="text-align:center"><canvas id="'+dId1+'" width="100" height="100"></canvas><div style="font-size:10px;color:var(--text-muted);margin-top:2px">优先级</div></div>';
+  dashHTML += '<div style="text-align:center"><canvas id="'+dId2+'" width="100" height="100"></canvas><div style="font-size:10px;color:var(--text-muted);margin-top:2px">状态</div></div>';
+  dashHTML += '<div style="flex:1;min-width:140px;font-size:11px;line-height:1.9">';
+  [['P0','#ef4444',priorities.P0],['P1','#f59e0b',priorities.P1],['P2','#10b981',priorities.P2]].forEach(function(x) {
+    dashHTML += '<div><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:'+x[1]+';margin-right:4px"></span>'+x[0]+' <strong>'+x[2]+'</strong></div>';
   });
+  dashHTML += '<div style="margin-top:4px;border-top:1px solid var(--border);padding-top:4px"></div>';
+  [{k:'in_progress',c:'#f59e0b',l:'处理中'},{k:'open',c:'#3b82f6',l:'待处理'},{k:'pending',c:'#94a3b8',l:'待分配'},{k:'resolved',c:'#10b981',l:'已解决'},{k:'closed',c:'#cbd5e1',l:'已关闭'}].forEach(function(x) {
+    dashHTML += '<div><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:'+x.c+';margin-right:4px"></span>'+x.l+' <strong>'+(statusC[x.k]||0)+'</strong></div>';
+  });
+  dashHTML += '</div></div></div>';
+  dashHTML += '<div class="dash-card half-width"><h3>\u23f1\ufe0f 平均解决天数</h3>'+timeHtml+'</div>';
+  dashHTML += '<div class="dash-card full-width"><h3>\ud83d\udccb 供应商明细</h3><table class="mini-table"><tr><th>供应商</th><th>总</th><th>待处理</th><th>已完结</th><th>P0</th><th>均天</th><th>完结率</th></tr>'+tbl+'</table></div>';
+  dashHTML += '<div class="dash-card full-width"><h3>\ud83d\udcca 标签分析 \u0026 同类预警</h3>'+renderTagAnalysis()+'</div>';
+  dashHTML += '<div class="dash-card full-width"><h3>\ud83d\udea8 供应商预警 '+(vendorAlertHtml()!==''?'<span style="color:var(--red);">\u26a0</span>':'<span style="color:var(--green);">\u2705</span>')+'</h3>'+(vendorAlertHtml()||'<div style="font-size:12px;color:var(--text-muted);">本月无异常供应商</div>')+'</div>';
+  // 事故扣罚汇总已隐藏
+  
+  document.getElementById('dashboard').innerHTML = dashHTML;
+
+  setTimeout(function() {
+    drawDonut(dId1, [{v:priorities.P0,c:'#ef4444',l:'P0'},{v:priorities.P1,c:'#f59e0b',l:'P1'},{v:priorities.P2,c:'#10b981',l:'P2'}]);
+    drawDonut(dId2, [{v:statusC.in_progress||0,c:'#f59e0b',l:'处理中'},{v:statusC.open||0,c:'#3b82f6',l:'待处理'},{v:statusC.pending||0,c:'#94a3b8',l:'待分配'},{v:statusC.resolved||0,c:'#10b981',l:'已解决'},{v:statusC.closed||0,c:'#cbd5e1',l:'已关闭'}]);
+    drawTrendChart(trendId);
+  }, 80);
+}function drawDonut(canvasId, segs) {
+  var c = document.getElementById(canvasId); if (!c) return;
+  var dpr = window.devicePixelRatio || 1;
+  var size = 100;
+  var cx = size/2, cy = size/2, r = 30, lw = 10;
+  c.width = size * dpr; c.height = size * dpr;
+  c.style.width = size + 'px'; c.style.height = size + 'px';
+  var ctx = c.getContext('2d');
+  ctx.scale(dpr, dpr);
+  var tot = segs.reduce(function(s,x) { return s + x.v; }, 0) || 1;
+
+  // Store segment angles for hit testing
+  var segAngles = [];
+  var start = -Math.PI/2;
+  segs.forEach(function(s) {
+    if (s.v === 0) { segAngles.push(null); return; }
+    var a = s.v / tot * 2 * Math.PI;
+    segAngles.push({ start: start, end: start + a, c: s.c, l: s.l, v: s.v });
+    start += a;
+  });
+
+  // Draw function
+  function draw(hoverIdx) {
+    ctx.clearRect(0, 0, size, size);
+    segAngles.forEach(function(seg, i) {
+      if (!seg) return;
+      ctx.beginPath(); ctx.arc(cx, cy, r, seg.start, seg.end);
+      ctx.lineWidth = hoverIdx === i ? lw + 4 : lw;
+      ctx.strokeStyle = seg.c;
+      ctx.shadowColor = hoverIdx === i ? 'rgba(0,0,0,0.2)' : 'transparent';
+      ctx.shadowBlur = hoverIdx === i ? 8 : 0;
+      ctx.stroke();
+      ctx.shadowBlur = 0;
+    });
+
+    // Center text
+    if (hoverIdx !== null && hoverIdx >= 0 && segAngles[hoverIdx]) {
+      var s = segAngles[hoverIdx];
+      ctx.fillStyle = '#0f172a'; ctx.font = 'bold 13px sans-serif'; ctx.textAlign = 'center';
+      ctx.fillText(s.v + '条', cx, cy + 2);
+      ctx.fillStyle = '#64748b'; ctx.font = '9px sans-serif';
+      ctx.fillText(s.l, cx, cy + 16);
+    } else {
+      ctx.fillStyle = '#0f172a'; ctx.font = 'bold 14px sans-serif'; ctx.textAlign = 'center';
+      ctx.fillText(tot + '', cx, cy + 2);
+      ctx.fillStyle = '#64748b'; ctx.font = '9px sans-serif';
+      ctx.fillText('总计', cx, cy + 16);
+    }
+  }
+
+  draw(-1);
+
+  // Hover interaction
+  c.onmousemove = function(e) {
+    var rect = c.getBoundingClientRect();
+    var mx = (e.clientX - rect.left) * (size / rect.width);
+    var my = (e.clientY - rect.top) * (size / rect.height);
+    var dx = mx - cx, dy = my - cy;
+    var dist = Math.sqrt(dx*dx + dy*dy);
+
+    // Only trigger inside the ring
+    if (dist < r - lw || dist > r + lw) { draw(-1); return; }
+
+    var angle = Math.atan2(dy, dx);
+    if (angle < -Math.PI/2) angle += 2 * Math.PI;
+
+    var found = -1;
+    segAngles.forEach(function(seg, i) {
+      if (!seg) return;
+      var sa = seg.start, ea = seg.end;
+      if (sa < -Math.PI/2 && angle > Math.PI) angle -= 2*Math.PI;
+      if (angle >= sa && angle <= ea) found = i;
+    });
+    draw(found);
+  };
+
+  c.onmouseleave = function() { draw(-1); };
 }
 
 function drawTrendChart(canvasId) {
   const canvas = document.getElementById(canvasId);
   if (!canvas) return;
-  const ctx = canvas.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
   const w = canvas.parentElement.clientWidth - 40;
-  canvas.width = w;
-  canvas.height = 150;
-  ctx.clearRect(0, 0, w, 150);
+  const h = 150;
+  canvas.width = w * dpr;
+  canvas.height = h * dpr;
+  canvas.style.width = w + 'px';
+  canvas.style.height = h + 'px';
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
 
   // Group tickets by creation date
   const dayMap = {};
@@ -1517,6 +2423,13 @@ function drawTrendChart(canvasId) {
       ctx.fillText(d.date.replace('06-', ''), x + barW/2, pad.top + ch + 14);
     }
   });
+}
+
+// ====== Debounced Search ======
+var _debounceTimer = null;
+function debouncedRender() {
+  if (_debounceTimer) clearTimeout(_debounceTimer);
+  _debounceTimer = setTimeout(function() { render(); }, 300);
 }
 
 // ====== Keyboard Shortcuts ======
@@ -1593,7 +2506,10 @@ function startPolling() {
   }, 5 * 60 * 1000);
 
   overdueInterval = setInterval(() => {
-    detectOverdue(); checkAutoClose(); render(); renderDashboard();
+    var before = JSON.stringify(tickets.map(function(t) { return { id: t.id, status: t.status, hasOverdue: t._hasOverdue, overdueCount: t._overdueCount, solStatuses: t.solutions.map(function(s) { return s.status; }) }; }));
+    detectOverdue(); checkAutoClose();
+    var after = JSON.stringify(tickets.map(function(t) { return { id: t.id, status: t.status, hasOverdue: t._hasOverdue, overdueCount: t._overdueCount, solStatuses: t.solutions.map(function(s) { return s.status; }) }; }));
+    if (before !== after) { render(); renderDashboard(); }
   }, 60 * 1000);
 
   // Polling indicator
@@ -1623,12 +2539,34 @@ function checkAutoClose() {
 (function() {
   const saved = localStorage.getItem('kanban-v3');
   if (saved) {
-    const changes = JSON.parse(saved);
-    tickets.forEach(t => { if (changes[t.id]) { if (changes[t.id].status) t.status = changes[t.id].status; if (changes[t.id].priority) t.priority = changes[t.id].priority; } });
+    try {
+      const data = JSON.parse(saved);
+      if (Array.isArray(data)) {
+        // New format: full ticket array — merge into defaults (user edits win)
+        const dataMap = {};
+        data.forEach(function(t) { dataMap[t.id] = t; });
+        // Overwrite default tickets that have saved versions
+        tickets.forEach(function(t) {
+          if (dataMap[t.id]) { var s = dataMap[t.id]; Object.assign(t, s); delete dataMap[t.id]; }
+        });
+        // Add any new tickets not in defaults
+        var newTickets = Object.values(dataMap);
+        if (newTickets.length) { tickets = newTickets.concat(tickets); }
+      } else {
+        // Old format: { id: { status, priority } } — backward compatibility
+        tickets.forEach(function(t) {
+          if (data[t.id]) {
+            if (data[t.id].status) t.status = data[t.id].status;
+            if (data[t.id].priority) t.priority = data[t.id].priority;
+          }
+        });
+      }
+    } catch(e) { /* ignore corrupt data */ }
   }
 })();
 initData();
 startPolling();
+
 </script>
 
 </body>
