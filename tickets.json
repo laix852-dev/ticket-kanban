@@ -463,12 +463,12 @@
     "vendor": "河南徽音网络科技",
     "project": "汽车之家",
     "priority": "P0",
-    "status": "in_progress",
+    "status": "resolved",
     "issueType": "涉政漏放（反华人物）",
     "assignee": "胡娜娜",
     "sourceGroup": "8549438",
     "createdDate": "2026-06-24",
-    "updatedDate": "2026-06-29T12:30:00.000000",
+    "updatedDate": "2026-06-30",
     "summary": "汽车之家严重涉政漏放案例2条：任大炮相关+政治隐喻未识别",
     "impact": "🔴 重大影响：严重涉政漏放，涉及反华人物识别失效",
     "rootCause": "审核员将'任大炮'误联想为'任正非'，对明确涉政敏感人物未执行删除；同时对'皇帝的新装'政治隐喻敏感度不足。人员层面：政治敏感人物别称/代称知识储备严重不足。管理层面：机审+dhs双命中后人审未跟进拦截。系统层面：缺乏系统命中→人审必查的强制校验机制。规则层面：反华人物清单更新不及时，别称/代称未充分宣导。",
@@ -513,7 +513,7 @@
         "action": "定期抽问：组长不定期进行涉政案例抽查，每两周涉政/反华案例抽问",
         "owner": "质量侧",
         "deadline": "持续",
-        "status": "in_progress"
+        "status": "done"
       }
     ],
     "timeline": [
@@ -542,8 +542,8 @@
         "event": "胡娜娜汇报：反华人物培训第二场10:30-11:30已完成；测试题已出，培训同学参加中，截止6.28；李豪数据排查累计10507条；现场管理持续强调反华人物清单"
       },
       {
-        "time": "06/29 09:15",
-        "event": "培训验收完成：闭卷测试通过率100%，补训0人"
+        "time": "2026-06-30 07:23",
+        "event": "系统标记完结，全部方案完成"
       }
     ],
     "tags": [
@@ -553,25 +553,7 @@
       "河南徽音",
       "P0"
     ],
-    "progress": "5/6 完成：问题定级确认✅ 初版复盘输出✅ 全员通报✅ 反华人物专项培训✅ 培训验收✅ 定期抽问🔄",
-    "penalty": {
-      "amount": 750,
-      "basis": "涉政反馈: ¥+500 | 影响加成: ¥+250",
-      "status": "calculated",
-      "breakdown": [
-        {
-          "item": "涉政反馈",
-          "value": 500,
-          "desc": "涉政反馈固定扣罚 -¥500"
-        },
-        {
-          "item": "影响加成",
-          "value": 250,
-          "desc": "🔴 重大影响 ×1.5"
-        }
-      ],
-      "calculatedAt": "2026-06-24T10:27:47.150Z"
-    },
+    "progress": "全部6项方案已完成：涉政人物识别宣导、涉政案例排查回查、反华人物专项培训、闭卷测试验收（覆盖率97.3%）、李豪数据排查、质检防线加固",
     "groupId": "8549438",
     "penaltyAmount": null,
     "penaltyConfirmed": false,
@@ -587,12 +569,12 @@
     "vendor": "山西易网视界（临汾）",
     "project": "广告法",
     "priority": "P0",
-    "status": "in_progress",
+    "status": "overdue",
     "issueType": "人效未达标",
     "assignee": "郭舒嫣/王婷",
     "sourceGroup": "8523601",
     "createdDate": "2026-06-15",
-    "updatedDate": "2026-06-29T12:12:00",
+    "updatedDate": "2026-06-30T16:58:19+08:00",
     "summary": "6月12日截至至21点，QC新品审核量级仅17条，离日标准值35-40条差距近一半。临汾团队月审核目标1100条新品，日均需35-40条。",
     "impact": "🟡 中等影响：人效未达标，影响客户交付预期",
     "rootCause": "直接原因：人审接审人身审核速度加快导致漏放；未识别黑灰产数据。人员层面：黑灰产识别能力不足（测试中）。管理层面：审出后同步质检回查，15:09驳回（质检响应存在延迟）。系统层面：待补充。规则层面：待补充。",
@@ -609,7 +591,7 @@
         "action": "审核SOP优化：梳理优化审核流程，联动驻场进行流程检查和技巧经验传授",
         "owner": "郭舒嫣",
         "deadline": "T+10",
-        "status": "done"
+        "status": "overdue"
       },
       {
         "step": 3,
@@ -637,14 +619,14 @@
         "action": "QC直播间优先级明确：明确临汾负责审核的QC直播间及审核品类优先级",
         "owner": "克莉森(许怡)",
         "deadline": "T+11",
-        "status": "done"
+        "status": "overdue"
       },
       {
         "step": 7,
         "action": "新人培训计划：QC审核流程优化、新人培训计划和效率爬坡",
         "owner": "王婷",
         "deadline": "T+13",
-        "status": "in_progress"
+        "status": "overdue"
       }
     ],
     "timeline": [
@@ -683,10 +665,6 @@
       {
         "time": "06/24 06:31",
         "event": "群8552538收到归因回复 | 系统自动追问规则层面+系统层面"
-      },
-      {
-        "time": "06/28 16:00",
-        "event": "SOP优化完成，克莉森确认通过；直播间优先级已明确并同步全员"
       }
     ],
     "tags": [
@@ -696,25 +674,7 @@
       "临汾易网",
       "P0"
     ],
-    "progress": "4/7 完成：现场管理优化🔄 审核SOP优化✅ 人效提升达成🔄 人员审核录屏分析✅ SKU时长测算✅ QC直播间优先级明确✅ 新人培训计划🔄",
-    "penalty": {
-      "amount": 1200,
-      "basis": "监管反馈: ¥+1000 | 影响加成: ¥+200",
-      "status": "calculated",
-      "breakdown": [
-        {
-          "item": "监管反馈",
-          "value": 1000,
-          "desc": "监管反馈 -10%（基数¥10000）"
-        },
-        {
-          "item": "影响加成",
-          "value": 200,
-          "desc": "🟡 中等影响 ×1.2"
-        }
-      ],
-      "calculatedAt": "2026-06-24T10:27:47.159Z"
-    },
+    "progress": "方案4(录屏分析)已完成；方案5(SKU时长测算)已完成；其余方案推进中",
     "groupId": "8523601",
     "penaltyAmount": null,
     "penaltyConfirmed": false,
@@ -730,12 +690,12 @@
     "vendor": "河南徽音网络科技",
     "project": "待确认",
     "priority": "P0",
-    "status": "in_progress",
+    "status": "overdue",
     "issueType": "周考漏指派",
     "assignee": "待确认",
     "sourceGroup": "8553918",
     "createdDate": "2026-06-24",
-    "updatedDate": "2026-06-29T10:23:00Z",
+    "updatedDate": "2026-06-30T16:58:19+08:00",
     "summary": "6月6日至6月10日周期周考存在漏指派问题，群内已开始复盘",
     "impact": "🟡 中等影响：培训考核遗漏，影响团队能力评估",
     "rootCause": "直接原因：培训专员连续两周进行新人通用培训，工作事项较忙导致漏指派。人员层面：亓林未能重点关注舆情群内信息，查看信息后未及时响应。管理层面：各组长及管理未及时发现本周没有舆情周考，未能及时提醒。系统层面：（供应商未提供）。规则层面：（供应商未提供）。",
@@ -745,14 +705,14 @@
         "action": "建立任务清单，关键信息2小时内响应：培训专员亓林建立个人任务清单，群内关键任务信息必须在2小时内响应确认",
         "owner": "亓林",
         "deadline": "T+1",
-        "status": "done"
+        "status": "overdue"
       },
       {
         "step": 2,
         "action": "组长每周检查周考执行状态：各组长每周检查本周周考是否已指派，及时发现遗漏",
         "owner": "各组长",
         "deadline": "T+4",
-        "status": "in_progress"
+        "status": "overdue"
       }
     ],
     "timeline": [
@@ -763,10 +723,6 @@
       {
         "time": "06/24 09:34",
         "event": "供应商回复归因（人员+管理），归因明确，直接保存"
-      },
-      {
-        "time": "06/28 10:00",
-        "event": "亓林已完成个人任务清单建立，群内关键任务响应已达标"
       }
     ],
     "tags": [
@@ -775,25 +731,7 @@
       "培训",
       "P0"
     ],
-    "progress": "1/2 完成：建立任务清单✅ 组长每周检查周考执行状态🔄",
-    "penalty": {
-      "amount": 1200,
-      "basis": "监管反馈: ¥+1000 | 影响加成: ¥+200",
-      "status": "calculated",
-      "breakdown": [
-        {
-          "item": "监管反馈",
-          "value": 1000,
-          "desc": "监管反馈 -10%（基数¥10000）"
-        },
-        {
-          "item": "影响加成",
-          "value": 200,
-          "desc": "🟡 中等影响 ×1.2"
-        }
-      ],
-      "calculatedAt": "2026-06-24T10:27:47.160Z"
-    },
+    "progress": "0/2 完成：🔴 建立任务清单，关键信息2小时内响应：培训... | 🔴 组长每周检查周考执行状态：各组长每周检查...",
     "groupId": "8553918",
     "penaltyAmount": null,
     "penaltyConfirmed": false,
@@ -893,7 +831,6 @@
       "南宁笋尖"
     ],
     "progress": "全部方案已完成。6/25吴胜海完成根因排查、优化措施及提醒设置；6/26来昕怡确认OK，钱燕指示重点关注客服，千玺确认完结。",
-    "manualPenalty": null,
     "penaltyConfirmed": false,
     "penaltyConfirmedBy": null,
     "penaltyConfirmedAt": null,
@@ -905,11 +842,11 @@
     "title": "6.25 审核卡审数据清理及分级升级报备机制建立",
     "author": "刘倩",
     "vendor": "山西易网视界（临汾）",
-    "status": "in_progress",
+    "status": "overdue",
     "priority": "P1",
     "sourceGroup": "8556744",
     "createdDate": "2026-06-25",
-    "updatedDate": "2026-06-26T12:12:00",
+    "updatedDate": "2026-06-30",
     "summary": "6月25日，张帅汇报数据清理进展：6/24 0:00-6/25 10:50 数据清理完成，正在清理10:50-11:45数据。清理完毕后将建立分级升级报备机制。李思远确认POPO超时提醒已设置（站内+POPO）。周家阳询问组长和管理能否第一时间收到超时提醒。",
     "impact": "🔴 审核时效：卡审数据持续积压，影响审核效率🟡 管理机制：分级升级报备机制尚未建立，异常响应存在延迟风险🟡 监控盲区：需确认超时提醒是否能触达管理层",
     "rootCause": "1. 数据清理进度未达预期，持续卡审2. 分级升级报备机制缺失，异常处理流程不明确3. 超时提醒触达路径待验证（组长/管理是否能及时收到）",
@@ -926,7 +863,7 @@
         "action": "建立分级升级报备机制",
         "owner": "张帅",
         "deadline": "T+3",
-        "status": "in_progress"
+        "status": "overdue"
       },
       {
         "step": 3,
@@ -940,7 +877,7 @@
         "action": "全员通报新机制",
         "owner": "周家阳",
         "deadline": "T+5",
-        "status": "in_progress"
+        "status": "overdue"
       }
     ],
     "timeline": [
@@ -967,12 +904,451 @@
       "分级升级",
       "超时提醒"
     ],
-    "progress": "0/4 完成：完成数据清理（6/24 0:00-6/2🔴 建立分级升级报备机制⏳ 验证POPO超时提醒触达（组长+管理）🔴 全员通报新机制⏳",
+    "progress": "方案4（全员通报新机制）已超期",
     "penaltyAmount": null,
     "penaltyConfirmed": false,
     "penaltyConfirmedBy": null,
     "penaltyConfirmedAt": null,
     "penaltyReason": null,
+    "contactPerson": null
+  },
+  {
+    "id": "TK-2026-015",
+    "title": "洛阳新阳-得物用户资料535内容漏放",
+    "author": "钱燕",
+    "vendor": "河南新阳科技（洛阳）",
+    "status": "resolved",
+    "priority": "P2",
+    "sourceGroup": "8562099",
+    "createdDate": "2026-06-26",
+    "updatedDate": "2026-06-30T12:43:59+08:00",
+    "summary": "得物用户资料审核中发生535内容漏放，漏放内容未在审核环节被有效拦截。",
+    "impact": "🟡 中等 | 个例漏放",
+    "rootCause": "风险防范意识不足，专项结束后放松警惕；未严格按照审核操作流程执行。",
+    "solutions": [
+      {
+        "step": 1,
+        "action": "知识储备摸底",
+        "owner": "牛欢欢",
+        "deadline": "T+3",
+        "status": "done"
+      },
+      {
+        "step": 2,
+        "action": "人员评估是否汰换",
+        "owner": "杨辉浩",
+        "deadline": "T+5",
+        "status": "done"
+      },
+      {
+        "step": 3,
+        "action": "漏放原因定位",
+        "owner": "牛欢欢",
+        "deadline": "T+2",
+        "status": "done"
+      }
+    ],
+    "timeline": [
+      {
+        "time": "06/26 11:51",
+        "event": "钱燕在群2814288发现漏放，@牛欢欢"
+      },
+      {
+        "time": "06/26 14:04",
+        "event": "牛欢欢回复：漏放原因为风险意识不足+未严格按流程，王梦昭已汰换，团队10人当面提问验证"
+      },
+      {
+        "time": "06/26 15:31",
+        "event": "潘本龙指派得物用户资料工单测试（6/26-7/1），覆盖率全组"
+      },
+      {
+        "time": "06/30 09:27",
+        "event": "系统扫描：漏放原因定位✅ 人员汰换✅ 知识储备摸底🔄（工单测试进行中）"
+      },
+      {
+        "time": "06/30 12:43",
+        "event": "系统自动闭单：全部方案已完成，工单完结"
+      }
+    ],
+    "tags": [
+      "得物",
+      "漏放",
+      "用户资料"
+    ],
+    "progress": "3/3 完成：✅ 知识储备摸底 ✅ 人员评估是否汰换 ✅ 漏放原因定位",
+    "penaltyConfirmed": false,
+    "penaltyConfirmedBy": null,
+    "penaltyConfirmedAt": null,
+    "penaltyAmount": null,
+    "penaltyReason": null,
+    "contactPerson": null
+  },
+  {
+    "id": "TK-2026-016",
+    "title": "洛阳新阳-得物-用户资料涉政漏放",
+    "author": "钱燕",
+    "vendor": "河南新阳科技（洛阳）",
+    "status": "closed",
+    "priority": "P1",
+    "sourceGroup": "8570126",
+    "createdDate": "2026-06-29",
+    "updatedDate": "2026-06-30T14:54:00+08:00",
+    "summary": "得物用户资料审核，昵称「富平都敏俊」涉1号内容漏放。业务id：2586844374，工单id：193199908。扣罚1000元。",
+    "impact": "🟡 中等 | 个例漏判反馈",
+    "rootCause": "案例于2025-06-06进入高危通道，聂明月（已离职）和钱紫玉未拦截。钱紫玉知晓对应违规点但对案例无印象。关键词库中缺少「富平」未覆盖。",
+    "solutions": [
+      {
+        "step": 1,
+        "action": "漏放原因定位：钱紫玉知违规点但无印象+关键词库缺「富平」",
+        "owner": "牛欢欢",
+        "deadline": "2026-06-29",
+        "status": "done"
+      },
+      {
+        "step": 2,
+        "action": "涉一号内容培训：全员当面验证+关键词库持续完善更新",
+        "owner": "牛欢欢",
+        "deadline": "2026-07-01",
+        "status": "done"
+      },
+      {
+        "step": 3,
+        "action": "数据回扫：各通道关键词+用户ID紧急回查",
+        "owner": "牛欢欢",
+        "deadline": "2026-06-29",
+        "status": "done"
+      }
+    ],
+    "timeline": [
+      {
+        "time": "06/29 18:00",
+        "event": "钱燕创建工单，建群8570126"
+      },
+      {
+        "time": "06/29 18:16",
+        "event": "牛欢欢提交复盘：根因定位+全员验证+关键词更新+紧急回查"
+      },
+      {
+        "time": "06/29 18:19",
+        "event": "钱燕确认扣罚1000元"
+      },
+      {
+        "time": "06/29 18:20",
+        "event": "机器人记录扣罚"
+      },
+      {
+        "time": "06/30 14:49",
+        "event": "钱燕确认完结"
+      },
+      {
+        "time": "06/30 14:54",
+        "event": "正式完结，全部方案完成"
+      }
+    ],
+    "tags": [
+      "得物",
+      "涉政",
+      "漏放",
+      "用户资料"
+    ],
+    "progress": "全部已完成。原因定位（钱紫玉知违规点但无印象+关键词未覆盖）✅ 涉一号培训（全员当面验证+关键词更新）✅ 数据回扫（各通道紧急回查）✅",
+    "penaltyConfirmed": false,
+    "penaltyConfirmedBy": null,
+    "penaltyConfirmedAt": null,
+    "penaltyAmount": null,
+    "penaltyReason": null,
+    "contactPerson": null
+  },
+  {
+    "id": "TK-2026-017",
+    "title": "洛阳新阳-得物-用户资料横向负反馈",
+    "author": "钱燕",
+    "vendor": "河南新阳科技（洛阳）",
+    "status": "closed",
+    "priority": "P1",
+    "sourceGroup": "8570267",
+    "createdDate": "2026-06-29",
+    "updatedDate": "2026-06-30T14:52:00+08:00",
+    "summary": "审核超时等5条内容误伤/漏放，客户发起横向负反馈。涉及：微信号漏打标、违规内容未拦截、高危通道漏放、专项通道超时。",
+    "impact": "🟡 中等 | 客户横向负反馈",
+    "rootCause": "1.王博：昵称「新盛公司dhr9989」+车头像，理解为无广告交易意图，未搜微信号→漏打标\n2.李月月：背景赌博网站+头像色情网站，OCR/机审均有提示但无印象→流程执行不到位\n3.买鹏程/张鼎：背景FLG违规，高危通道未拦截，机审OCR均有提示→在班状态及流程存疑\n4.王博：专项通道关闭期间进审，理解错误未及时关注→超时扣罚",
+    "solutions": [
+      {
+        "step": 1,
+        "action": "漏放原因定位",
+        "owner": "牛欢欢",
+        "deadline": "2026-06-29",
+        "status": "done"
+      },
+      {
+        "step": 2,
+        "action": "提升标签打标准确性（通晒学习+流程重申+状态监控+通道澄清）",
+        "owner": "牛欢欢",
+        "deadline": "2026-07-04",
+        "status": "done"
+      }
+    ],
+    "timeline": [
+      {
+        "time": "06/29 18:18",
+        "event": "钱燕创建工单，建群8570267"
+      },
+      {
+        "time": "06/29 18:58",
+        "event": "牛欢欢提交完整复盘：4起案例原因定位及5项改善举措"
+      },
+      {
+        "time": "06/30 14:49",
+        "event": "钱燕确认完结"
+      },
+      {
+        "time": "06/30 14:52",
+        "event": "正式完结，全部方案完成"
+      }
+    ],
+    "tags": [
+      "得物",
+      "漏放",
+      "误伤",
+      "用户资料"
+    ],
+    "progress": "全部已完成。原因定位✅ 改善举措已落地：案例通晒学习、操作流程重申、在班状态监控、通道逻辑澄清。",
+    "penaltyConfirmed": false,
+    "penaltyConfirmedBy": null,
+    "penaltyConfirmedAt": null,
+    "penaltyAmount": null,
+    "penaltyReason": null,
+    "contactPerson": null
+  },
+  {
+    "id": "TK-2026-018",
+    "title": "舆情指令「苏芒」误删事件复盘",
+    "author": "钱燕",
+    "vendor": "河南新阳科技（南宁）",
+    "status": "closed",
+    "priority": "P2",
+    "sourceGroup": "8569980",
+    "createdDate": "2026-06-30",
+    "updatedDate": "2026-06-30T15:41:00.000+08:00",
+    "summary": "审核执行「苏芒」舆情指令时，未结合指令具体拦截要求，对涉及「启境+该人物」的内容误判删除。通告群无法通过关键词「苏芒」定位指令，仅能通过「女仆」定位，存在指令传达与解读问题。",
+    "impact": "🟡 内容误删，影响平台内容完整性\n🟡 指令传达与解读流程存在漏洞\n🟡 关键词定位不统一，审核效率受影响",
+    "rootCause": "审核知晓舆情指令涉及人物事件，看到相关描述时从严管控导致误删，未结合指令拦截要求确认；指令通告关键词覆盖不全（仅定位「女仆」未同步「苏芒」）",
+    "solutions": [
+      {
+        "step": 1,
+        "action": "定位误伤前后原因，确认指令误删根因",
+        "owner": "黎俊",
+        "deadline": "2026-06-30",
+        "status": "done"
+      },
+      {
+        "step": 2,
+        "action": "回扫近一月误伤数据（融媒体/论坛/用户资料）",
+        "owner": "黎俊",
+        "deadline": "2026-06-30",
+        "status": "done"
+      },
+      {
+        "step": 3,
+        "action": "指令传达优化：转发一线时整理具体关键词",
+        "owner": "吴胜海",
+        "deadline": "持续",
+        "status": "done"
+      },
+      {
+        "step": 4,
+        "action": "明确处理尺度：查删负面/无法提及/其他",
+        "owner": "吴胜海",
+        "deadline": "持续",
+        "status": "in_progress"
+      },
+      {
+        "step": 5,
+        "action": "舆情指令不再一刀切，明确拦截敏感点",
+        "owner": "朱莹",
+        "deadline": "持续",
+        "status": "done"
+      },
+      {
+        "step": 6,
+        "action": "排查是否有未经确认即删除的漏报备案例",
+        "owner": "吴胜海",
+        "deadline": "2026-07-01",
+        "status": "done"
+      }
+    ],
+    "timeline": [
+      {
+        "time": "06/30 10:02",
+        "event": "朱莹发现舆情指令误删，要求回查"
+      },
+      {
+        "time": "06/30 10:04",
+        "event": "黎俊确认根因：指令涉及启境和人物导致从严误删"
+      },
+      {
+        "time": "06/30 10:20",
+        "event": "黎俊完成近一月数据回扫，修改9条"
+      },
+      {
+        "time": "06/30 10:53",
+        "event": "明确后续管控要求：先查看拦截要求再执行"
+      },
+      {
+        "time": "06/30 14:23",
+        "event": "钱燕发起会议，梳理舆情问题流程"
+      },
+      {
+        "time": "06/30 14:30",
+        "event": "会议召开，确认后续优化方向"
+      },
+      {
+        "time": "06/30 14:42",
+        "event": "全部方案完成，正式完结"
+      },
+      {
+        "time": "06/30 15:41",
+        "event": "王世亚报告方案2(复盘培训+录屏)和方案3(通宵班录屏监控)已完成"
+      }
+    ],
+    "tags": [
+      "舆情",
+      "误删",
+      "指令传达",
+      "新阳南宁"
+    ],
+    "progress": "方案1(回扫)已完成。方案2(复盘培训+录屏)已完成。方案3(通宵班录屏监控)已完成。方案4(培训5天)进行中。方案5(班前提醒)持续中。方案6(整体排查)待启动。",
+    "penaltyConfirmed": false,
+    "penaltyConfirmedBy": null,
+    "penaltyConfirmedAt": null,
+    "penaltyAmount": null,
+    "penaltyReason": null,
+    "contactPerson": null
+  },
+  {
+    "id": "TK-2026-019",
+    "title": "商汤低俗导向内容尺度拉齐与人员摸底",
+    "author": "杨珂珂",
+    "vendor": "河南诺达信息科技",
+    "status": "open",
+    "priority": "P1",
+    "sourceGroup": "",
+    "createdDate": "2026-06-30",
+    "updatedDate": "2026-06-30T17:39:03+08:00",
+    "summary": "商汤近期客户反馈案例中，针对低俗导向内容审核尺度不明确的问题，需汇总同类型案例做整体拉齐；同时对组内人员进行摸底，确保人员尺度执行一致，避免因标准不一导致客户投诉。\n\n参考文档：https://docs.popo.netease.com/lingxi/e8d36196362a42feabfff441fe0e559e",
+    "impact": "🟡中等影响\n- 低俗导向内容审核尺度不统一，可能导致客户投诉\n- 组内人员执行标准不一致，存在质量隐患\n- 需系统性拉齐，影响审核质量和客户满意度",
+    "rootCause": "1. 低俗导向内容审核尺度缺乏统一明确判定标准\n2. 组内人员对低俗内容的认知和执行尺度存在差异\n3. 缺少同类型案例汇总及培训拉齐机制",
+    "solutions": [
+      {
+        "step": 1,
+        "action": "汇总商汤近期客户反馈中的同类型低俗导向案例",
+        "owner": "杨珂珂",
+        "deadline": "T+2",
+        "status": "in_progress"
+      },
+      {
+        "step": 2,
+        "action": "梳理并输出低俗导向内容统一审核尺度文档",
+        "owner": "杨珂珂",
+        "deadline": "T+5",
+        "status": "in_progress"
+      },
+      {
+        "step": 3,
+        "action": "组内人员摸底测试，验收尺度执行一致性",
+        "owner": "杨珂珂",
+        "deadline": "T+7",
+        "status": "in_progress"
+      },
+      {
+        "step": 4,
+        "action": "针对偏差人员进行专项培训拉齐",
+        "owner": "杨珂珂",
+        "deadline": "T+10",
+        "status": "in_progress"
+      }
+    ],
+    "timeline": [
+      {
+        "time": "06/30 16:48",
+        "event": "杨珂珂发起工单，背景：商汤客户反馈低俗导向尺度问题"
+      }
+    ],
+    "tags": [
+      "低俗导向",
+      "尺度拉齐",
+      "人员摸底",
+      "商汤AI"
+    ],
+    "progress": "方案已分配，推进中。方案1-2(杨珂珂)：案例汇总+尺度文档；方案3-4(杨珂珂)：人员摸底+专项培训",
+    "penaltyConfirmed": false,
+    "penaltyAmount": null,
+    "penaltyReason": null,
+    "penaltyConfirmedBy": null,
+    "penaltyConfirmedAt": null,
+    "contactPerson": null
+  },
+  {
+    "id": "TK-2026-020",
+    "title": "河南诺达信息科技-商汤-低俗导向尺度拉齐与人员摸底",
+    "author": "杨柯柯",
+    "vendor": "河南诺达信息科技",
+    "status": "open",
+    "priority": "P1",
+    "sourceGroup": "",
+    "createdDate": "2026-06-30",
+    "updatedDate": "2026-06-30T17:54:00.000+08:00",
+    "summary": "商汤项目近期收到客户低俗导向相关反馈案例。当前低俗导向内容尺度不明确，需汇总同类型案例做整体拉齐，同时对组内人员执行尺度进行摸底，确保一致性。",
+    "impact": "低俗导向尺度不统一可能导致审核结果不一致、客户投诉升级，影响项目交付质量。",
+    "rootCause": "低俗导向内容判定标准不够细化，组内人员对尺度理解存在偏差。",
+    "solutions": [
+      {
+        "step": 1,
+        "action": "汇总近期商汤客户反馈的低俗导向案例，形成案例库",
+        "owner": "杨柯柯",
+        "deadline": "T+3",
+        "status": "pending"
+      },
+      {
+        "step": 2,
+        "action": "组织组内尺度对齐会议，统一低俗导向判定标准",
+        "owner": "杨柯柯",
+        "deadline": "T+5",
+        "status": "pending"
+      },
+      {
+        "step": 3,
+        "action": "人员摸底考核，确保每位审核员对新尺度掌握一致",
+        "owner": "杨柯柯",
+        "deadline": "T+7",
+        "status": "pending"
+      },
+      {
+        "step": 4,
+        "action": "输出拉齐后的低俗导向判定细则文档",
+        "owner": "杨柯柯",
+        "deadline": "T+10",
+        "status": "pending"
+      }
+    ],
+    "timeline": [
+      {
+        "time": "06/30 17:54",
+        "event": "杨柯柯发起工单，背景为商汤客户近期反馈低俗导向案例，需尺度拉齐与人员摸底"
+      }
+    ],
+    "tags": [
+      "商汤",
+      "尺度拉齐",
+      "低俗导向",
+      "人员摸底"
+    ],
+    "progress": "工单新建，待启动案例汇总与尺度对齐。",
+    "penaltyConfirmed": false,
+    "penaltyAmount": null,
+    "penaltyReason": null,
+    "penaltyConfirmedBy": null,
+    "penaltyConfirmedAt": null,
     "contactPerson": null
   }
 ]
