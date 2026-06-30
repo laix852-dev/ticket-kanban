@@ -617,7 +617,7 @@
           "action": "人效提升达成：核心组员15条/日，尾部人员12条/日（不含补充返修）",
           "owner": "郭舒嫣",
           "deadline": "T+16",
-          "status": "in_progress"
+          "status": "overdue"
         },
         {
           "step": 4,
@@ -1429,7 +1429,7 @@
           "action": "连续线下培训5天，全员覆盖",
           "owner": "王世亚",
           "deadline": "T+5",
-          "status": "in_progress"
+          "status": "overdue"
         },
         {
           "step": 5,
