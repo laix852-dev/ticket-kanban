@@ -1383,5 +1383,63 @@
     ],
     "progress": "方案1已完成；方案2、3已超期；方案4、6已启动处理中；方案5持续进行中",
     "penaltyConfirmed": false
+  },
+  {
+    "id": "TK-2026-021",
+    "title": "商汤低俗导向内容尺度拉齐与人员摸底",
+    "author": "杨珂珂",
+    "vendor": "河南诺达信息科技",
+    "status": "open",
+    "priority": "P1",
+    "sourceGroup": "",
+    "createdDate": "2026-06-30",
+    "updatedDate": "2026-06-30T17:08:00.000+08:00",
+    "summary": "商汤近期客户反馈案例中，针对低俗导向内容审核尺度不明确的问题，需汇总同类型案例做整体拉齐；同时对组内人员进行摸底，确保人员尺度执行一致，避免因标准不一导致客户投诉。\n\n参考文档：https://docs.popo.netease.com/lingxi/e8d36196362a42feabfff441fe0e559e",
+    "impact": "🟡中等影响\n- 低俗导向内容审核尺度不统一，可能导致客户投诉\n- 组内人员执行标准不一致，存在质量隐患\n- 需系统性拉齐，影响审核质量和客户满意度",
+    "rootCause": "1. 低俗导向内容审核尺度缺乏统一明确判定标准\n2. 组内人员对低俗内容的认知和执行尺度存在差异\n3. 缺少同类型案例汇总及培训拉齐机制",
+    "solutions": [
+      {
+        "step": 1,
+        "action": "汇总商汤近期客户反馈中的同类型低俗导向案例",
+        "owner": "杨珂珂",
+        "deadline": "T+2",
+        "status": "pending"
+      },
+      {
+        "step": 2,
+        "action": "梳理并输出低俗导向内容统一审核尺度文档",
+        "owner": "杨珂珂",
+        "deadline": "T+5",
+        "status": "pending"
+      },
+      {
+        "step": 3,
+        "action": "组内人员摸底测试，验收尺度执行一致性",
+        "owner": "杨珂珂",
+        "deadline": "T+7",
+        "status": "pending"
+      },
+      {
+        "step": 4,
+        "action": "针对偏差人员进行专项培训拉齐",
+        "owner": "杨珂珂",
+        "deadline": "T+10",
+        "status": "pending"
+      }
+    ],
+    "timeline": [
+      {
+        "time": "06/30 16:48",
+        "event": "杨珂珂发起工单，背景：商汤客户反馈低俗导向尺度问题"
+      }
+    ],
+    "tags": [
+      "低俗导向",
+      "尺度拉齐",
+      "人员摸底",
+      "商汤AI"
+    ],
+    "progress": "刚建单，待确认方案负责人和截止时间后推进。",
+    "penaltyConfirmed": false
   }
 ]
