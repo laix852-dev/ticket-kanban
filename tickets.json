@@ -1051,21 +1051,21 @@
         "action": "漏放原因定位",
         "owner": "牛欢欢",
         "deadline": "T+2",
-        "status": "pending"
+        "status": "in_progress"
       },
       {
         "step": 2,
         "action": "涉一号内容培训",
         "owner": "牛欢欢",
         "deadline": "T+3",
-        "status": "pending"
+        "status": "in_progress"
       },
       {
         "step": 3,
         "action": "数据回扫",
         "owner": "牛欢欢",
         "deadline": "T+2",
-        "status": "pending"
+        "status": "in_progress"
       }
     ],
     "timeline": [
@@ -1105,14 +1105,14 @@
         "action": "漏放原因定位",
         "owner": "牛欢欢",
         "deadline": "T+2",
-        "status": "pending"
+        "status": "in_progress"
       },
       {
         "step": 2,
         "action": "提升标签打标准确性",
         "owner": "牛欢欢",
         "deadline": "T+5",
-        "status": "pending"
+        "status": "in_progress"
       }
     ],
     "timeline": [
