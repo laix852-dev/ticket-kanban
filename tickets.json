@@ -1388,72 +1388,10 @@
       ],
       "progress": "工单新建，待启动案例汇总与尺度对齐。",
       "penaltyConfirmed": false
-    },
-    {
-      "id": "TK-2026-023",
-      "title": "河南诺达-汽车直播-审核涉政漏判",
-      "author": "海燕儿",
-      "vendor": "河南诺达信息科技",
-      "status": "open",
-      "priority": "P1",
-      "sourceGroup": "",
-      "createdDate": "2026-06-30",
-      "updatedDate": "2026-06-30T19:05:00+08:00",
-      "summary": "2026年6月28日，汽车直播审核连续出现3条涉政漏判：XXX内容被标记为正常、直播间画面涉敏感元素未检出、弹幕含政治隐喻未拦截",
-      "impact": "🔴 内容安全：涉政内容外泄，存在合规风险\n🟡 客户信任：客户对审核质量产生疑虑",
-      "rootCause": "人员：审核员对新型变体涉政内容识别不足，培训案例库未覆盖最新变体\n管理：组长未及时发现识别盲区，日常质检未覆盖涉政变体\n系统：缺乏涉政变体自动识别/提示机制\n规则：涉政变体标准未及时同步，变体素材未纳入培训案例库",
-      "solutions": [
-        {
-          "step": 1,
-          "action": "更新培训案例库，补充最新涉政变体素材",
-          "owner": "培训组",
-          "deadline": "T+3",
-          "status": "pending"
-        },
-        {
-          "step": 2,
-          "action": "全员涉政专项培训+考核",
-          "owner": "组长",
-          "deadline": "T+5",
-          "status": "pending"
-        },
-        {
-          "step": 3,
-          "action": "建立涉政变体专项识别SOP",
-          "owner": "规则侧",
-          "deadline": "T+7",
-          "status": "pending"
-        },
-        {
-          "step": 4,
-          "action": "增加机审辅助涉政识别能力",
-          "owner": "系统侧",
-          "deadline": "T+14",
-          "status": "pending"
-        }
-      ],
-      "timeline": [
-        {
-          "time": "06/28",
-          "event": "汽车直播审核连续出现3条涉政漏判"
-        },
-        {
-          "time": "06/30",
-          "event": "工单创建 | 操作人：海燕儿"
-        }
-      ],
-      "tags": [
-        "涉政",
-        "漏判",
-        "汽车直播",
-        "河南诺达",
-        "P1"
-      ],
-      "progress": "0/4 完成：案例库更新⏳ 专项培训⏳ SOP建立⏳ 系统优化⏳"
     }
   ],
   "metadata": {
-    "lastUpdated": "2026-06-30T19:05:00+08:00",
-    "totalCount": 17
+    "lastUpdated": "2026-06-30T19:08:00+08:00",
+    "totalCount": 16
   }
 }
