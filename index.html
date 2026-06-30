@@ -317,7 +317,6 @@ body {
 .bar-wrap { align-items: flex-end; justify-content: space-around; padding: 0 8px; }
 .mini-table th:last-child, .mini-table td:last-child { text-align: center; }
 
-
 /* Empty State */
 .empty-state { text-align: center; padding: 48px 20px; color: var(--text-muted); grid-column: 1 / -1; }
 .empty-state .empty-icon { font-size: 40px; margin-bottom: 12px; opacity: 0.5; }
@@ -486,7 +485,6 @@ body {
 /* Timeline in detail */
 .timeline { margin-bottom: 0; }
 
-
 /* === Enhancement CSS === */
 
 /* Sticky stats on scroll */
@@ -543,7 +541,6 @@ body {
 }
 .ticket-meta-compact span { white-space: nowrap; }
 
-
 /* === Report Modal Styles === */
 .modal { font-family: inherit; }
 .modal h3 { color: var(--text); }
@@ -564,40 +561,11 @@ body {
 </style>
 </head>
 <body>
-<div id="pwGate" style="position:fixed;inset:0;z-index:9999;background:#0f172a;display:flex;align-items:center;justify-content:center">
-  <div style="text-align:center;color:#fff;max-width:360px;padding:40px">
-    <div style="font-size:48px;margin-bottom:16px">🔐</div>
-    <h2 style="font-size:20px;margin-bottom:8px">工单看板</h2>
-    <p style="font-size:13px;color:#94a3b8;margin-bottom:24px">请输入密码</p>
-    <input type="password" id="pwInput" placeholder="••••••" autofocus style="width:100%;padding:12px;border:2px solid rgba(255,255,255,.15);border-radius:8px;background:rgba(255,255,255,.08);color:#fff;font-size:16px;text-align:center;outline:none;letter-spacing:4px" onkeydown="if(event.key==='Enter')unlock()">
-    <button onclick="unlock()" style="margin-top:12px;padding:8px 24px;border:none;border-radius:6px;background:#3b82f6;color:#fff;font-size:14px;cursor:pointer">解锁</button>
-    <div id="pwError" style="color:#f87171;font-size:12px;margin-top:8px;display:none">密码错误</div>
-  </div>
-</div>
-<script>
-function unlock(){
-  if(document.getElementById('pwInput').value==='laixinyi2025'){
-    document.getElementById('pwGate').style.display='none';
-    try{sessionStorage.setItem('kanban-auth','1')}catch(e){}
-  }else{
-    document.getElementById('pwError').style.display='block';
-    document.getElementById('pwInput').value='';
-  }
-}
-if(sessionStorage.getItem('kanban-auth')==='1'){document.getElementById('pwGate').style.display='none'}
-</script>
 
+</div>
 
 <div class="notify-bar" id="notifyBar"></div>
 
-<div class="pw-gate" id="pwGate">
-  <div class="pw-box">
-    <h2>🔒 工单看板</h2>
-    <p>请输入访问密码</p>
-    <input type="password" id="pwInput" placeholder="······" maxlength="20" onkeydown="if(event.key==='Enter')checkPassword()">
-    <button onclick="checkPassword()" style="margin-top:12px;width:100%;padding:10px;background:#1c1917;color:#fff;border:none;border-radius:7px;font-size:14px;font-weight:600;cursor:pointer">解锁</button>
-    <div class="pw-error" id="pwError">密码错误</div>
-  </div>
 </div>
 
 <div class="app-header">
@@ -1552,7 +1520,6 @@ function showMorningReport() {
   html += '当前未完结：<strong>' + totalOpen + '</strong> 条 &nbsp;|&nbsp; 今日新增：<strong>' + totalToday + '</strong> 条 &nbsp;|&nbsp; 今日解决：<strong style="color:var(--green)">' + totalResolved + '</strong> 条<br>';
   html += '含超期方案：<strong style="color:' + (overdueCount > 0 ? 'var(--red)' : 'var(--green)') + '">' + overdueCount + '</strong> 条 &nbsp;|&nbsp; P0 紧急：<strong style="color:var(--red)">' + p0Count + '</strong> 条';
   html += '</div>';
-
 
   // Section 5: Action Guide (detailed)
   html += '<div style="margin-bottom:12px;margin-top:12px"><strong style="font-size:13px">三、行动指南与建议</strong></div>';
