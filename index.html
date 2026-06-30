@@ -1109,6 +1109,22 @@ function editPenaltyAmount(id) {
   render();
 }
 
+function cfPen(id){
+  var t=tickets.find(function(x){return x.id===id});if(!t)return;
+  var cp='';if(window.m)cp=window.m[t.vendor]||'';
+  var name=prompt('确认扣罚\n\n'+(t.title||'').substring(0,30)+'\n供应商：'+(t.vendor||'')+'\n对接人：'+cp+'\n\n请输入确认人姓名：',cp);
+  if(!name||!name.trim())return;
+  t.penaltyConfirmed=true;t.penaltyConfirmedBy=name.trim();t.penaltyConfirmedAt=new Date().toISOString();
+  saveChanges();render();
+}
+function editPen(id){
+  var t=tickets.find(function(x){return x.id===id});if(!t)return;
+  var c=t.manualPenalty||'';
+  var a=prompt('修改扣罚金额\n\n'+(t.title||'').substring(0,30)+'\n当前：'+(c?'¥'+c:'按P级计算')+'\n\n输入金额（留空恢复默认）：',c);
+  if(a===null)return;if(a===''){delete t.manualPenalty;}else{var v=parseInt(a);if(v>=0)t.manualPenalty=v;}
+  saveChanges();render();
+}
+
 function changeStatus(id, v) {
   const t = tickets.find(t => t.id === id); if (!t) return;
   const oldStatus = t.status;
