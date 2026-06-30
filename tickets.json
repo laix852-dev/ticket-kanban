@@ -1278,7 +1278,7 @@
       "title": "商汤低俗导向内容尺度拉齐与人员摸底",
       "author": "杨珂珂",
       "vendor": "河南诺达信息科技",
-      "status": "in_progress",
+      "status": "overdue",
       "priority": "P1",
       "sourceGroup": "",
       "createdDate": "2026-06-30",
@@ -1292,28 +1292,28 @@
           "action": "汇总商汤近期客户反馈中的同类型低俗导向案例",
           "owner": "杨珂珂",
           "deadline": "T+2",
-          "status": "in_progress"
+          "status": "overdue"
         },
         {
           "step": 2,
           "action": "梳理并输出低俗导向内容统一审核尺度文档",
           "owner": "杨珂珂",
           "deadline": "T+5",
-          "status": "in_progress"
+          "status": "overdue"
         },
         {
           "step": 3,
           "action": "组内人员摸底测试，验收尺度执行一致性",
           "owner": "杨珂珂",
           "deadline": "T+7",
-          "status": "in_progress"
+          "status": "overdue"
         },
         {
           "step": 4,
           "action": "针对偏差人员进行专项培训拉齐",
           "owner": "杨珂珂",
           "deadline": "T+10",
-          "status": "in_progress"
+          "status": "overdue"
         }
       ],
       "timeline": [
@@ -1336,7 +1336,7 @@
       "title": "河南诺达信息科技-商汤-低俗导向尺度拉齐与人员摸底",
       "author": "杨柯柯",
       "vendor": "河南诺达信息科技",
-      "status": "in_progress",
+      "status": "overdue",
       "priority": "P1",
       "sourceGroup": "",
       "createdDate": "2026-06-30",
@@ -1350,28 +1350,28 @@
           "action": "汇总近期商汤客户反馈的低俗导向案例，形成案例库",
           "owner": "杨柯柯",
           "deadline": "T+3",
-          "status": "in_progress"
+          "status": "overdue"
         },
         {
           "step": 2,
           "action": "组织组内尺度对齐会议，统一低俗导向判定标准",
           "owner": "杨柯柯",
           "deadline": "T+5",
-          "status": "in_progress"
+          "status": "overdue"
         },
         {
           "step": 3,
           "action": "人员摸底考核，确保每位审核员对新尺度掌握一致",
           "owner": "杨柯柯",
           "deadline": "T+7",
-          "status": "in_progress"
+          "status": "overdue"
         },
         {
           "step": 4,
           "action": "输出拉齐后的低俗导向判定细则文档",
           "owner": "杨柯柯",
           "deadline": "T+10",
-          "status": "in_progress"
+          "status": "overdue"
         }
       ],
       "timeline": [
@@ -1443,7 +1443,7 @@
           "action": "排查项目整体质量问题（漏放频发）",
           "owner": "赵培育/张思语",
           "deadline": "T+7",
-          "status": "in_progress"
+          "status": "overdue"
         }
       ],
       "timeline": [
