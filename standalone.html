@@ -1,0 +1,1506 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>工单看板 · Ticket Kanban</title>
+<style>
+:root {
+  --bg: #f1f5f9;
+  --surface: #ffffff;
+  --text: #0f172a;
+  --text-secondary: #64748b;
+  --text-muted: #94a3b8;
+  --border: #e2e8f0;
+  --border-light: #f1f5f9;
+  --blue: #3b82f6; --blue-50: #eff6ff; --blue-100: #dbeafe;
+  --red: #ef4444; --red-50: #fef2f2; --red-100: #fee2e2;
+  --green: #10b981; --green-50: #ecfdf5; --green-100: #d1fae5;
+  --amber: #f59e0b; --amber-50: #fffbeb; --amber-100: #fef3c7;
+  --slate: #64748b; --slate-50: #f8fafc; --slate-100: #f1f5f9;
+  --purple: #8b5cf6; --purple-50: #f5f3ff; --purple-100: #ede9fe;
+  --rose: #f43f5e; --rose-50: #fff1f2; --rose-100: #ffe4e6;
+  --radius: 12px; --radius-sm: 8px; --radius-xs: 6px;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 6px rgba(0,0,0,0.05), 0 2px 4px rgba(0,0,0,0.04);
+  --shadow-lg: 0 10px 15px rgba(0,0,0,0.06), 0 4px 6px rgba(0,0,0,0.04);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  background: var(--bg); color: var(--text); min-height: 100vh; line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== Header ===== */
+.app-header {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #1e3a5f 100%);
+  color: #fff; padding: 16px 28px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; flex-wrap: wrap;
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+}
+.header-brand { display: flex; align-items: center; gap: 12px; }
+.header-brand .logo {
+  width: 38px; height: 38px; border-radius: 10px;
+  background: rgba(255,255,255,0.15); display: flex; align-items: center;
+  justify-content: center; font-size: 20px;
+}
+.header-brand h1 { font-size: 18px; font-weight: 600; letter-spacing: 0.3px; }
+.header-brand .subtitle { font-size: 11px; color: #94a3b8; margin-top: 1px; }
+.header-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.header-actions .meta-time { font-size: 11px; color: #94a3b8; }
+.btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 7px 14px; border-radius: var(--radius-xs); font-size: 12px;
+  font-weight: 500; cursor: pointer; border: none; transition: all 0.2s;
+  white-space: nowrap; letter-spacing: 0.2px;
+}
+.btn-ghost {
+  background: rgba(255,255,255,0.08); color: #cbd5e1;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.btn-ghost:hover { background: rgba(255,255,255,0.16); color: #fff; }
+.btn-accent { background: var(--blue); color: #fff; }
+.btn-accent:hover { background: #2563eb; }
+
+/* ===== Content Container ===== */
+.container { max-width: 1400px; margin: 0 auto; padding: 20px 24px 32px; }
+
+/* ===== Stats Grid ===== */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px; margin-bottom: 20px;
+}
+.stat-card {
+  background: var(--surface); border-radius: var(--radius);
+  padding: 16px 18px; box-shadow: var(--shadow);
+  display: flex; align-items: center; gap: 14px;
+  transition: box-shadow 0.2s, transform 0.2s;
+  border: 1px solid var(--border);
+}
+.stat-card:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }
+.stat-icon {
+  width: 42px; height: 42px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center; font-size: 18px;
+  flex-shrink: 0;
+}
+.stat-icon.slate { background: var(--slate-100); color: var(--slate); }
+.stat-icon.blue { background: var(--blue-100); color: var(--blue); }
+.stat-icon.green { background: var(--green-100); color: var(--green); }
+.stat-icon.amber { background: var(--amber-100); color: var(--amber); }
+.stat-icon.red { background: var(--red-100); color: var(--red); }
+.stat-icon.purple { background: var(--purple-100); color: var(--purple); }
+.stat-icon.rose { background: var(--rose-100); color: var(--rose); }
+.stat-value { font-size: 24px; font-weight: 700; line-height: 1.1; }
+.stat-label { font-size: 11px; color: var(--text-secondary); }
+
+/* ===== Toolbar ===== */
+.toolbar {
+  display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+  margin-bottom: 16px; background: var(--surface); padding: 12px 16px;
+  border-radius: var(--radius); box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+}
+.toolbar select, .toolbar input {
+  padding: 8px 12px; border: 1px solid var(--border);
+  border-radius: var(--radius-xs); font-size: 13px; background: #fff;
+  color: var(--text); outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+}
+.toolbar select { appearance: none; -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='%2364748b' d='M5 7L1 3h8z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 10px center;
+  padding-right: 30px; cursor: pointer; min-width: 110px;
+}
+.toolbar select:focus, .toolbar input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(59,130,246,0.1); }
+.toolbar input { flex: 1; min-width: 160px; max-width: 300px; }
+.toolbar input::placeholder { color: var(--text-muted); }
+.toolbar-right { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+.result-count { font-size: 12px; color: var(--text-secondary); white-space: nowrap; }
+
+/* View toggle */
+.view-switch {
+  display: flex; border-radius: var(--radius-xs); overflow: hidden;
+  border: 1px solid var(--border); background: var(--slate-50);
+}
+.view-switch button {
+  padding: 7px 12px; border: none; cursor: pointer; font-size: 12px;
+  background: transparent; color: var(--text-secondary);
+  transition: all 0.15s; font-weight: 500;
+}
+.view-switch button.active { background: #fff; color: var(--text); box-shadow: var(--shadow-sm); }
+
+/* ===== Ticket Cards ===== */
+.ticket-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+.ticket-card {
+  background: var(--surface); border-radius: var(--radius);
+  box-shadow: var(--shadow); overflow: hidden;
+  transition: box-shadow 0.2s, border-color 0.2s;
+  border: 1px solid var(--border);
+}
+.ticket-card:hover { box-shadow: var(--shadow-md); }
+.ticket-card.status-pending { border-left: 3px solid var(--slate); }
+.ticket-card.status-open { border-left: 3px solid var(--blue); }
+.ticket-card.status-in_progress { border-left: 3px solid var(--amber); }
+.ticket-card.status-resolved { border-left: 3px solid var(--green); }
+.ticket-card.status-closed { border-left: 3px solid #cbd5e1; }
+.ticket-card.has-overdue { border-left-color: var(--red); border-left-width: 4px; }
+
+.ticket-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 18px; cursor: pointer; user-select: none;
+  transition: background 0.15s;
+}
+.ticket-row:hover { background: var(--slate-50); }
+.ticket-id { font-size: 11px; color: var(--text-muted); font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', monospace; min-width: 80px; letter-spacing: 0.5px; }
+
+.pill {
+  font-size: 10px; font-weight: 700; padding: 2px 9px; border-radius: 4px;
+  letter-spacing: 0.5px; text-transform: uppercase; white-space: nowrap;
+}
+.pill.p0 { background: var(--red-100); color: var(--red); }
+.pill.p1 { background: var(--amber-100); color: var(--amber); }
+.pill.p2 { background: var(--green-100); color: var(--green); }
+.pill.status-pending { background: var(--slate-100); color: var(--slate); }
+.pill.status-open { background: var(--blue-100); color: var(--blue); }
+.pill.status-in_progress { background: var(--amber-100); color: var(--amber); }
+.pill.status-resolved { background: var(--green-100); color: #059669; }
+.pill.p3 { background: var(--slate-100); color: var(--slate); }
+.pill.overdue { background: var(--red-100); color: var(--red); }
+
+.ticket-title { font-size: 14px; font-weight: 600; flex: 1; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ticket-author { font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: 600; white-space: nowrap; }
+.ticket-author.Tom { background: var(--purple-100); color: var(--purple); }
+.ticket-author.来昕怡 { background: var(--rose-100); color: var(--rose); }
+.ticket-vendor { font-size: 11px; padding: 2px 8px; border-radius: 10px; background: var(--blue-50); color: var(--blue); font-weight: 500; white-space: nowrap; }
+.ticket-actions { display: flex; gap: 4px; margin-left: auto; }
+.ticket-actions select {
+  font-size: 10px; padding: 3px 8px; border: 1px solid var(--border);
+  border-radius: 4px; cursor: pointer; background: #fff; font-weight: 600;
+  outline: none; appearance: none; -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cpath fill='%2394a3b8' d='M4 5L1 2h6z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 5px center;
+  padding-right: 18px; text-align: center;
+}
+.ticket-actions select:focus { border-color: var(--blue); }
+.expand-arrow { font-size: 13px; color: var(--text-muted); transition: transform 0.2s; margin-left: 4px; }
+.expand-arrow.open { transform: rotate(180deg); }
+
+/* Ticket Detail Body */
+.ticket-detail { display: none; border-top: 1px solid var(--border-light); background: var(--slate-50); }
+.ticket-detail.show { display: block; }
+.ticket-detail-inner { padding: 18px 20px 20px; }
+.ticket-detail section { margin-bottom: 16px; }
+.ticket-detail section:last-child { margin-bottom: 0; }
+.section-label {
+  font-size: 11px; font-weight: 700; color: var(--text-secondary);
+  text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px;
+  display: flex; align-items: center; gap: 6px;
+}
+.section-label::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+}
+.section-content { font-size: 13px; line-height: 1.7; color: #334155; white-space: pre-line; }
+.highlight { background: #fde68a; padding: 0 2px; border-radius: 2px; }
+
+/* Solutions Table */
+.sol-table { width: 100%; border-collapse: collapse; font-size: 12px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
+.sol-table th { background: #f8fafc; text-align: left; padding: 9px 12px; font-weight: 600; color: #475569; font-size: 11px; border-bottom: 2px solid var(--border); }
+.sol-table td { padding: 9px 12px; border-bottom: 1px solid var(--border-light); color: #334155; }
+.sol-table tr:last-child td { border-bottom: none; }
+.sol-table tr.overdue-row { background: var(--red-50); }
+.sol-status-dot {
+  display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 4px;
+}
+.sol-status-dot.done { background: var(--green-100); color: #059669; }
+.sol-status-dot.in_progress { background: var(--amber-100); color: var(--amber); }
+.sol-status-dot.pending { background: var(--slate-100); color: var(--slate); }
+.sol-status-dot.overdue { background: var(--red-100); color: var(--red); }
+
+/* Tags */
+.tag-list { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 14px; }
+.tag { font-size: 11px; padding: 3px 10px; border-radius: 4px; background: var(--blue-50); color: var(--blue); font-weight: 500; }
+
+/* Timeline */
+.timeline { position: relative; padding-left: 20px; }
+.timeline::before { content: ''; position: absolute; left: 5px; top: 4px; bottom: 4px; width: 2px; background: var(--border); border-radius: 1px; }
+.timeline-entry { position: relative; padding: 4px 0 10px; font-size: 13px; color: #334155; }
+.timeline-entry::before { content: ''; position: absolute; left: -18px; top: 7px; width: 8px; height: 8px; border-radius: 50%; background: var(--blue); border: 2px solid var(--slate-50); }
+.timeline-time { font-size: 11px; color: var(--text-muted); font-family: 'SF Mono', 'Cascadia Code', monospace; }
+
+/* ===== Dashboard ===== */
+.dashboard {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.dash-card {
+  background: var(--surface); border-radius: var(--radius);
+  padding: 20px; box-shadow: var(--shadow); border: 1px solid var(--border);
+}
+.dash-card h3 { font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 14px; letter-spacing: 0.3px; }
+
+.bar-wrap { display: flex; align-items: flex-end; gap: 12px; height: 120px; padding-bottom: 22px; }
+.bar-col { display: flex; flex-direction: column; align-items: center; flex: 1; height: 100%; justify-content: flex-end; gap: 4px; }
+.bar-col .bar { width: 100%; max-width: 38px; border-radius: 5px 5px 0 0; transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1); min-height: 4px; }
+.bar-col .bar-num { font-size: 11px; font-weight: 700; color: #334155; }
+.bar-col .bar-label { font-size: 10px; color: var(--text-secondary); text-align: center; line-height: 1.3; }
+
+.donut-wrap { display: flex; align-items: center; gap: 18px; }
+.donut-legend { font-size: 11px; flex: 1; }
+.donut-legend .leg-row { display: flex; align-items: center; gap: 6px; margin-bottom: 5px; }
+.donut-legend .leg-dot { width: 9px; height: 9px; border-radius: 3px; flex-shrink: 0; }
+.donut-legend .leg-val { margin-left: auto; font-weight: 600; }
+
+.mini-table { width: 100%; font-size: 11px; border-collapse: collapse; }
+.mini-table th { background: #f8fafc; padding: 7px 10px; text-align: left; font-weight: 600; color: #475569; border-bottom: 2px solid var(--border); }
+.mini-table td { padding: 7px 10px; border-bottom: 1px solid var(--border-light); color: #334155; }
+.mini-table .good { color: var(--green); font-weight: 600; }
+.mini-table .warn { color: var(--amber); font-weight: 600; }
+.mini-table .bad { color: var(--red); font-weight: 600; }
+
+.progress-bar { height: 6px; background: var(--slate-100); border-radius: 3px; overflow: hidden; flex: 1; }
+.progress-bar .fill { height: 100%; border-radius: 3px; transition: width 0.5s ease; }
+
+.empty-state { text-align: center; padding: 48px 20px; color: var(--text-muted); grid-column: 1 / -1; }
+.empty-state .empty-icon { font-size: 36px; margin-bottom: 10px; }
+
+/* ===== List View Overrides ===== */
+.ticket-list.list-view .ticket-detail { display: none !important; }
+.ticket-list.list-view .expand-arrow { display: none; }
+.ticket-list.list-view .ticket-row { padding: 10px 16px; }
+.ticket-list.list-view .ticket-title { font-size: 13px; }
+.ticket-list.list-view .ticket-vendor { font-size: 10px; padding: 1px 6px; }
+
+/* ===== Responsive ===== */
+@media (max-width: 1000px) { .dashboard { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 640px) {
+  .container { padding: 12px 14px 20px; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .stat-card { padding: 12px 14px; gap: 10px; }
+  .stat-value { font-size: 20px; }
+  .dashboard { grid-template-columns: 1fr; }
+  .ticket-row { flex-wrap: wrap; gap: 8px; }
+  .ticket-actions { width: 100%; justify-content: flex-end; }
+  .toolbar { flex-direction: column; align-items: stretch; }
+  .toolbar input { max-width: none; }
+  .toolbar-right { margin-left: 0; justify-content: space-between; }
+  .app-header { padding: 12px 16px; }
+}
+
+/* ===== Notification Banner ===== */
+.notify-bar {
+  position: fixed; top: 12px; left: 50%; transform: translateX(-50%); z-index: 300;
+  padding: 10px 20px; border-radius: 8px; font-size: 13px; font-weight: 600;
+  box-shadow: var(--shadow-lg); opacity: 0; transition: opacity 0.3s, transform 0.3s;
+  pointer-events: none; white-space: nowrap;
+}
+.notify-bar.show { opacity: 1; pointer-events: auto; }
+.notify-bar.info { background: #dbeafe; color: #1e40af; }
+.notify-bar.success { background: #d1fae5; color: #065f46; }
+.notify-bar.warn { background: #fef3c7; color: #92400e; }
+
+/* Indicate polling status */
+.polling-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 6px; }
+.polling-dot.live { background: #10b981; animation: pulse 2s infinite; }
+.polling-dot.stale { background: #f59e0b; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+/* ===== Preset Filters ===== */
+.presets { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+.presets .preset {
+  padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 500;
+  border: 1px solid var(--border); background: var(--surface);
+  color: var(--text-secondary); cursor: pointer; transition: all 0.15s; white-space: nowrap;
+}
+.presets .preset:hover { border-color: var(--blue); color: var(--blue); }
+.presets .preset.active { background: var(--blue); color: #fff; border-color: var(--blue); }
+
+/* ===== Sort ===== */
+.sort-select {
+  padding: 7px 11px; border: 1px solid var(--border); border-radius: var(--radius-xs);
+  font-size: 12px; background: #fff; color: var(--text); outline: none; cursor: pointer; min-width: 110px;
+  appearance: none; -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='%2364748b' d='M5 7L1 3h8z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 10px center; padding-right: 28px;
+}
+.sort-select:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(59,130,246,0.1); }
+
+/* ===== Deadline Countdown ===== */
+.dl-countdown { font-size: 10px; margin-left: 6px; font-weight: 600; }
+.dl-countdown.ok { color: var(--green); }
+.dl-countdown.warn { color: var(--amber); }
+.dl-countdown.bad { color: var(--red); font-weight: 700; }
+
+/* ===== Back to Top ===== */
+.back-to-top {
+  position: fixed; bottom: 28px; right: 28px; z-index: 90;
+  width: 40px; height: 40px; border-radius: 50%; background: var(--blue);
+  color: #fff; border: none; cursor: pointer; font-size: 18px;
+  box-shadow: var(--shadow-md); opacity: 0; transform: translateY(10px);
+  transition: opacity 0.25s, transform 0.25s; pointer-events: none;
+  display: flex; align-items: center; justify-content: center;
+}
+.back-to-top.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+.back-to-top:hover { background: #2563eb; }
+
+/* ===== Modal ===== */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 200; background: rgba(15,23,42,0.5);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none; transition: opacity 0.2s;
+}
+.modal-overlay.show { opacity: 1; pointer-events: auto; }
+.modal {
+  background: var(--surface); border-radius: var(--radius); padding: 24px;
+  width: 90%; max-width: 560px; max-height: 85vh; overflow-y: auto;
+  box-shadow: var(--shadow-lg); border: 1px solid var(--border);
+}
+.modal h3 { font-size: 16px; margin-bottom: 16px; color: var(--text); }
+.modal .form-group { margin-bottom: 12px; }
+.modal .form-group label { display: block; font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-bottom: 4px; }
+.modal .form-group input, .modal .form-group textarea, .modal .form-group select {
+  width: 100%; padding: 8px 12px; border: 1px solid var(--border); border-radius: var(--radius-xs);
+  font-size: 13px; font-family: inherit; outline: none; background: #fff; color: var(--text);
+}
+.modal .form-group input:focus, .modal .form-group textarea:focus, .modal .form-group select:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(59,130,246,0.1); }
+.modal .form-group textarea { resize: vertical; min-height: 60px; }
+.modal .form-row { display: flex; gap: 10px; }
+.modal .form-row .form-group { flex: 1; }
+.modal .btn-row { display: flex; gap: 8px; justify-content: flex-end; margin-top: 16px; }
+.modal .btn-cancel { background: var(--slate-100); color: var(--text-secondary); }
+.modal .btn-cancel:hover { background: var(--slate-200); }
+
+/* ===== Dark Mode ===== */
+[data-theme="dark"] {
+  --bg: #0f172a; --surface: #1e293b; --text: #e2e8f0;
+  --text-secondary: #94a3b8; --text-muted: #64748b;
+  --border: #334155; --border-light: #1e293b;
+  --slate-50: #1e293b; --slate-100: #334155;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.2);
+  --shadow: 0 1px 3px rgba(0,0,0,0.25), 0 1px 2px rgba(0,0,0,0.2);
+  --shadow-md: 0 4px 6px rgba(0,0,0,0.25), 0 2px 4px rgba(0,0,0,0.2);
+  --shadow-lg: 0 10px 15px rgba(0,0,0,0.3);
+}
+[data-theme="dark"] .toolbar select,
+[data-theme="dark"] .toolbar input,
+[data-theme="dark"] .ticket-actions select,
+[data-theme="dark"] .sort-select,
+[data-theme="dark"] .pagination .page-size select,
+[data-theme="dark"] .modal .form-group input,
+[data-theme="dark"] .modal .form-group textarea,
+[data-theme="dark"] .modal .form-group select,
+[data-theme="dark"] .presets .preset { background: #1e293b; color: #e2e8f0; }
+[data-theme="dark"] .ticket-detail { background: #172032; }
+[data-theme="dark"] .ticket-row:hover { background: #1a2744; }
+[data-theme="dark"] .ticket-card { border-color: #334155; }
+[data-theme="dark"] .section-content { color: #cbd5e1; }
+[data-theme="dark"] .sol-table th { background: #1e293b; }
+[data-theme="dark"] .sol-table tr.overdue-row { background: #2d1b1b; }
+[data-theme="dark"] .mini-table th { background: #1e293b; }
+[data-theme="dark"] .ticket-vendor { background: #1e3a5f; color: #60a5fa; }
+[data-theme="dark"] .dash-card h3 { color: #cbd5e1; }
+[data-theme="dark"] .bar-col .bar-num,
+[data-theme="dark"] .mini-table td,
+[data-theme="dark"] .sol-table td { color: #cbd5e1; }
+[data-theme="dark"] .timeline-entry { color: #cbd5e1; }
+[data-theme="dark"] .timeline-entry::before { border-color: #1e293b; }
+[data-theme="dark"] .modal-overlay { background: rgba(0,0,0,0.6); }
+[data-theme="dark"] .view-switch { background: #334155; }
+[data-theme="dark"] .view-switch button.active { background: #475569; color: #e2e8f0; }
+
+/* ===== Penalty Section ===== */
+.penalty-summary {
+  display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px;
+}
+.penalty-item {
+  background: var(--red-50); border: 1px solid var(--red-100);
+  border-radius: var(--radius-xs); padding: 6px 12px; font-size: 12px;
+  display: flex; align-items: center; gap: 8px;
+}
+.penalty-item .penalty-amount {
+  font-size: 16px; font-weight: 700; color: var(--red);
+}
+.penalty-item .penalty-detail { color: #64748b; font-size: 11px; line-height: 1.3; }
+.penalty-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 8px; }
+.penalty-table th { background: #fef2f2; text-align: left; padding: 7px 10px; font-weight: 600; color: #991b1b; border-bottom: 2px solid #fecaca; }
+.penalty-table td { padding: 7px 10px; border-bottom: 1px solid #fee2e2; }
+.penalty-table .total-row { font-weight: 700; background: #fef2f2; }
+.penalty-table .total-row td { border-top: 2px solid #fca5a5; }
+.penalty-badge {
+  font-size: 10px; padding: 1px 7px; border-radius: 3px; font-weight: 700;
+  background: var(--red-100); color: var(--red); margin-left: 4px;
+}
+.dash-penalty-row { display: flex; align-items: center; gap: 10px; padding: 6px 0; font-size: 12px; border-bottom: 1px solid var(--border-light); }
+.dash-penalty-row:last-child { border-bottom: none; }
+.dash-penalty-row .penalty-name { flex: 1; color: #334155; font-weight: 500; }
+.dash-penalty-row .penalty-count { color: var(--text-muted); font-size: 11px; }
+.dash-penalty-row .penalty-total { font-weight: 700; color: var(--red); min-width: 60px; text-align: right; }
+.dash-penalty-total { display: flex; justify-content: space-between; padding-top: 8px; margin-top: 8px; border-top: 2px solid var(--border); font-weight: 700; font-size: 14px; }
+.dash-penalty-total .total-label { color: #374151; }
+.dash-penalty-total .total-amount { color: var(--red); }
+.alert-row { display: flex; align-items: center; gap: 8px; padding: 6px 0; font-size: 12px; }
+.alert-row .alert-icon { font-size: 16px; }
+.alert-row .alert-text { flex: 1; color: #374151; }
+.alert-row .alert-badge { font-size: 10px; padding: 2px 8px; border-radius: 4px; background: var(--red-100); color: var(--red); font-weight: 700; }
+.threshold-bar { height: 6px; background: #f3f4f6; border-radius: 3px; margin-top: 4px; }
+.threshold-bar .fill { height: 100%; border-radius: 3px; transition: width 0.5s; }
+
+/* ===== Pagination ===== */
+.pagination {
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 16px 0; flex-wrap: wrap;
+}
+.pagination button {
+  min-width: 34px; height: 34px; border: 1px solid var(--border);
+  border-radius: var(--radius-xs); background: var(--surface);
+  color: var(--text-secondary); font-size: 13px; font-weight: 500;
+  cursor: pointer; transition: all 0.15s; display: flex; align-items: center; justify-content: center;
+}
+.pagination button:hover:not(:disabled) { border-color: var(--blue); color: var(--blue); }
+.pagination button.active { background: var(--blue); color: #fff; border-color: var(--blue); font-weight: 700; }
+.pagination button:disabled { opacity: 0.35; cursor: default; }
+.pagination .page-info { font-size: 12px; color: var(--text-muted); margin: 0 8px; white-space: nowrap; }
+.pagination .page-size {
+  display: flex; align-items: center; gap: 4px; margin-left: 12px;
+  font-size: 12px; color: var(--text-secondary);
+}
+.pagination .page-size select {
+  padding: 4px 8px; border: 1px solid var(--border); border-radius: var(--radius-xs);
+  font-size: 12px; background: #fff; outline: none; cursor: pointer;
+}
+
+@media print {
+  .app-header { position: static; }
+  .btn, .toolbar, .ticket-actions select, .expand-arrow, .header-actions { display: none !important; }
+  .ticket-detail { display: block !important; background: #fff; }
+  .ticket-card { break-inside: avoid; box-shadow: none; border: 1px solid #ddd; margin-bottom: 6px; }
+  body { background: #fff; }
+  .container { max-width: 100%; padding: 0 12px; }
+}
+
+/* ===== Animations ===== */
+@keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+.ticket-card { animation: fadeIn 0.25s ease-out; }
+</style>
+</head>
+<body>
+
+<div class="notify-bar" id="notifyBar"></div>
+
+<div class="app-header">
+  <div class="header-brand">
+    <div class="logo">📋</div>
+    <div>
+      <h1>工单看板</h1>
+      <div class="subtitle">多龙虾共享 · 故障复盘与追踪</div>
+    </div>
+  </div>
+  <div class="header-actions">
+    <span class="meta-time" id="lastUpdated"></span>
+    <button class="btn btn-ghost" onclick="toggleTheme()" id="themeBtn">🌙 暗色</button>
+    <button class="btn btn-ghost" onclick="exportCSV()">📥 导出 CSV</button>
+    <button class="btn btn-ghost" onclick="window.print()">🖨️ 打印</button>
+    <button class="btn btn-accent" onclick="loadTickets()">🔄 刷新</button>
+  </div>
+</div>
+
+<div class="container">
+  <div class="stats-grid" id="statsRow"></div>
+
+  <div class="presets">
+    <span class="preset active" onclick="setPreset('all', this)">全部</span>
+    <span class="preset" onclick="setPreset('active', this)">未完结</span>
+    <span class="preset" onclick="setPreset('P0', this)">仅 P0</span>
+    <span class="preset" onclick="setPreset('my', this)">🦞 我的</span>
+    <span class="preset" onclick="setPreset('month', this)">📅 本月新增</span>
+    <span class="preset" onclick="setPreset('overdue', this)">⏰ 含超期</span>
+  </div>
+
+  <div class="toolbar">
+    <select class="sort-select" id="sortBy" onchange="currentPage=1;render()">
+      <option value="created-desc">创建日期 ↓</option>
+      <option value="created-asc">创建日期 ↑</option>
+      <option value="updated-desc">更新日期 ↓</option>
+      <option value="priority">优先级 P0→P2</option>
+      <option value="status">状态顺序</option>
+    </select>
+    <select id="filterStatus" onchange="currentPage=1;render()">
+      <option value="all">全部状态</option>
+      <option value="pending">待分配</option>
+      <option value="open">待处理</option>
+      <option value="in_progress">处理中</option>
+      <option value="resolved">已解决</option>
+      <option value="closed">已关闭</option>
+    </select>
+    <select id="filterPriority" onchange="currentPage=1;render()">
+      <option value="all">全部优先级</option>
+      <option value="P0">P0 非常紧急</option>
+      <option value="P1">P1 紧急</option>
+      <option value="P2">P2 一般</option>
+      <option value="P3">P3 普通</option>
+    </select>
+    <select id="filterAuthor" onchange="currentPage=1;render()"><option value="all">全部龙虾</option></select>
+    <select id="filterVendor" onchange="currentPage=1;render()"><option value="all">全部供应商</option></select>
+    <input type="text" id="filterSearch" placeholder="搜索工单…" oninput="currentPage=1;render()">
+    <div class="toolbar-right">
+      <button class="btn" style="background:var(--slate-100);color:var(--text-secondary);border:1px solid var(--border);padding:5px 10px;font-size:11px;" onclick="toggleAllTickets()" id="expandAllBtn">📂 全部展开</button>
+      <button class="btn" style="background:var(--green-100);color:var(--green);border:1px solid var(--green);padding:5px 10px;font-size:11px;" onclick="showNewTicketModal()">＋ 新建工单</button>
+      <span class="result-count" id="filterCount"></span>
+      <div class="view-switch">
+        <button id="btnCard" class="active" onclick="setView('card')">卡片</button>
+        <button id="btnList" onclick="setView('list')">列表</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="ticket-list" id="ticketList"></div>
+
+  <div class="pagination" id="pagination"></div>
+
+  <div class="dashboard" id="dashboard"></div>
+
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="回到顶部">↑</button>
+
+<div class="modal-overlay" id="newTicketModal">
+  <div class="modal">
+    <h3>＋ 新建工单</h3>
+    <div class="form-group"><label>标题 *</label><input type="text" id="ntTitle" placeholder="工单标题"></div>
+    <div class="form-row">
+      <div class="form-group"><label>优先级</label><select id="ntPriority"><option>P1</option><option>P0</option><option>P2</option><option>P3</option></select></div>
+      <div class="form-group"><label>作者</label><select id="ntAuthor"><option>Tom</option><option>来昕怡</option></select></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>供应商</label><select id="ntVendor">
+        <optgroup label="钱燕"><option>河南新阳科技（洛阳）</option><option>河南新阳科技（南宁）</option></optgroup>
+        <optgroup label="刘倩"><option>河南徽音网络科技</option><option>山西易网视界（临汾）</option></optgroup>
+        <optgroup label="张思语"><option>驻马店网创运营</option><option>贵州硅易（绥阳）</option><option>四川淘金（忻州）</option><option>河南诺达信息科技</option></optgroup>
+        <optgroup label="俞晓倩"><option>新疆众合天易</option><option>天津长翔科技（佛山）</option><option>芜湖晟律科技</option><option>成都唯准科技</option><option>长远数字科技</option><option>上海小咖邦</option></optgroup>
+        <option>其他</option>
+      </select></div>
+      <div class="form-group"><label>源群号</label><input type="text" id="ntGroup" placeholder="如 8522560"></div>
+    </div>
+    <div class="form-group"><label>事件摘要</label><textarea id="ntSummary" placeholder="简要描述事件经过…"></textarea></div>
+    <div class="form-group"><label>影响分析</label><textarea id="ntImpact" placeholder="🔴 / 🟡 各项影响…"></textarea></div>
+    <div class="form-group"><label>根本原因</label><textarea id="ntRootCause" placeholder="直接原因 + 深层原因…"></textarea></div>
+    <div class="form-group"><label>解决方案（每行一项，格式: 措施 | 负责人 | 截止日期）</label><textarea id="ntSolutions" placeholder="暂停权限+考核 | 梁宁 | T+1&#10;团队核查基础操作 | 梁宁 | T+3&#10;建立预警机制 | 梁宁/来昕怡 | T+5"></textarea></div>
+    <div class="btn-row">
+      <button class="btn btn-cancel" onclick="closeNewTicketModal()">取消</button>
+      <button class="btn btn-accent" onclick="createTicket()">创建工单</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+// ====== Data ======
+const DEFAULT_TICKET_DATA = {"tickets":[{"id":"TK-2026-005","title":"市政延庆区客服未及时回复致甲方投诉","author":"朱梦阳","vendor":"河南新阳科技（南宁）","status":"in_progress","priority":"P2","sourceGroup":"8556155","createdDate":"2026-06-25","updatedDate":"2026-06-25","summary":"6月25日上午，来昕怡在群内反馈市政高位延庆区客服小二未及时回复用户核实需求，导致被业务甲方直接投诉。6月16日来昕怡已在群内预警客服实时同步机制重要性（实时同步，有一条发一条，不能打包发送），但延庆区仍有漏回复。","impact":"🔴 客户信任：甲方直接投诉，影响市政停车业务合作信任基础\\n🟡 服务质量：客服响应时效不达标，违反甲方实时回复要求\\n🟡 供应商考核：南宁笋尖客服团队可能涉及KPI扣分","rootCause":"1. 直接原因：客服小二未及时查看并回复用户核实消息\\n2. 深层原因1：客服人力安排或排班覆盖不足，6/16已预警实时同步对客服人力的占用，延庆区未针对性加强\\n3. 深层原因2：缺少客服响应时效监控告警机制，无法在超时未回复时主动预警","solutions":[{"step":1,"action":"立即排查延庆区客服排班与响应记录，确认漏回复根因","owner":"钱燕/周丹","deadline":"T+0（6月25日）","status":"pending"},{"step":2,"action":"建立客服响应时效监控，超时X分钟自动告警","owner":"钱燕","deadline":"T+5（6月30日）","status":"pending"},{"step":3,"action":"评估延庆区客服人力是否充足，必要时增配或调整排班","owner":"钱燕/朱梦阳","deadline":"T+7（7月2日）","status":"pending"},{"step":4,"action":"向甲方提交事件说明及改进措施，修复客户关系","owner":"来昕怡/钱燕","deadline":"T+2（6月27日）","status":"pending"}],"timeline":[{"time":"2026-06-16 10:28","event":"来昕怡同步朝阳区切换，强调实时同步要求"},{"time":"2026-06-25 09:42","event":"来昕怡反馈延庆区客服未及时回复，被甲方投诉"}],"tags":["客服","投诉","响应时效","市政停车","南宁笋尖"],"progress":"复盘已发群8556155，等待钱燕/周丹排查根因","penaltyConfirmed":false,"penaltyConfirmedBy":null,"penaltyConfirmedAt":null,"penaltyAmount":null,"penaltyReason":null,"contactPerson":"钱燕"},{"id":"TK-2026-002","title":"汽车之家任大炮涉政漏放复盘","author":"朱梦阳","vendor":"河南新阳科技（洛阳）","status":"resolved","priority":"P0","sourceGroup":"6115474","createdDate":"2026-06-24","updatedDate":"2026-06-24","summary":"6月23日汽车之家论坛评论中，审核员韦苏蕾一审不通过(打标谩骂)，李玉盈回扫修正为通过，导致包含涉政敏感人物任大炮(任志强)的评论漏放。漏放原因：审核员不了解任大炮为涉政敏感人物，原贴讲雷军相关内容，评论\"任大炮也说了同样的话\"被误判为普通言论，未识别涉政风险。回扫结果：各模块近一月OCR关键词回扫任大炮、任志强无关联数据。","impact":"🔴 涉政漏放：敏感人物任大炮相关内容未拦截，存在政治风险\n🔴 客户投诉风险：若被外部发现可升级为重大事故\n🟡 流程漏洞：一审不通过→回扫通过的操作不一致，两轮审核结果矛盾\n🟡 人员认知盲区：审核员对任大炮等涉政人物缺乏知识储备","rootCause":"1. 直接原因：审核员韦苏蕾对敏感人物\"任大炮\"（任志强）缺乏认知，仅按谩骂标签处理，未识别涉政风险\n2. 深层原因1：回扫审核李玉盈未充分核查评论内容的政治敏感性，仅按文本字面判断\n3. 深层原因2：涉政敏感人物培训未覆盖任大炮等历史人物，知识库存在盲区\n4. 深层原因3：一审不通过→回扫修正通过的流程缺乏涉政专项复核环节","solutions":[{"step":1,"action":"全组集中复培涉政敏感人物名单（含任大炮/任志强等），典型一号负面玩梗风险意识","owner":"郭嘉锋","deadline":"T+1（6月25日）","status":"done"},{"step":2,"action":"整合本案+历史案例，以模拟实操形式全组测试验收，准确率100%为目标值","owner":"郭嘉锋","deadline":"T+3（6月26日）","status":"done"},{"step":3,"action":"对漏放人韦苏蕾及汽车组其他同学随机抽问，验收其他风险类型知识储备","owner":"郭嘉锋","deadline":"T+3（6月26日）","status":"done"},{"step":4,"action":"评估DHS删除人审通过涉政数据的兜底保障方案","owner":"钱燕","deadline":"T+5（6月28日）","status":"done"},{"step":5,"action":"优化回扫流程：涉政相关内容的回扫增加专项复核环节","owner":"黎俊","deadline":"T+5（6月28日）","status":"done"}],"timeline":[{"time":"2026-06-21 20:04","event":"一审韦苏蕾不通过，打标谩骂"},{"time":"2026-06-22 09:34","event":"李玉盈回扫修正为通过"},{"time":"2026-06-23 16:47","event":"客户朱莹发现涉政漏放，通知黎俊排查"},{"time":"2026-06-23 17:08","event":"黎俊确认漏放原因，回扫近一月数据无关联"},{"time":"2026-06-23 18:27","event":"郭嘉锋输出培训方案（复培+验收）"},{"time":"2026-06-24","event":"工单TK-TK-2026-002创建，全流程跟踪启动"},{"time":"2026-06-24 15:36","event":"定时扫描：所有方案已进入处理中状态"},{"time":"2026-06-24 16:19","event":"全部方案完成，工单完结"}],"tags":["涉政","任大炮","漏放","汽车之家","洛阳笋尖","培训"],"progress":"全部方案已完成：培训复培+验收+抽问+DHS兜底+回扫流程优化均已落地","penaltyConfirmed":false,"penaltyConfirmedBy":null,"penaltyConfirmedAt":null,"penaltyAmount":1000,"penaltyReason":"P0 监管反馈 10%（¥1000）","contactPerson":"钱燕"},{"id":"TK-2026-001","title":"客服小二连续错误导致客户投诉","author":"Tom","vendor":"河南新阳科技（南宁）","status":"resolved","priority":"P0","sourceGroup":"8522560","createdDate":"2026-06-15","updatedDate":"2026-06-22T17:48:00+08:00","summary":"客服小二在群内回复盛通时，未按标准流程操作——查询时未选行政区选项，导致结果不准确。客户投诉至来昕怡，追问：客服有问题为什么没有同步？培训了吗？责任方梁宁。该小二已做客服一年，基础操作仍出错。","impact":"🔴 客户体验：连续错误操作导致投诉，损害公司服务形象\n🔴 团队信任：一年经验的客服重复低级错误，客户对专业性产生质疑\n🟡 管理漏洞：已知问题未同步未闭环，培训跟进滞后\n🟡 工作流程：行政区选项是基础操作，说明工作标准和核查流程有缺失","rootCause":"直接原因：客服小二查询时遗漏行政区选项，导致结果错误\n深层原因：1) 已做一年但基础操作仍出错——培训或考核标准不足 2) 存在错误但未及时同步给管理方 3) 整改措施滞后——投诉发生后才安排练习","solutions":[{"step":1,"action":"暂停该小二在线客服权限，完成练习并通过考核后再恢复","owner":"梁宁","deadline":"T+1","status":"done"},{"step":2,"action":"逐一核查团队内所有客服小二是否掌握行政区查询等基础操作","owner":"梁宁","deadline":"T+3","status":"done"},{"step":3,"action":"建立客服小二错误预警机制：单日同一错误≥2次自动同步管理方","owner":"梁宁/来昕怡","deadline":"T+5","status":"done"},{"step":4,"action":"制定客服小二定期考核表（月度），确保基础操作不退化","owner":"梁宁","deadline":"T+10","status":"done"},{"step":5,"action":"将本次案例作为反面教材纳入新小二入职培训","owner":"梁宁","deadline":"持续","status":"done"}],"timeline":[{"time":"06/15","event":"客服小二回复盛通时未选行政区选项，查询结果错误"},{"time":"06/15","event":"客户投诉至来昕怡，追问同步和培训问题"},{"time":"06/15","event":"梁宁反馈：已安排该小二练习"},{"time":"06/15","event":"来昕怡发布复盘要求：书面复盘 + 考核标准 + 团队核查"},{"time":"06/15","event":"周丹创建工单并@吴胜海，附改进方向5条"},{"time":"06/15 14:59","event":"吴胜海回复：6/15回查、6/17培训梳理、6/18复培、每日全查至7/1"}],"tags":["投诉","客服","培训","管理"],"progress":"6/22 老板确认工单完结。全部5项方案已完成。","penaltyConfirmed":false,"penaltyConfirmedBy":null,"penaltyConfirmedAt":null,"penaltyAmount":1500,"penaltyReason":"P0 监管反馈 10%（¥1000）+ 重大影响×1.5","contactPerson":"钱燕"},{"id":"TK-2026-003","title":"绥阳团队付林组质检管理复盘","author":"Tom","vendor":"贵州硅易数字化科技（绥阳）","status":"resolved","priority":"P0","sourceGroup":"8210337","createdDate":"2026-06-09","updatedDate":"2026-06-16","summary":"6/1-6/8期间，付林管理的绥阳质检团队出现严重质量管控缺失。6/6王钦鹏次品率0.66%（正常3倍），全组次品从8条暴增362%至37条，管理侧仍正常发日报、无预警无纠偏。6/7日报缺失，次品35条继续高位。直到6/9来昕怡追问后才被动回应。","impact":"🔴 质量失控：次品暴增362%，管理侧无阻断，48条错误数据进入后续链路\n🔴 人员风险：2天高次品后王钦鹏仍正常上线，无纠偏或轮换\n🟡 信息断层：排班表与实际出勤7处不一致\n🟡 制度空转：日报仅做数量汇总，无异常标注和改善措施","rootCause":"1. 管理岗角色定位模糊：日报仅做数据汇总，未下沉到异常→纠偏→改善闭环\n2. 缺乏异常预警阈值：次品率0.18%→0.66%跨越3天，无预警信号\n3. 日报内容缺少管理价值：不区分人员、不标注异常、不追溯类型\n4. 车牌错误系统性存在无人关注：114条占79%，8天未见专项治理","solutions":[{"step":1,"action":"日度异常预警：单人次品≥5条标注姓名+类型；次品环比>100%追加原因","owner":"付林","deadline":"本周","status":"done"},{"step":2,"action":"王钦鹏专项纠偏：48条逐条回查 + 车牌录入培训 + 3天抽检1.5倍","owner":"付林","deadline":"本周","status":"done"},{"step":3,"action":"补充6/7缺失日报，标注异常人员明细","owner":"付林","deadline":"本周","status":"done"},{"step":4,"action":"建立异常响应SOP：次品率>0.5%暂停审核→回查→培训→重新上线","owner":"付林","deadline":"2周内","status":"done"},{"step":5,"action":"日报模板升级：增加人员排名表、TOP3次品类型、环比变化","owner":"付林","deadline":"2周内","status":"done"},{"step":6,"action":"管理岗KPI明确：异常响应≤4小时，日报覆盖率100%","owner":"付林","deadline":"1个月","status":"done"},{"step":7,"action":"车牌录入系统优化：OCR二次校验或关键字符高亮 + 每周专项回查","owner":"付林","deadline":"1个月","status":"done"}],"timeline":[{"time":"06/01-03","event":"王钦鹏次品率从0.18%持续上升至0.34%，日报正常但未标注异常"},{"time":"06/06","event":"王钦鹏次品26条（0.66%），全组暴增至37条，增幅362%"},{"time":"06/07","event":"全组次品35条继续高位，日报缺失"},{"time":"06/09","event":"来昕怡群内追问：6号7号问题已暴露，管理侧无纠偏记录"},{"time":"06/09","event":"来昕怡发布绥阳团队质检管理复盘工单"},{"time":"06/16","event":"来昕怡确认工单完结"}],"tags":["质检管理","次品","管理失职","日报","培训"],"progress":"6/16 老板确认工单完结。","penaltyConfirmed":false,"penaltyConfirmedBy":null,"penaltyConfirmedAt":null,"penaltyAmount":1500,"penaltyReason":"P0 监管反馈 10%（¥1000）+ 重大影响×1.5","contactPerson":"张思语"},{"id":"TK-2026-004","title":"巡检车CMA登录态频繁过期导致审核积压","author":"来昕怡","vendor":"杭州职场","status":"resolved","priority":"P0","sourceGroup":"8485321","createdDate":"2026-06-15","updatedDate":"2026-06-15T17:05:00+08:00","summary":"2026年6月期间，巡检车CMA系统多次出现登录态过期问题。6月4日早高峰，入场审核积压371条、出场169条，累计影响超过90分钟。审核人员反馈CMA总是弹出来识别不了，人工介入率从30%飙升至80%。","impact":"🔴 审核时效：单次积压最高371条，环比增长300%\n🔴 人工成本：人审率从30%升至80%，6台CMA仅4台正常运作\n🟡 准确率风险：人工审核比例激增，次品率存在反弹风险\n🟡 供应商管理：杭州职场日均额外消耗2人处理积压","rootCause":"直接原因：CMA登录态过期后未自动续期，审核人员未及时退出重登\n深层原因：1) CMA无登录态监控告警 2) 审核人员缺乏CMA掉线识别培训 3) 巡检车告警仅提示积压量，未关联登录态异常","solutions":[{"step":1,"action":"修复CMA登录态自动续期逻辑，增加session过期前主动刷新","owner":"董超","deadline":"T+3","status":"done"},{"step":2,"action":"巡检车告警机器人增加CMA在线数字段，在线数<5自动@管理方","owner":"董超","deadline":"T+5","status":"done"},{"step":3,"action":"制定CMA掉线应急预案：退出→重登→验证三步骤","owner":"来昕怡","deadline":"T+3","status":"done"},{"step":4,"action":"建立CMA健康度dashboard，每小时检测登录态/识别率/人审率","owner":"董超","deadline":"T+10","status":"done"},{"step":5,"action":"审核人员上岗前增加CMA状态自查环节，纳入日常checklist","owner":"来昕怡","deadline":"持续","status":"done"}],"timeline":[{"time":"06/04 07:09","event":"巡检车入场审核积压371条，CMA在线数异常"},{"time":"06/04 09:10","event":"发现sh28人审率80%，确认CMA掉线"},{"time":"06/04 09:12","event":"梁宁确认没有爆量，但实际为CMA未分配"},{"time":"06/04 08:55-09:15","event":"连续6条告警，积压峰值371条"},{"time":"06/15","event":"发起工单复盘"},{"time":"06/15 16:19","event":"董超回复：CMA自动续期已修复，告警已加在线数"},{"time":"06/15 17:05","event":"来昕怡：所有方案完结"}],"tags":["巡检车","CMA","审核积压","系统稳定性"],"progress":"6/15 董超：CMA自动续期已修复，告警已加在线数。Dashboard已完成。来昕怡：所有方案完结。","penaltyConfirmed":false,"penaltyConfirmedBy":null,"penaltyConfirmedAt":null,"penaltyAmount":1000,"penaltyReason":"P0 监管反馈 10%（¥1000）","contactPerson":"—"}],"updatedAt":"2026-06-25 01:59:15+08:00","meta":{"version":"3.0","description":"工单看板数据文件 - 供应商管理","lastUpdated":"2026-06-25 01:59:15+08:00","contactPersons":{"钱燕":"河南新阳科技（洛阳）、河南新阳科技（南宁）","刘倩":"河南徽音网络科技、山西易网视界（临汾）","张思语":"驻马店网创运营、贵州硅易（绥阳）、四川淘金（忻州）、河南诺达信息科技","俞晓倩":"新疆众合天易、天津长翔科技（佛山）、芜湖晟律科技、成都唯准科技、长远数字科技、上海小咖邦"}}};
+
+let tickets = [];
+let meta = {};
+let viewMode = 'card';
+let pageSize = 5;
+let currentPage = 1;
+let overduePreset = false;
+let activePreset = false;
+
+// ====== Vendor / Contact Mapping ======
+const VENDOR_MAP = {
+  '钱燕': [{ name: '河南新阳科技（洛阳）', alias: ['洛阳','笋尖'], headcount: 150, scope: '效果交付、人员达标、招聘、预算、周会' },
+           { name: '河南新阳科技（南宁）', alias: ['南宁','笋尖'], headcount: 81, scope: '效果交付、人员达标、招聘、预算、周会' }],
+  '刘倩': [{ name: '河南徽音网络科技', alias: ['徽音'], headcount: 59, scope: '' },
+           { name: '山西易网视界（临汾）', alias: ['临汾','易网'], headcount: 200, scope: '' }],
+  '张思语': [{ name: '驻马店网创运营', alias: ['驻马店'], headcount: 34, scope: '' },
+            { name: '贵州硅易（绥阳）', alias: ['绥阳','硅易'], headcount: 10, scope: '' },
+            { name: '四川淘金（忻州）', alias: ['淘金','忻州'], headcount: 75, scope: '' },
+            { name: '河南诺达信息科技', alias: ['诺达'], headcount: 168, scope: '' }],
+  '俞晓倩': [{ name: '新疆众合天易', alias: ['新疆'], headcount: 4, scope: '挂靠：考勤、账单、合同、场地，仅运维不新增' },
+            { name: '天津长翔科技（佛山）', alias: ['佛山','长翔'], headcount: 20, scope: '挂靠' },
+            { name: '芜湖晟律科技', alias: ['芜湖'], headcount: 10, scope: '挂靠' },
+            { name: '成都唯准科技', alias: ['唯准'], headcount: 85, scope: '挂靠' },
+            { name: '长远数字科技', alias: ['长远'], headcount: 13, scope: '挂靠' },
+            { name: '上海小咖邦', alias: ['小咖'], headcount: 6, scope: '挂靠' }],
+};
+
+function getContactPerson(vendorName) {
+  for (const [person, vendors] of Object.entries(VENDOR_MAP)) {
+    if (vendors.some(v => v.name === vendorName || (v.alias || []).includes(vendorName))) return person;
+  }
+  return null;
+}
+
+// ====== Init ======
+function initData() {
+  tickets = JSON.parse(JSON.stringify(DEFAULT_TICKET_DATA.tickets));
+  meta = DEFAULT_TICKET_DATA.meta || {};
+  detectOverdue();
+  loadTickets();
+}
+
+// ====== Overdue Detection ======
+function detectOverdue() {
+  const now = new Date(); now.setHours(0,0,0,0);
+  tickets.forEach(t => {
+    if (t.status === 'resolved' || t.status === 'closed') { t._hasOverdue = false; t._overdueCount = 0; return; }
+    t._hasOverdue = false; t._overdueCount = 0;
+    t.solutions.forEach(s => {
+      if (s.status === 'done') return;
+      const dl = parseDeadline(s.deadline, t.createdDate);
+      if (dl && dl < now) { s.status = 'overdue'; t._hasOverdue = true; t._overdueCount++; }
+    });
+  });
+}
+
+function parseDeadline(deadline, createdDate) {
+  if (!deadline || deadline === '持续' || deadline === '长期') return null;
+  const tMatch = deadline.match(/^T\+(\d+)$/);
+  if (tMatch) { const d = new Date(createdDate); d.setDate(d.getDate() + parseInt(tMatch[1])); return d; }
+  const dMatch = deadline.match(/^(\d{4}-\d{2}-\d{2})$/);
+  if (dMatch) return new Date(dMatch[1]);
+  const wMatch = deadline.match(/^(\d+)周/);
+  if (wMatch) { const d = new Date(createdDate); d.setDate(d.getDate() + parseInt(wMatch[1])*7); return d; }
+  const mMatch = deadline.match(/^(\d+)个?月/);
+  if (mMatch) { const d = new Date(createdDate); d.setMonth(d.getMonth() + parseInt(mMatch[1])); return d; }
+  return null;
+}
+
+// ====== Load ======
+function loadTickets() {
+  detectOverdue(); renderAll();
+}
+
+function renderAll() {
+  const authors = [...new Set(tickets.map(t => t.author))];
+  const asel = document.getElementById('filterAuthor');
+  asel.innerHTML = '<option value="all">全部龙虾</option>';
+  authors.forEach(a => asel.innerHTML += `<option value="${a}">${a}</option>`);
+  const vendors = [...new Set(tickets.map(t => t.vendor).filter(Boolean))];
+  const vsel = document.getElementById('filterVendor');
+  vsel.innerHTML = '<option value="all">全部供应商</option>';
+  const allVendors = new Set();
+  Object.values(VENDOR_MAP).forEach(list => list.forEach(v => allVendors.add(v.name)));
+  vendors.forEach(v => allVendors.add(v));
+  [...allVendors].sort().forEach(v => vsel.innerHTML += `<option value="${v}">${v}</option>`);
+  const lu = meta.lastUpdated || '';
+  document.getElementById('lastUpdated').textContent = lu ? '更新于 ' + formatDate(lu) : '';
+  render(); renderDashboard();
+}
+
+function formatDate(d) { return d ? d.slice(0,10) + ' ' + (d.slice(11,16) || '') : ''; }
+
+// ====== Stats ======
+function renderStats() {
+  const total = tickets.length;
+  const counts = { pending: 0, open: 0, in_progress: 0, resolved: 0, closed: 0, P0: 0, P1: 0, P2: 0 };
+  let overdueCount = 0, totalDays = 0, resolvedN = 0;
+  tickets.forEach(t => {
+    counts[t.status] = (counts[t.status] || 0) + 1;
+    if (t.priority === 'P0' && t.status !== 'resolved' && t.status !== 'closed') counts.P0++;
+    if (t._hasOverdue) overdueCount++;
+    if (t.status === 'resolved' || t.status === 'closed') {
+      const d = Math.round((new Date(t.updatedDate.slice(0,10)) - new Date(t.createdDate)) / 86400000);
+      if (d >= 0) { totalDays += d; resolvedN++; }
+    }
+  });
+  const avgDays = resolvedN ? Math.round(totalDays / resolvedN) : 0;
+  const active = counts.open + counts.in_progress + counts.pending;
+  const closed = counts.resolved + counts.closed;
+  const pct = total ? Math.round(closed / total * 100) : 0;
+
+  document.getElementById('statsRow').innerHTML = `
+    <div class="stat-card"><div class="stat-icon blue">📊</div><div><div class="stat-value">${total}</div><div class="stat-label">总工单</div></div></div>
+    <div class="stat-card"><div class="stat-icon amber">⏳</div><div><div class="stat-value">${active}</div><div class="stat-label">进行中</div></div></div>
+    <div class="stat-card"><div class="stat-icon green">✅</div><div><div class="stat-value">${closed}</div><div class="stat-label">已完结 · ${pct}%</div></div></div>
+    <div class="stat-card"><div class="stat-icon red">🔥</div><div><div class="stat-value">${counts.P0}</div><div class="stat-label">P0 紧急待处理</div></div></div>
+    <div class="stat-card"><div class="stat-icon rose">⏰</div><div><div class="stat-value">${overdueCount}</div><div class="stat-label">含超期方案</div></div></div>
+    <div class="stat-card"><div class="stat-icon purple">📈</div><div><div class="stat-value">${avgDays}d</div><div class="stat-label">平均解决天数</div></div></div>
+  `;
+}
+
+// ====== Filters ======
+function getFiltered() {
+  const s = document.getElementById('filterStatus').value;
+  const p = document.getElementById('filterPriority').value;
+  const a = document.getElementById('filterAuthor').value;
+  const v = document.getElementById('filterVendor').value;
+  const q = document.getElementById('filterSearch').value.toLowerCase();
+  const sort = document.getElementById('sortBy').value;
+  let result = tickets.filter(t => {
+    if (s !== 'all' && t.status !== s) return false;
+    if (p !== 'all' && t.priority !== p) return false;
+    if (a !== 'all' && t.author !== a) return false;
+    if (v !== 'all' && t.vendor !== v) return false;
+    if (q) { const ft = [t.title,t.id,t.summary,t.rootCause,t.progress,...t.tags].join(' ').toLowerCase(); if (!ft.includes(q)) return false; }
+    if (overduePreset && !t._hasOverdue) return false;
+    if (activePreset && (t.status === 'resolved' || t.status === 'closed')) return false;
+    return true;
+  });
+  // Sort
+  const priorityOrder = { P0: 0, P1: 1, P2: 2, P3: 3 };
+  const statusOrder = { pending: 0, open: 1, in_progress: 2, resolved: 3, closed: 4 };
+  switch (sort) {
+    case 'created-asc': result.sort((a,b) => a.createdDate.localeCompare(b.createdDate)); break;
+    case 'created-desc': result.sort((a,b) => b.createdDate.localeCompare(a.createdDate)); break;
+    case 'updated-desc': result.sort((a,b) => b.updatedDate.localeCompare(a.updatedDate)); break;
+    case 'priority': result.sort((a,b) => priorityOrder[a.priority] - priorityOrder[b.priority] || a.createdDate.localeCompare(b.createdDate)); break;
+    case 'status': result.sort((a,b) => statusOrder[a.status] - statusOrder[b.status] || priorityOrder[a.priority] - priorityOrder[b.priority]); break;
+  }
+  return result;
+}
+
+// ====== View ======
+function setView(m) {
+  viewMode = m;
+  document.getElementById('btnCard').classList.toggle('active', m === 'card');
+  document.getElementById('btnList').classList.toggle('active', m === 'list');
+  document.getElementById('ticketList').classList.toggle('list-view', m === 'list');
+}
+
+// ====== Render Tickets ======
+const statusLabels = { pending:'待分配', open:'待处理', in_progress:'处理中', resolved:'已解决', closed:'已关闭' };
+const allStatuses = [
+  { key:'pending', label:'待分配' }, { key:'open', label:'待处理' },
+  { key:'in_progress', label:'处理中' }, { key:'resolved', label:'已解决' }, { key:'closed', label:'已关闭' }
+];
+
+function highlightText(text, search) {
+  if (!search) return text;
+  return text.replace(new RegExp(`(${search.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`,'gi'), '<span class="highlight">$1</span>');
+}
+
+function render() {
+  const filtered = getFiltered();
+  const totalFiltered = filtered.length;
+  const totalPages = Math.max(1, Math.ceil(totalFiltered / pageSize));
+  if (currentPage > totalPages) currentPage = totalPages;
+  const start = (currentPage - 1) * pageSize;
+  const pageItems = filtered.slice(start, start + pageSize);
+
+  renderStats();
+  document.getElementById('filterCount').textContent = `共 ${totalFiltered} / ${tickets.length} 条 · 第 ${currentPage}/${totalPages} 页`;
+
+  if (totalFiltered === 0) {
+    document.getElementById('ticketList').innerHTML = '<div class="empty-state"><div class="empty-icon">📭</div><p>没有匹配的工单</p></div>';
+    document.getElementById('pagination').innerHTML = '';
+    return;
+  }
+
+  const search = document.getElementById('filterSearch').value.toLowerCase();
+  document.getElementById('ticketList').innerHTML = pageItems.map(t => ticketCard(t, search)).join('');
+  document.getElementById('ticketList').classList.toggle('list-view', viewMode === 'list');
+  renderPagination(totalFiltered, totalPages);
+}
+
+function ticketCard(t, search) {
+  const titleDisp = search ? highlightText(t.title, search) : t.title;
+  const cls = `ticket-card status-${t.status}${t._hasOverdue ? ' has-overdue' : ''}`;
+
+  return `<div class="${cls}">
+    <div class="ticket-row" onclick="toggleTicket('${t.id}')">
+      <span class="ticket-id">${t.id}</span>
+      <span class="pill p${t.priority.slice(1)}">${t.priority}</span>
+      <span class="pill status-${t.status}">${statusLabels[t.status]}</span>
+      <span class="ticket-title">${titleDisp}</span>
+      <span class="ticket-author ${t.author}">${t.author}</span>
+      ${t.vendor ? `<span class="ticket-vendor">${t.vendor}</span>` : ''}
+      ${(() => { const cp = getContactPerson(t.vendor); return cp ? `<span style="font-size:10px;padding:1px 7px;border-radius:10px;background:var(--purple-50);color:var(--purple);font-weight:500;">${cp}</span>` : ''; })()}
+      <span style="font-size:11px;color:var(--text-muted);">📅 ${t.createdDate}${t.updatedDate && t.updatedDate.length > 10 ? ' ' + t.updatedDate.slice(11,16) : ''}</span>
+      ${t.sourceGroup ? `<span style="font-size:11px;color:var(--text-muted);">💬 ${t.sourceGroup}</span>` : ''}
+      ${t._hasOverdue ? `<span class="pill overdue">${t._overdueCount}项超期</span>` : ''}
+      <span class="penalty-badge">💰 ¥${calcPenalty(t).total}</span>
+      <div class="ticket-actions" onclick="event.stopPropagation()">
+        <select onchange="changePriority('${t.id}',this.value)">
+          ${['P0','P1','P2','P3'].map(p => `<option${t.priority===p?' selected':''}>${p}</option>`).join('')}
+        </select>
+        <select onchange="changeStatus('${t.id}',this.value)">
+          ${allStatuses.map(s => `<option value="${s.key}"${t.status===s.key?' selected':''}>${s.label}</option>`).join('')}
+        </select>
+      </div>
+      <span class="expand-arrow" id="icon-${t.id}">▾</span>
+    </div>
+    <div class="ticket-detail" id="detail-${t.id}">
+      <div class="ticket-detail-inner">
+        <div class="tag-list">${t.tags.map(tag => `<span class="tag">${search ? highlightText(tag, search) : tag}</span>`).join('')}</div>
+
+        <section>
+          <div class="section-label">📝 事件摘要</div>
+          <div class="section-content">${search ? highlightText(t.summary, search) : t.summary}</div>
+        </section>
+        <section>
+          <div class="section-label">💥 影响分析</div>
+          <div class="section-content">${t.impact}</div>
+        </section>
+        <section>
+          <div class="section-label">🔍 根本原因</div>
+          <div class="section-content">${t.rootCause}</div>
+        </section>
+        <section>
+          <div class="section-label">🔧 解决方案 ${(t.status==='resolved'||t.status==='closed') ? '<span style="font-size:11px;color:var(--green);">✅ 全部完成</span>' : (t._hasOverdue ? `<span style="font-size:11px;color:var(--red);">⚠ ${t._overdueCount}项超期</span>` : `<span style="font-size:11px;color:var(--green);">${t.solutions.filter(s=>s.status==='done').length}/${t.solutions.length} 完成</span>`)}</div>
+          <table class="sol-table">
+            <tr><th>#</th><th>行动项</th><th>负责人</th><th>截止</th><th>状态</th></tr>
+            ${t.solutions.map(s => `<tr class="${s.status==='overdue'?'overdue-row':''}">
+              <td>${s.step}</td><td>${s.action}</td><td>${s.owner}</td><td>${s.deadline}${deadlineInfo(s.deadline, t.createdDate)}</td>
+              <td><span class="sol-status-dot ${s.status}">${s.status==='done'?'✅ 完成':s.status==='in_progress'?'🔄 进行中':s.status==='overdue'?'⚠️ 超期':'⏳ 待处理'}</span></td>
+            </tr>`).join('')}
+          </table>
+        </section>
+        <section>
+          <div class="section-label">💰 事故扣罚</div>
+          ${penaltySection(t)}
+        </section>
+        <section>
+          <div class="section-label">📌 最新进展</div>
+          <div class="section-content">${t.progress || '暂无'}</div>
+        </section>
+        <section>
+          <div class="section-label">⏱️ 事件时间线</div>
+          <div class="timeline">
+            ${t.timeline.map(e => `<div class="timeline-entry"><span class="timeline-time">${e.time}</span> ${e.event}</div>`).join('')}
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>`;
+}
+
+function toggleTicket(id) {
+  const d = document.getElementById('detail-' + id);
+  const i = document.getElementById('icon-' + id);
+  if (!d || !i) return;
+  d.classList.toggle('show'); i.classList.toggle('open');
+}
+
+function changePriority(id, v) {
+  const t = tickets.find(t => t.id === id); if (!t) return;
+  t.priority = v; t.updatedDate = new Date().toISOString().slice(0,10);
+  saveChanges(); render();
+}
+
+function changeStatus(id, v) {
+  const t = tickets.find(t => t.id === id); if (!t) return;
+  const oldStatus = t.status;
+  t.status = v;
+  t.updatedDate = new Date().toISOString();
+  const nowStr = new Date().toISOString().slice(5, 10).replace('-','/') + ' ' + new Date().toTimeString().slice(0, 5);
+  t.timeline.push({ time: nowStr, event: '状态变更: ' + statusLabels[oldStatus] + ' → ' + statusLabels[v] });
+  if (v === 'resolved' || v === 'closed') {
+    t.solutions.forEach(s => { if (s.status !== 'done') s.status = 'done'; });
+    t.timeline.push({ time: nowStr, event: '🎉 工单完结，所有方案已完成' });
+    t.progress = (t.progress || '') + '\n' + nowStr + ' 工单完结。';
+  }
+  detectOverdue(); saveChanges(); render();
+}
+
+function deadlineInfo(deadline, createdDate) {
+  if (!deadline || deadline === '持续' || deadline === '长期') return '';
+  const dl = parseDeadline(deadline, createdDate);
+  if (!dl) return '';
+  const now = new Date(); now.setHours(0,0,0,0);
+  const days = Math.round((dl - now) / 86400000);
+  if (days < 0) return ` <span class="dl-countdown bad">超${Math.abs(days)}天</span>`;
+  if (days === 0) return ` <span class="dl-countdown warn">今日</span>`;
+  if (days <= 3) return ` <span class="dl-countdown warn">剩${days}天</span>`;
+  return ` <span class="dl-countdown ok">剩${days}天</span>`;
+}
+
+// ====== Preset Filters ======
+function setPreset(type, el) {
+  document.querySelectorAll('.presets .preset').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  currentPage = 1;
+  overduePreset = false;
+  activePreset = false;
+  if (type === 'all') {
+    document.getElementById('filterStatus').value = 'all';
+    document.getElementById('filterPriority').value = 'all';
+    document.getElementById('filterAuthor').value = 'all';
+    document.getElementById('filterSearch').value = '';
+  } else if (type === 'active') {
+    document.getElementById('filterStatus').value = 'all';
+    document.getElementById('filterPriority').value = 'all';
+    document.getElementById('filterAuthor').value = 'all';
+    document.getElementById('filterSearch').value = '';
+    activePreset = true;
+  } else if (type === 'P0') {
+    document.getElementById('filterStatus').value = 'all';
+    document.getElementById('filterPriority').value = 'P0';
+    document.getElementById('filterAuthor').value = 'all';
+    document.getElementById('filterSearch').value = '';
+  } else if (type === 'my') {
+    document.getElementById('filterStatus').value = 'all';
+    document.getElementById('filterPriority').value = 'all';
+    document.getElementById('filterAuthor').value = 'Tom';
+    document.getElementById('filterSearch').value = '';
+  } else if (type === 'month') {
+    document.getElementById('filterStatus').value = 'all';
+    document.getElementById('filterPriority').value = 'all';
+    document.getElementById('filterAuthor').value = 'all';
+    document.getElementById('filterSearch').value = '2026-06';
+  } else if (type === 'overdue') {
+    document.getElementById('filterStatus').value = 'all';
+    document.getElementById('filterPriority').value = 'all';
+    document.getElementById('filterAuthor').value = 'all';
+    document.getElementById('filterSearch').value = '';
+    overduePreset = true;
+  }
+  render();
+  // overdue: re-render with custom filter
+  if (type === 'overdue') {
+    // Handled by the _hasOverdue flag; use active filter and only show overdue in list
+    // We'll filter in render
+    document.getElementById('filterStatus').value = 'all';
+  }
+}
+
+// ====== Theme ======
+function toggleTheme() {
+  const html = document.documentElement;
+  const isDark = html.getAttribute('data-theme') === 'dark';
+  if (isDark) { html.removeAttribute('data-theme'); document.getElementById('themeBtn').innerHTML = '🌙 暗色'; }
+  else { html.setAttribute('data-theme', 'dark'); document.getElementById('themeBtn').innerHTML = '☀️ 亮色'; }
+  localStorage.setItem('kanban-theme', isDark ? 'light' : 'dark');
+}
+
+// ====== Expand/Collapse All ======
+let allExpanded = false;
+function toggleAllTickets() {
+  allExpanded = !allExpanded;
+  const filtered = getFiltered();
+  const pageItems = filtered.slice((currentPage-1)*pageSize, currentPage*pageSize);
+  pageItems.forEach(t => {
+    const d = document.getElementById('detail-' + t.id);
+    const i = document.getElementById('icon-' + t.id);
+    if (d) { if (allExpanded) d.classList.add('show'); else d.classList.remove('show'); }
+    if (i) { if (allExpanded) i.classList.add('open'); else i.classList.remove('open'); }
+  });
+  document.getElementById('expandAllBtn').textContent = allExpanded ? '📁 全部收起' : '📂 全部展开';
+}
+
+// ====== New Ticket Modal ======
+function showNewTicketModal() {
+  document.getElementById('newTicketModal').classList.add('show');
+  document.getElementById('ntTitle').focus();
+}
+function closeNewTicketModal() {
+  document.getElementById('newTicketModal').classList.remove('show');
+}
+function createTicket() {
+  const title = document.getElementById('ntTitle').value.trim();
+  if (!title) { alert('请输入工单标题'); return; }
+  const maxId = Math.max(0, ...tickets.map(t => parseInt(t.id.split('-')[2]) || 0));
+  const newTicket = {
+    id: 'TK-2026-' + String(maxId + 1).padStart(3, '0'),
+    title: title,
+    author: document.getElementById('ntAuthor').value,
+    vendor: document.getElementById('ntVendor').value,
+    status: 'open',
+    priority: document.getElementById('ntPriority').value,
+    sourceGroup: document.getElementById('ntGroup').value,
+    createdDate: new Date().toISOString().slice(0, 10),
+    updatedDate: new Date().toISOString(),
+    summary: document.getElementById('ntSummary').value,
+    impact: document.getElementById('ntImpact').value,
+    rootCause: document.getElementById('ntRootCause').value,
+    solutions: (document.getElementById('ntSolutions').value || '').split('\n').filter(Boolean).map((line, i) => {
+      const parts = line.split('|').map(s => s.trim());
+      return { step: i+1, action: parts[0] || '', owner: parts[1] || '', deadline: parts[2] || '待定', status: 'pending' };
+    }),
+    timeline: [{ time: new Date().toISOString().slice(5, 10).replace('-','/'), event: '创建工单' }],
+    tags: [],
+    progress: ''
+  };
+  tickets.unshift(newTicket);
+  detectOverdue();
+  saveChanges();
+  closeNewTicketModal();
+  // Clear form
+  ['ntTitle','ntSummary','ntImpact','ntRootCause','ntSolutions','ntGroup'].forEach(id => document.getElementById(id).value = '');
+  currentPage = 1;
+  document.getElementById('sortBy').value = 'created-desc';
+  document.querySelectorAll('.presets .preset').forEach(p => p.classList.remove('active'));
+  document.querySelector('.presets .preset').classList.add('active');
+  document.getElementById('filterStatus').value = 'all';
+  document.getElementById('filterPriority').value = 'all';
+  document.getElementById('filterAuthor').value = 'all';
+  document.getElementById('filterSearch').value = '';
+  render();
+  renderDashboard();
+}
+
+function saveChanges() {
+  const c = {}; tickets.forEach(t => c[t.id] = { status:t.status, priority:t.priority });
+  localStorage.setItem('kanban-v3', JSON.stringify(c));
+}
+
+// ====== Penalty Calculation ======
+const PENALTY_CONFIG = {
+  baseSettlement: 10000, // 月度结算基数，用于百分比扣罚
+  rules: {
+    P0: { label: '监管反馈', calc: (base) => ({ amount: Math.round(base * 0.10), desc: `监管反馈 ${base>=0?'-10% (¥'+Math.round(base*0.10)+')':'计次'}` }) },
+    P1: { label: '业务客诉/单条≥¥1000', calc: (base) => ({ amount: Math.max(1000, Math.round(base * 0.01)), desc: `业务客诉 min(-1% ¥${Math.round(base*0.01)}, -¥1000)` }) },
+    P2_political: { label: '涉政反馈', calc: () => ({ amount: 500, desc: '涉政反馈 -¥500' }) },
+    P2: { label: '色情/违禁', calc: () => ({ amount: 100, desc: '色情/违禁 -¥100' }) },
+    P3_porn: { label: '普通色情/违禁', calc: () => ({ amount: 100, desc: '普通色情/违禁 -¥100' }) },
+    P3: { label: '定制化反馈', calc: () => ({ amount: 50, desc: '定制化反馈 -¥50' }) },
+  },
+  impactMultiplier: { critical: 1.5, high: 1.2, normal: 1.0 },
+  repeatMultiplier: 1.3,
+};
+
+function getPenaltyRule(ticket) {
+  const tags = (ticket.tags || []).map(t => t.toLowerCase());
+  const title = (ticket.title || '').toLowerCase();
+  const impact = (ticket.impact || '').toLowerCase();
+  const summary = (ticket.summary || '').toLowerCase();
+  const fullText = tags.join(' ') + ' ' + title + ' ' + impact + ' ' + summary;
+
+  if (ticket.priority === 'P0') {
+    if (fullText.includes('监管') || fullText.includes('约谈') || fullText.includes('下架')) return 'P0';
+    return 'P0';
+  }
+  if (ticket.priority === 'P1') return 'P1';
+  if (ticket.priority === 'P2') {
+    if (fullText.includes('涉政')) return 'P2_political';
+    return 'P2';
+  }
+  if (ticket.priority === 'P3') {
+    if (fullText.includes('色情') || fullText.includes('违禁')) return 'P3_porn';
+    return 'P3';
+  }
+  return ticket.priority;
+}
+
+function calcPenalty(ticket) {
+  const ruleKey = getPenaltyRule(ticket);
+  const rule = PENALTY_CONFIG.rules[ruleKey] || PENALTY_CONFIG.rules['P3'];
+  const { amount, desc } = rule.calc(PENALTY_CONFIG.baseSettlement);
+
+  // Impact multiplier (for P0/P1)
+  let multiplier = 1.0;
+  const impact = ticket.impact || '';
+  if (impact.includes('🔴') || impact.includes('重大')) multiplier = PENALTY_CONFIG.impactMultiplier.critical;
+  else if (impact.includes('🟡') || impact.includes('中等')) multiplier = PENALTY_CONFIG.impactMultiplier.high;
+
+  // Repeat multiplier
+  const sameVendor = tickets.filter(t =>
+    t.id !== ticket.id && t.vendor === ticket.vendor && t.priority === ticket.priority
+  ).length;
+  if (sameVendor > 0) multiplier *= Math.pow(PENALTY_CONFIG.repeatMultiplier, sameVendor);
+
+  const finalAmount = Math.round(amount * multiplier);
+
+  const reasons = [desc];
+  if (multiplier > 1.0) {
+    if (impact.includes('🔴') || impact.includes('重大')) reasons.push('重大影响×1.5');
+    if (sameVendor > 0) reasons.push(`同供${ticket.priority}×${sameVendor+1}次`);
+  }
+
+  return { total: finalAmount, vendor: ticket.vendor, reason: reasons.join(' + '), ruleLabel: rule.label };
+}
+
+function penaltySection(t) {
+  const p = calcPenalty(t);
+  return `<table class="penalty-table" style="margin-top:4px;">
+    <tr><th>供应商</th><th>扣罚金额</th><th>计算依据</th></tr>
+    <tr><td>${p.vendor}</td><td style="font-weight:700;color:var(--red);">¥${p.total}</td><td style="font-size:11px;color:var(--text-secondary);">${p.reason}</td></tr>
+  </table>`;
+}
+
+// ====== Pagination ======
+function renderPagination(totalItems, totalPages) {
+  const container = document.getElementById('pagination');
+  if (totalPages <= 1 && pageSize >= totalItems) { container.innerHTML = ''; return; }
+
+  let html = '';
+  html += `<button onclick="goPage(1)"${currentPage===1?' disabled':''}>«</button>`;
+  html += `<button onclick="goPage(${currentPage-1})"${currentPage===1?' disabled':''}>‹</button>`;
+
+  // Page numbers: show around current page
+  const pages = [];
+  let startP = Math.max(1, currentPage - 2);
+  let endP = Math.min(totalPages, currentPage + 2);
+  if (endP - startP < 4) {
+    if (startP === 1) endP = Math.min(5, totalPages);
+    else startP = Math.max(1, totalPages - 4);
+  }
+  for (let i = startP; i <= endP; i++) pages.push(i);
+
+  if (startP > 1) { pages.unshift(1); if (startP > 2) pages.splice(1, 0, '...'); }
+  if (endP < totalPages) { if (endP < totalPages - 1) pages.push('...'); pages.push(totalPages); }
+
+  pages.forEach(p => {
+    if (p === '...') html += `<span style="color:var(--text-muted);padding:0 2px;">…</span>`;
+    else html += `<button class="${p===currentPage?'active':''}" onclick="goPage(${p})">${p}</button>`;
+  });
+
+  html += `<button onclick="goPage(${currentPage+1})"${currentPage===totalPages?' disabled':''}>›</button>`;
+  html += `<button onclick="goPage(${totalPages})"${currentPage===totalPages?' disabled':''}>»</button>`;
+
+  html += `<div class="page-size">每页
+    <select onchange="changePageSize(this.value)">
+      ${[5,10,20,50].map(n => `<option${pageSize===n?' selected':''}>${n}</option>`).join('')}
+    </select>条</div>`;
+
+  container.innerHTML = html;
+}
+
+function goPage(p) {
+  const totalPages = Math.ceil(getFiltered().length / pageSize);
+  if (p < 1 || p > totalPages) return;
+  currentPage = p;
+  render();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function changePageSize(size) {
+  pageSize = parseInt(size);
+  currentPage = 1;
+  render();
+}
+
+// ====== Vendor Alert ======
+function vendorAlertHtml() {
+  const now = new Date();
+  const currentMonth = now.toISOString().slice(0, 7); // YYYY-MM
+  const vendorP0 = {};
+  tickets.forEach(t => {
+    if (t.priority !== 'P0') return;
+    if (!t.createdDate.startsWith(currentMonth)) return;
+    if (!vendorP0[t.vendor]) vendorP0[t.vendor] = [];
+    vendorP0[t.vendor].push(t);
+  });
+
+  const alerts = Object.entries(vendorP0).filter(([_, list]) => list.length >= 2);
+  if (alerts.length === 0) return '';
+
+  let html = '';
+  const maxCount = Math.max(...alerts.map(([_, l]) => l.length), 3);
+  alerts.forEach(([vendor, list]) => {
+    const level = list.length >= 3 ? '🔴' : '🟡';
+    const severity = list.length >= 3 ? '高风险' : '关注';
+    html += `<div class="alert-row">
+      <span class="alert-icon">${level}</span>
+      <span class="alert-text">${vendor}</span>
+      <span class="alert-badge" style="background:${list.length>=3?'var(--red-100)':'var(--amber-100)'};color:${list.length>=3?'var(--red)':'var(--amber)'};">${severity}</span>
+      <span style="font-weight:700;color:var(--red);">${list.length}次P0</span>
+    </div>
+    <div class="threshold-bar"><div class="fill" style="width:${Math.min(100,list.length/maxCount*100)}%;background:${list.length>=3?'var(--red)':'var(--amber)'};"></div></div>`;
+  });
+
+  return html;
+}
+
+function penaltyDashHtml() {
+  const vendorMap = {};
+  let grandTotal = 0;
+  tickets.forEach(t => {
+    const p = calcPenalty(t);
+    grandTotal += p.total;
+    if (!vendorMap[p.vendor]) vendorMap[p.vendor] = { total: 0, count: 0 };
+    vendorMap[p.vendor].total += p.total;
+    vendorMap[p.vendor].count++;
+  });
+  const vendors = Object.entries(vendorMap).sort((a, b) => b[1].total - a[1].total);
+  if (vendors.length === 0) return '<div style="font-size:12px;color:var(--text-muted);">暂无数据</div>';
+  let html = '';
+  vendors.forEach(([name, data]) => {
+    html += `<div class="dash-penalty-row">
+      <span class="penalty-name">🏢 ${name}</span>
+      <span class="penalty-count">${data.count}单</span>
+      <span class="penalty-total">¥${data.total}</span>
+    </div>`;
+  });
+  html += `<div class="dash-penalty-total"><span class="total-label">合计</span><span class="total-amount">¥${grandTotal}</span></div>`;
+  return html;
+}
+
+// ====== Export ======
+function exportCSV() {
+  const rows = [['ID','标题','作者','供应商','状态','优先级','创建','更新','标签','方案进度','扣罚金额']];
+  tickets.forEach(t => {
+    const done = t.solutions.filter(s => s.status === 'done').length;
+    const penalty = calcPenalty(t);
+    rows.push([t.id, t.title, t.author, t.vendor, statusLabels[t.status], t.priority,
+      t.createdDate, t.updatedDate.slice(0,10), t.tags.join(';'), done+'/'+t.solutions.length, '¥'+penalty.total]);
+  });
+  const csv = rows.map(r => r.map(c => '"'+(c||'')+'"').join(',')).join('\n');
+  const b = new Blob(['﻿'+csv],{type:'text/csv;charset=utf-8;'});
+  const u = URL.createObjectURL(b); const a = document.createElement('a');
+  a.href = u; a.download = '工单看板_'+new Date().toISOString().slice(0,10)+'.csv';
+  a.click(); URL.revokeObjectURL(u);
+}
+
+// ====== Dashboard ======
+function renderDashboard() {
+  const vendors = {}; const priorities = {P0:0,P1:0,P2:0,P3:0}; const statusC = {pending:0,open:0,in_progress:0,resolved:0,closed:0};
+  tickets.forEach(t => {
+    if (!vendors[t.vendor]) vendors[t.vendor] = {total:0,open:0,resolved:0,p0:0,days:0,rn:0};
+    vendors[t.vendor].total++;
+    if (t.status !== 'resolved' && t.status !== 'closed') vendors[t.vendor].open++;
+    else { vendors[t.vendor].resolved++; const d = Math.round((new Date(t.updatedDate.slice(0,10))-new Date(t.createdDate))/86400000); if (d>=0) { vendors[t.vendor].days+=d; vendors[t.vendor].rn++; } }
+    if (t.priority==='P0' && t.status!=='resolved' && t.status!=='closed') vendors[t.vendor].p0++;
+    priorities[t.priority]++; statusC[t.status]++;
+  });
+  const vn = Object.keys(vendors);
+  const vc = ['#6366f1','#f59e0b','#10b981','#ef4444','#8b5cf6','#ec4899'];
+  const mv = Math.max(1,...vn.map(v => vendors[v].total));
+
+  // Card 1: Vendor bars
+  const barHtml = vn.map((v,i) => {
+    const h = vendors[v].total/mv*100;
+    return `<div class="bar-col"><div class="bar-num">${vendors[v].total}</div><div class="bar" style="height:${h}px;background:${vc[i%vc.length]};"></div><div class="bar-label">${v}</div></div>`;
+  }).join('');
+
+  // Card 2: Priority donut
+  const dId1 = 'd1-'+Date.now();
+  const dId2 = 'd2-'+Date.now();
+
+  // Card 3: Vendor table
+  const tbl = vn.map(v => {
+    const d = vendors[v]; const rate = d.total?Math.round(d.resolved/d.total*100):0; const avg = d.rn?Math.round(d.days/d.rn):0;
+    return `<tr><td><strong>${v}</strong></td><td>${d.total}</td><td>${d.open}</td><td>${d.resolved}</td><td>${d.p0}</td><td>${avg}d</td><td class="${rate>=80?'good':rate>=50?'warn':'bad'}">${rate}%</td></tr>`;
+  }).join('');
+
+  // Card 4: Resolution time bars
+  const timeHtml = vn.map(v => {
+    const d = vendors[v]; const avg = d.rn?Math.round(d.days/d.rn):0;
+    return `<div style="display:flex;align-items:center;gap:8px;margin-bottom:7px;font-size:11px;">
+      <span style="flex:1;color:#334155;">${v}</span>
+      <span style="font-weight:700;color:${avg>7?'var(--red)':avg>3?'var(--amber)':'var(--green)'};width:24px;text-align:right;">${avg}d</span>
+      <div class="progress-bar"><div class="fill" style="width:${Math.min(100,avg/14*100)}%;background:${avg>7?'var(--red)':avg>3?'var(--amber)':'var(--green)'};"></div></div>
+    </div>`;
+  }).join('');
+
+  // Card 5: Solution completion
+  const solHtml = tickets.map(t => {
+    const done = t.solutions.filter(s => s.status === 'done').length;
+    const tot = t.solutions.length; const pct = Math.round(done/tot*100);
+    const isDone = t.status === 'resolved' || t.status === 'closed';
+    return `<div style="display:flex;align-items:center;gap:6px;margin-bottom:5px;font-size:11px;">
+      <span style="width:64px;color:#334155;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="${t.title}">${t.id}</span>
+      ${isDone ? `<span style="font-size:10px;color:var(--green);flex:1;text-align:right;">✅ 完结</span>` : `<div class="progress-bar"><div class="fill" style="width:${pct}%;background:${pct>=50?'var(--amber)':'var(--red)'};min-width:4px;"></div></div><span style="width:28px;text-align:right;font-weight:700;color:${pct>=50?'var(--amber)':'var(--red)'};">${pct}%</span>`}
+    </div>`;
+  }).join('');
+
+  // Card 6: Status donut
+  document.getElementById('dashboard').innerHTML = `
+    <div class="dash-card"><h3>📊 供应商工单分布</h3><div class="bar-wrap">${barHtml}</div></div>
+    <div class="dash-card"><h3>🏷️ 优先级分布</h3>
+      <div class="donut-wrap">
+        <canvas id="${dId1}" width="110" height="110"></canvas>
+        <div class="donut-legend">
+          ${['P0','P1','P2','P3'].map((k,i) => {
+            const colors = ['#ef4444','#f59e0b','#10b981','#94a3b8'];
+            const pct = tickets.length ? Math.round(priorities[k]/tickets.length*100) : 0;
+            return `<div class="leg-row"><span class="leg-dot" style="background:${colors[i]};"></span>${k}  <span class="leg-val">${priorities[k]} 条 (${pct}%)</span></div>`;
+          }).join('')}
+        </div>
+      </div>
+    </div>
+    <div class="dash-card"><h3>📋 供应商明细</h3>
+      <table class="mini-table"><tr><th>供应商</th><th>总</th><th>待处理</th><th>已完结</th><th>P0</th><th>均天</th><th>完结率</th></tr>${tbl}</table>
+    </div>
+    <div class="dash-card"><h3>⏱️ 平均解决天数</h3>${timeHtml}</div>
+    <div class="dash-card"><h3>🔧 方案完成进度</h3><div>${solHtml}</div></div>
+    <div class="dash-card"><h3>📈 状态分布</h3>
+      <div class="donut-wrap">
+        <canvas id="${dId2}" width="110" height="110"></canvas>
+        <div class="donut-legend">
+          ${[{k:'pending',c:'#94a3b8',l:'待分配'},{k:'open',c:'#3b82f6',l:'待处理'},{k:'in_progress',c:'#f59e0b',l:'处理中'},{k:'resolved',c:'#10b981',l:'已解决'},{k:'closed',c:'#94a3b8',l:'已关闭'}].map(x => {
+            const n = statusC[x.k]||0; const pct = tickets.length ? Math.round(n/tickets.length*100) : 0;
+            return `<div class="leg-row"><span class="leg-dot" style="background:${x.c};"></span>${x.l} <span class="leg-val">${n}</span></div>`;
+          }).join('')}
+        </div>
+      </div>
+    </div>
+    <div class="dash-card"><h3>🚨 供应商预警 ${vendorAlertHtml() !== '' ? '<span style="color:var(--red);">⚠</span>' : '<span style="color:var(--green);">✅</span>'}</h3>
+      ${vendorAlertHtml() || '<div style="font-size:12px;color:var(--text-muted);">本月无异常供应商</div>'}
+    </div>
+    <div class="dash-card"><h3>💰 事故扣罚汇总</h3>
+      ${penaltyDashHtml()}
+    </div>
+    <div class="dash-card"><h3>📅 月度新增趋势</h3>
+      <canvas id="trend-${Date.now()}" width="300" height="150" style="width:100%;height:auto;"></canvas>
+    </div>
+  `;
+
+  setTimeout(() => {
+    drawDonut(dId1, [{v:priorities.P0,c:'#ef4444'},{v:priorities.P1,c:'#f59e0b'},{v:priorities.P2,c:'#10b981'},{v:priorities.P3||0,c:'#94a3b8'}]);
+    drawDonut(dId2, [{v:statusC.pending||0,c:'#94a3b8'},{v:statusC.open||0,c:'#3b82f6'},{v:statusC.in_progress||0,c:'#f59e0b'},{v:statusC.resolved||0,c:'#10b981'},{v:statusC.closed||0,c:'#cbd5e1'}]);
+    drawTrendChart('trend-' + Date.now());
+  }, 80);
+}
+
+function drawDonut(canvasId, segs) {
+  const c = document.getElementById(canvasId); if (!c) return;
+  const ctx = c.getContext('2d'); const cx=55, cy=55, r=38, lw=12;
+  const tot = segs.reduce((s,x)=>s+x.v,0) || 1;
+  let start = -Math.PI/2;
+  segs.forEach(s => {
+    if (s.v===0) return;
+    const a = s.v/tot*2*Math.PI;
+    ctx.beginPath(); ctx.arc(cx,cy,r,start,start+a);
+    ctx.lineWidth=lw; ctx.strokeStyle=s.c; ctx.stroke();
+    start+=a;
+  });
+}
+
+function drawTrendChart(canvasId) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const w = canvas.parentElement.clientWidth - 40;
+  canvas.width = w;
+  canvas.height = 150;
+  ctx.clearRect(0, 0, w, 150);
+
+  // Group tickets by creation date
+  const dayMap = {};
+  tickets.forEach(t => {
+    const d = t.createdDate;
+    dayMap[d] = (dayMap[d] || 0) + 1;
+  });
+
+  // Get June 1-24 range
+  const days = [];
+  for (let i = 1; i <= 24; i++) {
+    const d = '2026-06-' + String(i).padStart(2, '0');
+    days.push({ date: d.slice(5), count: dayMap[d] || 0 });
+  }
+
+  const pad = { top: 10, right: 15, bottom: 25, left: 30 };
+  const ch = 150 - pad.top - pad.bottom;
+  const cw = w - pad.left - pad.right;
+  const maxVal = Math.max(1, ...days.map(d => d.count));
+  const barW = Math.max(2, cw / days.length - 2);
+
+  // Grid lines
+  ctx.strokeStyle = '#e2e8f0'; ctx.lineWidth = 0.5;
+  for (let i = 0; i <= 3; i++) {
+    const y = pad.top + (ch / 3) * i;
+    ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(w - pad.right, y); ctx.stroke();
+    ctx.fillStyle = '#94a3b8'; ctx.font = '9px sans-serif';
+    ctx.textAlign = 'right';
+    ctx.fillText(Math.round(maxVal * (3 - i) / 3), pad.left - 6, y + 3);
+  }
+
+  // Bars
+  days.forEach((d, i) => {
+    const x = pad.left + i * (cw / days.length) + 1;
+    const h = (d.count / maxVal) * ch;
+    const y = pad.top + ch - h;
+    ctx.fillStyle = d.count > 0 ? '#3b82f6' : '#e2e8f0';
+    ctx.fillRect(x, y, barW, Math.max(h, 1));
+
+    // X labels every 5 days
+    if (i % 5 === 0 || i === days.length - 1) {
+      ctx.fillStyle = '#94a3b8'; ctx.font = '8px sans-serif'; ctx.textAlign = 'center';
+      ctx.fillText(d.date.replace('06-', ''), x + barW/2, pad.top + ch + 14);
+    }
+  });
+}
+
+// ====== Keyboard Shortcuts ======
+document.addEventListener('keydown', function(e) {
+  // Don't trigger when typing in input/textarea
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') return;
+
+  if (e.key === '/') {
+    e.preventDefault();
+    document.getElementById('filterSearch').focus();
+  } else if (e.key === 'Escape') {
+    document.querySelectorAll('.ticket-detail.show').forEach(d => d.classList.remove('show'));
+    document.querySelectorAll('.expand-arrow.open').forEach(i => i.classList.remove('open'));
+    allExpanded = false;
+    document.getElementById('expandAllBtn').textContent = '📂 全部展开';
+  } else if (e.key === 'n' && e.ctrlKey) {
+    e.preventDefault();
+    showNewTicketModal();
+  }
+});
+
+// ====== Back to Top ======
+window.addEventListener('scroll', function() {
+  const btn = document.getElementById('backToTop');
+  if (!btn) return;
+  if (window.scrollY > 400) btn.classList.add('visible');
+  else btn.classList.remove('visible');
+});
+
+// Restore theme
+(function() {
+  if (localStorage.getItem('kanban-theme') === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    const tb = document.getElementById('themeBtn');
+    if (tb) tb.innerHTML = '☀️ 亮色';
+  }
+})();
+
+// ====== Notification ======
+let notifyTimer = null;
+function notify(msg, type) {
+  const bar = document.getElementById('notifyBar');
+  if (!bar) return;
+  bar.textContent = msg;
+  bar.className = 'notify-bar show ' + (type || 'info');
+  if (notifyTimer) clearTimeout(notifyTimer);
+  notifyTimer = setTimeout(() => { bar.classList.remove('show'); }, 4000);
+}
+
+// ====== Auto-Poll tickets.json (every 5 min) ======
+let lastDataHash = '';
+let pollInterval = null;
+let overdueInterval = null;
+
+function startPolling() {
+  // Static CDN deployment - no polling, no fetch
+  lastDataHash = JSON.stringify(tickets.map(t => ({ id: t.id, status: t.status })));
+  
+  // Keep overdue/autoClose check (no network)
+  overdueInterval = setInterval(() => {
+    detectOverdue(); checkAutoClose(); render(); renderDashboard();
+  }, 60 * 1000);
+  
+  const meta = document.getElementById('lastUpdated');
+  if (meta) meta.innerHTML = '<span class="polling-dot live" title="静态部署"></span> 最后更新: ' + (meta.textContent || new Date().toLocaleString());
+}
+
+function checkAutoClose() {
+  let changed = false;
+  tickets.forEach(t => {
+    if (t.status === 'resolved' || t.status === 'closed') return;
+    if (t.solutions.length > 0 && t.solutions.every(s => s.status === 'done')) {
+      t.status = 'resolved'; t.updatedDate = new Date().toISOString();
+      const nowStr = new Date().toISOString().slice(5,10).replace('-','/') + ' ' + new Date().toTimeString().slice(0,5);
+      t.timeline.push({ time: nowStr, event: '🤖 自动完结：所有方案已完成' });
+      t.progress = (t.progress||'') + '\n' + nowStr + ' 系统自动完结。';
+      changed = true; notify('🎉 ' + t.id + ' 自动完结', 'success');
+    }
+  });
+  if (changed) { detectOverdue(); saveChanges(); render(); renderDashboard(); }
+}
+
+// Restore (runs after data is loaded)
+function restoreState() {
+  const saved = localStorage.getItem('kanban-v3');
+  if (saved) {
+    try {
+      const changes = JSON.parse(saved);
+      tickets.forEach(t => { if (changes[t.id]) { if (changes[t.id].status) t.status = changes[t.id].status; if (changes[t.id].priority) t.priority = changes[t.id].priority; } });
+    } catch(e) {}
+  }
+}
+(function() {
+  tickets = JSON.parse(JSON.stringify(DEFAULT_TICKET_DATA.tickets));
+  meta = DEFAULT_TICKET_DATA.meta || {};
+  restoreState();
+  detectOverdue();
+  renderAll();
+  startPolling();
+})();
+</script>
+
+</body>
+</html>
