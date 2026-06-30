@@ -294,8 +294,8 @@ body {
 .alert-text { font-weight: 600; flex: 1; }
 .alert-badge { font-size: 10px; padding: 3px 10px; border-radius: 20px; font-weight: 600; }
 
-.dash-penalty-row { display: flex; align-items: center; gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--border-light); font-size: 12px; }
-.dash-penalty-row:last-child { border-bottom: none; }
+.dash-penalty-section { display: flex; align-items: center; gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--border-light); font-size: 12px; }
+.dash-penalty-section:last-child { border-bottom: none; }
 .penalty-name { flex: 1; font-weight: 500; }
 .penalty-count { font-size: 11px; color: var(--text-muted); }
 .penalty-total { font-weight: 700; color: var(--red); }
@@ -566,6 +566,10 @@ body {
 .penalty-tag-reason { background: #fffbeb !important; color: #b45309 !important; font-size: 10px; }
 .penalty-tag-ok { background: #ecfdf5 !important; color: #059669 !important; font-weight: 600; }
 .penalty-tag-pending { background: #fff7ed !important; color: #c2410c !important; }
+
+.penalty-section { padding: 12px 0; }
+.penalty-section .section-label { font-size: 12px; flex-wrap: wrap; }
+
 </style>
 </head>
 <body>
@@ -985,22 +989,7 @@ function render() {
   document.getElementById('ticketList').innerHTML = pageItems.map(t => ticketCard(t, search)).join('');
   document.getElementById('ticketList').classList.toggle('list-view', viewMode === 'list');
   renderPagination(totalFiltered, totalPages);
-  setTimeout(function() {
-    pageItems.forEach(function(t) {
-      var body = document.getElementById('detail-' + t.id);
-      if (!body) return;
-      if (body.querySelector('.penalty-row')) return;
-      var amt = t.manualPenalty ? '¥' + t.manualPenalty : (t.priority || 'P?') + '扣罚';
-      var cp = (window.m && window.m[t.vendor]) ? window.m[t.vendor] : '';
-      var btn = t.penaltyConfirmed
-        ? '<span style="color:#059669;font-weight:600;font-size:13px">✅ ' + (t.penaltyConfirmedBy || '已确认') + '</span>'
-        : '<button class="btn" style="background:#dc2626;color:#fff;border:none;padding:6px 14px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600" onclick="cfPen(\'' + t.id + '\')">确认扣罚</button>';
-      var row = document.createElement('section');
-      row.className = 'penalty-row';
-      row.innerHTML = '<h4><span class="section-icon">💰</span> 事故扣罚</h4><div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:#fef2f2;border-radius:8px;border:1px solid #fecaca;gap:12px;flex-wrap:wrap"><span style="font-size:15px;font-weight:700;color:#dc2626;cursor:pointer" onclick="editPen(\'' + t.id + '\')" title="点击修改">' + amt + '</span>' + btn + '</div>';
-      var inner = body.querySelector('.ticket-detail-inner'); if (inner) inner.insertBefore(row, inner.firstChild);
-    });
-  }, 100);
+  
 }
 
 function ticketCard(t, search) {
@@ -1075,8 +1064,19 @@ function ticketCard(t, search) {
             <span id="tl-arrow-${t.id}" style="font-size:11px;color:var(--text-muted);font-weight:400">展开时间线 ▾</span>
           </div>
           <div class="section-content">${t.progress || '暂无'}</div>
-          <div class="timeline" id="tl-${t.id}" style="display:none">
-            ${t.timeline.map(e => `<div class="timeline-entry"><span class="timeline-time">${e.time}</span> ${e.event}</div>`).join('')}
+          <section class="penalty-section">
+          <div class="section-label" style="display:flex;align-items:center;gap:8px">
+            <span>💰 事故扣罚</span>
+            ${(() => {
+              let amt = t.manualPenalty ? t.manualPenalty : (t.penaltyAmount || 0);
+              if (!amt && !t.penaltyReason) return '<span style="color:var(--text-muted);font-size:11px">—</span>';
+              let parts = [];
+              if (amt) parts.push('<span style="color:#dc2626;font-weight:700">¥' + amt + '</span>');
+              if (t.penaltyReason) parts.push('<span style="color:#b45309;font-size:11px">' + t.penaltyReason + '</span>');
+              if (t.penaltyConfirmed) parts.push('<span style="color:#059669;font-weight:600">✅ ' + (t.penaltyConfirmedBy || '已确认') + '</span>');
+              else if (amt) parts.push('<span style="color:#c2410c;font-size:11px">⚠ 待确认</span>');
+              return parts.join(' · ');
+            })()}
           </div>
         </section>
       </div>
@@ -2166,7 +2166,7 @@ function penaltyDashHtml() {
   if (vendors.length === 0) return '<div style="font-size:12px;color:var(--text-muted);">暂无数据</div>';
   let html = '';
   vendors.forEach(([name, data]) => {
-    html += `<div class="dash-penalty-row">
+    html += `<div class="dash-penalty-section">
       <span class="penalty-name">🏢 ${name}</span>
       <span class="penalty-count">${data.count}单</span>
       <span class="penalty-total">¥${data.total}</span>
