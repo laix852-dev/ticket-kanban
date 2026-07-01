@@ -1496,6 +1496,59 @@
       ],
       "progress": "1/6方案完成（全量回扫），3项逾期。线下复盘培训、通宵班录屏监控、连续5天培训均未按期完成。班前提醒和项目整体排查仍在推进。",
       "penaltyConfirmed": false
+    },
+    {
+      "id": "TK-2026-023",
+      "title": "星空性感低俗案例尺度拉齐",
+      "author": "wb.yangkeke@mesg.corp.netease.com",
+      "vendor": "洛阳笋尖",
+      "status": "pending",
+      "priority": "P1",
+      "sourceGroup": "",
+      "createdDate": "2026-07-01",
+      "updatedDate": "2026-07-01",
+      "summary": "针对星空平台性感低俗导向内容尺度不明确的问题，需汇总同类型案例做整体拉齐，同时对组内人员进行摸底，确保人员尺度执行一致。",
+      "impact": "🟡 存在尺度判定混淆问题，标准落地与历史对标案例存在偏差，导致判定结果出现误差。",
+      "rootCause": "标准落地与历史对标案例存在偏差，缺乏统一的标准化参考样本。",
+      "solutions": [
+        {
+          "step": 1,
+          "action": "开展低俗内容判定尺度复训，统一全员判定标准",
+          "owner": "TBD",
+          "deadline": "TBD",
+          "status": "pending"
+        },
+        {
+          "step": 2,
+          "action": "梳理汇总通过+不通过典型案例，形成标准化参考样本",
+          "owner": "TBD",
+          "deadline": "TBD",
+          "status": "pending"
+        },
+        {
+          "step": 3,
+          "action": "组织全员专项验收，确保整改落地到位",
+          "owner": "TBD",
+          "deadline": "TBD",
+          "status": "pending"
+        }
+      ],
+      "timeline": [
+        {
+          "time": "07/01 10:12",
+          "event": "工单创建"
+        }
+      ],
+      "tags": [
+        "星空",
+        "尺度拉齐",
+        "低俗审核"
+      ],
+      "progress": "工单已创建，待分配负责人和截止时间。",
+      "manualPenalty": null,
+      "penaltyConfirmed": false,
+      "penaltyConfirmedBy": null,
+      "penaltyConfirmedAt": null
     }
   ],
   "meta": {
