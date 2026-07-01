@@ -561,6 +561,10 @@ body {
 .modal .action-item .action-meta { font-size: 12px; color: var(--text-secondary); }
 .modal .vendor-alert-item { background: #fff; border-radius: var(--radius-xs); padding: 12px; margin-bottom: 6px; font-size: 13px; line-height: 1.7; border: 1px solid var(--border-light); }
 
+
+.toolbar-label { font-size: 10px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-right: -4px; }
+.toolbar-sep { color: var(--border); font-size: 14px; margin: 0 2px; user-select: none; }
+
 </style>
 </head>
 <body>
@@ -610,29 +614,35 @@ body {
 
   <div class="toolbar">
     <div class="toolbar-left">
+      <span class="toolbar-label">状态</span>
       <select id="filterStatus" onchange="currentPage=1;render()">
-        <option value="all">全部状态</option>
+        <option value="all">全部</option>
         <option value="pending">待分配</option>
         <option value="open">待处理</option>
         <option value="in_progress">处理中</option>
         <option value="resolved">已解决</option>
         <option value="closed">已关闭</option>
       </select>
+      <span class="toolbar-label">优先级</span>
       <select id="filterPriority" onchange="currentPage=1;render()">
-        <option value="all">全部优先级</option>
+        <option value="all">全部</option>
         <option value="P0">P0</option>
         <option value="P1">P1</option>
         <option value="P2">P2</option>
       </select>
-      <select id="filterVendor" onchange="currentPage=1;render()"><option value="all">全部供应商</option></select>
-      <select id="filterAuthor" onchange="currentPage=1;render()"><option value="all">全部龙虾</option></select>
+      <span class="toolbar-sep">|</span>
+      <span class="toolbar-label">供应商</span>
+      <select id="filterVendor" onchange="currentPage=1;render()"><option value="all">全部</option></select>
+      <span class="toolbar-label">龙虾</span>
+      <select id="filterAuthor" onchange="currentPage=1;render()"><option value="all">全部</option></select>
+      <span class="toolbar-sep">|</span>
       <select class="sort-select" id="sortBy" onchange="currentPage=1;render()">
-        <option value="created-desc">最新创建</option>
-        <option value="created-asc">最早创建</option>
+        <option value="created-desc">最新</option>
+        <option value="created-asc">最早</option>
         <option value="updated-desc">最近更新</option>
         <option value="priority">优先级</option>
       </select>
-      <input type="text" id="filterSearch" placeholder="搜索…" oninput="currentPage=1;debouncedRender()">
+      <input type="text" id="filterSearch" placeholder="搜索工单…" oninput="currentPage=1;debouncedRender()">
       <button class="btn" style="background:var(--slate-100);color:var(--text-secondary);border:1px solid var(--border);padding:5px 10px;font-size:11px;" onclick="resetFilters()" title="清空筛选">🔄</button>
     </div>
     <div class="toolbar-right">
@@ -1027,8 +1037,6 @@ function ticketCard(t, search) {
 
         <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:linear-gradient(135deg,#f8fafc 0%,#f1f5f9 100%);border-radius:10px;margin-bottom:18px;font-size:12px;flex-wrap:wrap;border:1px solid var(--border-light)">
           <span style="display:flex;align-items:center;gap:4px"><span style="color:var(--text-muted)">🏢</span> <strong>${t.vendor || '未知'}</strong></span>
-          <span style="color:var(--border)">|</span>
-          <span style="display:flex;align-items:center;gap:4px"><span style="color:var(--text-muted)">👤</span> <strong>${t.author || '未知'}</strong></span>
           <span style="color:var(--border)">|</span>
           <span style="display:flex;align-items:center;gap:4px"><span style="color:var(--text-muted)">📞</span> <strong>${(m && m[t.vendor]) ? m[t.vendor] : '未指定'}</strong></span>
           ${t.sourceGroup ? '<span style="color:var(--border)">|</span><span style="display:flex;align-items:center;gap:4px;color:var(--blue);cursor:pointer;font-weight:600" onclick="navigator.clipboard.writeText(\''+t.sourceGroup+'\');var t=event.target;t.textContent=\'✅ 已复制\';setTimeout(function(){t.textContent=\'💬 群 '+t.sourceGroup+'\'},1500)" title="点击复制群号">💬 群 '+t.sourceGroup+'</span>' : ''}
