@@ -1371,8 +1371,13 @@ function scrollToSection(id) {
 }
 
 // Init
-updateStats();
-renderSols(SOLUTIONS);
+try {
+  updateStats();
+  renderSols(SOLUTIONS);
+  document.getElementById('matchInput').placeholder = '✅ 引擎就绪 — 输入问题描述开始分析...';
+} catch(e) {
+  document.getElementById('matchInput').placeholder = '❌ 加载失败：' + e.message;
+}
 </script>
 </body>
 </html>
