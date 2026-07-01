@@ -561,30 +561,6 @@ body {
 .modal .action-item .action-meta { font-size: 12px; color: var(--text-secondary); }
 .modal .vendor-alert-item { background: #fff; border-radius: var(--radius-xs); padding: 12px; margin-bottom: 6px; font-size: 13px; line-height: 1.7; border: 1px solid var(--border-light); }
 
-
-[data-theme="dark"] {
-  --bg: #0f172a; --surface: #1e293b; --text: #e2e8f0;
-  --text-secondary: #94a3b8; --text-muted: #64748b;
-  --border: #334155; --border-light: #1e293b;
-}
-[data-theme="dark"] .ticket-detail { background: #1a2332; }
-[data-theme="dark"] .ticket-row:hover { background: #263348; }
-[data-theme="dark"] .section-content { background: #1a2332; border-color: #334155; color: #cbd5e1; }
-[data-theme="dark"] .sol-table { background: #1a2332; border-color: #334155; }
-[data-theme="dark"] .sol-table th { background: #263348; color: #94a3b8; }
-[data-theme="dark"] .sol-table td { color: #cbd5e1; border-color: #1e293b; }
-[data-theme="dark"] .stat-card { background: #1e293b; border-color: #334155; }
-[data-theme="dark"] .ticket-card { background: #1e293b; border-color: #334155; }
-[data-theme="dark"] .toolbar-left { background: #1e293b; border-color: #334155; }
-[data-theme="dark"] .toolbar select, [data-theme="dark"] .toolbar input { background: #0f172a; border-color: #334155; color: #cbd5e1; }
-[data-theme="dark"] .preset { background: #1e293b; color: #94a3b8; }
-[data-theme="dark"] .dash-card { background: #1e293b; border-color: #334155; }
-[data-theme="dark"] .pw-gate { background: #0f172a; }
-[data-theme="dark"] .pw-box { background: #1e293b; border-color: #334155; }
-.penalty-section { margin-top: 8px; }
-.penalty-section .section-label { font-size: 12px; flex-wrap: wrap; }
-.timeline.collapsed { display: none; }
-
 </style>
 </head>
 <body>
@@ -614,7 +590,7 @@ body {
     <button class="btn btn-ghost" onclick="toggleTheme()" id="themeBtn">🌙 暗色</button>
     <button class="btn btn-ghost" onclick="exportCSV()">📥 导出 CSV</button>
     <button class="btn btn-ghost" onclick="window.print()">🖨️ 打印</button>
-    <button class="btn btn-ghost" onclick="location.href='solutions.html'">📚 方案库</button>
+    <button class="btn btn-ghost" onclick="window.open('https://github.com/laix852-dev/ticket-kanban/blob/main/solutions.json')">📚 方案库</button>
       <button class="btn btn-accent" onclick="loadTickets()">🔄 刷新</button>
   </div>
 </div>
@@ -1006,7 +982,7 @@ function render() {
   renderPagination(totalFiltered, totalPages);
   setTimeout(function() {
     pageItems.forEach(function(t) {
-      var body = document.getElementById('detail-' + t.id);
+      var body = document.getElementById('body-' + t.id);
       if (!body) return;
       if (body.querySelector('.penalty-row')) return;
       var amt = t.manualPenalty ? '¥' + t.manualPenalty : (t.priority || 'P?') + '扣罚';
@@ -1017,7 +993,7 @@ function render() {
       var row = document.createElement('section');
       row.className = 'penalty-row';
       row.innerHTML = '<h4><span class="section-icon">💰</span> 事故扣罚</h4><div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:#fef2f2;border-radius:8px;border:1px solid #fecaca;gap:12px;flex-wrap:wrap"><span style="font-size:15px;font-weight:700;color:#dc2626;cursor:pointer" onclick="editPen(\'' + t.id + '\')" title="点击修改">' + amt + '</span>' + btn + '</div>';
-      var inner = body.querySelector('.ticket-detail-inner'); if (inner) inner.appendChild(row);
+      body.insertBefore(row, body.firstChild);
     });
   }, 100);
 }
@@ -1052,6 +1028,8 @@ function ticketCard(t, search) {
         <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:linear-gradient(135deg,#f8fafc 0%,#f1f5f9 100%);border-radius:10px;margin-bottom:18px;font-size:12px;flex-wrap:wrap;border:1px solid var(--border-light)">
           <span style="display:flex;align-items:center;gap:4px"><span style="color:var(--text-muted)">🏢</span> <strong>${t.vendor || '未知'}</strong></span>
           <span style="color:var(--border)">|</span>
+          <span style="display:flex;align-items:center;gap:4px"><span style="color:var(--text-muted)">👤</span> <strong>${t.author || '未知'}</strong></span>
+          <span style="color:var(--border)">|</span>
           <span style="display:flex;align-items:center;gap:4px"><span style="color:var(--text-muted)">📞</span> <strong>${(m && m[t.vendor]) ? m[t.vendor] : '未指定'}</strong></span>
           ${t.sourceGroup ? '<span style="color:var(--border)">|</span><span style="display:flex;align-items:center;gap:4px;color:var(--blue);cursor:pointer;font-weight:600" onclick="navigator.clipboard.writeText(\''+t.sourceGroup+'\');var t=event.target;t.textContent=\'✅ 已复制\';setTimeout(function(){t.textContent=\'💬 群 '+t.sourceGroup+'\'},1500)" title="点击复制群号">💬 群 '+t.sourceGroup+'</span>' : ''}
           <span style="margin-left:auto;display:flex;align-items:center;gap:4px;color:var(--text-muted)"><span>📅</span> ${t.createdDate}</span>
@@ -1085,7 +1063,7 @@ function ticketCard(t, search) {
             <span id="tl-arrow-${t.id}" style="font-size:11px;color:var(--text-muted);font-weight:400">展开时间线 ▾</span>
           </div>
           <div class="section-content">${t.progress || '暂无'}</div>
-          <div class="timeline" id="tl-${t.id}">
+          <div class="timeline" id="tl-${t.id}" style="display:none">
             ${t.timeline.map(e => `<div class="timeline-entry"><span class="timeline-time">${e.time}</span> ${e.event}</div>`).join('')}
           </div>
         </section>
@@ -1105,11 +1083,11 @@ function toggleTimeline(id) {
   var tl = document.getElementById('tl-' + id);
   var arrow = document.getElementById('tl-arrow-' + id);
   if (!tl || !arrow) return;
-  if (tl.classList.contains('collapsed')) {
-    tl.classList.remove('collapsed');
+  if (tl.style.display === 'none') {
+    tl.style.display = 'block';
     arrow.textContent = '收起时间线 ▴';
   } else {
-    tl.classList.add('collapsed');
+    tl.style.display = 'none';
     arrow.textContent = '展开时间线 ▾';
   }
 }
