@@ -1037,14 +1037,14 @@ function copyTemplate(btn, tabId) {
 
 // 活学活用匹配引擎
 var PATTERNS = [
-  {name:"涉政漏放",keywords:"涉政 敏感 政治 人物 任大炮 任志强 漏放 反华 一号 皇帝 大炮 富平 领导人 审核员不了解 关键词缺失 别称 代称 隐喻",steps:"关键词排查→复盘通报→专项培训→闭卷测试→流程优化→定期抽问",tickets:"TK-009 TK-010 TK-017 TK-018",priority:"P0"},
-  {name:"人效不达标",keywords:"人效 效率 审核量 不达标 爬坡 慢 QC 量级 标准值 达不到 新人 黑灰产 识别能力 直播间 优先级",steps:"录屏分析→SKU测算→SOP优化→优先级明确→新人培训→现场管理→人效达标",tickets:"TK-011",priority:"P0"},
-  {name:"质检管理",keywords:"质检 次品 次品率 飙升 暴增 日报 缺失 异常 管理失职 无预警 回落 车牌 OCR 纠偏",steps:"异常预警→人员纠偏→补充日报→异常SOP→日报升级→KPI明确→系统优化",tickets:"TK-003 TK-002",priority:"P0"},
-  {name:"客服投诉",keywords:"客服 投诉 甲方 小二 回复 超时 响应 延庆 行政区 漏回复 排班 基础操作 培训 考核",steps:"立即排查→时效监控→人力评估→甲方沟通→案例培训→预警机制",tickets:"TK-001 TK-013",priority:"P0"},
-  {name:"系统稳定性",keywords:"CMA 登录 掉线 积压 审核 系统 稳定性 Dashboard 告警 在线数 人审率 自动续期 过期 卡审",steps:"修复逻辑→告警增强→应急预案→Dashboard→上岗检查→分级升级",tickets:"TK-004 TK-014",priority:"P0"},
-  {name:"培训考核",keywords:"培训 考核 周考 漏指派 专员 组长 遗漏 任务清单 日历 提醒 周期",steps:"任务清单+2h响应→组长周检→自动提醒",tickets:"TK-012",priority:"P0"},
-  {name:"舆情指令误操作",keywords:"舆情 指令 误删 误伤 关键词 定位 搜索 一刀切 苏芒 传达 通告 从严 尺度",steps:"定位误伤→回扫数据→指令优化→明确尺度→废止一刀切→排查漏报备",tickets:"TK-019",priority:"P2"},
-  {name:"尺度拉齐",keywords:"尺度 拉齐 低俗 导向 标准不一 不一致 偏差 商汤 摸底 对齐 判定标准 案例汇总",steps:"汇总案例→统一文档→人员摸底→专项培训",tickets:"TK-021 TK-022",priority:"P1"}
+  {name:"涉政漏放",keywords:"涉政 敏感 政治 人物 任大炮 任志强 漏放 反华 一号 皇帝 大炮 富平 领导人 审核员不了解 关键词缺失 别称 代称 隐喻 放过 漏过 拦截",steps:"关键词排查→复盘通报→专项培训→闭卷测试→流程优化→定期抽问",tickets:"TK-009 TK-010 TK-017 TK-018",priority:"P0"},
+  {name:"人效不达标",keywords:"人效 效率 审核量 不达标 爬坡 慢 QC 量级 标准值 达不到 新人 黑灰产 识别能力 直播间 优先级 太少 太慢 不够 产能",steps:"录屏分析→SKU测算→SOP优化→优先级明确→新人培训→现场管理→人效达标",tickets:"TK-011",priority:"P0"},
+  {name:"质检管理",keywords:"质检 次品 次品率 飙升 暴增 日报 缺失 异常 管理失职 无预警 回落 车牌 OCR 纠偏 质量 错误率 出错",steps:"异常预警→人员纠偏→补充日报→异常SOP→日报升级→KPI明确→系统优化",tickets:"TK-003 TK-002",priority:"P0"},
+  {name:"客服投诉",keywords:"客服 投诉 甲方 小二 回复 超时 响应 延庆 行政区 漏回复 排班 基础操作 培训 考核 客户 用户 反馈 不满意",steps:"立即排查→时效监控→人力评估→甲方沟通→案例培训→预警机制",tickets:"TK-001 TK-013",priority:"P0"},
+  {name:"系统稳定性",keywords:"CMA 登录 掉线 积压 审核 系统 稳定性 Dashboard 告警 在线数 人审率 自动续期 过期 卡审 故障 异常 挂掉 崩溃 宕机",steps:"修复逻辑→告警增强→应急预案→Dashboard→上岗检查→分级升级",tickets:"TK-004 TK-014",priority:"P0"},
+  {name:"培训考核",keywords:"培训 考核 周考 漏指派 专员 组长 遗漏 任务清单 日历 提醒 周期 考试 测试 忘记 没做 没发",steps:"任务清单+2h响应→组长周检→自动提醒",tickets:"TK-012",priority:"P0"},
+  {name:"舆情指令误操作",keywords:"舆情 指令 误删 误伤 关键词 定位 搜索 一刀切 苏芒 传达 通告 从严 尺度 删错 删多了 误判",steps:"定位误伤→回扫数据→指令优化→明确尺度→废止一刀切→排查漏报备",tickets:"TK-019",priority:"P2"},
+  {name:"尺度拉齐",keywords:"尺度 拉齐 低俗 导向 标准不一 不一致 偏差 商汤 摸底 对齐 判定标准 案例汇总 不一样 不统一 双标",steps:"汇总案例→统一文档→人员摸底→专项培训",tickets:"TK-021 TK-022",priority:"P1"}
 ];
 
 
@@ -1275,7 +1275,9 @@ function doMatch() {
     }
   } else {
     html += '<div style="font-size:14px;color:#a8a29e">未匹配到明确类型</div>';
-    html += '<div style="font-size:11px;color:#78716c;margin-top:6px">试试用更具体的词描述，如"漏放""次品""投诉"等</div>';
+    var words = q.split(/[\s,，。！？]+/).filter(function(w){return w.length>=2;}).slice(0,5);
+    html += '<div style="font-size:11px;color:#78716c;margin-top:6px">你输入了：' + words.join('、') + '</div>';
+    html += '<div style="font-size:11px;color:#78716c;margin-top:4px">试试这些词：漏放、投诉、次品、人效、质检、客服、系统、培训、舆情、尺度</div>';
   }
   html += '</div>';
   
