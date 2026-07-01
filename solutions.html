@@ -138,7 +138,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hira
   <div class="header-brand">📚 方案库 · 龙虾学习系统</div>
   <div class="header-nav">
     <a href="https://laix852-dev.github.io/ticket-kanban/">← 返回看板</a>
-    <a href="#generate" onclick="scrollToSection('generate')">方案生成</a>
+    <a href="#generate" onclick="scrollToSection('generate')">工单联动</a>
     <a href="#match" onclick="scrollToSection('match')">活学活用</a>
     <a href="#patterns" onclick="scrollToSection('patterns')">问题模式</a>
     <a href="#solutions" onclick="scrollToSection('solutions')">方案明细</a>
@@ -173,58 +173,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hira
 <div id="matchResult" style="display:none"></div>
 </div>
 
-<!-- 方案生成器 -->
-<div class="section" id="generate" style="background:linear-gradient(135deg,#fef3c7,#fffbeb);border-radius:var(--radius);padding:20px;border:1px solid var(--amber-100);margin-bottom:24px">
-<div class="section-title">⚡ 方案生成器</div>
-<div class="section-desc">选择问题类型和供应商，自动生成完整的解决方案模板。生成后一键复制，直接粘贴到工单里。</div>
-<div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;align-items:flex-end">
-  <div>
-    <div style="font-size:11px;color:var(--text-secondary);margin-bottom:4px">问题类型</div>
-    <select id="genType" onchange="genPreview()" style="padding:8px 12px;border:1px solid var(--border);border-radius:6px;font-size:13px;background:#fff;outline:none">
-      <option value="">-- 选择问题类型 --</option>
-      <option value="涉政漏放">涉政漏放</option>
-      <option value="人效不达标">人效不达标</option>
-      <option value="质检管理">质检管理</option>
-      <option value="客服投诉">客服投诉</option>
-      <option value="系统稳定性">审核系统稳定性</option>
-      <option value="培训考核">培训考核</option>
-      <option value="舆情指令误操作">舆情指令误操作</option>
-      <option value="尺度拉齐">尺度拉齐</option>
-    </select>
-  </div>
-  <div>
-    <div style="font-size:11px;color:var(--text-secondary);margin-bottom:4px">供应商</div>
-    <select id="genVendor" onchange="genPreview()" style="padding:8px 12px;border:1px solid var(--border);border-radius:6px;font-size:13px;background:#fff;outline:none">
-      <option value="">-- 选择供应商 --</option>
-      <option value="河南新阳科技（南宁）">新阳南宁</option>
-      <option value="河南新阳科技（洛阳）">新阳洛阳</option>
-      <option value="山西易网视界（临汾）">易网临汾</option>
-      <option value="河南徽音网络科技">徽音郑州</option>
-      <option value="贵州硅易（绥阳）">硅易绥阳</option>
-      <option value="河南诺达信息科技">诺达</option>
-    </select>
-  </div>
-  <div>
-    <div style="font-size:11px;color:var(--text-secondary);margin-bottom:4px">优先级</div>
-    <select id="genPrio" onchange="genPreview()" style="padding:8px 12px;border:1px solid var(--border);border-radius:6px;font-size:13px;background:#fff;outline:none">
-      <option value="P0">P0</option>
-      <option value="P1">P1</option>
-      <option value="P2">P2</option>
-    </select>
-  </div>
-  <div>
-    <div style="font-size:11px;color:var(--text-secondary);margin-bottom:4px">创建日期</div>
-    <input type="date" id="genDate" onchange="genPreview()" style="padding:8px 12px;border:1px solid var(--border);border-radius:6px;font-size:13px;background:#fff;outline:none">
-  </div>
+<!-- 工单联动方案推荐 -->
+<div class="section" id="generate" style="margin-bottom:24px">
+<div class="section-title">⚡ 工单联动方案推荐</div>
+<div class="section-desc">自动拉取最新工单数据，为每条未完结工单匹配历史方案。打开页面即用，零人工介入。</div>
+<div id="autoGenStatus" style="font-size:13px;color:var(--text-secondary);padding:12px 16px;background:var(--surface);border-radius:var(--radius-sm);border:1px solid var(--border)">
+  正在加载工单数据并匹配方案...
 </div>
-<div id="genPreview" style="display:none">
-  <div style="background:#1c1917;color:#e7e5e4;padding:16px 20px;border-radius:var(--radius-sm);font-family:monospace;font-size:12px;line-height:1.9;white-space:pre-wrap;position:relative;margin-bottom:8px" id="genOutput"></div>
-  <button onclick="copyGen()" style="padding:8px 16px;background:var(--amber);color:#fff;border:none;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px" id="genCopyBtn">📋 复制方案到剪贴板</button>
-  <span id="genCopied" style="display:none;color:var(--green);font-size:13px;margin-left:10px">✅ 已复制</span>
-</div>
+<div id="autoGenResult" style="display:none"></div>
 </div>
 
-<!-- Problem Patterns -->
+<!-- Problem Patterns --><!-- Problem Patterns -->
 <div class="section" id="patterns">
 <div class="section-title">🔬 问题模式库</div>
 <div class="section-desc">从 16 条真实工单中提炼的 8 类高频问题，含完整方案链、触发信号和预防措施。展开查看完整方案。</div>
@@ -1184,6 +1143,180 @@ var VENDOR_CONTACTS = {
   "贵州硅易（绥阳）":"张思语",
   "河南诺达信息科技":"张思语"
 };
+
+
+// 工单联动方案推荐 - 自动拉取 tickets.json 并匹配方案
+function loadTicketsAndMatch() {
+  fetch('https://raw.githubusercontent.com/laix852-dev/ticket-kanban/public/tickets.json')
+    .then(function(r) { return r.json(); })
+    .then(function(tickets) {
+      // Filter unresolved tickets
+      var unresolved = tickets.filter(function(t) {
+        return t.status !== 'resolved' && t.status !== 'closed';
+      });
+      
+      // Also include recently resolved (last 3 days) for reference
+      var today = new Date();
+      var recentResolved = tickets.filter(function(t) {
+        if (t.status !== 'resolved' && t.status !== 'closed') return false;
+        var d = new Date(t.updatedDate || '');
+        return (today - d) / 86400000 <= 3;
+      });
+      
+      if (unresolved.length === 0) {
+        document.getElementById('autoGenStatus').innerHTML = 
+          '<span style="color:var(--green)">✅ 当前没有未完结工单</span>' +
+          (recentResolved.length > 0 ? '<br><small>近3天有 ' + recentResolved.length + ' 条工单完结，可查看方案明细库</small>' : '');
+        return;
+      }
+      
+      document.getElementById('autoGenStatus').innerHTML = 
+        '已加载 ' + tickets.length + ' 条工单，未完结 ' + unresolved.length + ' 条，正在匹配方案...';
+      
+      // Match each unresolved ticket
+      var results = unresolved.map(function(t) {
+        var searchText = (t.title || '') + ' ' + (t.summary || '') + ' ' + (t.tags || []).join(' ');
+        
+        // Score patterns
+        var patternScores = PATTERNS.map(function(p) {
+          var score = 0;
+          p.keywords.split(' ').forEach(function(kw) {
+            if (searchText.indexOf(kw) >= 0) score += 10;
+            if (kw.length >= 3 && searchText.toLowerCase().indexOf(kw.toLowerCase()) >= 0) score += 5;
+          });
+          return {pattern:p, score:score};
+        });
+        patternScores.sort(function(a,b){ return b.score - a.score; });
+        var bestPattern = patternScores[0];
+        
+        // Score individual solutions
+        var solScores = SOLUTIONS.map(function(s) {
+          var score = 0;
+          var txt = (s.action + ' ' + s.cat + ' ' + s.owner).toLowerCase();
+          searchText.toLowerCase().split(/[\s,，。！？]+/).forEach(function(w) {
+            if (w.length >= 2 && txt.indexOf(w) >= 0) score += 3;
+          });
+          if (bestPattern && bestPattern.score > 0 && s.cat === bestPattern.pattern.name) score += 5;
+          return {sol:s, score:score};
+        });
+        solScores.sort(function(a,b){ return b.score - a.score; });
+        
+        return {
+          ticket: t,
+          bestPattern: bestPattern,
+          topSols: solScores.filter(function(x){ return x.score > 0; }).slice(0, 3)
+        };
+      });
+      
+      // Sort: unmatched first, then by pattern match score descending
+      results.sort(function(a,b) {
+        if (a.bestPattern.score === 0 && b.bestPattern.score > 0) return -1;
+        if (b.bestPattern.score === 0 && a.bestPattern.score > 0) return 1;
+        return b.bestPattern.score - a.bestPattern.score;
+      });
+      
+      renderAutoResults(results);
+    })
+    .catch(function() {
+      document.getElementById('autoGenStatus').innerHTML = 
+        '<span style="color:var(--red)">⚠ 加载工单数据失败，请刷新重试</span>';
+    });
+}
+
+function renderAutoResults(results) {
+  var container = document.getElementById('autoGenResult');
+  container.style.display = 'block';
+  document.getElementById('autoGenStatus').style.display = 'none';
+  
+  var html = '';
+  results.forEach(function(r, idx) {
+    var t = r.ticket;
+    var days = Math.floor((new Date() - new Date(t.createdDate)) / 86400000);
+    var statusLabel = t.status === 'overdue' ? '⚠️ 超期 ' + days + ' 天' : 
+                      t.status === 'in_progress' ? '🔄 处理中' : 
+                      t.status === 'open' ? '📥 待处理' : t.status;
+    var statusColor = t.status === 'overdue' ? 'var(--red)' : 
+                      t.status === 'in_progress' ? 'var(--amber)' : 'var(--blue)';
+    
+    var hasMatch = r.bestPattern && r.bestPattern.score > 0;
+    
+    html += '<div style="background:var(--surface);border-radius:var(--radius);border:1px solid ' + 
+      (hasMatch ? 'var(--blue-100)' : 'var(--amber-100)') + 
+      ';box-shadow:var(--shadow);margin-bottom:12px;overflow:hidden">';
+    
+    // Ticket header
+    html += '<div style="padding:12px 16px;background:#fafaf9;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;flex-wrap:wrap">';
+    html += '<span style="font-family:monospace;font-size:11px;color:var(--slate)">' + (t.id || '') + '</span>';
+    html += '<span class="prio-tag prio-' + (t.priority || 'P2') + '" style="font-size:10px">' + (t.priority || 'P2') + '</span>';
+    html += '<strong style="font-size:14px">' + (t.title || '') + '</strong>';
+    html += '<span style="font-size:11px;color:' + statusColor + ';margin-left:auto">' + statusLabel + '</span>';
+    html += '</div>';
+    
+    // Solution recommendation
+    html += '<div style="padding:12px 16px">';
+    
+    if (!hasMatch) {
+      html += '<div style="font-size:13px;color:var(--amber);margin-bottom:8px">⚠️ 未匹配到明确模式，建议手动在活学活用中搜索关键词</div>';
+    } else {
+      var bp = r.bestPattern;
+      html += '<div style="font-size:12px;color:var(--text-secondary);margin-bottom:6px">🎯 匹配：<span style="color:var(--blue);font-weight:600">' + 
+        bp.pattern.name + '</span>（' + bp.score + '分）· 参考工单：' + bp.pattern.tickets + '</div>';
+      html += '<div style="font-size:12px;background:var(--blue-50);padding:8px 12px;border-radius:6px;margin-bottom:8px">';
+      html += '<strong>推荐方案链：</strong>' + bp.pattern.steps + '</div>';
+    }
+    
+    // Top matching individual solutions
+    if (r.topSols.length > 0) {
+      html += '<div style="font-size:11px;color:var(--text-secondary);margin-bottom:4px">📋 匹配到的历史方案：</div>';
+      r.topSols.forEach(function(item) {
+        html += '<div style="font-size:12px;padding:4px 8px;margin:2px 0;background:#fafaf9;border-radius:4px">' +
+          '<span style="font-family:monospace;font-size:10px;color:var(--slate)">' + item.sol.id + '</span> ' +
+          item.sol.action + ' <span style="color:var(--slate);font-size:10px">(' + item.score + '分)</span></div>';
+      });
+    }
+    
+    // Generate button
+    var genType = hasMatch ? r.bestPattern.pattern.name : '';
+    html += '<button onclick="autoGenForTicket('' + (t.id || '') + '','' + 
+      genType + '','' + (t.vendor || '') + '','' + (t.priority || 'P0') + '')" ' +
+      'style="margin-top:8px;padding:6px 14px;background:' + (hasMatch ? 'var(--blue)' : 'var(--amber)') + 
+      ';color:#fff;border:none;border-radius:6px;font-size:12px;cursor:pointer;font-weight:600">' +
+      (hasMatch ? '📋 生成完整方案' : '📝 手动生成方案') + '</button>';
+    
+    html += '</div></div>';
+  });
+  
+  container.innerHTML = html;
+}
+
+function autoGenForTicket(ticketId, type, vendor, prio) {
+  // Scroll to generator section
+  document.getElementById('generate').scrollIntoView({behavior:'smooth'});
+  
+  // Pre-fill if type is known
+  if (type && GEN_TEMPLATES[type]) {
+    document.getElementById('genType').value = type;
+    if (vendor) {
+      // Try to match vendor
+      var sel = document.getElementById('genVendor');
+      for (var i = 0; i < sel.options.length; i++) {
+        if (sel.options[i].value === vendor) { sel.value = vendor; break; }
+      }
+    }
+    document.getElementById('genPrio').value = prio || 'P0';
+    genPreview();
+    document.getElementById('genPreview').style.display = 'block';
+    document.getElementById('genOutput').scrollIntoView({behavior:'smooth'});
+  }
+}
+
+// Override the old genPreview - keep it but add auto-init
+document.addEventListener('DOMContentLoaded', function() {
+  var d = document.getElementById('genDate');
+  if (d) d.value = new Date().toISOString().slice(0,10);
+  // Auto-load tickets
+  setTimeout(loadTicketsAndMatch, 300);
+});
 
 function genPreview() {
   var type = document.getElementById('genType').value;
