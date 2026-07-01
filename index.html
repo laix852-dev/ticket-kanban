@@ -998,15 +998,13 @@ function ticketCard(t, search) {
   const titleDisp = search ? highlightText(t.title, search) : t.title;
   const cls = `ticket-card status-${t.status}${t._hasOverdue ? ' has-overdue' : ''}`;
   const penaltyHtml = (() => {
-    const amt = t.manualPenalty ? t.manualPenalty : (t.penaltyAmount || (t.penalty && t.penalty.amount) || 0);
-    const reason = t.penaltyReason || (t.penalty && t.penalty.basis) || '';
-    if (!amt && !reason) return '<span style="color:var(--text-muted);font-size:11px">—</span>';
+    const label = (t.priority || 'P?') + ' 扣罚';
     const parts = [];
-    if (amt) parts.push('<span style="color:#dc2626;font-weight:700;cursor:pointer;text-decoration:underline dotted" onclick="event.stopPropagation();editPenaltyAmount(\'' + t.id + '\')" title="点击修改金额">¥' + amt + '</span>');
-    if (reason) parts.push('<span style="color:#b45309;font-size:11px">' + reason + '</span>');
     if (t.penaltyConfirmed) {
+      parts.push('<span style="color:#dc2626;font-weight:700;cursor:pointer;text-decoration:underline dotted" onclick="event.stopPropagation();editPenaltyAmount(\'' + t.id + '\')" title="点击自定义金额">' + label + '</span>');
       parts.push('<span style="color:#059669;font-weight:600">✅ ' + (t.penaltyConfirmedBy || '已确认') + '</span>');
-    } else if (amt) {
+    } else {
+      parts.push('<span style="color:#dc2626;font-weight:700;cursor:pointer;text-decoration:underline dotted" onclick="event.stopPropagation();editPenaltyAmount(\'' + t.id + '\')" title="点击自定义金额">' + label + '</span>');
       parts.push('<button onclick="event.stopPropagation();confirmPenalty(\'' + t.id + '\')" style="background:#dc2626;color:#fff;border:none;padding:2px 10px;border-radius:4px;cursor:pointer;font-size:11px;font-weight:600">确认扣罚</button>');
     }
     return parts.join(' · ');
