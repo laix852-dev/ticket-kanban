@@ -217,7 +217,7 @@ body {
 .expand-arrow.open { transform: rotate(180deg); }
 
 /* Ticket Detail */
-.ticket-detail { display: none; border-top: 1px solid var(--border); background: #fafaf9; }
+.ticket-detail { display: block; border-top: 1px solid var(--border); background: #fafaf9; }
 .ticket-detail.show { display: block; }
 .ticket-detail-inner { padding: 22px 24px 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px 32px; }
 @media (max-width: 900px) { .ticket-detail-inner { grid-template-columns: 1fr; } }
@@ -778,8 +778,7 @@ function initData() {
     } catch(e) {}
   }
   detectOverdue();
-  renderAll();
-  loadTickets();
+  console.log('Page init, tickets:', tickets.length); renderAll(); console.log('renderAll done, tickets:', tickets.length); loadTickets();
 }
 
 // ====== Overdue Detection ======
@@ -1095,10 +1094,10 @@ function ticketCard(t, search) {
 }
 
 function toggleTicket(id) {
-  const d = document.getElementById('detail-' + id);
-  const i = document.getElementById('icon-' + id);
-  if (!d || !i) return;
-  d.classList.toggle('show'); i.classList.toggle('open');
+  var d = document.getElementById('detail-' + id);
+  var i = document.getElementById('icon-' + id);
+  console.log('toggleTicket', id, 'detail:', !!d, 'icon:', !!i);
+  if (d) { d.classList.toggle('show'); i && i.classList.toggle('open'); }
 }
 
 function toggleTimeline(id) {
