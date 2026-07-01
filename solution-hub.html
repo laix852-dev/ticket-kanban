@@ -1,0 +1,1375 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>方案库 · 龙虾学习系统</title>
+<style>
+:root {
+  --bg: #f7f6f3; --surface: #ffffff; --text: #1c1917; --text-secondary: #78716c;
+  --border: #e7e5e4; --border-light: #f5f5f4;
+  --blue: #2563eb; --blue-50: #eff6ff; --blue-100: #dbeafe;
+  --red: #dc2626; --red-50: #fef2f2; --red-100: #fee2e2;
+  --green: #16a34a; --green-50: #f0fdf4; --green-100: #dcfce7;
+  --amber: #d97706; --amber-50: #fffbeb; --amber-100: #fef3c7;
+  --slate: #78716c; --purple: #7c3aed; --purple-50: #f5f3ff;
+  --radius: 14px; --radius-sm: 10px; --radius-xs: 7px;
+  --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.03);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.05);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;font-size:14px;-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+.app-header{background:linear-gradient(135deg,#1c1917,#292524,#1c1917);color:#fff;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;gap:16px;position:sticky;top:0;z-index:100;box-shadow:0 1px 3px rgba(0,0,0,0.2)}
+.header-brand{display:flex;align-items:center;gap:10px;font-size:16px;font-weight:700}
+.header-nav{display:flex;gap:6px;flex-wrap:wrap}
+.header-nav a{color:#a8a29e;text-decoration:none;font-size:12px;padding:6px 12px;border-radius:var(--radius-xs);transition:all .2s}
+.header-nav a:hover,.header-nav a.active{color:#fff;background:rgba(255,255,255,0.08)}
+.container{max-width:1200px;margin:0 auto;padding:20px}
+
+/* Top stats */
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:20px}
+.stat-card{background:var(--surface);border-radius:var(--radius-sm);padding:14px 16px;border:1px solid var(--border);box-shadow:var(--shadow)}
+.stat-label{font-size:11px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.stat-value{font-size:24px;font-weight:700}
+.stat-value.red{color:var(--red)} .stat-value.green{color:var(--green)} .stat-value.blue{color:var(--blue)} .stat-value.amber{color:var(--amber)}
+
+/* Section headers */
+.section{margin-bottom:28px}
+.section-title{font-size:18px;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.section-desc{font-size:13px;color:var(--text-secondary);margin-bottom:14px}
+
+/* Tabs */
+.tabs{display:flex;gap:4px;margin-bottom:14px;flex-wrap:wrap}
+.tab{padding:6px 16px;border-radius:var(--radius-xs);font-size:12px;cursor:pointer;border:1px solid var(--border);background:var(--surface);color:var(--text-secondary);transition:all .15s}
+.tab:hover{border-color:var(--blue);color:var(--blue)}
+.tab.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+
+/* Solution chain card */
+.chain-card{background:var(--surface);border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow);margin-bottom:12px;overflow:hidden}
+.chain-header{padding:14px 18px;background:#fafaf9;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;flex-wrap:wrap;cursor:pointer}
+.chain-header:hover{background:#f5f5f4}
+.chain-id{font-family:monospace;font-size:11px;color:var(--slate)}
+.chain-tag{font-size:10px;padding:2px 8px;border-radius:4px;font-weight:600;white-space:nowrap}
+.chain-tag.red{background:var(--red-100);color:var(--red)}
+.chain-tag.amber{background:var(--amber-100);color:var(--amber)}
+.chain-tag.green{background:var(--green-100);color:var(--green)}
+.chain-tag.blue{background:var(--blue-100);color:var(--blue)}
+.chain-tag.purple{background:var(--purple-50);color:var(--purple)}
+.prio-tag{font-size:10px;padding:2px 6px;border-radius:4px;font-weight:700}
+.prio-P0{background:var(--red-100);color:var(--red)}
+.prio-P1{background:var(--amber-100);color:var(--amber)}
+.prio-P2{background:var(--green-100);color:var(--green)}
+.chain-body{padding:14px 18px;display:none}
+.chain-body.open{display:block}
+.sol-card{background:var(--surface);border-radius:8px;border:1px solid var(--border);overflow:hidden;transition:box-shadow .2s}
+.sol-card:hover{box-shadow:var(--shadow-md)}
+.sol-header{display:flex;align-items:center;gap:10px;padding:10px 14px;font-size:12px;background:#fafaf9;flex-wrap:wrap}
+.sol-id{font-family:monospace;color:var(--slate);font-size:11px}
+.sol-tag{font-size:10px;padding:2px 8px;border-radius:4px;background:var(--blue-50);color:var(--blue);font-weight:600}
+.sol-body{padding:10px 14px}
+.sol-meta{font-size:11px;color:var(--slate);margin-top:6px;display:flex;gap:14px}
+.chain-steps{display:grid;gap:8px}
+.chain-step{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;background:#fafaf9;border-radius:var(--radius-xs);font-size:13px}
+.step-num{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px}
+.step-num.done{background:var(--green-100);color:var(--green)}
+.step-num.next{background:var(--blue-100);color:var(--blue)}
+.step-owner{font-size:11px;color:var(--text-secondary)}
+.chain-meta{font-size:11px;color:var(--slate);margin-top:10px;padding-top:10px;border-top:1px solid var(--border);display:flex;gap:16px;flex-wrap:wrap}
+.chain-meta span{display:flex;align-items:center;gap:4px}
+.trigger-list{list-style:none;padding:0;margin:6px 0}
+.trigger-list li{padding:3px 0;font-size:12px;color:var(--text-secondary)}
+.trigger-list li::before{content:"⚠️ ";color:var(--amber)}
+
+/* Learn section */
+.learn-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
+.learn-card{background:var(--surface);border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow);padding:18px}
+.learn-card h4{font-size:15px;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.learn-path{list-style:none;padding:0}
+.learn-path li{padding:4px 0;font-size:13px;display:flex;align-items:flex-start;gap:6px}
+.learn-path li::before{content:"□";color:var(--slate);font-size:14px}
+
+/* Vendor profile */
+.vendor-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:14px}
+.vendor-card{background:var(--surface);border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow);overflow:hidden}
+.vendor-card .ven-head{padding:14px 18px;font-weight:700;font-size:15px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.vendor-card .ven-body{padding:14px 18px;font-size:13px}
+.vendor-card .ven-body ul{margin:4px 0;padding-left:20px}
+.vendor-card .ven-body li{padding:2px 0}
+.tag-strength{font-size:10px;padding:1px 6px;border-radius:4px;background:var(--green-100);color:var(--green)}
+.tag-risk{font-size:10px;padding:1px 6px;border-radius:4px;background:var(--red-100);color:var(--red)}
+
+/* Alert rules */
+.rules-table{width:100%;border-collapse:collapse;font-size:13px;background:var(--surface);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+.rules-table th{text-align:left;padding:10px 14px;background:#fafaf9;font-size:11px;text-transform:uppercase;color:var(--text-secondary);font-weight:600;border-bottom:1px solid var(--border)}
+.rules-table td{padding:10px 14px;border-bottom:1px solid var(--border-light)}
+.rules-table tr:last-child td{border-bottom:none}
+.badge{font-size:10px;padding:2px 8px;border-radius:4px;font-weight:600}
+.badge-red{background:var(--red-100);color:var(--red)}
+.badge-amber{background:var(--amber-100);color:var(--amber)}
+
+/* Search */
+.search-bar{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;align-items:center}
+.search-bar input,.search-bar select{padding:8px 12px;border:1px solid var(--border);border-radius:var(--radius-xs);font-size:13px;outline:none;background:var(--surface)}
+.search-bar input:focus,.search-bar select:focus{border-color:var(--blue);box-shadow:0 0 0 2px var(--blue-100)}
+.search-bar input{flex:1;min-width:200px;max-width:400px}
+
+/* Report template preview */
+.template-box{background:#1c1917;position:relative
+.copy-btn{padding:4px 10px;border:1px solid rgba(255,255,255,0.2);border-radius:6px;background:rgba(255,255,255,0.08);color:#a8a29e;cursor:pointer;font-size:11px;transition:all .2s}
+.copy-btn:hover{background:rgba(255,255,255,0.15);color:#fff}
+.copy-btn.copied{background:var(--green);color:#fff;border-color:var(--green)};color:#e7e5e4;padding:16px 20px;border-radius:var(--radius-sm);font-family:monospace;font-size:12px;line-height:1.8;white-space:pre-wrap;max-height:400px;overflow-y:auto}
+
+/* Exercise card */
+.exercise-card{background:linear-gradient(135deg,var(--purple-50),#faf5ff);border:2px dashed var(--purple);border-radius:var(--radius);padding:18px;margin-bottom:12px}
+.exercise-card h4{color:var(--purple);margin-bottom:8px}
+.exercise-card ol{padding-left:20px;font-size:13px;line-height:1.8}
+
+/* Responsive */
+@media(max-width:768px){
+  .app-header{padding:12px 16px}
+  .container{padding:12px}
+  .vendor-grid,.learn-grid{grid-template-columns:1fr}
+  .stats-row{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+<div class="app-header">
+  <div class="header-brand">📚 方案库 · 龙虾学习系统 <span style="font-size:10px;opacity:0.5">v7.1 智能引擎</span></div>
+  <div class="header-nav">
+    <a href="https://laix852-dev.github.io/ticket-kanban/">← 返回看板</a>
+    <a href="#match">智能引擎</a>
+    <a href="#patterns">问题模式</a>
+    <a href="#solutions">方案明细</a>
+    <a href="#learn">学习系统</a>
+    <a href="#vendors">供应商画像</a>
+    <a href="#rules">检测规则</a>
+    <a href="#reports">报告模板</a>
+  </div>
+</div>
+<div class="container">
+
+<!-- Stats -->
+<div class="stats-row">
+  <div class="stat-card"><div class="stat-label">问题模式</div><div class="stat-value blue">8</div></div>
+  <div class="stat-card"><div class="stat-label">方案条目</div><div class="stat-value" id="statTotal">-</div></div>
+  <div class="stat-card"><div class="stat-label">分类数</div><div class="stat-value green" id="statCat">-</div></div>
+  <div class="stat-card"><div class="stat-label">供应商</div><div class="stat-value" id="statVendor">-</div></div>
+  <div class="stat-card"><div class="stat-label">来源工单</div><div class="stat-value amber" id="statTicket">-</div></div>
+  <div class="stat-card"><div class="stat-label">学习路径</div><div class="stat-value purple">4</div></div>
+</div>
+
+<!-- 智能方案引擎 -->
+<div class="section" id="match" style="background:linear-gradient(135deg,#1c1917,#292524);border-radius:var(--radius);padding:24px;margin-bottom:24px;color:#fff">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:6px">
+  <span style="font-size:22px">🧠</span>
+  <div class="section-title" style="color:#fff;margin:0">智能方案引擎</div>
+</div>
+<div class="section-desc" style="color:#a8a29e;margin-bottom:16px">输入问题描述，自动识别类型、匹配历史方案、生成完整工单方案。一步到位。</div>
+
+<div style="display:flex;gap:10px;margin-bottom:8px;flex-wrap:wrap">
+  <input type="text" id="matchInput" 
+    placeholder="粘贴工单标题或问题描述，例如：审核员把涉政评论放过了、客服回复超时被投诉、质检次品率突然翻了三倍..."
+    style="flex:1;min-width:300px;padding:12px 16px;border:2px solid rgba(255,255,255,0.15);border-radius:var(--radius-xs);font-size:14px;background:rgba(255,255,255,0.06);color:#fff;outline:none"
+    onkeydown="if(event.key==='Enter')doMatch()"
+    oninput="if(this.value.length>=5)doMatch()">
+  <button onclick="doMatch()" id="matchBtn" style="padding:12px 24px;background:var(--blue);color:#fff;border:none;border-radius:var(--radius-xs);font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap">🔍 分析</button>
+</div>
+<div style="font-size:11px;color:#78716c">输入5个字以上自动分析 · 支持粘贴整段工单摘要</div>
+
+<div id="matchResult" style="display:none;margin-top:16px"></div>
+</div>
+
+<!-- Problem Patterns --><!-- Problem Patterns -->
+<div class="section" id="patterns">
+<div class="section-title">🔬 问题模式库</div>
+<div class="section-desc">从 16 条真实工单中提炼的 8 类高频问题，含完整方案链、触发信号和预防措施。展开查看完整方案。</div>
+
+<div class="chain-card" id="pat-shezheng">
+  <div class="chain-header" onclick="this.parentElement.querySelector('.chain-body').classList.toggle('open')">
+    <span class="chain-tag red">高频 ⭐⭐⭐⭐⭐</span>
+    <strong>涉政漏放</strong>
+    <span class="prio-tag prio-P0">P0</span>
+    <span style="font-size:11px;color:var(--slate)">出现 4 起 · 3-7天解决 · 全部完结</span>
+  </div>
+  <div class="chain-body">
+    <div style="margin-bottom:10px"><strong>触发信号：</strong></div>
+    <ul class="trigger-list">
+      <li>审核员不了解涉政敏感人物（如"任大炮"→任志强）</li>
+      <li>关键词库缺失（如"富平"未覆盖）</li>
+      <li>机审+DHS 命中后，人审未跟进拦截</li>
+      <li>一审不通过→回扫通过，两轮结果矛盾</li>
+    </ul>
+    <div style="margin:12px 0 8px"><strong>标准方案链（6 步）：</strong></div>
+    <div class="chain-steps">
+      <div class="chain-step"><span class="step-num done">1</span><div><strong>关键词排查 + 数据回扫</strong><br><span class="step-owner">供应商管理岗 · T+1</span><br><small>排查范围需覆盖变体/别称/代称，如"大炮""皇帝"等</small></div></div>
+      <div class="chain-step"><span class="step-num done">2</span><div><strong>初版复盘输出 + 全员通报</strong><br><span class="step-owner">供应商管理岗 · T+1</span></div></div>
+      <div class="chain-step"><span class="step-num done">3</span><div><strong>反华人物专项培训 + 涉政人物清单宣导</strong><br><span class="step-owner">培训侧 · T+3</span><br><small>含别称/代称/隐喻对照表</small></div></div>
+      <div class="chain-step"><span class="step-num done">4</span><div><strong>闭卷测试验收</strong><br><span class="step-owner">培训侧 · T+7</span><br><small>准确率目标 100%，未达标需补训</small></div></div>
+      <div class="chain-step"><span class="step-num done">5</span><div><strong>回扫流程优化：涉政增加专项复核环节</strong><br><span class="step-owner">技术/质量侧 · T+5</span></div></div>
+      <div class="chain-step"><span class="step-num done">6</span><div><strong>定期抽问 + 案例持续收集</strong><br><span class="step-owner">质量侧 · 持续</span><br><small>每两周涉政/反华案例抽问</small></div></div>
+    </div>
+    <div class="chain-meta">
+      <span>📋 TK-009</span><span>📋 TK-010</span><span>📋 TK-017</span><span>📋 TK-018</span>
+      <span>💰 处罚 ¥750-1500</span>
+      <span>🔑 关键词库更新是关键预防</span>
+    </div>
+  </div>
+</div>
+
+<div class="chain-card" id="pat-renxiao">
+  <div class="chain-header" onclick="this.parentElement.querySelector('.chain-body').classList.toggle('open')">
+    <span class="chain-tag red">高频 ⭐⭐⭐⭐</span>
+    <strong>人效不达标</strong>
+    <span class="prio-tag prio-P0">P0</span>
+    <span style="font-size:11px;color:var(--red)">当前 1 条超期中</span>
+  </div>
+  <div class="chain-body">
+    <div style="margin-bottom:10px"><strong>触发信号：</strong></div>
+    <ul class="trigger-list">
+      <li>日审核量级远低于标准值（如 17 vs 35-40 条）</li>
+      <li>新人效率爬坡慢</li>
+      <li>QC 直播间优先级不明确</li>
+      <li>黑灰产识别能力不足</li>
+    </ul>
+    <div style="margin:12px 0 8px"><strong>标准方案链（7 步）：</strong></div>
+    <div class="chain-steps">
+      <div class="chain-step"><span class="step-num done">1</span><div><strong>人员审核录屏分析</strong><br><span class="step-owner">管理岗 · T+6</span><br><small>找到审核效率低的痛点</small></div></div>
+      <div class="chain-step"><span class="step-num done">2</span><div><strong>SKU 时长测算</strong><br><span class="step-owner">管理岗 · T+13</span><br><small>根据 SKU 资质测算单 SKU 所需审核时长</small></div></div>
+      <div class="chain-step"><span class="step-num next">3</span><div><strong>审核 SOP 优化</strong><br><span class="step-owner">管理岗 · T+10</span><br><small>联动驻场进行流程检查和技巧传授。⚠️ 常见超期环节</small></div></div>
+      <div class="chain-step"><span class="step-num next">4</span><div><strong>QC 直播间优先级明确</strong><br><span class="step-owner">客户侧 · T+11</span><br><small>需与客户确认，外部依赖风险</small></div></div>
+      <div class="chain-step"><span class="step-num next">5</span><div><strong>新人培训计划 + 效率爬坡</strong><br><span class="step-owner">管理岗 · T+13</span></div></div>
+      <div class="chain-step"><span class="step-num next">6</span><div><strong>现场管理密切关注审核状态</strong><br><span class="step-owner">管理岗 · 持续</span><br><small>异常及时介入上报</small></div></div>
+      <div class="chain-step"><span class="step-num next">7</span><div><strong>人效达标：核心 15条/日，尾部 12条/日</strong><br><span class="step-owner">管理岗 · T+16</span></div></div>
+    </div>
+    <div class="chain-meta">
+      <span>📋 TK-011（超期 15 天）</span>
+      <span>💰 处罚 ¥1200</span>
+      <span>⚠️ SOP优化和新人培训易超期</span>
+      <span>💡 建议拆分为小里程碑</span>
+    </div>
+  </div>
+</div>
+
+<div class="chain-card" id="pat-zhijian">
+  <div class="chain-header" onclick="this.parentElement.querySelector('.chain-body').classList.toggle('open')">
+    <span class="chain-tag amber">高风险 ⭐⭐⭐</span>
+    <strong>质检管理</strong>
+    <span class="prio-tag prio-P0">P0</span>
+    <span style="font-size:11px;color:var(--green)">已完结 · 标杆案例</span>
+  </div>
+  <div class="chain-body">
+    <div style="margin-bottom:10px"><strong>触发信号：</strong></div>
+    <ul class="trigger-list">
+      <li>单人次品率突然飙升（如 0.18%→0.66%，3 倍于正常值）</li>
+      <li>全组次品暴增（如 8 条→37 条，+362%）</li>
+      <li>日报正常发送但无异常标注</li>
+      <li>管理侧对数据异常无反应</li>
+    </ul>
+    <div style="margin:12px 0 8px"><strong>标准方案链（7 步）：</strong></div>
+    <div class="chain-steps">
+      <div class="chain-step"><span class="step-num done">1</span><div><strong>日度异常预警机制</strong><br><span class="step-owner">管理岗 · 本周</span><br><small>单人次品≥5条标注姓名+类型；次品环比>100%追加原因</small></div></div>
+      <div class="chain-step"><span class="step-num done">2</span><div><strong>人员专项纠偏</strong><br><span class="step-owner">管理岗 · 本周</span><br><small>全量回查 + 针对性培训 + 加抽检</small></div></div>
+      <div class="chain-step"><span class="step-num done">3</span><div><strong>补充缺失日报</strong><br><span class="step-owner">管理岗 · 本周</span></div></div>
+      <div class="chain-step"><span class="step-num done">4</span><div><strong>异常响应 SOP</strong><br><span class="step-owner">管理岗 · 2周内</span><br><small>次品率>0.5% → 暂停审核→回查→培训→重新上线</small></div></div>
+      <div class="chain-step"><span class="step-num done">5</span><div><strong>日报模板升级</strong><br><span class="step-owner">管理岗 · 2周内</span><br><small>人员排名 + TOP3次品类型 + 环比变化</small></div></div>
+      <div class="chain-step"><span class="step-num done">6</span><div><strong>管理岗 KPI 明确</strong><br><span class="step-owner">管理岗 · 1个月</span><br><small>异常响应≤4小时，日报覆盖率100%</small></div></div>
+      <div class="chain-step"><span class="step-num done">7</span><div><strong>系统优化：OCR二次校验 + 关键字符高亮</strong><br><span class="step-owner">管理岗 · 1个月</span></div></div>
+    </div>
+    <div class="chain-meta">
+      <span>📋 TK-003（标杆）</span>
+      <span>💰 处罚 ¥1500</span>
+      <span>✅ 7天闭环 · 此后无复发</span>
+      <span>🔑 从制度层面彻底解决</span>
+    </div>
+  </div>
+</div>
+
+<div class="chain-card" id="pat-kefu">
+  <div class="chain-header" onclick="this.parentElement.querySelector('.chain-body').classList.toggle('open')">
+    <span class="chain-tag red">高频 ⭐⭐⭐⭐</span>
+    <strong>客服投诉</strong>
+    <span class="prio-tag prio-P0">P0</span>
+    <span style="font-size:11px;color:var(--slate)">出现 2 起 · 全部完结</span>
+  </div>
+  <div class="chain-body">
+    <div style="margin-bottom:10px"><strong>触发信号：</strong></div>
+    <ul class="trigger-list">
+      <li>甲方直接投诉（比内部发现严重一级）</li>
+      <li>客服基础操作出错（如遗漏行政区选项）</li>
+      <li>客服响应超时（未及时回复用户消息）</li>
+      <li>已知问题已预警但未落实（预警→发生有空窗期）</li>
+    </ul>
+    <div style="margin:12px 0 8px"><strong>标准方案链（5 步）：</strong></div>
+    <div class="chain-steps">
+      <div class="chain-step"><span class="step-num done">1</span><div><strong>立即排查</strong><br><span class="step-owner">对接人+管理岗 · T+0</span><br><small>排班记录 + 响应记录 + 聊天记录</small></div></div>
+      <div class="chain-step"><span class="step-num done">2</span><div><strong>建立响应时效监控 + 超时自动告警</strong><br><span class="step-owner">技术/管理 · T+5</span></div></div>
+      <div class="chain-step"><span class="step-num done">3</span><div><strong>评估人力是否充足，调整排班</strong><br><span class="step-owner">对接人 · T+7</span></div></div>
+      <div class="chain-step"><span class="step-num done">4</span><div><strong>向甲方提交事件说明及改进措施</strong><br><span class="step-owner">对接人 · T+2</span><br><small>修复客户信任关系</small></div></div>
+      <div class="chain-step"><span class="step-num done">5</span><div><strong>将案例纳入培训 + 建立预警机制</strong><br><span class="step-owner">管理岗 · 持续</span><br><small>同供应商不重复出现同类问题</small></div></div>
+    </div>
+    <div class="chain-meta">
+      <span>📋 TK-001</span><span>📋 TK-013</span>
+      <span>💰 处罚 ¥1000-1500</span>
+      <span>🚨 月内2起投诉→启动客服审计</span>
+    </div>
+  </div>
+</div>
+
+<div class="chain-card" id="pat-xitong">
+  <div class="chain-header" onclick="this.parentElement.querySelector('.chain-body').classList.toggle('open')">
+    <span class="chain-tag amber">中频 ⭐⭐⭐</span>
+    <strong>审核系统稳定性</strong>
+    <span class="prio-tag prio-P0">P0</span>
+    <span style="font-size:11px;color:var(--slate)">出现 2 起</span>
+  </div>
+  <div class="chain-body">
+    <div style="margin-bottom:10px"><strong>触发信号：</strong></div>
+    <ul class="trigger-list">
+      <li>CMA 登录态过期→审核积压（如 371 条）</li>
+      <li>人工介入率从 30% 飙升至 80%</li>
+      <li>告警只提示积压量，未关联根因</li>
+      <li>数据清理进度不达预期</li>
+    </ul>
+    <div style="margin:12px 0 8px"><strong>标准方案链（6 步）：</strong></div>
+    <div class="chain-steps">
+      <div class="chain-step"><span class="step-num done">1</span><div><strong>修复系统自动续期/自动重试逻辑</strong><br><span class="step-owner">技术侧 · T+3</span></div></div>
+      <div class="chain-step"><span class="step-num done">2</span><div><strong>告警增加关键指标</strong><br><span class="step-owner">技术侧 · T+5</span><br><small>CMA在线数<5 自动@管理方</small></div></div>
+      <div class="chain-step"><span class="step-num done">3</span><div><strong>制定人工应急预案</strong><br><span class="step-owner">管理岗 · T+3</span><br><small>退出→重登→验证三步骤</small></div></div>
+      <div class="chain-step"><span class="step-num done">4</span><div><strong>建立 Dashboard 监控</strong><br><span class="step-owner">技术侧 · T+10</span><br><small>每小时检测登录态/识别率/人审率</small></div></div>
+      <div class="chain-step"><span class="step-num done">5</span><div><strong>上岗前 CMA 状态检查</strong><br><span class="step-owner">管理岗 · 持续</span></div></div>
+      <div class="chain-step"><span class="step-num done">6</span><div><strong>分级升级报备 + 超时提醒触达验证</strong><br><span class="step-owner">管理岗 · T+3</span><br><small>不同积压量级对应不同升级路径</small></div></div>
+    </div>
+    <div class="chain-meta">
+      <span>📋 TK-004（当日闭环）</span><span>📋 TK-014（超期中）</span>
+      <span>💰 处罚 ¥1000</span>
+      <span>🔑 告警双重触达（一线+管理）</span>
+    </div>
+  </div>
+</div>
+
+<div class="chain-card" id="pat-peixun">
+  <div class="chain-header" onclick="this.parentElement.querySelector('.chain-body').classList.toggle('open')">
+    <span class="chain-tag amber">中频 ⭐⭐⭐</span>
+    <strong>培训考核</strong>
+    <span class="prio-tag prio-P0">P0</span>
+    <span style="font-size:11px;color:var(--red)">当前 1 条超期中</span>
+  </div>
+  <div class="chain-body">
+    <div style="margin-bottom:10px"><strong>触发信号：</strong></div>
+    <ul class="trigger-list">
+      <li>培训专员漏指派任务（如周考）</li>
+      <li>工作事项繁忙导致遗漏</li>
+      <li>组长和管理未及时发现</li>
+      <li>周期性考核任务无自动提醒</li>
+    </ul>
+    <div style="margin:12px 0 8px"><strong>标准方案链（2 步）：</strong></div>
+    <div class="chain-steps">
+      <div class="chain-step"><span class="step-num next">1</span><div><strong>建立任务清单 + 2h 响应机制</strong><br><span class="step-owner">培训专员 · T+1</span><br><small>群内关键任务信息必须在 2 小时内响应确认</small></div></div>
+      <div class="chain-step"><span class="step-num next">2</span><div><strong>组长每周检查执行状态</strong><br><span class="step-owner">各组长 · T+4</span><br><small>周期性任务设置日历/POPO 自动提醒</small></div></div>
+    </div>
+    <div class="chain-meta">
+      <span>📋 TK-012（超期 6 天，0/2 完成）</span>
+      <span>💰 处罚 ¥1200</span>
+      <span>💡 根本解法：周期性任务自动提醒</span>
+    </div>
+  </div>
+</div>
+
+<div class="chain-card" id="pat-yuqing">
+  <div class="chain-header" onclick="this.parentElement.querySelector('.chain-body').classList.toggle('open')">
+    <span class="chain-tag amber">中频 ⭐⭐</span>
+    <strong>舆情指令误操作</strong>
+    <span class="prio-tag prio-P2">P2</span>
+    <span style="font-size:11px;color:var(--green)">当日闭环 · 标杆案例</span>
+  </div>
+  <div class="chain-body">
+    <div style="margin-bottom:10px"><strong>触发信号：</strong></div>
+    <ul class="trigger-list">
+      <li>审核知晓舆情指令但从严误判（看到相关描述就删，未确认拦截要求）</li>
+      <li>通告群关键词定位错误（只能搜"女仆"搜不到"苏芒"）</li>
+      <li>指令传达时未整理具体关键词和拦截尺度</li>
+      <li>舆情指令"一刀切"执行，未区分查删/无法提及/其他</li>
+    </ul>
+    <div style="margin:12px 0 8px"><strong>标准方案链（6 步）：</strong></div>
+    <div class="chain-steps">
+      <div class="chain-step"><span class="step-num done">1</span><div><strong>定位误伤原因，确认误删根因</strong><br><span class="step-owner">管理岗 · 当日</span><br><small>先搞清楚是"不知道规则"还是"知道规则但理解错了"</small></div></div>
+      <div class="chain-step"><span class="step-num done">2</span><div><strong>回扫近一月误伤数据</strong><br><span class="step-owner">管理岗 · 当日</span><br><small>融媒体/论坛/用户资料等通道全覆盖</small></div></div>
+      <div class="chain-step"><span class="step-num done">3</span><div><strong>指令传达优化：转发一线时整理具体关键词</strong><br><span class="step-owner">管理岗 · 持续</span><br><small>通告群的关键词必须能搜到指令</small></div></div>
+      <div class="chain-step"><span class="step-num done">4</span><div><strong>明确处理尺度：查删负面 / 无法提及 / 其他</strong><br><span class="step-owner">管理岗 · 持续</span><br><small>不再"看到相关就删"，分级处理</small></div></div>
+      <div class="chain-step"><span class="step-num done">5</span><div><strong>舆情指令废止一刀切，明确拦截敏感点</strong><br><span class="step-owner">客户侧 · 持续</span></div></div>
+      <div class="chain-step"><span class="step-num done">6</span><div><strong>排查是否有未经确认即删除的漏报备案例</strong><br><span class="step-owner">管理岗 · T+1</span></div></div>
+    </div>
+    <div class="chain-meta">
+      <span>📋 TK-019（当日闭环）</span>
+      <span>🔑 关键词必须能定位到指令</span>
+      <span>💡 核心：传达不是"通知到了"而是"搜得到"</span>
+    </div>
+  </div>
+</div>
+
+<div class="chain-card" id="pat-chidu">
+  <div class="chain-header" onclick="this.parentElement.querySelector('.chain-body').classList.toggle('open')">
+    <span class="chain-tag blue">新增 ⭐⭐</span>
+    <strong>尺度拉齐</strong>
+    <span class="prio-tag prio-P1">P1</span>
+    <span style="font-size:11px;color:var(--slate)">1条处理中 · 新兴问题类型</span>
+  </div>
+  <div class="chain-body">
+    <div style="margin-bottom:10px"><strong>触发信号：</strong></div>
+    <ul class="trigger-list">
+      <li>客户反馈中同类型内容审核结果不一致</li>
+      <li>组内人员对同一尺度的理解存在偏差</li>
+      <li>缺少同类型案例汇总和拉齐机制</li>
+      <li>新项目上线后审核标准未充分对齐</li>
+    </ul>
+    <div style="margin:12px 0 8px"><strong>标准方案链（4 步）：</strong></div>
+    <div class="chain-steps">
+      <div class="chain-step"><span class="step-num next">1</span><div><strong>汇总客户反馈中的同类型案例，形成案例库</strong><br><span class="step-owner">管理岗 · T+3</span><br><small>先把所有争议案例摆在一起看，找出分歧点</small></div></div>
+      <div class="chain-step"><span class="step-num next">2</span><div><strong>组织尺度对齐会议 + 输出统一判定标准文档</strong><br><span class="step-owner">管理岗 · T+5</span><br><small>叫上所有审核员一起过案例，达成共识后落成文档</small></div></div>
+      <div class="chain-step"><span class="step-num next">3</span><div><strong>人员摸底考核，验收尺度执行一致性</strong><br><span class="step-owner">管理岗 · T+7</span><br><small>用边界案例测试每个人，找出理解偏差的人</small></div></div>
+      <div class="chain-step"><span class="step-num next">4</span><div><strong>对偏差人员进行专项培训拉齐 + 尺度文档定期回顾</strong><br><span class="step-owner">管理岗 · T+10 / 每季度</span></div></div>
+    </div>
+    <div class="chain-meta">
+      <span>📋 TK-021/TK-022（诺达商汤）</span>
+      <span>⚠️ 疑似重复工单需确认</span>
+      <span>💡 关键：不是发文档就完了，要测试验收</span>
+    </div>
+  </div>
+</div>
+</div>
+<!-- Solution Detail Library -->
+<div class="section" id="solutions">
+<div class="section-title">📋 方案明细库</div>
+<div class="section-desc">从所有已完结工单中提取的 84 条可复用方案，按问题类型和供应商分类。</div>
+<div class="search-bar">
+  <input type="text" id="solSearch" placeholder="搜索方案..." oninput="filterSols()">
+  <select id="solCat" onchange="filterSols()">
+    <option value="all">全部分类</option>
+    <option value="培训管理">培训管理</option>
+    <option value="涉政漏判">涉政漏判</option>
+    <option value="质检管理">质检管理</option>
+    <option value="客户投诉">客户投诉</option>
+    <option value="数据管理">数据管理</option>
+    <option value="漏放处理">漏放处理</option>
+    <option value="其他">其他</option>
+  </select>
+  <select id="solPrio" onchange="filterSols()">
+    <option value="all">全部优先级</option><option>P0</option><option>P1</option><option>P2</option>
+  </select>
+  <select id="solVendor" onchange="filterSols()">
+    <option value="all">全部供应商</option>
+    <option value="河南新阳科技（南宁）">新阳南宁</option>
+    <option value="河南新阳科技（洛阳）">新阳洛阳</option>
+    <option value="山西易网视界（临汾）">易网临汾</option>
+    <option value="河南徽音网络科技">徽音郑州</option>
+    <option value="贵州硅易（绥阳）">硅易绥阳</option>
+  </select>
+  <span style="font-size:12px;color:var(--slate)" id="solCount"></span>
+</div>
+<div id="solList"></div>
+</div>
+
+<!-- Learning System -->
+<div class="section" id="learn">
+<div class="section-title">🎓 龙虾学习系统</div>
+<div class="section-desc">分角色学习路径、模拟练习、每周速递和学习激励机制。</div>
+
+<div class="tabs" id="learnTabs">
+  <span class="tab active" onclick="switchLearnTab('paths')">学习路径</span>
+  <span class="tab" onclick="switchLearnTab('exercises')">模拟练习</span>
+  <span class="tab" onclick="switchLearnTab('quick')">学习速递</span>
+  <span class="tab" onclick="switchLearnTab('newbie')">新人7天包</span>
+</div>
+
+<div id="learn-tab-paths">
+<div class="learn-grid">
+  <div class="learn-card">
+    <h4>🪪 对接人路径</h4>
+    <div style="font-size:12px;color:var(--text-secondary);margin-bottom:8px">钱燕 · 刘倩 · 张思语</div>
+    <ul class="learn-path">
+      <li>阶段1：读 3 个标杆案例，学会判断"好的复盘长什么样"</li>
+      <li>阶段2：读 2 个反面案例，学会识别"敷衍的归因"</li>
+      <li>阶段3：做 3 道模拟题，练习从数据中发现问题</li>
+      <li>阶段4：本周尝试在日报发出前预判"哪些工单今天会有进展"</li>
+    </ul>
+  </div>
+  <div class="learn-card">
+    <h4>🏭 供应商管理岗路径</h4>
+    <div style="font-size:12px;color:var(--text-secondary);margin-bottom:8px">牛欢欢 · 郭嘉锋 · 梁宁 · 付林</div>
+    <ul class="learn-path">
+      <li>阶段1：读 TK-003（质检标杆），学"从数据异常到制度修复"</li>
+      <li>阶段2：读 TK-011（反面案例），学"方案为什么超期"</li>
+      <li>阶段3：用自己的基地数据做一次"如果我是来昕怡，我会发什么工单"</li>
+      <li>阶段4：本周日报中增加"异常标注"模块</li>
+    </ul>
+  </div>
+  <div class="learn-card">
+    <h4>👤 审核员/客服一线路径</h4>
+    <div style="font-size:12px;color:var(--text-secondary);margin-bottom:8px">各基地一线人员</div>
+    <ul class="learn-path">
+      <li>阶段1：读涉政漏放案例，更新"敏感人物清单"</li>
+      <li>阶段2：读客服投诉案例，学"什么情况下必须实时同步"</li>
+      <li>阶段3：做 2 道识别题（给定内容，判断是否该拦截）</li>
+      <li>阶段4：在团队里分享一次"我最近学到的案例"</li>
+    </ul>
+  </div>
+  <div class="learn-card">
+    <h4>🎯 龙虾核心路径</h4>
+    <div style="font-size:12px;color:var(--text-secondary);margin-bottom:8px">来昕怡 · Tom</div>
+    <ul class="learn-path">
+      <li>阶段1：纵观 16 条工单，画出"问题类型-供应商"矩阵</li>
+      <li>阶段2：识别 3 个系统性风险信号</li>
+      <li>阶段3：设计 1 个新的预警规则</li>
+      <li>阶段4：推动 1 项制度性改进落地</li>
+    </ul>
+  </div>
+</div>
+
+<div style="margin-top:18px">
+  <div class="section-title" style="font-size:15px">🦞 龙虾学分</div>
+  <table class="rules-table" style="font-size:12px">
+    <tr><th>行为</th><th>学分</th></tr>
+    <tr><td>完成一个案例学习 + 群内回复收获</td><td style="color:var(--blue);font-weight:600">+5</td></tr>
+    <tr><td>完成一道模拟题（≥5分及格）</td><td style="color:var(--blue);font-weight:600">+10</td></tr>
+    <tr><td>主动发现并上报问题（比客户先发现）</td><td style="color:var(--green);font-weight:600">+20</td></tr>
+    <tr><td>提供的方案被纳入标准方案库</td><td style="color:var(--purple);font-weight:600">+30</td></tr>
+    <tr><td>月度零工单（整月无新增工单）</td><td style="color:var(--amber);font-weight:600">+50</td></tr>
+  </table>
+</div>
+</div>
+
+<div id="learn-tab-exercises" style="display:none">
+<div class="exercise-card">
+  <h4>🎮 模拟练习 #1：涉政内容识别</h4>
+  <p style="font-size:12px;color:var(--text-secondary);margin-bottom:8px">改编自 TK-009 真实案例</p>
+  <div style="font-size:13px;margin-bottom:10px">
+    <strong>场景：</strong>你是汽车之家论坛审核员。一条评论写道"任大炮也说了同样的话"，回复对象是雷军相关的帖子。机审未命中，DHS 也未提示。
+  </div>
+  <ol>
+    <li>你的第一步动作是什么？（提示：先确认还是先拦截？）</li>
+    <li>你如何判断"任大炮"是否有风险？（提示：你个人知识 + 查询工具）</li>
+    <li>如果一审不通过，回扫时需要注意什么？</li>
+    <li>你建议在制度上做什么改进来防止类似漏放？</li>
+  </ol>
+  <div style="font-size:12px;color:var(--slate);margin-top:8px">
+    <strong>参考答案：</strong>1. 先拦截（暂停发布）再确认 2. 搜索"任大炮"→发现是任志强别称，涉政敏感 3. 回扫不能只看字面，要核查人物关联 4. 建立涉政人物别称/代称对照表，纳入培训
+  </div>
+</div>
+<div class="exercise-card">
+  <h4>🎮 模拟练习 #2：异常数据识别</h4>
+  <p style="font-size:12px;color:var(--text-secondary);margin-bottom:8px">改编自 TK-003 真实案例</p>
+  <div style="font-size:13px;margin-bottom:10px">
+    <strong>场景：</strong>你是基地管理岗。本周数据显示：王小明次品率从 0.18% 升至 0.66%（正常 3 倍），全组次品从 8 条暴增至 37 条（+362%）。日报正常发送，只汇总了数量，未提异常。
+  </div>
+  <ol>
+    <li>你发现了什么异常？（至少列 3 个信号）</li>
+    <li>你作为管理岗应该立刻做什么？（3 个动作）</li>
+    <li>日报内容需要怎么改？（具体改法）</li>
+    <li>如何防止下个月再次发生？（制度层面）</li>
+  </ol>
+  <div style="font-size:12px;color:var(--slate);margin-top:8px">
+    <strong>参考答案：</strong>1. 人员次品率飙升×3、全组暴增+362%、日报无异常标注 2. 暂停该人员审核→逐条回查→针对性培训 3. 日报增加人员排名、TOP3次品类型、环比变化 4. 设置自动阈值告警（次品率>0.5%触发）、管理岗 KPI 明确（异常响应≤4h）
+  </div>
+</div>
+</div>
+
+<div id="learn-tab-quick" style="display:none">
+<div class="learn-card" style="margin-bottom:14px">
+  <h4>📬 龙虾学习速递 · 使用指南</h4>
+  <div style="font-size:13px;line-height:2">
+    <strong>📌 如何找本周必学案例</strong><br>
+    打开当日<span style="color:var(--blue)">晚报</span> → 看"📌 备注/亮点"栏 → 标记为 🏆 的就是本周最佳案例<br>
+    打开<span style="color:var(--blue)">方案库首页</span> → 看"📖 历史经典案例" → 选一个没读过的<br><br>
+    <strong>🔁 如何发现高频问题</strong><br>
+    看晚报"三、未完结工单状态"中<span style="color:var(--red)">超期</span>标记最多的标签<br>
+    如果有同一标签连续两周出现 → 在团队群里发起专项讨论<br><br>
+    <strong>🏆 如何提名最佳实践</strong><br>
+    标准：① 当日创建当日完结 ② 方案有制度性改进 ③ 之后无复发<br>
+    在群里发"我提名 TK-XXX 为本月亮点，理由：..."<br><br>
+    <strong>🎯 练习建议</strong><br>
+    每周做 1 道模拟题（在"模拟练习"标签下）<br>
+    更有效的方式：拿一条<span style="color:var(--green)">未读的真实工单</span>，自己先写方案，再对照真实方案
+  </div>
+</div>
+</div>
+
+<div id="learn-tab-newbie" style="display:none">
+<div class="learn-card">
+  <h4>🎒 龙虾新人 7 天学习计划</h4>
+  <div style="font-size:13px;line-height:2.2">
+    <strong>Day 1-2：了解体系</strong><br>
+    □ 阅读看板，理解工单状态机和字段含义<br>
+    □ 学习案例 TK-001（客服投诉）— 简单但有代表性<br>
+    □ 学习案例 TK-004（系统稳定性）— 快速闭环的标杆<br><br>
+    <strong>Day 3-4：上手分析</strong><br>
+    □ 学习案例 TK-003（质检管理）— 复杂案例的完整拆解<br>
+    □ 做模拟题 1 道<br>
+    □ 在日报中找出 3 条你认为"最重要"的工单，说明理由<br><br>
+    <strong>Day 5-6：独立判断</strong><br>
+    □ 学习案例 TK-011（超期反面案例）— 学会识别风险<br>
+    □ 做模拟题 1 道<br>
+    □ 跟一位对接人旁听一次工单跟进<br><br>
+    <strong>Day 7：总结输出</strong><br>
+    □ 写一篇"如果我是对接人"的短文<br>
+    □ 在学习群分享本周最大收获<br>
+    □ 完成新人自评表
+  </div>
+</div>
+</div>
+</div>
+<!-- Vendor Profiles -->
+<div class="section" id="vendors">
+<div class="section-title">🏭 供应商风险画像</div>
+<div class="section-desc">基于历史工单数据，每条线（对接人）负责的供应商趋势和关注点。</div>
+<div class="vendor-grid">
+  <div class="vendor-card" style="border-left:3px solid var(--blue)">
+    <div class="ven-head"><span>钱燕线</span> <span class="tag-strength">响应快</span></div>
+    <div class="ven-body">
+      <strong>负责：</strong>河南新阳科技（南宁+洛阳）<br><br>
+      <strong>✅ 优势：</strong>
+      <ul><li>洛阳新阳处理速度快（得物3条同日完结）</li><li>牛欢欢复盘质量高，原因定位清晰</li><li>南宁 CMA 系统问题闭环快</li></ul>
+      <strong>⚠️ 风险：</strong>
+      <ul><li>南宁客服类问题易复发（TK-001 基础错误 + TK-013 延庆漏回复）</li><li>洛阳得物线近期工单密集（3天3条）</li><li>舆情指令传达存在漏洞（TK-019 关键词定位错误）</li></ul>
+      <strong>💡 建议：</strong>
+      <ul><li>每月对南宁客服团队做基础操作抽查</li><li>关注得物线趋势，若持续新增建议专项审计</li></ul>
+    </div>
+  </div>
+  <div class="vendor-card" style="border-left:3px solid var(--red)">
+    <div class="ven-head"><span>刘倩线</span> <span class="tag-risk">超期最高</span></div>
+    <div class="ven-body">
+      <strong>负责：</strong>山西易网视界（临汾）+ 河南徽音网络科技<br><br>
+      <strong>✅ 优势：</strong>
+      <ul><li>徽音涉政漏放复盘产出质量高（TK-010 测试覆盖率 97.3%）</li></ul>
+      <strong>⚠️ 风险：</strong>
+      <ul><li><strong>临汾超期率最高</strong>：TK-011 已 15 天，TK-014 已 5 天</li><li>徽音培训体系有漏洞（TK-012 0/2 完成）</li><li>所有含超期方案的工单都属于此线</li></ul>
+      <strong>💡 建议：</strong>
+      <ul><li><strong>当前最需管理侧介入</strong></li><li>建议 1v1 逐条过超期工单</li><li>对临汾启动专项跟进（每周2次进度检查）</li></ul>
+    </div>
+  </div>
+  <div class="vendor-card" style="border-left:3px solid var(--green)">
+    <div class="ven-head"><span>张思语线</span> <span class="tag-strength">稳定</span></div>
+    <div class="ven-body">
+      <strong>负责：</strong>贵州硅易（绥阳）+ 诺达 + 淘金 + 驻马店<br><br>
+      <strong>✅ 优势：</strong>
+      <ul><li>绥阳质检管理工单完成质量高（7项方案全部 done）</li><li>历史上工单量较少</li></ul>
+      <strong>⚠️ 风险：</strong>
+      <ul><li>诺达近期新增商汤工单（低俗导向尺度）</li><li>疑似重复工单 TK-021/022</li><li>淘金和驻马店长期无工单，可能未被充分监控</li></ul>
+      <strong>💡 建议：</strong>
+      <ul><li>确认 TK-021/022 是否合并</li><li>关注诺达尺度拉齐进展</li><li>建议抽查淘金/驻马店基地运行状况</li></ul>
+    </div>
+  </div>
+</div>
+
+<!-- Add historical case cards -->
+<div class="section" style="margin-top:24px">
+<div class="section-title" style="font-size:15px">📖 历史经典案例</div>
+<div class="vendor-grid">
+  <div class="learn-card" style="border-left:3px solid var(--green)">
+    <h4>🥇 TK-003 绥阳质检管理（标杆）</h4>
+    <div style="font-size:12px;color:var(--text-secondary)">王钦鹏次品率 0.18%→0.66%，全组暴增 362%</div>
+    <div style="font-size:13px;margin-top:8px">7项方案从制度层面彻底解决。6/9创建→6/16完结，<strong>7天闭环</strong>。此后绥阳再无类似问题。</div>
+    <div style="font-size:11px;color:var(--slate);margin-top:6px;padding-top:6px;border-top:1px solid var(--border)">
+      <strong>🔑 关键决策：</strong>面对"先处理个人还是先改制度"的选择，来昕怡选择了双线并行——王钦鹏纠偏（治标）+ 异常SOP/KPI/系统优化（治本）同时推进。而非常见的"先把人换掉"。
+    </div>
+  </div>
+  <div class="learn-card" style="border-left:3px solid var(--green)">
+    <h4>🥈 TK-004 CMA 积压（快速闭环）</h4>
+    <div style="font-size:12px;color:var(--text-secondary)">CMA频繁掉线致审核积压 371 条，人审率 30%→80%</div>
+    <div style="font-size:13px;margin-top:8px">技术修复+告警+应急预案+Dashboard。6/15 <strong>当日创建当日完结</strong>。</div>
+    <div style="font-size:11px;color:var(--slate);margin-top:6px;padding-top:6px;border-top:1px solid var(--border)">
+      <strong>🔑 关键决策：</strong>没有止步于"修复CMA续期"，而是追问"为什么积压 371 条才被发现"——进而加了告警在线数字段和Dashboard。技术问题背后是监控盲区。
+    </div>
+  </div>
+  <div class="learn-card" style="border-left:3px solid var(--red)">
+    <h4>⚠️ TK-011 QC 人效（反面案例）</h4>
+    <div style="font-size:12px;color:var(--text-secondary)">人效 17 条/日 vs 目标 35-40，临汾易网</div>
+    <div style="font-size:13px;margin-top:8px">已<strong style="color:var(--red)">超期 15 天</strong>，7项方案仅完成 2 项。</div>
+    <div style="font-size:11px;color:var(--slate);margin-top:6px;padding-top:6px;border-top:1px solid var(--border)">
+      <strong>🔑 失败原因：</strong>方案中"QC直播间优先级"依赖客户侧确认、"新人培训"需要时间爬坡——外部依赖和长周期任务没有拆成小里程碑。正确做法：T+3 先给初版 SOP，T+7 开始试运行。
+    </div>
+  </div>
+  <div class="learn-card" style="border-left:3px solid var(--green)">
+    <h4>🥉 TK-019 舆情误删（当日闭环）</h4>
+    <div style="font-size:12px;color:var(--text-secondary)">"苏芒"舆情指令误删，通告群关键词覆盖不全</div>
+    <div style="font-size:13px;margin-top:8px">6项方案覆盖根因定位、回扫、指令优化、废止一刀切。<strong>当日闭环</strong>。</div>
+    <div style="font-size:11px;color:var(--slate);margin-top:6px;padding-top:6px;border-top:1px solid var(--border)">
+      <strong>🔑 关键决策：</strong>黎俊没有只修"苏芒"这一个关键词，而是追问"为什么搜不到"——发现通告群关键词"女仆"跟"苏芒"完全不一致。根本问题是传达时关键词未同步，修的是传达流程而非单个词。
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- Detection Rules -->
+<div class="section" id="rules">
+<div class="section-title">🚨 异常检测与预警规则</div>
+<div class="section-desc">自动检测触发条件，标注严重级别和建议动作。</div>
+<table class="rules-table">
+  <tr><th>触发条件</th><th>级别</th><th>建议动作</th></tr>
+  <tr><td>同一供应商 3 天内新增 ≥3 条工单</td><td><span class="badge badge-red">🔴 高</span></td><td>启动专项审计</td></tr>
+  <tr><td>同一标签 7 天内出现 ≥3 次</td><td><span class="badge badge-amber">🟡 中</span></td><td>评估标签关联的系统性风险</td></tr>
+  <tr><td>工单超过 10 天未解决</td><td><span class="badge badge-red">🔴 高</span></td><td>升级至管理群</td></tr>
+  <tr><td>全部方案超期（done=0 且 all overdue）</td><td><span class="badge badge-red">🔴 高</span></td><td>立即电话沟通</td></tr>
+  <tr><td>P0 超过 3 天未进入 in_progress</td><td><span class="badge badge-amber">🟡 中</span></td><td>确认负责人和启动时间</td></tr>
+  <tr><td>同一问题类型在 30 天内复发</td><td><span class="badge badge-red">🔴 高</span></td><td>上次方案未落地，需深度复盘</td></tr>
+  <tr><td>方案 deadline 已过 5 天仍无进展</td><td><span class="badge badge-amber">🟡 中</span></td><td>升级催促</td></tr>
+  <tr><td>标题相似度 >80% + 同供应商 + 同日</td><td><span class="badge badge-amber">🟡 中</span></td><td>确认是否合并（疑似重复）</td></tr>
+</table>
+</div>
+
+<!-- Report Templates -->
+<div class="section" id="reports">
+<div class="section-title">📰 报告模板</div>
+<div class="section-desc">早报、晚报、周报的标准模板。点击标签切换查看。</div>
+<div class="tabs" id="reportTabs">
+  <span class="tab active" onclick="switchReportTab('morning')">早报模板</span>
+  <span class="tab" onclick="switchReportTab('evening')">晚报模板</span>
+  <span class="tab" onclick="switchReportTab('weekly')">周报模板</span>
+  <span class="tab" onclick="switchReportTab('push')">推送策略</span>
+</div>
+
+<div id="report-tab-morning">
+<button class="copy-btn" style="position:absolute;top:8px;right:12px;z-index:1" onclick="copyTemplate(this,'report-tab-morning')">📋 复制</button>
+<div class="template-box">📰 工单早报 | 2026年MM月DD日（周X）
+
+一、总体概览
+📊 总工单 X 条 | 🔴 未完结 X 条 | ✅ 已完结 X 条 | ⚠️ 含超期 X 条
+
+二、历史问题动态
+（长期未完结工单的状态变化，标注是否有进展）
+
+三、今日新增工单
+（今日创建的工单，按优先级排序）
+
+四、重点工单详情
+（P0 工单逐个展开：标题、供应商、状态、方案进度、超期方案、建议）
+
+五、行动指南
+🔴 高优：
+· TK-XXX 含N项超期方案 — 建议立即电话联系
+
+🟡 跟进：
+· TK-XXX P0待处理超过N天
+
+📚 历史相似案例：
+· 类似问题 TK-XXX 在 X 天内解决，关键动作是 XXX
+
+六、按对接人摘要
+（每人各自负责供应商的工单汇总）
+</div>
+</div>
+
+<div id="report-tab-evening" style="display:none">
+<button class="copy-btn" style="position:absolute;top:8px;right:12px;z-index:1" onclick="copyTemplate(this,'report-tab-evening')">📋 复制</button>
+<div class="template-box">📰 工单晚报 | 2026年MM月DD日（周X）
+
+一、今日动态
+📥 新增 X 条 | ✅ 解决 X 条 | 🔄 进展 X 条
+
+二、今日变化明细
+
+📥 新增工单（X条）
+· TK-XXX 标题 | 供应商 | 优先级 | 状态
+
+✅ 今日解决（X条）
+· TK-XXX 标题 | 供应商 | 优先级 | 关键结果
+
+🔄 进展更新（X条）
+· TK-XXX 标题 | 供应商 | 优先级 | 方案完成度 | 进展
+
+三、未完结工单状态（按P0/P1/P2分组，标注超期天数和方案完成度）
+
+四、明日关注
+🔴 需立即跟进的超期方案
+🟡 即将到期方案（未来2天）
+📊 供应商超期分布
+📌 备注/亮点
+</div>
+</div>
+
+<div id="report-tab-weekly" style="display:none">
+<button class="copy-btn" style="position:absolute;top:8px;right:12px;z-index:1" onclick="copyTemplate(this,'report-tab-weekly')">📋 复制</button>
+<div class="template-box">📊 工单周报 | 第N周（MM/DD - MM/DD）
+
+│ 指标          │ 本周  │ 上周  │ 环比  │
+│ 新增工单      │ X     │ X     │ ±X%  │
+│ 解决工单      │ X     │ X     │ ±X%  │
+│ 平均解决天数  │ X     │ X     │ ±X%  │
+│ 当前未完结    │ X     │ X     │ ±X%  │
+│ 含超期方案    │ X     │ X     │ ±X%  │
+│ P0 工单       │ X     │ X     │ ±X%  │
+
+📋 本周完结工单（逐条：ID/标题/供应商/天数）
+📋 超期未结工单（逐条：ID/标题/供应商/超期天数/方案完成度）
+📊 供应商分析表
+│ 供应商 │ 工单数 │ 已完结 │ 未完结 │ 平均天数 │ P0数 │
+🚨 需升级关注
+📈 趋势分析
+</div>
+</div>
+
+<div id="report-tab-push" style="display:none">
+<div style="font-size:13px;line-height:2">
+  <strong>方式一：按对接人拆分推送</strong><br>
+  · 每人只收到自己负责供应商的工单<br>
+  · 使用对应模板填入个人数据<br><br>
+  <strong>方式二：完整版群推送</strong><br>
+  · 推送到 POPO 群 8485321<br>
+  · 使用完整晚报格式<br><br>
+  <strong>POPO 推送：</strong><br>
+  · popo-cli（如已安装）：<code>popo-cli send --group 8485321 --message "..."</code><br>
+  · POPO API：<code>POST {server}/im/send-msg</code>，需 Server URL + App Key + Secret<br><br>
+  <strong>推送失败处理：</strong><br>
+  · 保存文件到 outputs/ 目录供手动发送<br>
+  · 文件名格式：<code>早报-2026-06-30.txt</code>
+</div>
+</div>
+</div>
+
+</div><!-- end container -->
+
+<script>
+// Solution data - extracted from real tickets
+const SOLUTIONS = [
+  {id:"SOL-001",cat:"培训管理",prio:"P0",vendor:"河南新阳科技（南宁）",ticket:"TK-2026-001",action:"暂停该小二在线客服权限，完成练习并通过考核后再恢复",owner:"梁宁",deadline:"T+1"},
+  {id:"SOL-002",cat:"培训管理",prio:"P0",vendor:"河南新阳科技（南宁）",ticket:"TK-2026-001",action:"逐一核查团队内所有客服小二是否掌握行政区查询等基础操作",owner:"梁宁",deadline:"T+3"},
+  {id:"SOL-003",cat:"培训管理",prio:"P0",vendor:"河南新阳科技（南宁）",ticket:"TK-2026-001",action:"建立客服小二错误预警机制：单日同一错误≥2次自动同步管理方",owner:"梁宁/来昕怡",deadline:"T+5"},
+  {id:"SOL-004",cat:"培训管理",prio:"P0",vendor:"河南新阳科技（南宁）",ticket:"TK-2026-001",action:"制定客服小二定期考核表（月度），确保基础操作不退化",owner:"梁宁",deadline:"T+10"},
+  {id:"SOL-005",cat:"培训管理",prio:"P0",vendor:"河南新阳科技（南宁）",ticket:"TK-2026-001",action:"将本次案例作为反面教材纳入新小二入职培训",owner:"梁宁",deadline:"持续"},
+  {id:"SOL-006",cat:"质检管理",prio:"P0",vendor:"山西易网视界（临汾）",ticket:"TK-2026-002",action:"统一机审/初审/复审/清晰度判定标准",owner:"张丰平",deadline:"2026-06-12"},
+  {id:"SOL-007",cat:"质检管理",prio:"P0",vendor:"山西易网视界（临汾）",ticket:"TK-2026-002",action:"对PIC进行交叉复核训练，减少主观偏差",owner:"张丰平",deadline:"2026-06-19"},
+  {id:"SOL-008",cat:"培训管理",prio:"P0",vendor:"贵州硅易（绥阳）",ticket:"TK-2026-003",action:"日度异常预警：单人次品≥5条标注姓名+类型；次品环比>100%追加原因",owner:"付林",deadline:"本周"},
+  {id:"SOL-009",cat:"培训管理",prio:"P0",vendor:"贵州硅易（绥阳）",ticket:"TK-2026-003",action:"王钦鹏专项纠偏：48条逐条回查 + 车牌录入培训 + 3天抽检1.5倍",owner:"付林",deadline:"本周"},
+  {id:"SOL-010",cat:"培训管理",prio:"P0",vendor:"贵州硅易（绥阳）",ticket:"TK-2026-003",action:"补充6/7缺失日报，标注异常人员明细",owner:"付林",deadline:"本周"},
+  {id:"SOL-011",cat:"培训管理",prio:"P0",vendor:"贵州硅易（绥阳）",ticket:"TK-2026-003",action:"建立异常响应SOP：次品率>0.5%暂停审核→回查→培训→重新上线",owner:"付林",deadline:"2周内"},
+  {id:"SOL-012",cat:"培训管理",prio:"P0",vendor:"贵州硅易（绥阳）",ticket:"TK-2026-003",action:"日报模板升级：增加人员排名表、TOP3次品类型、环比变化",owner:"付林",deadline:"2周内"},
+  {id:"SOL-013",cat:"培训管理",prio:"P0",vendor:"贵州硅易（绥阳）",ticket:"TK-2026-003",action:"管理岗KPI明确：异常响应≤4小时，日报覆盖率100%",owner:"付林",deadline:"1个月"},
+  {id:"SOL-014",cat:"培训管理",prio:"P0",vendor:"贵州硅易（绥阳）",ticket:"TK-2026-003",action:"车牌录入系统优化：OCR二次校验或关键字符高亮 + 每周专项回查",owner:"付林",deadline:"1个月"},
+  {id:"SOL-015",cat:"数据管理",prio:"P0",vendor:"河南新阳科技（南宁）",ticket:"TK-2026-004",action:"修复CMA登录态自动续期逻辑，增加session过期前主动刷新",owner:"董超",deadline:"T+3"},
+  {id:"SOL-016",cat:"数据管理",prio:"P0",vendor:"河南新阳科技（南宁）",ticket:"TK-2026-004",action:"巡检车告警机器人增加CMA在线数字段，在线数<5自动@管理方",owner:"董超",deadline:"T+5"},
+  {id:"SOL-017",cat:"数据管理",prio:"P0",vendor:"河南新阳科技（南宁）",ticket:"TK-2026-004",action:"制定CMA掉线应急预案：退出→重登→验证三步骤",owner:"来昕怡",deadline:"T+3"},
+  {id:"SOL-018",cat:"数据管理",prio:"P0",vendor:"河南新阳科技（南宁）",ticket:"TK-2026-004",action:"建立CMA健康度dashboard，每小时检测登录态/识别率/人审率",owner:"董超",deadline:"T+10"},
+  {id:"SOL-019",cat:"数据管理",prio:"P0",vendor:"河南新阳科技（南宁）",ticket:"TK-2026-004",action:"审核人员上岗前增加CMA状态自查环节，纳入日常checklist",owner:"来昕怡",deadline:"持续"},
+  {id:"SOL-020",cat:"培训管理",prio:"P0",vendor:"河南新阳科技（洛阳）",ticket:"TK-2026-009",action:"全组集中复培涉政敏感人物名单（含任大炮/任志强等），典型一号负面玩梗风险意识",owner:"郭嘉锋",deadline:"T+1（6月25日）"},
+  {id:"SOL-021",cat:"培训管理",prio:"P0",vendor:"河南新阳科技（洛阳）",ticket:"TK-2026-009",action:"整合本案+历史案例，以模拟实操形式全组测试验收，准确率100%为目标值",owner:"郭嘉锋",deadline:"T+3（6月26日）"},
+  {id:"SOL-022",cat:"培训管理",prio:"P0",vendor:"河南新阳科技（洛阳）",ticket:"TK-2026-009",action:"对漏放人韦苏蕾及汽车组其他同学随机抽问，验收其他风险类型知识储备",owner:"郭嘉锋",deadline:"T+3（6月26日）"},
+  {id:"SOL-023",cat:"培训管理",prio:"P0",vendor:"河南新阳科技（洛阳）",ticket:"TK-2026-009",action:"评估DHS删除人审通过涉政数据的兜底保障方案",owner:"钱燕",deadline:"T+5（6月28日）"},
+  {id:"SOL-024",cat:"培训管理",prio:"P0",vendor:"河南新阳科技（洛阳）",ticket:"TK-2026-009",action:"优化回扫流程：涉政相关内容的回扫增加专项复核环节",owner:"黎俊",deadline:"T+5（6月28日）"},
+  {id:"SOL-025",cat:"涉政漏判",prio:"P0",vendor:"河南徽音网络科技",ticket:"TK-2026-010",action:"问题定级确认：关键词排查（皇帝的、大炮、吃早餐、吃包子、雷军早餐、雷军女孩、雷军吃饭、任大炮、任志强），排查数据已登记；时间段排查完成3751条",owner:"胡娜娜/许帅领",deadline:"T+1"},
+  {id:"SOL-026",cat:"涉政漏判",prio:"P0",vendor:"河南徽音网络科技",ticket:"TK-2026-010",action:"初版复盘输出：复盘文档已完成，同步全员进行重点宣导",owner:"胡娜娜",deadline:"T+1"},
+  {id:"SOL-027",cat:"涉政漏判",prio:"P0",vendor:"河南徽音网络科技",ticket:"TK-2026-010",action:"全员通报：重点宣导涉政人物清单——皇帝的（隐喻）、任大炮/任志强、雷军相关变体，防止联想误审",owner:"许帅领",deadline:"T+1"},
+  {id:"SOL-028",cat:"涉政漏判",prio:"P0",vendor:"河南徽音网络科技",ticket:"TK-2026-010",action:"反华人物专项培训：舆情专员培训已安排；6.25日进行相关测试；持续收集添加涉政案例",owner:"培训侧",deadline:"T+4"},
+  {id:"SOL-029",cat:"涉政漏判",prio:"P0",vendor:"河南徽音网络科技",ticket:"TK-2026-010",action:"培训验收：培训完成后进行验收，包括闭卷测试和补训",owner:"培训侧",deadline:"T+7"},
+  {id:"SOL-030",cat:"涉政漏判",prio:"P0",vendor:"河南徽音网络科技",ticket:"TK-2026-010",action:"定期抽问：组长不定期进行涉政案例抽查，每两周涉政/反华案例抽问",owner:"质量侧",deadline:"持续"},
+  {id:"SOL-031",cat:"客户投诉",prio:"P0",vendor:"河南新阳科技（南宁）",ticket:"TK-2026-013",action:"立即排查延庆区客服排班与响应记录，确认漏回复根因",owner:"钱燕/周丹",deadline:"T+0（6月25日）"},
+  {id:"SOL-032",cat:"客户投诉",prio:"P0",vendor:"河南新阳科技（南宁）",ticket:"TK-2026-013",action:"建立客服响应时效监控，超时X分钟自动告警",owner:"钱燕",deadline:"T+5（6月30日）"},
+  {id:"SOL-033",cat:"客户投诉",prio:"P0",vendor:"河南新阳科技（南宁）",ticket:"TK-2026-013",action:"评估延庆区客服人力是否充足，必要时增配或调整排班",owner:"钱燕/朱梦阳",deadline:"T+7（7月2日）"},
+  {id:"SOL-034",cat:"客户投诉",prio:"P0",vendor:"河南新阳科技（南宁）",ticket:"TK-2026-013",action:"向甲方提交事件说明及改进措施，修复客户关系",owner:"来昕怡/钱燕",deadline:"T+2（6月27日）"},
+  {id:"SOL-035",cat:"漏放处理",prio:"P2",vendor:"河南新阳科技（洛阳）",ticket:"TK-2026-015",action:"知识储备摸底",owner:"牛欢欢",deadline:"T+3"},
+  {id:"SOL-036",cat:"漏放处理",prio:"P2",vendor:"河南新阳科技（洛阳）",ticket:"TK-2026-015",action:"人员评估是否汰换",owner:"杨辉浩",deadline:"T+5"},
+  {id:"SOL-037",cat:"漏放处理",prio:"P2",vendor:"河南新阳科技（洛阳）",ticket:"TK-2026-015",action:"漏放原因定位",owner:"牛欢欢",deadline:"T+2"},
+  {id:"SOL-038",cat:"漏放处理",prio:"P1",vendor:"河南新阳科技（洛阳）",ticket:"TK-2026-017",action:"漏放原因定位：钱紫玉知违规点但无印象+关键词库缺「富平」",owner:"牛欢欢",deadline:"2026-06-29"},
+  {id:"SOL-039",cat:"漏放处理",prio:"P1",vendor:"河南新阳科技（洛阳）",ticket:"TK-2026-017",action:"涉一号内容培训：全员当面验证+关键词库持续完善更新",owner:"牛欢欢",deadline:"2026-07-01"},
+  {id:"SOL-040",cat:"漏放处理",prio:"P1",vendor:"河南新阳科技（洛阳）",ticket:"TK-2026-017",action:"数据回扫：各通道关键词+用户ID紧急回查",owner:"牛欢欢",deadline:"2026-06-29"},
+  {id:"SOL-041",cat:"漏放处理",prio:"P1",vendor:"河南新阳科技（洛阳）",ticket:"TK-2026-018",action:"提升标签打标准确性（通晒学习+流程重申+状态监控+通道澄清）",owner:"牛欢欢",deadline:"2026-07-04"},
+  {id:"SOL-042",cat:"其他",prio:"P2",vendor:"河南新阳科技（南宁）",ticket:"TK-2026-019",action:"定位误伤前后原因，确认指令误删根因",owner:"黎俊",deadline:"2026-06-30"},
+  {id:"SOL-043",cat:"其他",prio:"P2",vendor:"河南新阳科技（南宁）",ticket:"TK-2026-019",action:"回扫近一月误伤数据（融媒体/论坛/用户资料）",owner:"黎俊",deadline:"2026-06-30"},
+  {id:"SOL-044",cat:"其他",prio:"P2",vendor:"河南新阳科技（南宁）",ticket:"TK-2026-019",action:"指令传达优化：转发一线时整理具体关键词",owner:"吴胜海",deadline:"持续"},
+  {id:"SOL-045",cat:"其他",prio:"P2",vendor:"河南新阳科技（南宁）",ticket:"TK-2026-019",action:"舆情指令不再一刀切，明确拦截敏感点",owner:"朱莹",deadline:"持续"},
+  {id:"SOL-046",cat:"其他",prio:"P2",vendor:"河南新阳科技（南宁）",ticket:"TK-2026-019",action:"排查是否有未经确认即删除的漏报备案例",owner:"吴胜海",deadline:"2026-07-01"},
+  {id:"SOL-047",cat:"效率提升",prio:"P0",vendor:"山西易网视界（临汾）",ticket:"TK-2026-011",action:"现场管理优化：密切关注审核状态及实时审核量级，异常及时介入上报",owner:"郭舒嫣",deadline:"持续"},
+  {id:"SOL-048",cat:"效率提升",prio:"P0",vendor:"山西易网视界（临汾）",ticket:"TK-2026-011",action:"审核SOP优化：梳理优化审核流程，联动驻场进行流程检查和技巧经验传授",owner:"郭舒嫣",deadline:"T+10"},
+  {id:"SOL-049",cat:"效率提升",prio:"P0",vendor:"山西易网视界（临汾）",ticket:"TK-2026-011",action:"人效提升达成：核心组员15条/日，尾部人员12条/日（不含补充返修）",owner:"郭舒嫣",deadline:"T+16"},
+  {id:"SOL-050",cat:"效率提升",prio:"P0",vendor:"山西易网视界（临汾）",ticket:"TK-2026-011",action:"人员审核录屏分析：找到审核效率低的痛点，驻场分享审核流程技巧",owner:"郭舒嫣",deadline:"T+6"},
+  {id:"SOL-051",cat:"效率提升",prio:"P0",vendor:"山西易网视界（临汾）",ticket:"TK-2026-011",action:"SKU时长测算：根据SKU资质测算单SKU所需审核时长，建立评估标准",owner:"王婷",deadline:"T+13"},
+  {id:"SOL-052",cat:"效率提升",prio:"P0",vendor:"山西易网视界（临汾）",ticket:"TK-2026-011",action:"QC直播间优先级明确：明确临汾负责审核的QC直播间及审核品类优先级",owner:"克莉森(许怡)",deadline:"T+11"},
+  {id:"SOL-053",cat:"效率提升",prio:"P0",vendor:"山西易网视界（临汾）",ticket:"TK-2026-011",action:"新人培训计划：QC审核流程优化、新人培训计划和效率爬坡",owner:"王婷",deadline:"T+13"},
+  {id:"SOL-054",cat:"培训管理",prio:"P0",vendor:"河南徽音网络科技",ticket:"TK-2026-012",action:"建立任务清单，关键信息2小时内响应：培训专员亓林建立个人任务清单，群内关键任务信息必须在2小时内响应确认",owner:"亓林",deadline:"T+1"},
+  {id:"SOL-055",cat:"培训管理",prio:"P0",vendor:"河南徽音网络科技",ticket:"TK-2026-012",action:"组长每周检查周考执行状态：各组长每周检查本周周考是否已指派，及时发现遗漏",owner:"各组长",deadline:"T+4"},
+  {id:"SOL-056",cat:"数据管理",prio:"P1",vendor:"山西易网视界（临汾）",ticket:"TK-2026-014",action:"完成数据清理（6/24 0:00-6/25 11:45时段）",owner:"张帅",deadline:"T+1"},
+  {id:"SOL-057",cat:"数据管理",prio:"P1",vendor:"山西易网视界（临汾）",ticket:"TK-2026-014",action:"建立分级升级报备机制",owner:"张帅",deadline:"T+3"},
+  {id:"SOL-058",cat:"数据管理",prio:"P1",vendor:"山西易网视界（临汾）",ticket:"TK-2026-014",action:"验证POPO超时提醒触达（组长+管理）",owner:"李思远",deadline:"T+1"},
+  {id:"SOL-059",cat:"数据管理",prio:"P1",vendor:"山西易网视界（临汾）",ticket:"TK-2026-014",action:"全员通报新机制",owner:"周家阳",deadline:"T+5"},
+  {id:"SOL-060",cat:"规范制定",prio:"P1",vendor:"河南诺达信息科技",ticket:"TK-2026-021",action:"汇总商汤近期客户反馈中的同类型低俗导向案例",owner:"杨珂珂",deadline:"T+2"},
+  {id:"SOL-061",cat:"规范制定",prio:"P1",vendor:"河南诺达信息科技",ticket:"TK-2026-021",action:"梳理并输出低俗导向内容统一审核尺度文档",owner:"杨珂珂",deadline:"T+5"},
+  {id:"SOL-062",cat:"规范制定",prio:"P1",vendor:"河南诺达信息科技",ticket:"TK-2026-021",action:"组内人员摸底测试，验收尺度执行一致性",owner:"杨珂珂",deadline:"T+7"},
+  {id:"SOL-063",cat:"规范制定",prio:"P1",vendor:"河南诺达信息科技",ticket:"TK-2026-021",action:"针对偏差人员进行专项培训拉齐",owner:"杨珂珂",deadline:"T+10"},
+  {id:"SOL-064",cat:"规范制定",prio:"P1",vendor:"河南诺达信息科技",ticket:"TK-2026-022",action:"汇总近期商汤客户反馈的低俗导向案例，形成案例库",owner:"杨柯柯",deadline:"T+3"},
+  {id:"SOL-065",cat:"规范制定",prio:"P1",vendor:"河南诺达信息科技",ticket:"TK-2026-022",action:"组织组内尺度对齐会议，统一低俗导向判定标准",owner:"杨柯柯",deadline:"T+5"},
+  {id:"SOL-066",cat:"规范制定",prio:"P1",vendor:"河南诺达信息科技",ticket:"TK-2026-022",action:"人员摸底考核，确保每位审核员对新尺度掌握一致",owner:"杨柯柯",deadline:"T+7"},
+  {id:"SOL-067",cat:"规范制定",prio:"P1",vendor:"河南诺达信息科技",ticket:"TK-2026-022",action:"输出拉齐后的低俗导向判定细则文档",owner:"杨柯柯",deadline:"T+10"},
+  {id:"SOL-068",cat:"涉政漏判",prio:"P0",vendor:"河南诺达信息科技",ticket:"TK-2026-020",action:"回扫全量数据，排查同类漏放",owner:"王世亚",deadline:"T+0"},
+  {id:"SOL-069",cat:"涉政漏判",prio:"P0",vendor:"河南诺达信息科技",ticket:"TK-2026-020",action:"线下1对1/1对2复盘培训，覆盖全员（含通宵班录屏）",owner:"王世亚",deadline:"T+1"},
+  {id:"SOL-070",cat:"涉政漏判",prio:"P0",vendor:"河南诺达信息科技",ticket:"TK-2026-020",action:"建立通宵班录屏监控机制",owner:"王世亚/闫媛媛",deadline:"T+3"},
+  {id:"SOL-071",cat:"涉政漏判",prio:"P0",vendor:"河南诺达信息科技",ticket:"TK-2026-020",action:"连续线下培训5天，全员覆盖",owner:"王世亚",deadline:"T+5"},
+  {id:"SOL-072",cat:"涉政漏判",prio:"P0",vendor:"河南诺达信息科技",ticket:"TK-2026-020",action:"每周班前重点提醒涉政/色情案例",owner:"王世亚",deadline:"持续"},
+  {id:"SOL-073",cat:"涉政漏判",prio:"P0",vendor:"河南诺达信息科技",ticket:"TK-2026-020",action:"排查项目整体质量问题（漏放频发）",owner:"赵培育/张思语",deadline:"T+7"},
+  {id:"SOL-074",cat:"规范制定",prio:"P1",vendor:"洛阳笋尖",ticket:"TK-2026-023",action:"开展低俗内容判定尺度复训，统一全员判定标准",owner:"TBD",deadline:"TBD"},
+  {id:"SOL-075",cat:"规范制定",prio:"P1",vendor:"洛阳笋尖",ticket:"TK-2026-023",action:"梳理汇总通过+不通过典型案例，形成标准化参考样本",owner:"TBD",deadline:"TBD"},
+  {id:"SOL-076",cat:"规范制定",prio:"P1",vendor:"洛阳笋尖",ticket:"TK-2026-023",action:"组织全员专项验收，确保整改落地到位",owner:"TBD",deadline:"TBD"},
+  {id:"SOL-077",cat:"其他",prio:"",vendor:"河南新阳科技（洛阳）",ticket:"TK-2026-024",action:"排查误判case，定位打标规则问题",owner:"待定",deadline:"T+2"},
+  {id:"SOL-078",cat:"其他",prio:"",vendor:"河南新阳科技（洛阳）",ticket:"TK-2026-024",action:"修正打标规则/补充训练数据",owner:"待定",deadline:"T+5"},
+  {id:"SOL-079",cat:"其他",prio:"",vendor:"河南新阳科技（洛阳）",ticket:"TK-2026-024",action:"全量回扫近期数据，评估影响面",owner:"待定",deadline:"T+3"},
+  {id:"SOL-080",cat:"漏放处理",prio:"P2",vendor:"河南诺达信息科技",ticket:"TK-2026-025",action:"数据回查：完成6月28日爱诗直播该时段全量数据回查，确认是否有其他漏判",owner:"待指定",deadline:"T+1"},
+  {id:"SOL-081",cat:"漏放处理",prio:"P2",vendor:"河南诺达信息科技",ticket:"TK-2026-025",action:"大屏盯看机制：建立高频违规数据大屏集中盯看流程，发现异常立即响应",owner:"待指定",deadline:"T+3"},
+  {id:"SOL-082",cat:"漏放处理",prio:"P2",vendor:"河南诺达信息科技",ticket:"TK-2026-025",action:"协助帮盯机制：明确直播间数量阈值，超出时启动协助帮盯流程，确保不出现空档",owner:"待指定",deadline:"T+3"},
+  {id:"SOL-083",cat:"漏放处理",prio:"P2",vendor:"河南诺达信息科技",ticket:"TK-2026-025",action:"案例复盘宣导：将本次漏判案例纳入培训材料，全员宣导「正常画面≠无风险」意识",owner:"待指定",deadline:"T+2"},
+  {id:"SOL-084",cat:"漏放处理",prio:"P2",vendor:"河南诺达信息科技",ticket:"TK-2026-025",action:"警惕度管理培训：针对跨直播间审核场景，加强审核员警惕度管理和注意力分配培训",owner:"待指定",deadline:"持续"}
+];
+
+
+
+var currentPage = 1;
+var pageSize = 5;
+var currentData = [];
+
+function renderSols(data) {
+  currentData = data;
+  currentPage = 1;
+  renderPage();
+}
+
+function renderPage() {
+  var list = document.getElementById('solList');
+  var total = currentData.length;
+  var totalPages = Math.ceil(total / pageSize);
+  if (currentPage > totalPages) currentPage = totalPages || 1;
+  var start = (currentPage - 1) * pageSize;
+  var end = Math.min(start + pageSize, total);
+  var pageData = currentData.slice(start, end);
+  
+  var html = pageData.map(function(s){
+    return '<div class="sol-card" data-cat="'+s.cat+'" data-prio="'+s.prio+'" data-vendor="'+s.vendor+'">'+
+      '<div class="sol-header">'+
+        '<span class="sol-id">'+s.id+'</span>'+
+        '<span class="sol-tag">'+s.cat+'</span>'+
+        '<span class="prio-tag prio-'+s.prio+'">'+s.prio+'</span>'+
+        '<span>'+s.vendor+'</span>'+
+        '<span style="margin-left:auto;font-size:11px;color:var(--slate)">'+s.ticket+'</span>'+
+      '</div>'+
+      '<div class="sol-body">'+
+        '<div style="font-size:13px">'+s.action+'</div>'+
+        '<div class="sol-meta"><span>👤 '+s.owner+'</span><span>⏰ '+s.deadline+'</span></div>'+
+      '</div></div>';
+  }).join('');
+  
+  if (total === 0) {
+    html = '<div style="text-align:center;padding:40px;color:var(--slate)">没有匹配的方案</div>';
+  }
+  
+  // Pagination controls
+  if (totalPages > 1) {
+    html += '<div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:16px;font-size:13px">';
+    html += '<button onclick="goPage(1)" ' + (currentPage===1?'disabled':'') + ' style="padding:4px 10px;border:1px solid var(--border);border-radius:6px;background:var(--surface);cursor:pointer;font-size:12px">« 首页</button>';
+    html += '<button onclick="goPage('+(currentPage-1)+')" ' + (currentPage===1?'disabled':'') + ' style="padding:4px 10px;border:1px solid var(--border);border-radius:6px;background:var(--surface);cursor:pointer;font-size:12px">‹ 上页</button>';
+    for (var i = 1; i <= totalPages; i++) {
+      if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2)) {
+        html += '<button onclick="goPage('+i+')" style="padding:4px 10px;border:1px solid '+(i===currentPage?'var(--blue)':'var(--border)')+';border-radius:6px;background:'+(i===currentPage?'var(--blue)':'var(--surface)')+';color:'+(i===currentPage?'#fff':'var(--text)')+';cursor:pointer;font-size:12px;font-weight:'+(i===currentPage?'600':'400')+'">'+i+'</button>';
+      } else if (i === currentPage - 3 || i === currentPage + 3) {
+        html += '<span style="color:var(--slate)">...</span>';
+      }
+    }
+    html += '<button onclick="goPage('+(currentPage+1)+')" ' + (currentPage===totalPages?'disabled':'') + ' style="padding:4px 10px;border:1px solid var(--border);border-radius:6px;background:var(--surface);cursor:pointer;font-size:12px">下页 ›</button>';
+    html += '<button onclick="goPage('+totalPages+')" ' + (currentPage===totalPages?'disabled':'') + ' style="padding:4px 10px;border:1px solid var(--border);border-radius:6px;background:var(--surface);cursor:pointer;font-size:12px">末页 »</button>';
+    html += '</div>';
+  }
+  
+  list.innerHTML = html;
+  document.getElementById('solCount').textContent = total + ' / ' + SOLUTIONS.length + ' 条（第'+currentPage+'/'+totalPages+'页）';
+}
+
+function goPage(p) {
+  var totalPages = Math.ceil(currentData.length / pageSize);
+  if (p < 1) p = 1;
+  if (p > totalPages) p = totalPages;
+  currentPage = p;
+  renderPage();
+  document.getElementById('solList').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function filterSols() {
+  var cat = document.getElementById('solCat').value;
+  var prio = document.getElementById('solPrio').value;
+  var vendor = document.getElementById('solVendor').value;
+  var q = document.getElementById('solSearch').value.toLowerCase();
+  var filtered = SOLUTIONS.filter(function(s){
+    if(cat!=='all' && s.cat!==cat) return false;
+    if(prio!=='all' && s.prio!==prio) return false;
+    if(vendor!=='all' && s.vendor!==vendor) return false;
+    if(q && s.action.toLowerCase().indexOf(q)===-1 && s.owner.toLowerCase().indexOf(q)===-1 && s.id.toLowerCase().indexOf(q)===-1) return false;
+    return true;
+  });
+  renderSols(filtered);
+}
+
+function switchLearnTab(tab) {
+  document.querySelectorAll('#learnTabs .tab').forEach(function(t){t.classList.remove('active')});
+  document.querySelectorAll('[id^="learn-tab-"]').forEach(function(d){d.style.display='none'});
+  var tabEl = document.querySelector('#learnTabs .tab:nth-child('+
+    ({paths:1,exercises:2,quick:3,newbie:4}[tab])+')');
+  if(tabEl) tabEl.classList.add('active');
+  document.getElementById('learn-tab-'+tab).style.display='block';
+}
+
+function switchReportTab(tab) {
+  document.querySelectorAll('#reportTabs .tab').forEach(function(t){t.classList.remove('active')});
+  document.querySelectorAll('[id^="report-tab-"]').forEach(function(d){d.style.display='none'});
+  var tabEl = document.querySelector('#reportTabs .tab:nth-child('+
+    ({morning:1,evening:2,weekly:3,push:4}[tab])+')');
+  if(tabEl) tabEl.classList.add('active');
+  document.getElementById('report-tab-'+tab).style.display='block';
+}
+
+
+function copyTemplate(btn, tabId) {
+  var box = document.getElementById(tabId).querySelector('.template-box');
+  navigator.clipboard.writeText(box.textContent).then(function() {
+    btn.textContent = '✅ 已复制';
+    btn.classList.add('copied');
+    setTimeout(function() { btn.textContent = '📋 复制'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+
+// 活学活用匹配引擎
+var PATTERNS = [
+  {name:"涉政漏放",keywords:"涉政 敏感 政治 人物 任大炮 任志强 漏放 反华 一号 皇帝 大炮 富平 领导人 审核员不了解 关键词缺失 别称 代称 隐喻",steps:"关键词排查→复盘通报→专项培训→闭卷测试→流程优化→定期抽问",tickets:"TK-009 TK-010 TK-017 TK-018",priority:"P0"},
+  {name:"人效不达标",keywords:"人效 效率 审核量 不达标 爬坡 慢 QC 量级 标准值 达不到 新人 黑灰产 识别能力 直播间 优先级",steps:"录屏分析→SKU测算→SOP优化→优先级明确→新人培训→现场管理→人效达标",tickets:"TK-011",priority:"P0"},
+  {name:"质检管理",keywords:"质检 次品 次品率 飙升 暴增 日报 缺失 异常 管理失职 无预警 回落 车牌 OCR 纠偏",steps:"异常预警→人员纠偏→补充日报→异常SOP→日报升级→KPI明确→系统优化",tickets:"TK-003 TK-002",priority:"P0"},
+  {name:"客服投诉",keywords:"客服 投诉 甲方 小二 回复 超时 响应 延庆 行政区 漏回复 排班 基础操作 培训 考核",steps:"立即排查→时效监控→人力评估→甲方沟通→案例培训→预警机制",tickets:"TK-001 TK-013",priority:"P0"},
+  {name:"系统稳定性",keywords:"CMA 登录 掉线 积压 审核 系统 稳定性 Dashboard 告警 在线数 人审率 自动续期 过期 卡审",steps:"修复逻辑→告警增强→应急预案→Dashboard→上岗检查→分级升级",tickets:"TK-004 TK-014",priority:"P0"},
+  {name:"培训考核",keywords:"培训 考核 周考 漏指派 专员 组长 遗漏 任务清单 日历 提醒 周期",steps:"任务清单+2h响应→组长周检→自动提醒",tickets:"TK-012",priority:"P0"},
+  {name:"舆情指令误操作",keywords:"舆情 指令 误删 误伤 关键词 定位 搜索 一刀切 苏芒 传达 通告 从严 尺度",steps:"定位误伤→回扫数据→指令优化→明确尺度→废止一刀切→排查漏报备",tickets:"TK-019",priority:"P2"},
+  {name:"尺度拉齐",keywords:"尺度 拉齐 低俗 导向 标准不一 不一致 偏差 商汤 摸底 对齐 判定标准 案例汇总",steps:"汇总案例→统一文档→人员摸底→专项培训",tickets:"TK-021 TK-022",priority:"P1"}
+];
+
+
+// 方案生成器
+var GEN_TEMPLATES = {
+  "涉政漏放": {
+    steps: [
+      {action:"关键词排查 + 数据回扫（覆盖变体/别称/代称）",owner:"管理岗",deadline:"T+1"},
+      {action:"初版复盘输出 + 全员通报",owner:"管理岗",deadline:"T+1"},
+      {action:"涉政人物专项培训 + 敏感人物清单宣导（含别称/代称/隐喻对照表）",owner:"培训侧",deadline:"T+3"},
+      {action:"闭卷测试验收，准确率目标100%，未达标需补训",owner:"培训侧",deadline:"T+7"},
+      {action:"回扫流程优化：涉政内容增加专项复核环节",owner:"技术/质量侧",deadline:"T+5"},
+      {action:"定期抽问 + 案例持续收集（每两周一次）",owner:"质量侧",deadline:"持续"}
+    ],
+    impact: "🔴 重大影响：涉政内容漏放，存在政治风险，若被外部发现可升级为重大事故\n🟡 流程漏洞：审核员对敏感人物缺乏认知，关键词库覆盖不全"
+  },
+  "人效不达标": {
+    steps: [
+      {action:"人员审核录屏分析，找到效率痛点",owner:"管理岗",deadline:"T+6"},
+      {action:"SKU时长测算，根据资质测算单SKU审核时长",owner:"管理岗",deadline:"T+13"},
+      {action:"审核SOP优化，联动驻场进行流程检查和技巧传授",owner:"管理岗",deadline:"T+10"},
+      {action:"QC直播间优先级明确",owner:"客户侧",deadline:"T+11"},
+      {action:"新人培训计划 + 效率爬坡跟踪",owner:"管理岗",deadline:"T+13"},
+      {action:"现场管理密切关注审核状态，异常及时介入上报",owner:"管理岗",deadline:"持续"},
+      {action:"人效达标验收：核心15条/日，尾部12条/日",owner:"管理岗",deadline:"T+16"}
+    ],
+    impact: "🟡 中等影响：人效未达标，影响客户交付预期\n🟡 QC直播间优先级不明确，影响审核效率"
+  },
+  "质检管理": {
+    steps: [
+      {action:"日度异常预警：单人次品≥5条标注姓名+类型，次品环比>100%追加原因",owner:"管理岗",deadline:"本周"},
+      {action:"人员专项纠偏：全量回查 + 针对性培训 + 加抽检",owner:"管理岗",deadline:"本周"},
+      {action:"补充缺失日报，标注异常人员明细",owner:"管理岗",deadline:"本周"},
+      {action:"建立异常响应SOP：次品率>0.5% → 暂停审核→回查→培训→重新上线",owner:"管理岗",deadline:"2周内"},
+      {action:"日报模板升级：人员排名表 + TOP3次品类型 + 环比变化",owner:"管理岗",deadline:"2周内"},
+      {action:"管理岗KPI明确：异常响应≤4小时，日报覆盖率100%",owner:"管理岗",deadline:"1个月"},
+      {action:"系统优化：OCR二次校验或关键字符高亮 + 每周专项回查",owner:"管理岗",deadline:"1个月"}
+    ],
+    impact: "🔴 质量失控：次品暴增，管理侧无阻断，错误数据进入后续链路\n🔴 人员风险：高次品人员仍正常上线，无纠偏或轮换"
+  },
+  "客服投诉": {
+    steps: [
+      {action:"立即排查：排班记录 + 响应记录 + 聊天记录，确认根因",owner:"对接人+管理岗",deadline:"T+0"},
+      {action:"建立客服响应时效监控，超时X分钟自动告警",owner:"技术/管理",deadline:"T+5"},
+      {action:"评估人力是否充足，必要时增配或调整排班",owner:"对接人",deadline:"T+7"},
+      {action:"向甲方提交事件说明及改进措施，修复客户关系",owner:"对接人",deadline:"T+2"},
+      {action:"将案例纳入培训 + 建立预警机制（同供应商不重复发生）",owner:"管理岗",deadline:"持续"}
+    ],
+    impact: "🔴 客户信任：甲方直接投诉，影响业务合作关系\n🟡 服务质量：客服响应时效不达标，存在KPI扣分风险"
+  },
+  "系统稳定性": {
+    steps: [
+      {action:"修复系统自动续期/自动重试逻辑",owner:"技术侧",deadline:"T+3"},
+      {action:"告警增加关键指标：CMA在线数<5自动@管理方",owner:"技术侧",deadline:"T+5"},
+      {action:"制定人工应急预案：退出→重登→验证三步骤",owner:"管理岗",deadline:"T+3"},
+      {action:"建立Dashboard监控：每小时检测登录态/识别率/人审率",owner:"技术侧",deadline:"T+10"},
+      {action:"审核人员上岗前增加CMA状态自查环节",owner:"管理岗",deadline:"持续"},
+      {action:"建立分级升级报备机制 + 超时提醒触达验证",owner:"管理岗",deadline:"T+3"}
+    ],
+    impact: "🔴 审核时效：系统异常导致审核积压，人工介入率飙升\n🔴 人工成本：大量审核员被迫手工处理，效率大幅下降"
+  },
+  "培训考核": {
+    steps: [
+      {action:"建立任务清单 + 2小时响应机制：群内关键任务信息必须在2小时内响应确认",owner:"培训专员",deadline:"T+1"},
+      {action:"组长每周检查执行状态 + 周期性任务设置日历/POPO自动提醒",owner:"各组长",deadline:"T+4"}
+    ],
+    impact: "🟡 中等影响：培训考核遗漏，影响团队能力评估和后续培训安排"
+  },
+  "舆情指令误操作": {
+    steps: [
+      {action:"定位误伤原因，确认指令误删根因（是不知道规则还是理解错了）",owner:"管理岗",deadline:"当日"},
+      {action:"回扫近一月误伤数据：融媒体/论坛/用户资料等通道全覆盖",owner:"管理岗",deadline:"当日"},
+      {action:"指令传达优化：转发一线时整理具体关键词（确保能通过关键词搜到指令）",owner:"管理岗",deadline:"持续"},
+      {action:"明确处理尺度：查删负面 / 无法提及 / 其他（不再一刀切）",owner:"管理岗",deadline:"持续"},
+      {action:"舆情指令不再一刀切，明确拦截敏感点",owner:"客户侧",deadline:"持续"},
+      {action:"排查是否有未经确认即删除的漏报备案例",owner:"管理岗",deadline:"T+1"}
+    ],
+    impact: "🟡 内容误删，影响平台内容完整性\n🟡 指令传达与解读流程存在漏洞"
+  },
+  "尺度拉齐": {
+    steps: [
+      {action:"汇总客户反馈中的同类型案例，形成案例库",owner:"管理岗",deadline:"T+3"},
+      {action:"组织尺度对齐会议 + 输出统一判定标准文档",owner:"管理岗",deadline:"T+5"},
+      {action:"人员摸底考核，用边界案例测试验收尺度执行一致性",owner:"管理岗",deadline:"T+7"},
+      {action:"对偏差人员进行专项培训拉齐 + 尺度文档每季度回顾更新",owner:"管理岗",deadline:"T+10 / 每季度"}
+    ],
+    impact: "🟡 审核尺度不统一，可能导致客户投诉\n🟡 组内人员执行标准不一致，存在质量隐患"
+  }
+};
+
+var VENDOR_CONTACTS = {
+  "河南新阳科技（南宁）":"钱燕",
+  "河南新阳科技（洛阳）":"钱燕",
+  "山西易网视界（临汾）":"刘倩",
+  "河南徽音网络科技":"刘倩",
+  "贵州硅易（绥阳）":"张思语",
+  "河南诺达信息科技":"张思语"
+};
+
+function genPreview() {
+  var type = document.getElementById('genType').value;
+  if (!type) { document.getElementById('genPreview').style.display='none'; return; }
+  
+  var vendor = document.getElementById('genVendor').value || '（待填）';
+  var prio = document.getElementById('genPrio').value;
+  var dateVal = document.getElementById('genDate').value;
+  var today = dateVal || new Date().toISOString().slice(0,10);
+  var contact = VENDOR_CONTACTS[vendor] || '（待确认）';
+  
+  var tpl = GEN_TEMPLATES[type];
+  if (!tpl) return;
+  
+  var out = '📋 工单方案 | ' + type + ' | ' + prio + '\n';
+  out += '供应商：' + vendor + ' | 对接人：' + contact + ' | 创建日期：' + today + '\n\n';
+  out += '📝 影响分析：\n' + tpl.impact + '\n\n';
+  out += '🔧 解决方案（' + tpl.steps.length + '步）：\n';
+  tpl.steps.forEach(function(s, i) {
+    out += (i+1) + '. ' + s.action + '\n';
+    out += '   负责人：' + s.owner + ' | DDL：' + s.deadline + '\n';
+  });
+  out += '\n📊 处罚参考：' + prio + ' 监管反馈 ' + (prio==='P0'?'¥1000':'¥500') + (prio==='P0'?' + 重大影响×1.5':'') + '\n';
+  out += '关联工单参考：' + (type==='涉政漏放'?'TK-009 TK-010 TK-017 TK-018':type==='人效不达标'?'TK-011':type==='质检管理'?'TK-003 TK-002':type==='客服投诉'?'TK-001 TK-013':type==='系统稳定性'?'TK-004 TK-014':type==='培训考核'?'TK-012':type==='舆情指令误操作'?'TK-019':type==='尺度拉齐'?'TK-021':'') + '\n';
+  
+  document.getElementById('genOutput').textContent = out;
+  document.getElementById('genPreview').style.display = 'block';
+}
+
+function copyGen() {
+  var txt = document.getElementById('genOutput').textContent;
+  navigator.clipboard.writeText(txt).then(function() {
+    document.getElementById('genCopyBtn').style.display = 'none';
+    document.getElementById('genCopied').style.display = 'inline';
+    setTimeout(function() {
+      document.getElementById('genCopyBtn').style.display = 'flex';
+      document.getElementById('genCopied').style.display = 'none';
+    }, 2000);
+  });
+}
+
+// Set today's date by default
+document.addEventListener('DOMContentLoaded', function() {
+  var d = document.getElementById('genDate');
+  if (d) d.value = new Date().toISOString().slice(0,10);
+});
+
+function doMatch() {
+  var q = document.getElementById('matchInput').value.trim();
+  if (!q || q.length < 2) return;
+  
+  var result = document.getElementById('matchResult');
+  result.style.display = 'block';
+  
+  // 1. Score patterns
+  var patternScores = PATTERNS.map(function(p) {
+    var score = 0;
+    p.keywords.split(' ').forEach(function(kw) {
+      if (q.indexOf(kw) >= 0) score += 10;
+      if (kw.length >= 3 && q.toLowerCase().indexOf(kw.toLowerCase()) >= 0) score += 5;
+    });
+    return {pattern:p, score:score};
+  });
+  patternScores.sort(function(a,b){ return b.score - a.score; });
+  var best = patternScores[0];
+  
+  // 2. Score individual solutions
+  var solScores = SOLUTIONS.map(function(s) {
+    var score = 0;
+    var txt = (s.action + ' ' + s.cat + ' ' + s.owner).toLowerCase();
+    q.toLowerCase().split(/[\s,，。！？]+/).forEach(function(w) {
+      if (w.length >= 2 && txt.indexOf(w) >= 0) score += 3;
+    });
+    if (best && best.score > 0 && s.cat === best.pattern.name) score += 5;
+    best && best.pattern.keywords.split(' ').forEach(function(kw) {
+      if (kw.length >= 2 && s.action.indexOf(kw) >= 0) score += 2;
+    });
+    return {sol:s, score:score};
+  });
+  solScores.sort(function(a,b){ return b.score - a.score; });
+  var topSols = solScores.filter(function(x){ return x.score > 0; }).slice(0, 5);
+  
+  // 3. Detect vendor from input
+  var vendorMap = {
+    '南宁':'河南新阳科技（南宁）','新阳南宁':'河南新阳科技（南宁）',
+    '洛阳':'河南新阳科技（洛阳）','新阳洛阳':'河南新阳科技（洛阳）',
+    '临汾':'山西易网视界（临汾）','易网':'山西易网视界（临汾）',
+    '徽音':'河南徽音网络科技','郑州':'河南徽音网络科技',
+    '绥阳':'贵州硅易（绥阳）','硅易':'贵州硅易（绥阳）',
+    '诺达':'河南诺达信息科技',
+    '淘金':'四川淘金（忻州）','忻州':'四川淘金（忻州）',
+    '驻马店':'驻马店网创运营'
+  };
+  var detectedVendor = '';
+  for (var k in vendorMap) {
+    if (q.indexOf(k) >= 0) { detectedVendor = vendorMap[k]; break; }
+  }
+  
+  // 4. Auto-detect priority from input
+  var detectedPrio = 'P1';
+  if (/P0|p0|紧急|重大|严重|投诉|漏放|事故|涉政/.test(q)) detectedPrio = 'P0';
+  else if (/P2|p2|轻微|个例|优化/.test(q)) detectedPrio = 'P2';
+  
+  var html = '';
+  var hasMatch = best && best.score > 0;
+  
+  // === MATCH RESULT ===
+  html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">';
+  
+  // Left column: pattern match
+  html += '<div style="background:rgba(255,255,255,0.05);border-radius:var(--radius-sm);padding:16px;border:1px solid rgba(255,255,255,0.08)">';
+  html += '<div style="font-size:11px;color:#a8a29e;margin-bottom:6px;text-transform:uppercase;letter-spacing:1px">🎯 类型识别</div>';
+  
+  if (hasMatch) {
+    html += '<div style="font-size:20px;font-weight:700;margin-bottom:4px">' + best.pattern.name + '</div>';
+    html += '<div style="font-size:12px;color:#a8a29e;margin-bottom:8px">匹配度 ' + best.score + ' 分 · 历史 ' + best.pattern.tickets + '</div>';
+    html += '<div style="font-size:12px;background:rgba(37,99,235,0.15);padding:8px 12px;border-radius:6px;line-height:1.8">' +
+      '<span style="color:#93c5fd">方案链：</span>' + best.pattern.steps + '</div>';
+    
+    // Show alternatives
+    var alt = patternScores.filter(function(x,i){ return i>0 && x.score > 0; });
+    if (alt.length > 0) {
+      html += '<div style="font-size:11px;color:#78716c;margin-top:8px">也可能：';
+      alt.slice(0,2).forEach(function(a) {
+        html += '<span style="margin-left:6px;background:rgba(255,255,255,0.06);padding:1px 6px;border-radius:3px">' + a.pattern.name + '</span>';
+      });
+      html += '</div>';
+    }
+  } else {
+    html += '<div style="font-size:14px;color:#a8a29e">未匹配到明确类型</div>';
+    html += '<div style="font-size:11px;color:#78716c;margin-top:6px">试试用更具体的词描述，如"漏放""次品""投诉"等</div>';
+  }
+  html += '</div>';
+  
+  // Right column: generated solution plan
+  html += '<div style="background:rgba(255,255,255,0.05);border-radius:var(--radius-sm);padding:16px;border:1px solid rgba(255,255,255,0.08);position:relative">';
+  html += '<div style="font-size:11px;color:#a8a29e;margin-bottom:6px;text-transform:uppercase;letter-spacing:1px">⚡ 生成方案</div>';
+  
+  if (hasMatch && GEN_TEMPLATES[best.pattern.name]) {
+    var tpl = GEN_TEMPLATES[best.pattern.name];
+    var vendor = detectedVendor || '（待填）';
+    var contact = VENDOR_CONTACTS[vendor] || '（待确认）';
+    var today = new Date().toISOString().slice(0,10);
+    
+    var plan = '优先级：' + detectedPrio + ' | 供应商：' + vendor + ' | ' + contact + ' | ' + today + '\n\n';
+    plan += '📝 影响：\n' + tpl.impact.replace(/\\n/g,'\n').substring(0,120) + '...\n\n';
+    plan += '🔧 方案（' + tpl.steps.length + '步）：\n';
+    tpl.steps.forEach(function(s, i) {
+      plan += (i+1) + '. ' + s.action + ' · ' + s.owner + ' · ' + s.deadline + '\n';
+    });
+    
+    html += '<pre style="font-size:11px;color:#e7e5e4;white-space:pre-wrap;line-height:1.7;max-height:280px;overflow-y:auto;margin:0;font-family:inherit" id="genOutput">' + plan + '</pre>';
+    html += '<button onclick="copyUnified()" id="genCopyBtn" style="margin-top:10px;padding:8px 16px;background:var(--green);color:#fff;border:none;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;width:100%">📋 一键复制方案</button>';
+    html += '<span id="genCopied" style="display:none;position:absolute;bottom:16px;right:16px;color:var(--green);font-size:13px">✅ 已复制</span>';
+  } else {
+    // Fallback: show top matching solutions
+    html += '<div style="font-size:12px;color:#a8a29e">无匹配模板，展示最相关方案：</div>';
+    if (topSols.length > 0) {
+      topSols.slice(0,4).forEach(function(item) {
+        html += '<div style="font-size:11px;padding:4px 8px;margin:4px 0;background:rgba(255,255,255,0.04);border-radius:4px;color:#e7e5e4">' +
+          item.sol.id + ' ' + item.sol.action.substring(0,80) + '...</div>';
+      });
+    } else {
+      html += '<div style="font-size:12px;color:#78716c">试试更详细的描述，或在方案明细库中搜索</div>';
+    }
+    html += '<a href="#solutions" style="display:block;margin-top:10px;padding:8px 16px;background:rgba(255,255,255,0.1);color:#fff;border:none;border-radius:6px;font-size:13px;text-align:center;text-decoration:none;cursor:pointer">📋 浏览方案明细库</a>';
+  }
+  html += '</div>';
+  
+  html += '</div>'; // end grid
+  
+  // Bottom: matching individual solutions
+  if (topSols.length > 0) {
+    html += '<div style="margin-top:14px;padding:12px 16px;background:rgba(255,255,255,0.03);border-radius:var(--radius-sm);border:1px solid rgba(255,255,255,0.05)">';
+    html += '<div style="font-size:11px;color:#a8a29e;margin-bottom:6px">📋 匹配到的历史方案（' + topSols.length + '条）</div>';
+    html += '<div style="display:flex;flex-wrap:wrap;gap:6px">';
+    topSols.forEach(function(item) {
+      html += '<span style="font-size:11px;padding:3px 8px;background:rgba(37,99,235,0.1);border-radius:4px;color:#93c5fd;cursor:pointer" ' +
+        'data-action="' + item.sol.action.replace(/"/g, '&quot;').replace(/'/g, '&#39;') + '" data-owner="' + item.sol.owner + '" data-deadline="' + item.sol.deadline + '" onclick="copySol(this)" ' +
+        'title="点击复制">' + item.sol.id + ' ' + item.sol.action.substring(0,50) + '... (' + item.score + '分)</span>';
+    });
+    html += '</div></div>';
+  }
+  
+  result.innerHTML = html;
+}
+
+
+function copySol(el) {
+  var txt = el.getAttribute('data-action') + ' · ' + el.getAttribute('data-owner') + ' · ' + el.getAttribute('data-deadline');
+  navigator.clipboard.writeText(txt);
+  var orig = el.textContent;
+  el.textContent = '✅ 已复制';
+  setTimeout(function(){ el.textContent = orig; }, 1500);
+}
+function copyUnified() {
+  var txt = document.getElementById('genOutput').textContent;
+  navigator.clipboard.writeText(txt).then(function() {
+    document.getElementById('genCopyBtn').style.display = 'none';
+    document.getElementById('genCopied').style.display = 'inline';
+    setTimeout(function() {
+      document.getElementById('genCopyBtn').style.display = 'block';
+      document.getElementById('genCopied').style.display = 'none';
+    }, 2000);
+  });
+}
+function updateStats() {
+  document.getElementById('statTotal').textContent = SOLUTIONS.length;
+  var cats = new Set(SOLUTIONS.map(function(s) { return s.cat; }));
+  document.getElementById('statCat').textContent = cats.size;
+  var vendors = new Set(SOLUTIONS.map(function(s) { return s.vendor; }));
+  document.getElementById('statVendor').textContent = vendors.size;
+  var tickets = new Set(SOLUTIONS.map(function(s) { return s.ticket; }));
+  document.getElementById('statTicket').textContent = tickets.size;
+}
+function scrollToSection(id) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  el.scrollIntoView({behavior:'smooth'});
+  document.querySelectorAll('.header-nav a').forEach(function(a){a.classList.remove('active')});
+  var link = document.querySelector('.header-nav a[href="#'+id+'"]');
+  if(link) link.classList.add('active');
+}
+
+// Init
+updateStats();
+renderSols(SOLUTIONS);
+</script>
+</body>
+</html>
