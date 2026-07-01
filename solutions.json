@@ -780,5 +780,651 @@
     "source": "TK-2026-019",
     "usedCount": 1,
     "lastUsed": "2026-06-30T15:41:00.000+08:00"
+  },
+  {
+    "id": "SOL-047",
+    "category": "效率提升",
+    "vendor": "山西易网视界（临汾）",
+    "priority": "P0",
+    "impact": "🔴",
+    "solutions": [
+      {
+        "action": "现场管理优化：密切关注审核状态及实时审核量级，异常及时介入上报",
+        "owner": "郭舒嫣",
+        "deadline": "持续"
+      }
+    ],
+    "source": "TK-2026-011",
+    "usedCount": 1,
+    "lastUsed": "2026-06-15"
+  },
+  {
+    "id": "SOL-048",
+    "category": "效率提升",
+    "vendor": "山西易网视界（临汾）",
+    "priority": "P0",
+    "impact": "🔴",
+    "solutions": [
+      {
+        "action": "审核SOP优化：梳理优化审核流程，联动驻场进行流程检查和技巧经验传授",
+        "owner": "郭舒嫣",
+        "deadline": "T+10"
+      }
+    ],
+    "source": "TK-2026-011",
+    "usedCount": 1,
+    "lastUsed": "2026-06-15"
+  },
+  {
+    "id": "SOL-049",
+    "category": "效率提升",
+    "vendor": "山西易网视界（临汾）",
+    "priority": "P0",
+    "impact": "🔴",
+    "solutions": [
+      {
+        "action": "人效提升达成：核心组员15条/日，尾部人员12条/日（不含补充返修）",
+        "owner": "郭舒嫣",
+        "deadline": "T+16"
+      }
+    ],
+    "source": "TK-2026-011",
+    "usedCount": 1,
+    "lastUsed": "2026-06-15"
+  },
+  {
+    "id": "SOL-050",
+    "category": "效率提升",
+    "vendor": "山西易网视界（临汾）",
+    "priority": "P0",
+    "impact": "🔴",
+    "solutions": [
+      {
+        "action": "人员审核录屏分析：找到审核效率低的痛点，驻场分享审核流程技巧",
+        "owner": "郭舒嫣",
+        "deadline": "T+6"
+      }
+    ],
+    "source": "TK-2026-011",
+    "usedCount": 1,
+    "lastUsed": "2026-06-15"
+  },
+  {
+    "id": "SOL-051",
+    "category": "效率提升",
+    "vendor": "山西易网视界（临汾）",
+    "priority": "P0",
+    "impact": "🔴",
+    "solutions": [
+      {
+        "action": "SKU时长测算：根据SKU资质测算单SKU所需审核时长，建立评估标准",
+        "owner": "王婷",
+        "deadline": "T+13"
+      }
+    ],
+    "source": "TK-2026-011",
+    "usedCount": 1,
+    "lastUsed": "2026-06-15"
+  },
+  {
+    "id": "SOL-052",
+    "category": "效率提升",
+    "vendor": "山西易网视界（临汾）",
+    "priority": "P0",
+    "impact": "🔴",
+    "solutions": [
+      {
+        "action": "QC直播间优先级明确：明确临汾负责审核的QC直播间及审核品类优先级",
+        "owner": "克莉森(许怡)",
+        "deadline": "T+11"
+      }
+    ],
+    "source": "TK-2026-011",
+    "usedCount": 1,
+    "lastUsed": "2026-06-15"
+  },
+  {
+    "id": "SOL-053",
+    "category": "效率提升",
+    "vendor": "山西易网视界（临汾）",
+    "priority": "P0",
+    "impact": "🔴",
+    "solutions": [
+      {
+        "action": "新人培训计划：QC审核流程优化、新人培训计划和效率爬坡",
+        "owner": "王婷",
+        "deadline": "T+13"
+      }
+    ],
+    "source": "TK-2026-011",
+    "usedCount": 1,
+    "lastUsed": "2026-06-15"
+  },
+  {
+    "id": "SOL-054",
+    "category": "培训管理",
+    "vendor": "河南徽音网络科技",
+    "priority": "P0",
+    "impact": "🔴",
+    "solutions": [
+      {
+        "action": "建立任务清单，关键信息2小时内响应：培训专员亓林建立个人任务清单，群内关键任务信息必须在2小时内响应确认",
+        "owner": "亓林",
+        "deadline": "T+1"
+      }
+    ],
+    "source": "TK-2026-012",
+    "usedCount": 1,
+    "lastUsed": "2026-06-24"
+  },
+  {
+    "id": "SOL-055",
+    "category": "培训管理",
+    "vendor": "河南徽音网络科技",
+    "priority": "P0",
+    "impact": "🔴",
+    "solutions": [
+      {
+        "action": "组长每周检查周考执行状态：各组长每周检查本周周考是否已指派，及时发现遗漏",
+        "owner": "各组长",
+        "deadline": "T+4"
+      }
+    ],
+    "source": "TK-2026-012",
+    "usedCount": 1,
+    "lastUsed": "2026-06-24"
+  },
+  {
+    "id": "SOL-056",
+    "category": "数据管理",
+    "vendor": "山西易网视界（临汾）",
+    "priority": "P1",
+    "impact": "🟡",
+    "solutions": [
+      {
+        "action": "完成数据清理（6/24 0:00-6/25 11:45时段）",
+        "owner": "张帅",
+        "deadline": "T+1"
+      }
+    ],
+    "source": "TK-2026-014",
+    "usedCount": 1,
+    "lastUsed": "2026-06-25"
+  },
+  {
+    "id": "SOL-057",
+    "category": "数据管理",
+    "vendor": "山西易网视界（临汾）",
+    "priority": "P1",
+    "impact": "🟡",
+    "solutions": [
+      {
+        "action": "建立分级升级报备机制",
+        "owner": "张帅",
+        "deadline": "T+3"
+      }
+    ],
+    "source": "TK-2026-014",
+    "usedCount": 1,
+    "lastUsed": "2026-06-25"
+  },
+  {
+    "id": "SOL-058",
+    "category": "数据管理",
+    "vendor": "山西易网视界（临汾）",
+    "priority": "P1",
+    "impact": "🟡",
+    "solutions": [
+      {
+        "action": "验证POPO超时提醒触达（组长+管理）",
+        "owner": "李思远",
+        "deadline": "T+1"
+      }
+    ],
+    "source": "TK-2026-014",
+    "usedCount": 1,
+    "lastUsed": "2026-06-25"
+  },
+  {
+    "id": "SOL-059",
+    "category": "数据管理",
+    "vendor": "山西易网视界（临汾）",
+    "priority": "P1",
+    "impact": "🟡",
+    "solutions": [
+      {
+        "action": "全员通报新机制",
+        "owner": "周家阳",
+        "deadline": "T+5"
+      }
+    ],
+    "source": "TK-2026-014",
+    "usedCount": 1,
+    "lastUsed": "2026-06-25"
+  },
+  {
+    "id": "SOL-060",
+    "category": "规范制定",
+    "vendor": "河南诺达信息科技",
+    "priority": "P1",
+    "impact": "🟡",
+    "solutions": [
+      {
+        "action": "汇总商汤近期客户反馈中的同类型低俗导向案例",
+        "owner": "杨珂珂",
+        "deadline": "T+2"
+      }
+    ],
+    "source": "TK-2026-021",
+    "usedCount": 1,
+    "lastUsed": "2026-06-30"
+  },
+  {
+    "id": "SOL-061",
+    "category": "规范制定",
+    "vendor": "河南诺达信息科技",
+    "priority": "P1",
+    "impact": "🟡",
+    "solutions": [
+      {
+        "action": "梳理并输出低俗导向内容统一审核尺度文档",
+        "owner": "杨珂珂",
+        "deadline": "T+5"
+      }
+    ],
+    "source": "TK-2026-021",
+    "usedCount": 1,
+    "lastUsed": "2026-06-30"
+  },
+  {
+    "id": "SOL-062",
+    "category": "规范制定",
+    "vendor": "河南诺达信息科技",
+    "priority": "P1",
+    "impact": "🟡",
+    "solutions": [
+      {
+        "action": "组内人员摸底测试，验收尺度执行一致性",
+        "owner": "杨珂珂",
+        "deadline": "T+7"
+      }
+    ],
+    "source": "TK-2026-021",
+    "usedCount": 1,
+    "lastUsed": "2026-06-30"
+  },
+  {
+    "id": "SOL-063",
+    "category": "规范制定",
+    "vendor": "河南诺达信息科技",
+    "priority": "P1",
+    "impact": "🟡",
+    "solutions": [
+      {
+        "action": "针对偏差人员进行专项培训拉齐",
+        "owner": "杨珂珂",
+        "deadline": "T+10"
+      }
+    ],
+    "source": "TK-2026-021",
+    "usedCount": 1,
+    "lastUsed": "2026-06-30"
+  },
+  {
+    "id": "SOL-064",
+    "category": "规范制定",
+    "vendor": "河南诺达信息科技",
+    "priority": "P1",
+    "impact": "🟡",
+    "solutions": [
+      {
+        "action": "汇总近期商汤客户反馈的低俗导向案例，形成案例库",
+        "owner": "杨柯柯",
+        "deadline": "T+3"
+      }
+    ],
+    "source": "TK-2026-022",
+    "usedCount": 1,
+    "lastUsed": "2026-06-30"
+  },
+  {
+    "id": "SOL-065",
+    "category": "规范制定",
+    "vendor": "河南诺达信息科技",
+    "priority": "P1",
+    "impact": "🟡",
+    "solutions": [
+      {
+        "action": "组织组内尺度对齐会议，统一低俗导向判定标准",
+        "owner": "杨柯柯",
+        "deadline": "T+5"
+      }
+    ],
+    "source": "TK-2026-022",
+    "usedCount": 1,
+    "lastUsed": "2026-06-30"
+  },
+  {
+    "id": "SOL-066",
+    "category": "规范制定",
+    "vendor": "河南诺达信息科技",
+    "priority": "P1",
+    "impact": "🟡",
+    "solutions": [
+      {
+        "action": "人员摸底考核，确保每位审核员对新尺度掌握一致",
+        "owner": "杨柯柯",
+        "deadline": "T+7"
+      }
+    ],
+    "source": "TK-2026-022",
+    "usedCount": 1,
+    "lastUsed": "2026-06-30"
+  },
+  {
+    "id": "SOL-067",
+    "category": "规范制定",
+    "vendor": "河南诺达信息科技",
+    "priority": "P1",
+    "impact": "🟡",
+    "solutions": [
+      {
+        "action": "输出拉齐后的低俗导向判定细则文档",
+        "owner": "杨柯柯",
+        "deadline": "T+10"
+      }
+    ],
+    "source": "TK-2026-022",
+    "usedCount": 1,
+    "lastUsed": "2026-06-30"
+  },
+  {
+    "id": "SOL-068",
+    "category": "涉政漏判",
+    "vendor": "河南诺达信息科技",
+    "priority": "P0",
+    "impact": "🔴",
+    "solutions": [
+      {
+        "action": "回扫全量数据，排查同类漏放",
+        "owner": "王世亚",
+        "deadline": "T+0"
+      }
+    ],
+    "source": "TK-2026-020",
+    "usedCount": 1,
+    "lastUsed": "2026-06-26"
+  },
+  {
+    "id": "SOL-069",
+    "category": "涉政漏判",
+    "vendor": "河南诺达信息科技",
+    "priority": "P0",
+    "impact": "🔴",
+    "solutions": [
+      {
+        "action": "线下1对1/1对2复盘培训，覆盖全员（含通宵班录屏）",
+        "owner": "王世亚",
+        "deadline": "T+1"
+      }
+    ],
+    "source": "TK-2026-020",
+    "usedCount": 1,
+    "lastUsed": "2026-06-26"
+  },
+  {
+    "id": "SOL-070",
+    "category": "涉政漏判",
+    "vendor": "河南诺达信息科技",
+    "priority": "P0",
+    "impact": "🔴",
+    "solutions": [
+      {
+        "action": "建立通宵班录屏监控机制",
+        "owner": "王世亚/闫媛媛",
+        "deadline": "T+3"
+      }
+    ],
+    "source": "TK-2026-020",
+    "usedCount": 1,
+    "lastUsed": "2026-06-26"
+  },
+  {
+    "id": "SOL-071",
+    "category": "涉政漏判",
+    "vendor": "河南诺达信息科技",
+    "priority": "P0",
+    "impact": "🔴",
+    "solutions": [
+      {
+        "action": "连续线下培训5天，全员覆盖",
+        "owner": "王世亚",
+        "deadline": "T+5"
+      }
+    ],
+    "source": "TK-2026-020",
+    "usedCount": 1,
+    "lastUsed": "2026-06-26"
+  },
+  {
+    "id": "SOL-072",
+    "category": "涉政漏判",
+    "vendor": "河南诺达信息科技",
+    "priority": "P0",
+    "impact": "🔴",
+    "solutions": [
+      {
+        "action": "每周班前重点提醒涉政/色情案例",
+        "owner": "王世亚",
+        "deadline": "持续"
+      }
+    ],
+    "source": "TK-2026-020",
+    "usedCount": 1,
+    "lastUsed": "2026-06-26"
+  },
+  {
+    "id": "SOL-073",
+    "category": "涉政漏判",
+    "vendor": "河南诺达信息科技",
+    "priority": "P0",
+    "impact": "🔴",
+    "solutions": [
+      {
+        "action": "排查项目整体质量问题（漏放频发）",
+        "owner": "赵培育/张思语",
+        "deadline": "T+7"
+      }
+    ],
+    "source": "TK-2026-020",
+    "usedCount": 1,
+    "lastUsed": "2026-06-26"
+  },
+  {
+    "id": "SOL-074",
+    "category": "规范制定",
+    "vendor": "洛阳笋尖",
+    "priority": "P1",
+    "impact": "🟡",
+    "solutions": [
+      {
+        "action": "开展低俗内容判定尺度复训，统一全员判定标准",
+        "owner": "TBD",
+        "deadline": "TBD"
+      }
+    ],
+    "source": "TK-2026-023",
+    "usedCount": 1,
+    "lastUsed": "2026-07-01"
+  },
+  {
+    "id": "SOL-075",
+    "category": "规范制定",
+    "vendor": "洛阳笋尖",
+    "priority": "P1",
+    "impact": "🟡",
+    "solutions": [
+      {
+        "action": "梳理汇总通过+不通过典型案例，形成标准化参考样本",
+        "owner": "TBD",
+        "deadline": "TBD"
+      }
+    ],
+    "source": "TK-2026-023",
+    "usedCount": 1,
+    "lastUsed": "2026-07-01"
+  },
+  {
+    "id": "SOL-076",
+    "category": "规范制定",
+    "vendor": "洛阳笋尖",
+    "priority": "P1",
+    "impact": "🟡",
+    "solutions": [
+      {
+        "action": "组织全员专项验收，确保整改落地到位",
+        "owner": "TBD",
+        "deadline": "TBD"
+      }
+    ],
+    "source": "TK-2026-023",
+    "usedCount": 1,
+    "lastUsed": "2026-07-01"
+  },
+  {
+    "id": "SOL-077",
+    "category": "其他",
+    "vendor": "河南新阳科技（洛阳）",
+    "priority": "",
+    "impact": "🟡",
+    "solutions": [
+      {
+        "action": "排查误判case，定位打标规则问题",
+        "owner": "待定",
+        "deadline": "T+2"
+      }
+    ],
+    "source": "TK-2026-024",
+    "usedCount": 1,
+    "lastUsed": "2026-07-01"
+  },
+  {
+    "id": "SOL-078",
+    "category": "其他",
+    "vendor": "河南新阳科技（洛阳）",
+    "priority": "",
+    "impact": "🟡",
+    "solutions": [
+      {
+        "action": "修正打标规则/补充训练数据",
+        "owner": "待定",
+        "deadline": "T+5"
+      }
+    ],
+    "source": "TK-2026-024",
+    "usedCount": 1,
+    "lastUsed": "2026-07-01"
+  },
+  {
+    "id": "SOL-079",
+    "category": "其他",
+    "vendor": "河南新阳科技（洛阳）",
+    "priority": "",
+    "impact": "🟡",
+    "solutions": [
+      {
+        "action": "全量回扫近期数据，评估影响面",
+        "owner": "待定",
+        "deadline": "T+3"
+      }
+    ],
+    "source": "TK-2026-024",
+    "usedCount": 1,
+    "lastUsed": "2026-07-01"
+  },
+  {
+    "id": "SOL-080",
+    "category": "漏放处理",
+    "vendor": "河南诺达信息科技",
+    "priority": "P2",
+    "impact": "🟡",
+    "solutions": [
+      {
+        "action": "数据回查：完成6月28日爱诗直播该时段全量数据回查，确认是否有其他漏判",
+        "owner": "待指定",
+        "deadline": "T+1"
+      }
+    ],
+    "source": "TK-2026-025",
+    "usedCount": 1,
+    "lastUsed": "2026-07-01"
+  },
+  {
+    "id": "SOL-081",
+    "category": "漏放处理",
+    "vendor": "河南诺达信息科技",
+    "priority": "P2",
+    "impact": "🟡",
+    "solutions": [
+      {
+        "action": "大屏盯看机制：建立高频违规数据大屏集中盯看流程，发现异常立即响应",
+        "owner": "待指定",
+        "deadline": "T+3"
+      }
+    ],
+    "source": "TK-2026-025",
+    "usedCount": 1,
+    "lastUsed": "2026-07-01"
+  },
+  {
+    "id": "SOL-082",
+    "category": "漏放处理",
+    "vendor": "河南诺达信息科技",
+    "priority": "P2",
+    "impact": "🟡",
+    "solutions": [
+      {
+        "action": "协助帮盯机制：明确直播间数量阈值，超出时启动协助帮盯流程，确保不出现空档",
+        "owner": "待指定",
+        "deadline": "T+3"
+      }
+    ],
+    "source": "TK-2026-025",
+    "usedCount": 1,
+    "lastUsed": "2026-07-01"
+  },
+  {
+    "id": "SOL-083",
+    "category": "漏放处理",
+    "vendor": "河南诺达信息科技",
+    "priority": "P2",
+    "impact": "🟡",
+    "solutions": [
+      {
+        "action": "案例复盘宣导：将本次漏判案例纳入培训材料，全员宣导「正常画面≠无风险」意识",
+        "owner": "待指定",
+        "deadline": "T+2"
+      }
+    ],
+    "source": "TK-2026-025",
+    "usedCount": 1,
+    "lastUsed": "2026-07-01"
+  },
+  {
+    "id": "SOL-084",
+    "category": "漏放处理",
+    "vendor": "河南诺达信息科技",
+    "priority": "P2",
+    "impact": "🟡",
+    "solutions": [
+      {
+        "action": "警惕度管理培训：针对跨直播间审核场景，加强审核员警惕度管理和注意力分配培训",
+        "owner": "待指定",
+        "deadline": "持续"
+      }
+    ],
+    "source": "TK-2026-025",
+    "usedCount": 1,
+    "lastUsed": "2026-07-01"
   }
 ]
