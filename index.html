@@ -215,9 +215,10 @@ body {
 .ticket-actions select:focus { border-color: var(--blue); }
 .expand-arrow { font-size: 13px; color: var(--text-muted); transition: transform 0.2s; margin-left: 4px; }
 .expand-arrow.open { transform: rotate(180deg); }
+.expand-arrow.open { transform: rotate(180deg); }
 
 /* Ticket Detail */
-.ticket-detail { display: block; border-top: 1px solid var(--border); background: #fafaf9; }
+.ticket-detail { display: none; border-top: 1px solid var(--border); background: #fafaf9; }
 .ticket-detail.show { display: block; }
 .ticket-detail-inner { padding: 22px 24px 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px 32px; }
 @media (max-width: 900px) { .ticket-detail-inner { grid-template-columns: 1fr; } }
@@ -1097,8 +1098,10 @@ function ticketCard(t, search) {
 function toggleTicket(id) {
   var d = document.getElementById('detail-' + id);
   var i = document.getElementById('icon-' + id);
-  console.log('toggleTicket', id, 'detail:', !!d, 'icon:', !!i);
-  if (d) { d.classList.toggle('show'); i && i.classList.toggle('open'); }
+  if (d) {
+    d.classList.toggle('show');
+    if (i) i.classList.toggle('open');
+  }
 }
 
 function toggleTimeline(id) {
