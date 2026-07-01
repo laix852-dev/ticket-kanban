@@ -809,9 +809,28 @@ const SOLUTIONS = [
   {id:"SOL-084",cat:"漏放处理",prio:"P2",vendor:"河南诺达信息科技",ticket:"TK-2026-025",action:"警惕度管理培训：针对跨直播间审核场景，加强审核员警惕度管理和注意力分配培训",owner:"待指定",deadline:"持续"}
 ];
 
+
+
+var currentPage = 1;
+var pageSize = 5;
+var currentData = [];
+
 function renderSols(data) {
+  currentData = data;
+  currentPage = 1;
+  renderPage();
+}
+
+function renderPage() {
   var list = document.getElementById('solList');
-  var html = data.map(function(s){
+  var total = currentData.length;
+  var totalPages = Math.ceil(total / pageSize);
+  if (currentPage > totalPages) currentPage = totalPages || 1;
+  var start = (currentPage - 1) * pageSize;
+  var end = Math.min(start + pageSize, total);
+  var pageData = currentData.slice(start, end);
+  
+  var html = pageData.map(function(s){
     return '<div class="chain-card" data-cat="'+s.cat+'" data-prio="'+s.prio+'" data-vendor="'+s.vendor+'">'+
       '<div class="chain-header">'+
         '<span class="chain-id">'+s.id+'</span>'+
@@ -825,8 +844,39 @@ function renderSols(data) {
         '<div class="chain-meta"><span>👤 '+s.owner+'</span><span>⏰ '+s.deadline+'</span></div>'+
       '</div></div>';
   }).join('');
+  
+  if (total === 0) {
+    html = '<div style="text-align:center;padding:40px;color:var(--slate)">没有匹配的方案</div>';
+  }
+  
+  // Pagination controls
+  if (totalPages > 1) {
+    html += '<div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:16px;font-size:13px">';
+    html += '<button onclick="goPage(1)" ' + (currentPage===1?'disabled':'') + ' style="padding:4px 10px;border:1px solid var(--border);border-radius:6px;background:var(--surface);cursor:pointer;font-size:12px">« 首页</button>';
+    html += '<button onclick="goPage('+(currentPage-1)+')" ' + (currentPage===1?'disabled':'') + ' style="padding:4px 10px;border:1px solid var(--border);border-radius:6px;background:var(--surface);cursor:pointer;font-size:12px">‹ 上页</button>';
+    for (var i = 1; i <= totalPages; i++) {
+      if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2)) {
+        html += '<button onclick="goPage('+i+')" style="padding:4px 10px;border:1px solid '+(i===currentPage?'var(--blue)':'var(--border)')+';border-radius:6px;background:'+(i===currentPage?'var(--blue)':'var(--surface)')+';color:'+(i===currentPage?'#fff':'var(--text)')+';cursor:pointer;font-size:12px;font-weight:'+(i===currentPage?'600':'400')+'">'+i+'</button>';
+      } else if (i === currentPage - 3 || i === currentPage + 3) {
+        html += '<span style="color:var(--slate)">...</span>';
+      }
+    }
+    html += '<button onclick="goPage('+(currentPage+1)+')" ' + (currentPage===totalPages?'disabled':'') + ' style="padding:4px 10px;border:1px solid var(--border);border-radius:6px;background:var(--surface);cursor:pointer;font-size:12px">下页 ›</button>';
+    html += '<button onclick="goPage('+totalPages+')" ' + (currentPage===totalPages?'disabled':'') + ' style="padding:4px 10px;border:1px solid var(--border);border-radius:6px;background:var(--surface);cursor:pointer;font-size:12px">末页 »</button>';
+    html += '</div>';
+  }
+  
   list.innerHTML = html;
-  document.getElementById('solCount').textContent = data.length+' / '+SOLUTIONS.length+' 条';
+  document.getElementById('solCount').textContent = total + ' / ' + SOLUTIONS.length + ' 条（第'+currentPage+'/'+totalPages+'页）';
+}
+
+function goPage(p) {
+  var totalPages = Math.ceil(currentData.length / pageSize);
+  if (p < 1) p = 1;
+  if (p > totalPages) p = totalPages;
+  currentPage = p;
+  renderPage();
+  document.getElementById('solList').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
 function filterSols() {
