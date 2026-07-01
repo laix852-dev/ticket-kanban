@@ -1553,6 +1553,71 @@
       "penaltyConfirmed": false,
       "penaltyConfirmedBy": null,
       "penaltyConfirmedAt": null
+    },
+    {
+      "id": "TK-2026-024",
+      "title": "心遇动态打标误判 — 不推荐原因不准确导致内容误伤",
+      "author": "钱燕",
+      "vendor": "河南新阳科技（洛阳）",
+      "status": "open",
+      "priority": "",
+      "sourceGroup": "",
+      "createdDate": "2026-07-01",
+      "updatedDate": "2026-07-01",
+      "summary": "7月1日上午，赛罗(周家阳)在心遇融合风控群(3700681)反馈动态打标不推荐原因存在问题，部分应推荐的内容被错误标记为不推荐。李悦歌核实后确认存在误判情况。",
+      "impact": "🟡中等 — 动态打标系统误判导致内容误伤，需人工复核澄清",
+      "rootCause": "动态打标推荐规则存在误判，不推荐原因标注不准确",
+      "solutions": [
+        {
+          "step": 1,
+          "action": "排查误判case，定位打标规则问题",
+          "owner": "待定",
+          "deadline": "T+2",
+          "status": "pending"
+        },
+        {
+          "step": 2,
+          "action": "修正打标规则/补充训练数据",
+          "owner": "待定",
+          "deadline": "T+5",
+          "status": "pending"
+        },
+        {
+          "step": 3,
+          "action": "全量回扫近期数据，评估影响面",
+          "owner": "待定",
+          "deadline": "T+3",
+          "status": "pending"
+        }
+      ],
+      "timeline": [
+        {
+          "time": "07/01 09:46",
+          "event": "赛罗(周家阳)在群3700681反馈动态打标不推荐原因异常"
+        },
+        {
+          "time": "07/01 10:02",
+          "event": "赛罗@钱燕要求建工单"
+        },
+        {
+          "time": "07/01 10:04",
+          "event": "李悦歌确认存在误判，正在整理数据说明"
+        },
+        {
+          "time": "07/01 10:22",
+          "event": "钱燕确认建单，供应商河南新阳科技（洛阳），无扣罚"
+        }
+      ],
+      "tags": [
+        "心遇",
+        "动态打标",
+        "误判"
+      ],
+      "progress": "赛罗反馈误判问题，李悦歌正在整理数据说明。已建单待拉群。",
+      "manualPenalty": null,
+      "penaltyConfirmed": false,
+      "penaltyConfirmedBy": null,
+      "penaltyConfirmedAt": null
     }
   ],
   "meta": {
