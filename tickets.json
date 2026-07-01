@@ -153,7 +153,8 @@
       "penaltyConfirmedBy": null,
       "penaltyConfirmedAt": null,
       "penaltyReason": null,
-      "contactPerson": null
+      "contactPerson": null,
+      "manager": "刘裕民"
     },
     {
       "id": "TK-2026-003",
@@ -579,7 +580,8 @@
       "penaltyConfirmedBy": null,
       "penaltyConfirmedAt": null,
       "penaltyReason": null,
-      "contactPerson": null
+      "contactPerson": null,
+      "manager": "胡娜娜"
     },
     {
       "id": "TK-2026-011",
@@ -718,7 +720,8 @@
       "penaltyConfirmedBy": null,
       "penaltyConfirmedAt": null,
       "penaltyReason": null,
-      "contactPerson": null
+      "contactPerson": null,
+      "manager": "刘裕民"
     },
     {
       "id": "TK-2026-012",
@@ -793,7 +796,8 @@
       "penaltyConfirmedBy": null,
       "penaltyConfirmedAt": null,
       "penaltyReason": null,
-      "contactPerson": null
+      "contactPerson": null,
+      "manager": "胡娜娜"
     },
     {
       "id": "TK-2026-013",
@@ -966,7 +970,8 @@
       "penaltyConfirmedBy": null,
       "penaltyConfirmedAt": null,
       "penaltyReason": null,
-      "contactPerson": null
+      "contactPerson": null,
+      "manager": "刘裕民"
     },
     {
       "id": "TK-2026-015",
