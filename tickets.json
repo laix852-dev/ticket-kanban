@@ -1622,9 +1622,85 @@
       "penaltyConfirmed": false,
       "penaltyConfirmedBy": null,
       "penaltyConfirmedAt": null
+    },
+    {
+      "id": "TK-2026-025",
+      "title": "河南诺达爱诗直播6.28色情漏判",
+      "author": "wb.wuwanwan01",
+      "vendor": "河南诺达信息科技",
+      "status": "pending",
+      "priority": "P2",
+      "sourceGroup": "",
+      "createdDate": "2026-07-01",
+      "updatedDate": "2026-07-01",
+      "summary": "2026年6月28日，河南诺达爱诗直播模块出现色情内容漏判，导致客户投诉。审核员在审核过程中，因直播画面内容为正常走路场景而放松警惕，转去审核其他直播间，未能及时发现违规内容。接到反馈后已及时安排回查。",
+      "impact": "🟡 中等 — 色情违禁内容漏放，触发客户投诉，影响爱诗项目交付质量与客户信任",
+      "rootCause": "1. 注意力分散：审核员因画面为正常走路内容降低警惕，同时审核多个直播间导致漏看\n2. 盯看机制不足：缺少高频违规数据大屏集中盯看的强制机制\n3. 人力调配滞后：直播间数量较多时未及时安排协助人员帮盯",
+      "solutions": [
+        {
+          "step": 1,
+          "action": "数据回查：完成6月28日爱诗直播该时段全量数据回查，确认是否有其他漏判",
+          "owner": "待指定",
+          "deadline": "T+1",
+          "status": "pending"
+        },
+        {
+          "step": 2,
+          "action": "大屏盯看机制：建立高频违规数据大屏集中盯看流程，发现异常立即响应",
+          "owner": "待指定",
+          "deadline": "T+3",
+          "status": "pending"
+        },
+        {
+          "step": 3,
+          "action": "协助帮盯机制：明确直播间数量阈值，超出时启动协助帮盯流程，确保不出现空档",
+          "owner": "待指定",
+          "deadline": "T+3",
+          "status": "pending"
+        },
+        {
+          "step": 4,
+          "action": "案例复盘宣导：将本次漏判案例纳入培训材料，全员宣导「正常画面≠无风险」意识",
+          "owner": "待指定",
+          "deadline": "T+2",
+          "status": "pending"
+        },
+        {
+          "step": 5,
+          "action": "警惕度管理培训：针对跨直播间审核场景，加强审核员警惕度管理和注意力分配培训",
+          "owner": "待指定",
+          "deadline": "持续",
+          "status": "pending"
+        }
+      ],
+      "timeline": [
+        {
+          "time": "06/28",
+          "event": "爱诗直播模块出现色情漏判，客户发起投诉"
+        },
+        {
+          "time": "06/28",
+          "event": "接到反馈后安排回查，要求高频违规大屏盯看"
+        },
+        {
+          "time": "07/01",
+          "event": "工单创建，方案待确认"
+        }
+      ],
+      "tags": [
+        "色情漏判",
+        "爱诗",
+        "直播",
+        "客户投诉"
+      ],
+      "progress": "已完成初步回查，方案待供应商管理确认",
+      "manualPenalty": null,
+      "penaltyConfirmed": false,
+      "penaltyConfirmedBy": null
     }
   ],
   "meta": {
-    "lastUpdated": "2026-07-01T00:33:04+08:00"
+    "lastUpdated": "2026-07-01T00:33:04+08:00",
+    "updated": "2026-07-01T11:32:00+08:00"
   }
 }
