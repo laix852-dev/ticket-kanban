@@ -150,7 +150,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hira
 
 <!-- Stats -->
 <div class="stats-row">
-  <div class="stat-card"><div class="stat-label">问题模式</div><div class="stat-value blue">6</div></div>
+  <div class="stat-card"><div class="stat-label">问题模式</div><div class="stat-value blue">8</div></div>
   <div class="stat-card"><div class="stat-label">方案条目</div><div class="stat-value" id="statTotal">-</div></div>
   <div class="stat-card"><div class="stat-label">分类数</div><div class="stat-value green" id="statCat">-</div></div>
   <div class="stat-card"><div class="stat-label">供应商</div><div class="stat-value" id="statVendor">-</div></div>
@@ -353,6 +353,68 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hira
     </div>
   </div>
 </div>
+
+<div class="chain-card" id="pat-yuqing">
+  <div class="chain-header" onclick="this.parentElement.querySelector('.chain-body').classList.toggle('open')">
+    <span class="chain-tag amber">中频 ⭐⭐</span>
+    <strong>舆情指令误操作</strong>
+    <span class="prio-tag prio-P2">P2</span>
+    <span style="font-size:11px;color:var(--green)">当日闭环 · 标杆案例</span>
+  </div>
+  <div class="chain-body">
+    <div style="margin-bottom:10px"><strong>触发信号：</strong></div>
+    <ul class="trigger-list">
+      <li>审核知晓舆情指令但从严误判（看到相关描述就删，未确认拦截要求）</li>
+      <li>通告群关键词定位错误（只能搜"女仆"搜不到"苏芒"）</li>
+      <li>指令传达时未整理具体关键词和拦截尺度</li>
+      <li>舆情指令"一刀切"执行，未区分查删/无法提及/其他</li>
+    </ul>
+    <div style="margin:12px 0 8px"><strong>标准方案链（6 步）：</strong></div>
+    <div class="chain-steps">
+      <div class="chain-step"><span class="step-num done">1</span><div><strong>定位误伤原因，确认误删根因</strong><br><span class="step-owner">管理岗 · 当日</span><br><small>先搞清楚是"不知道规则"还是"知道规则但理解错了"</small></div></div>
+      <div class="chain-step"><span class="step-num done">2</span><div><strong>回扫近一月误伤数据</strong><br><span class="step-owner">管理岗 · 当日</span><br><small>融媒体/论坛/用户资料等通道全覆盖</small></div></div>
+      <div class="chain-step"><span class="step-num done">3</span><div><strong>指令传达优化：转发一线时整理具体关键词</strong><br><span class="step-owner">管理岗 · 持续</span><br><small>通告群的关键词必须能搜到指令</small></div></div>
+      <div class="chain-step"><span class="step-num done">4</span><div><strong>明确处理尺度：查删负面 / 无法提及 / 其他</strong><br><span class="step-owner">管理岗 · 持续</span><br><small>不再"看到相关就删"，分级处理</small></div></div>
+      <div class="chain-step"><span class="step-num done">5</span><div><strong>舆情指令废止一刀切，明确拦截敏感点</strong><br><span class="step-owner">客户侧 · 持续</span></div></div>
+      <div class="chain-step"><span class="step-num done">6</span><div><strong>排查是否有未经确认即删除的漏报备案例</strong><br><span class="step-owner">管理岗 · T+1</span></div></div>
+    </div>
+    <div class="chain-meta">
+      <span>📋 TK-019（当日闭环）</span>
+      <span>🔑 关键词必须能定位到指令</span>
+      <span>💡 核心：传达不是"通知到了"而是"搜得到"</span>
+    </div>
+  </div>
+</div>
+
+<div class="chain-card" id="pat-chidu">
+  <div class="chain-header" onclick="this.parentElement.querySelector('.chain-body').classList.toggle('open')">
+    <span class="chain-tag blue">新增 ⭐⭐</span>
+    <strong>尺度拉齐</strong>
+    <span class="prio-tag prio-P1">P1</span>
+    <span style="font-size:11px;color:var(--slate)">1条处理中 · 新兴问题类型</span>
+  </div>
+  <div class="chain-body">
+    <div style="margin-bottom:10px"><strong>触发信号：</strong></div>
+    <ul class="trigger-list">
+      <li>客户反馈中同类型内容审核结果不一致</li>
+      <li>组内人员对同一尺度的理解存在偏差</li>
+      <li>缺少同类型案例汇总和拉齐机制</li>
+      <li>新项目上线后审核标准未充分对齐</li>
+    </ul>
+    <div style="margin:12px 0 8px"><strong>标准方案链（4 步）：</strong></div>
+    <div class="chain-steps">
+      <div class="chain-step"><span class="step-num next">1</span><div><strong>汇总客户反馈中的同类型案例，形成案例库</strong><br><span class="step-owner">管理岗 · T+3</span><br><small>先把所有争议案例摆在一起看，找出分歧点</small></div></div>
+      <div class="chain-step"><span class="step-num next">2</span><div><strong>组织尺度对齐会议 + 输出统一判定标准文档</strong><br><span class="step-owner">管理岗 · T+5</span><br><small>叫上所有审核员一起过案例，达成共识后落成文档</small></div></div>
+      <div class="chain-step"><span class="step-num next">3</span><div><strong>人员摸底考核，验收尺度执行一致性</strong><br><span class="step-owner">管理岗 · T+7</span><br><small>用边界案例测试每个人，找出理解偏差的人</small></div></div>
+      <div class="chain-step"><span class="step-num next">4</span><div><strong>对偏差人员进行专项培训拉齐 + 尺度文档定期回顾</strong><br><span class="step-owner">管理岗 · T+10 / 每季度</span></div></div>
+    </div>
+    <div class="chain-meta">
+      <span>📋 TK-021/TK-022（诺达商汤）</span>
+      <span>⚠️ 疑似重复工单需确认</span>
+      <span>💡 关键：不是发文档就完了，要测试验收</span>
+    </div>
+  </div>
+</div>
 </div>
 <!-- Solution Detail Library -->
 <div class="section" id="solutions">
@@ -492,20 +554,20 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hira
 
 <div id="learn-tab-quick" style="display:none">
 <div class="learn-card" style="margin-bottom:14px">
-  <h4>📬 龙虾学习速递 | 本周示例</h4>
+  <h4>📬 龙虾学习速递 · 使用指南</h4>
   <div style="font-size:13px;line-height:2">
-    <strong>📌 本周必学案例</strong><br>
-    · TK-019 舆情「苏芒」误删 — 当日创建当日闭环，指令传达优化的标杆<br>
-    · TK-011 QC人效不达标 — 反面教材：超期15天仅2/7完成，学习如何避免<br><br>
-    <strong>🔁 本周高频问题预警</strong><br>
-    · 涉政漏放 本月出现 4 次 — 集中在得物线和汽车之家<br>
-    · 低俗导向尺度问题 新出现 — 诺达商汤项目需关注<br><br>
-    <strong>🏆 本周最佳实践</strong><br>
-    · 牛欢欢（洛阳新阳）：1天完结3条得物工单，根因定位精准<br>
-    · 黎俊（新阳南宁）：舆情误删 30 分钟内完成回扫+根因定位<br><br>
-    <strong>🎯 本周练习</strong><br>
-    · 模拟练习 #1 涉政内容识别（面向审核员）<br>
-    · 模拟练习 #2 异常数据识别（面向管理岗）
+    <strong>📌 如何找本周必学案例</strong><br>
+    打开当日<span style="color:var(--blue)">晚报</span> → 看"📌 备注/亮点"栏 → 标记为 🏆 的就是本周最佳案例<br>
+    打开<span style="color:var(--blue)">方案库首页</span> → 看"📖 历史经典案例" → 选一个没读过的<br><br>
+    <strong>🔁 如何发现高频问题</strong><br>
+    看晚报"三、未完结工单状态"中<span style="color:var(--red)">超期</span>标记最多的标签<br>
+    如果有同一标签连续两周出现 → 在团队群里发起专项讨论<br><br>
+    <strong>🏆 如何提名最佳实践</strong><br>
+    标准：① 当日创建当日完结 ② 方案有制度性改进 ③ 之后无复发<br>
+    在群里发"我提名 TK-XXX 为本月亮点，理由：..."<br><br>
+    <strong>🎯 练习建议</strong><br>
+    每周做 1 道模拟题（在"模拟练习"标签下）<br>
+    更有效的方式：拿一条<span style="color:var(--green)">未读的真实工单</span>，自己先写方案，再对照真实方案
   </div>
 </div>
 </div>
@@ -585,21 +647,33 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hira
     <h4>🥇 TK-003 绥阳质检管理（标杆）</h4>
     <div style="font-size:12px;color:var(--text-secondary)">王钦鹏次品率 0.18%→0.66%，全组暴增 362%</div>
     <div style="font-size:13px;margin-top:8px">7项方案从制度层面彻底解决。6/9创建→6/16完结，<strong>7天闭环</strong>。此后绥阳再无类似问题。</div>
+    <div style="font-size:11px;color:var(--slate);margin-top:6px;padding-top:6px;border-top:1px solid var(--border)">
+      <strong>🔑 关键决策：</strong>面对"先处理个人还是先改制度"的选择，来昕怡选择了双线并行——王钦鹏纠偏（治标）+ 异常SOP/KPI/系统优化（治本）同时推进。而非常见的"先把人换掉"。
+    </div>
   </div>
   <div class="learn-card" style="border-left:3px solid var(--green)">
     <h4>🥈 TK-004 CMA 积压（快速闭环）</h4>
     <div style="font-size:12px;color:var(--text-secondary)">CMA频繁掉线致审核积压 371 条，人审率 30%→80%</div>
     <div style="font-size:13px;margin-top:8px">技术修复+告警+应急预案+Dashboard。6/15 <strong>当日创建当日完结</strong>。</div>
+    <div style="font-size:11px;color:var(--slate);margin-top:6px;padding-top:6px;border-top:1px solid var(--border)">
+      <strong>🔑 关键决策：</strong>没有止步于"修复CMA续期"，而是追问"为什么积压 371 条才被发现"——进而加了告警在线数字段和Dashboard。技术问题背后是监控盲区。
+    </div>
   </div>
   <div class="learn-card" style="border-left:3px solid var(--red)">
     <h4>⚠️ TK-011 QC 人效（反面案例）</h4>
     <div style="font-size:12px;color:var(--text-secondary)">人效 17 条/日 vs 目标 35-40，临汾易网</div>
-    <div style="font-size:13px;margin-top:8px">已<strong style="color:var(--red)">超期 15 天</strong>，7项方案仅完成 2 项。SOP优化和优先级确认依赖外部协调。</div>
+    <div style="font-size:13px;margin-top:8px">已<strong style="color:var(--red)">超期 15 天</strong>，7项方案仅完成 2 项。</div>
+    <div style="font-size:11px;color:var(--slate);margin-top:6px;padding-top:6px;border-top:1px solid var(--border)">
+      <strong>🔑 失败原因：</strong>方案中"QC直播间优先级"依赖客户侧确认、"新人培训"需要时间爬坡——外部依赖和长周期任务没有拆成小里程碑。正确做法：T+3 先给初版 SOP，T+7 开始试运行。
+    </div>
   </div>
   <div class="learn-card" style="border-left:3px solid var(--green)">
     <h4>🥉 TK-019 舆情误删（当日闭环）</h4>
     <div style="font-size:12px;color:var(--text-secondary)">"苏芒"舆情指令误删，通告群关键词覆盖不全</div>
     <div style="font-size:13px;margin-top:8px">6项方案覆盖根因定位、回扫、指令优化、废止一刀切。<strong>当日闭环</strong>。</div>
+    <div style="font-size:11px;color:var(--slate);margin-top:6px;padding-top:6px;border-top:1px solid var(--border)">
+      <strong>🔑 关键决策：</strong>黎俊没有只修"苏芒"这一个关键词，而是追问"为什么搜不到"——发现通告群关键词"女仆"跟"苏芒"完全不一致。根本问题是传达时关键词未同步，修的是传达流程而非单个词。
+    </div>
   </div>
 </div>
 </div>
