@@ -1644,7 +1644,7 @@
       "title": "河南诺达爱诗直播6.28色情漏判",
       "author": "wb.wuwanwan01",
       "vendor": "河南诺达信息科技",
-      "status": "in_progress",
+      "status": "resolved",
       "priority": "P2",
       "sourceGroup": "",
       "createdDate": "2026-07-01",
@@ -1672,7 +1672,7 @@
           "action": "协助帮盯机制：明确直播间数量阈值，超出时启动协助帮盯流程，确保不出现空档",
           "owner": "吴婉婉",
           "deadline": "T+3",
-          "status": "in_progress"
+          "status": "done"
         },
         {
           "step": 4,
@@ -1709,6 +1709,10 @@
         {
           "time": "07/01 16:02",
           "event": "赵培育汇报：①数据回查②大屏盯看④案例复盘⑤培训 已完成"
+        },
+        {
+          "time": "07/01 16:48",
+          "event": "吴婉婉汇报：③协助帮盯机制已完成，工单完结"
         }
       ],
       "tags": [
@@ -1717,7 +1721,7 @@
         "直播",
         "客户投诉"
       ],
-      "progress": "4/5已完成",
+      "progress": "全部方案已完成，工单完结",
       "manualPenalty": null,
       "penaltyConfirmed": false,
       "penaltyConfirmedBy": null
