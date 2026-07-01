@@ -1522,9 +1522,13 @@ try {
   document.getElementById('matchResult').innerHTML = '<div style="background:rgba(255,255,255,0.03);padding:12px;border-radius:8px;color:var(--green);font-size:13px;text-align:center">✅ 引擎就绪，共加载 ' + SOLUTIONS.length + ' 条方案。输入问题描述开始分析。</div>';
   setTimeout(function() { document.getElementById('matchResult').style.display = 'none'; }, 3000);
 } catch(e) {
-  document.getElementById('matchInput').placeholder = '❌ 加载失败：' + e.message;
-  document.getElementById('matchResult').style.display = 'block';
-  document.getElementById('matchResult').innerHTML = '<div style="background:rgba(255,255,255,0.05);padding:16px;border-radius:8px;color:var(--red);font-size:14px">❌ 引擎加载失败：' + e.message + '<br><small style="color:#78716c">请刷新页面重试，或联系来昕怡</small></div>';
+  var msg = e ? (e.message || e.stack || String(e)) : '未知错误';
+  document.getElementById('matchInput').placeholder = '❌ 加载失败：' + msg;
+  var mr2 = document.getElementById('matchResult');
+  if (mr2) {
+    mr2.style.display = 'block';
+    mr2.innerHTML = '<div style="background:rgba(255,255,255,0.05);padding:16px;border-radius:8px;color:var(--red);font-size:14px">❌ 引擎加载失败：' + msg.replace(/</g,'&lt;') + '<br><small style="color:#78716c">请硬刷新（Cmd+Shift+R）重试</small></div>';
+  }
 }
 </script>
 </body>
