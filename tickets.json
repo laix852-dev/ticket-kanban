@@ -1282,7 +1282,7 @@
     "title": "商汤低俗导向内容尺度拉齐与人员摸底",
     "author": "杨珂珂",
     "vendor": "河南诺达信息科技",
-    "status": "in_progress",
+    "status": "overdue",
     "priority": "P1",
     "sourceGroup": "",
     "createdDate": "2026-06-30",
@@ -1324,6 +1324,10 @@
       {
         "time": "06/30 16:48",
         "event": "杨珂珂发起工单，背景：商汤客户反馈低俗导向尺度问题"
+      },
+      {
+        "time": "2026-07-02 07:47",
+        "event": "状态: in_progress → overdue"
       }
     ],
     "tags": [
