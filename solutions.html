@@ -138,6 +138,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hira
   <div class="header-brand">📚 方案库 · 龙虾学习系统</div>
   <div class="header-nav">
     <a href="https://laix852-dev.github.io/ticket-kanban/">← 返回看板</a>
+    <a href="#match" onclick="scrollToSection('match')">活学活用</a>
     <a href="#patterns" onclick="scrollToSection('patterns')">问题模式</a>
     <a href="#solutions" onclick="scrollToSection('solutions')">方案明细</a>
     <a href="#learn" onclick="scrollToSection('learn')">学习系统</a>
@@ -156,6 +157,19 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hira
   <div class="stat-card"><div class="stat-label">供应商</div><div class="stat-value" id="statVendor">-</div></div>
   <div class="stat-card"><div class="stat-label">来源工单</div><div class="stat-value amber" id="statTicket">-</div></div>
   <div class="stat-card"><div class="stat-label">学习路径</div><div class="stat-value purple">4</div></div>
+</div>
+
+<!-- 活学活用 -->
+<div class="section" id="match" style="background:linear-gradient(135deg,var(--blue-50),#f0f7ff);border-radius:var(--radius);padding:20px;border:1px solid var(--blue-100);margin-bottom:24px">
+<div class="section-title">🧠 活学活用 · 智能匹配</div>
+<div class="section-desc">描述你遇到的问题，自动匹配历史方案和问题模式。输入越具体，匹配越精准。</div>
+<div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap">
+  <input type="text" id="matchInput" placeholder="例如：审核员把任大炮的评论放过了、客服回复太慢被投诉、次品率突然翻了三倍..." 
+    style="flex:1;min-width:300px;padding:10px 14px;border:2px solid var(--blue-100);border-radius:var(--radius-xs);font-size:14px;outline:none"
+    onkeydown="if(event.key==='Enter')doMatch()">
+  <button onclick="doMatch()" style="padding:10px 20px;background:var(--blue);color:#fff;border:none;border-radius:var(--radius-xs);font-size:14px;font-weight:600;cursor:pointer">🔍 匹配方案</button>
+</div>
+<div id="matchResult" style="display:none"></div>
 </div>
 
 <!-- Problem Patterns -->
@@ -1007,6 +1021,108 @@ function copyTemplate(btn, tabId) {
     btn.classList.add('copied');
     setTimeout(function() { btn.textContent = '📋 复制'; btn.classList.remove('copied'); }, 2000);
   });
+}
+
+
+// 活学活用匹配引擎
+var PATTERNS = [
+  {name:"涉政漏放",keywords:"涉政 敏感 政治 人物 任大炮 任志强 漏放 反华 一号 皇帝 大炮 富平 领导人 审核员不了解 关键词缺失 别称 代称 隐喻",steps:"关键词排查→复盘通报→专项培训→闭卷测试→流程优化→定期抽问",tickets:"TK-009 TK-010 TK-017 TK-018",priority:"P0"},
+  {name:"人效不达标",keywords:"人效 效率 审核量 不达标 爬坡 慢 QC 量级 标准值 达不到 新人 黑灰产 识别能力 直播间 优先级",steps:"录屏分析→SKU测算→SOP优化→优先级明确→新人培训→现场管理→人效达标",tickets:"TK-011",priority:"P0"},
+  {name:"质检管理",keywords:"质检 次品 次品率 飙升 暴增 日报 缺失 异常 管理失职 无预警 回落 车牌 OCR 纠偏",steps:"异常预警→人员纠偏→补充日报→异常SOP→日报升级→KPI明确→系统优化",tickets:"TK-003 TK-002",priority:"P0"},
+  {name:"客服投诉",keywords:"客服 投诉 甲方 小二 回复 超时 响应 延庆 行政区 漏回复 排班 基础操作 培训 考核",steps:"立即排查→时效监控→人力评估→甲方沟通→案例培训→预警机制",tickets:"TK-001 TK-013",priority:"P0"},
+  {name:"系统稳定性",keywords:"CMA 登录 掉线 积压 审核 系统 稳定性 Dashboard 告警 在线数 人审率 自动续期 过期 卡审",steps:"修复逻辑→告警增强→应急预案→Dashboard→上岗检查→分级升级",tickets:"TK-004 TK-014",priority:"P0"},
+  {name:"培训考核",keywords:"培训 考核 周考 漏指派 专员 组长 遗漏 任务清单 日历 提醒 周期",steps:"任务清单+2h响应→组长周检→自动提醒",tickets:"TK-012",priority:"P0"},
+  {name:"舆情指令误操作",keywords:"舆情 指令 误删 误伤 关键词 定位 搜索 一刀切 苏芒 传达 通告 从严 尺度",steps:"定位误伤→回扫数据→指令优化→明确尺度→废止一刀切→排查漏报备",tickets:"TK-019",priority:"P2"},
+  {name:"尺度拉齐",keywords:"尺度 拉齐 低俗 导向 标准不一 不一致 偏差 商汤 摸底 对齐 判定标准 案例汇总",steps:"汇总案例→统一文档→人员摸底→专项培训",tickets:"TK-021 TK-022",priority:"P1"}
+];
+
+function doMatch() {
+  var q = document.getElementById('matchInput').value.trim();
+  if (!q) return;
+  
+  // Score each pattern
+  var scored = PATTERNS.map(function(p) {
+    var score = 0;
+    var kw = p.keywords.split(' ');
+    kw.forEach(function(w) {
+      if (q.indexOf(w) >= 0) score += 10;
+      // Partial match for longer keywords
+      if (w.length >= 3 && q.toLowerCase().indexOf(w.toLowerCase()) >= 0) score += 5;
+    });
+    return {pattern:p, score:score};
+  });
+  scored.sort(function(a,b){ return b.score - a.score; });
+  
+  // Score individual solutions
+  var solScored = SOLUTIONS.map(function(s) {
+    var score = 0;
+    var txt = (s.action + ' ' + s.cat + ' ' + s.owner).toLowerCase();
+    var words = q.toLowerCase().split(/[\s,，。！？]+/);
+    words.forEach(function(w) {
+      if (w.length >= 2 && txt.indexOf(w) >= 0) score += 3;
+    });
+    // Bonus for matching category
+    var topPattern = scored[0];
+    if (topPattern && topPattern.score > 0 && s.cat === topPattern.pattern.name) score += 5;
+    // Bonus for matching keywords from top pattern
+    if (topPattern && topPattern.score > 0) {
+      topPattern.pattern.keywords.split(' ').forEach(function(kw) {
+        if (kw.length >= 2 && s.action.indexOf(kw) >= 0) score += 2;
+      });
+    }
+    return {sol:s, score:score};
+  });
+  solScored.sort(function(a,b){ return b.score - a.score; });
+  
+  var topMatches = scored.filter(function(x){ return x.score > 0; });
+  var topSols = solScored.filter(function(x){ return x.score > 0; }).slice(0, 5);
+  
+  var result = document.getElementById('matchResult');
+  result.style.display = 'block';
+  
+  var html = '';
+  
+  if (topMatches.length === 0) {
+    html += '<div style="padding:20px;text-align:center;color:var(--text-secondary);font-size:14px">没找到匹配的模式，试试换一种描述方式？<br><small>提示：用具体的关键词，比如"审核员漏放了涉政内容"而不是"出了个问题"</small></div>';
+  } else {
+    var best = topMatches[0];
+    html += '<div style="margin-bottom:14px;padding:14px 18px;background:#fff;border-radius:var(--radius-sm);border:2px solid var(--blue)">';
+    html += '<div style="font-size:11px;color:var(--blue);font-weight:600;margin-bottom:4px">🎯 最佳匹配 · 问题类型</div>';
+    html += '<div style="font-size:18px;font-weight:700;margin-bottom:4px">' + best.pattern.name + ' <span class="prio-tag prio-' + best.pattern.priority + '" style="font-size:11px">' + best.pattern.priority + '</span></div>';
+    html += '<div style="font-size:13px;color:var(--text-secondary);margin-bottom:8px">' + best.score + ' 分匹配 · 关联工单：' + best.pattern.tickets + '</div>';
+    html += '<div style="font-size:13px;background:#fafaf9;padding:8px 12px;border-radius:6px"><strong>推荐方案链：</strong>' + best.pattern.steps + '</div>';
+    html += '</div>';
+    
+    // Other possible patterns
+    var others = topMatches.slice(1, 3);
+    if (others.length > 0) {
+      html += '<div style="font-size:12px;color:var(--text-secondary);margin-bottom:8px">也可能涉及：';
+      others.forEach(function(m, i) {
+        html += '<span style="background:var(--amber-50);padding:2px 8px;border-radius:4px;margin:0 4px">' + m.pattern.name + '（' + m.score + '分）</span>';
+      });
+      html += '</div>';
+    }
+  }
+  
+  // Top solutions
+  if (topSols.length > 0) {
+    html += '<div style="margin-top:12px;font-size:13px;font-weight:600;color:var(--text)">📋 相关方案（前' + topSols.length + '条）：</div>';
+    topSols.forEach(function(item) {
+      html += '<div class="sol-card" style="margin-top:6px">'+
+        '<div class="sol-header">'+
+          '<span class="sol-id">'+item.sol.id+'</span>'+
+          '<span class="sol-tag">'+item.sol.cat+'</span>'+
+          '<span class="prio-tag prio-'+item.sol.prio+'">'+item.sol.prio+'</span>'+
+          '<span>'+item.sol.vendor+'</span>'+
+          '<span style="margin-left:auto;font-size:10px;color:var(--blue)">'+item.score+'分</span>'+
+        '</div>'+
+        '<div class="sol-body"><div style="font-size:13px">'+item.sol.action+'</div>'+
+        '<div class="sol-meta"><span>👤 '+item.sol.owner+'</span><span>⏰ '+item.sol.deadline+'</span><span>📋 '+item.sol.ticket+'</span></div></div>'+
+      '</div>';
+    });
+  }
+  
+  result.innerHTML = html;
 }
 
 function updateStats() {
