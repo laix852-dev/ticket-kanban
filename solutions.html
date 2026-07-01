@@ -78,6 +78,193 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hira
   <div class="sol-list" id="solList">
     <div class="loading">加载中...</div>
   </div>
+
+<!-- Pattern Library -->
+<div style="margin-top:32px">
+<div style="font-size:18px;font-weight:700;margin-bottom:6px">🔬 问题模式库</div>
+<div style="font-size:13px;color:var(--text-secondary);margin-bottom:14px">从历史工单中提炼的高频问题模式，含完整方案链、触发信号和预防措施</div>
+<style>
+.pat-card{background:var(--surface);border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow);margin-bottom:10px;overflow:hidden}
+.pat-head{padding:12px 16px;background:#fafaf9;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;flex-wrap:wrap;cursor:pointer;font-size:13px}
+.pat-head:hover{background:#f5f5f4}
+.pat-body{padding:14px 16px;display:none;font-size:13px}
+.pat-body.open{display:block}
+.pat-step{display:flex;gap:10px;padding:6px 10px;background:#fafaf9;border-radius:6px;margin-bottom:6px;font-size:12px}
+.pat-num{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;background:var(--green-50);color:var(--green)}
+.pat-meta{font-size:11px;color:var(--slate);margin-top:8px;padding-top:8px;border-top:1px solid var(--border);display:flex;gap:16px;flex-wrap:wrap}
+.trigger{font-size:12px;color:var(--text-secondary);padding:2px 0}
+.trigger::before{content:"⚠️ "}
+.tag-sm{font-size:9px;padding:1px 6px;border-radius:4px;font-weight:600}
+.tag-red{background:var(--red-50);color:var(--red)}
+.tag-amber{background:var(--amber-50);color:var(--amber)}
+.tag-green{background:var(--green-50);color:var(--green)}
+.tag-blue{background:var(--blue-50);color:var(--blue)}
+</style>
+
+<div class="pat-card">
+<div class="pat-head" onclick="this.parentElement.querySelector('.pat-body').classList.toggle('open')">
+<span class="tag-sm tag-red">高频</span><strong>涉政漏放</strong><span class="prio-tag prio-P0">P0</span><span style="font-size:11px;color:var(--slate)">出现4起 · 3-7天解决</span>
+</div>
+<div class="pat-body">
+<div class="trigger">审核员不了解涉政敏感人物（如"任大炮"→任志强）</div>
+<div class="trigger">关键词库缺失（如"富平"未覆盖）</div>
+<div class="trigger">机审+DHS命中后，人审未跟进拦截</div>
+<div class="trigger">一审不通过→回扫通过，两轮结果矛盾</div>
+<div style="margin:8px 0;font-weight:600">标准方案链（6步）：</div>
+<div class="pat-step"><span class="pat-num">1</span><div><strong>关键词排查+数据回扫</strong><br><small>覆盖变体/别称/代称 · T+1</small></div></div>
+<div class="pat-step"><span class="pat-num">2</span><div><strong>初版复盘+全员通报</strong><br><small>T+1</small></div></div>
+<div class="pat-step"><span class="pat-num">3</span><div><strong>反华人物专项培训+涉政人物清单宣导</strong><br><small>T+3</small></div></div>
+<div class="pat-step"><span class="pat-num">4</span><div><strong>闭卷测试验收，准确率100%</strong><br><small>T+7</small></div></div>
+<div class="pat-step"><span class="pat-num">5</span><div><strong>回扫流程优化：涉政增加专项复核</strong><br><small>T+5</small></div></div>
+<div class="pat-step"><span class="pat-num">6</span><div><strong>定期抽问+案例持续收集</strong><br><small>持续 · 质量侧</small></div></div>
+<div class="pat-meta"><span>📋 TK-009</span><span>📋 TK-010</span><span>📋 TK-017</span><span>📋 TK-018</span><span>💰 ¥750-1500</span><span>🔑 关键词库更新是关键</span></div>
+</div>
+</div>
+
+<div class="pat-card">
+<div class="pat-head" onclick="this.parentElement.querySelector('.pat-body').classList.toggle('open')">
+<span class="tag-sm tag-red">高频</span><strong>人效不达标</strong><span class="prio-tag prio-P0">P0</span><span style="font-size:11px;color:var(--red)">当前1条超期中</span>
+</div>
+<div class="pat-body">
+<div class="trigger">日审核量远低于标准（如17 vs 35-40条）</div>
+<div class="trigger">新人效率爬坡慢 / QC直播间优先级不明确</div>
+<div style="margin:8px 0;font-weight:600">标准方案链（7步）：</div>
+<div class="pat-step"><span class="pat-num">1</span><div><strong>人员审核录屏分析</strong> · T+6</div></div>
+<div class="pat-step"><span class="pat-num">2</span><div><strong>SKU时长测算</strong> · T+13</div></div>
+<div class="pat-step"><span class="pat-num" style="background:var(--blue-50);color:var(--blue)">3</span><div><strong>审核SOP优化</strong> · T+10 ⚠️常见超期</div></div>
+<div class="pat-step"><span class="pat-num" style="background:var(--blue-50);color:var(--blue)">4</span><div><strong>QC直播间优先级明确</strong> · T+11</div></div>
+<div class="pat-step"><span class="pat-num" style="background:var(--blue-50);color:var(--blue)">5</span><div><strong>新人培训+效率爬坡</strong> · T+13</div></div>
+<div class="pat-step"><span class="pat-num" style="background:var(--blue-50);color:var(--blue)">6</span><div><strong>现场管理密切关注审核状态</strong> · 持续</div></div>
+<div class="pat-step"><span class="pat-num" style="background:var(--blue-50);color:var(--blue)">7</span><div><strong>人效达标：核心15条/日，尾部12条/日</strong> · T+16</div></div>
+<div class="pat-meta"><span>📋 TK-011（超期15天）</span><span>💰 ¥1200</span><span>💡 建议拆小里程碑</span></div>
+</div>
+</div>
+
+<div class="pat-card">
+<div class="pat-head" onclick="this.parentElement.querySelector('.pat-body').classList.toggle('open')">
+<span class="tag-sm tag-amber">高风险</span><strong>质检管理</strong><span class="prio-tag prio-P0">P0</span><span style="font-size:11px;color:var(--green)">标杆案例</span>
+</div>
+<div class="pat-body">
+<div class="trigger">单人次品率飙升至正常3倍+ / 全组次品暴增362%</div>
+<div class="trigger">日报正常但无异常标注 / 管理侧对异常无反应</div>
+<div style="margin:8px 0;font-weight:600">标准方案链（7步）：</div>
+<div class="pat-step"><span class="pat-num">1</span><div><strong>日度异常预警</strong> · 本周</div></div>
+<div class="pat-step"><span class="pat-num">2</span><div><strong>人员专项纠偏</strong> · 本周</div></div>
+<div class="pat-step"><span class="pat-num">3</span><div><strong>补充缺失日报</strong> · 本周</div></div>
+<div class="pat-step"><span class="pat-num">4</span><div><strong>异常响应SOP（>0.5%暂停→回查→培训→上线）</strong> · 2周</div></div>
+<div class="pat-step"><span class="pat-num">5</span><div><strong>日报模板升级（排名+TOP3+环比）</strong> · 2周</div></div>
+<div class="pat-step"><span class="pat-num">6</span><div><strong>管理岗KPI（响应≤4h，覆盖率100%）</strong> · 1月</div></div>
+<div class="pat-step"><span class="pat-num">7</span><div><strong>系统优化：OCR二次校验</strong> · 1月</div></div>
+<div class="pat-meta"><span>📋 TK-003（7天闭环）</span><span>💰 ¥1500</span><span>✅ 此后无复发</span></div>
+</div>
+</div>
+
+<div class="pat-card">
+<div class="pat-head" onclick="this.parentElement.querySelector('.pat-body').classList.toggle('open')">
+<span class="tag-sm tag-red">高频</span><strong>客服投诉</strong><span class="prio-tag prio-P0">P0</span><span style="font-size:11px;color:var(--slate)">出现2起</span>
+</div>
+<div class="pat-body">
+<div class="trigger">甲方直接投诉 / 客服基础操作出错 / 响应超时</div>
+<div class="trigger">已知问题已预警但未落实（有空窗期）</div>
+<div style="margin:8px 0;font-weight:600">标准方案链（5步）：</div>
+<div class="pat-step"><span class="pat-num">1</span><div><strong>立即排查</strong>（排班+响应记录+聊天记录）· T+0</div></div>
+<div class="pat-step"><span class="pat-num">2</span><div><strong>建立响应时效监控+超时告警</strong> · T+5</div></div>
+<div class="pat-step"><span class="pat-num">3</span><div><strong>评估人力+调整排班</strong> · T+7</div></div>
+<div class="pat-step"><span class="pat-num">4</span><div><strong>向甲方提交说明+改进措施</strong> · T+2</div></div>
+<div class="pat-step"><span class="pat-num">5</span><div><strong>案例入培训+预警机制</strong> · 持续</div></div>
+<div class="pat-meta"><span>📋 TK-001</span><span>📋 TK-013</span><span>🚨 月内2起→启动客服审计</span></div>
+</div>
+</div>
+
+<div class="pat-card">
+<div class="pat-head" onclick="this.parentElement.querySelector('.pat-body').classList.toggle('open')">
+<span class="tag-sm tag-amber">中频</span><strong>审核系统稳定性</strong><span class="prio-tag prio-P0">P0</span><span style="font-size:11px;color:var(--slate)">出现2起</span>
+</div>
+<div class="pat-body">
+<div class="trigger">CMA掉线→审核积压 / 人审率飙升30%→80%</div>
+<div class="trigger">告警只提示积压量未关联根因</div>
+<div style="margin:8px 0;font-weight:600">标准方案链（6步）：</div>
+<div class="pat-step"><span class="pat-num">1</span><div><strong>修复自动续期逻辑</strong> · 技术 · T+3</div></div>
+<div class="pat-step"><span class="pat-num">2</span><div><strong>告警增加在线数<5自动@管理方</strong> · T+5</div></div>
+<div class="pat-step"><span class="pat-num">3</span><div><strong>人工应急预案（退出→重登→验证）</strong> · T+3</div></div>
+<div class="pat-step"><span class="pat-num">4</span><div><strong>Dashboard监控（登录态/识别率/人审率）</strong> · T+10</div></div>
+<div class="pat-step"><span class="pat-num">5</span><div><strong>上岗前CMA状态检查</strong> · 持续</div></div>
+<div class="pat-step"><span class="pat-num">6</span><div><strong>分级升级+超时提醒触达验证</strong> · T+3</div></div>
+<div class="pat-meta"><span>📋 TK-004（当日闭环）</span><span>📋 TK-014（超期中）</span><span>🔑 告警双重触达</span></div>
+</div>
+</div>
+
+<div class="pat-card">
+<div class="pat-head" onclick="this.parentElement.querySelector('.pat-body').classList.toggle('open')">
+<span class="tag-sm tag-amber">中频</span><strong>培训考核</strong><span class="prio-tag prio-P0">P0</span><span style="font-size:11px;color:var(--red)">1条超期中</span>
+</div>
+<div class="pat-body">
+<div class="trigger">培训专员漏指派 / 组长未发现 / 周期性任务无提醒</div>
+<div style="margin:8px 0;font-weight:600">标准方案链（2步）：</div>
+<div class="pat-step"><span class="pat-num">1</span><div><strong>建立任务清单+2h响应机制</strong> · 培训专员 · T+1</div></div>
+<div class="pat-step"><span class="pat-num">2</span><div><strong>组长每周检查+日历自动提醒</strong> · T+4</div></div>
+<div class="pat-meta"><span>📋 TK-012（超期6天）</span><span>💰 ¥1200</span></div>
+</div>
+</div>
+</div>
+
+<!-- Alert Rules -->
+<div style="margin-top:28px">
+<div style="font-size:18px;font-weight:700;margin-bottom:12px">🚨 异常检测规则</div>
+<style>
+.rules-tbl{width:100%;border-collapse:collapse;font-size:12px;background:var(--surface);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);margin-bottom:24px}
+.rules-tbl th{text-align:left;padding:8px 14px;background:#fafaf9;font-size:10px;text-transform:uppercase;color:var(--text-secondary);border-bottom:1px solid var(--border)}
+.rules-tbl td{padding:8px 14px;border-bottom:1px solid var(--border-light)}
+.rules-tbl tr:last-child td{border:none}
+.badge-sm{font-size:9px;padding:1px 6px;border-radius:3px;font-weight:600}
+</style>
+<table class="rules-tbl">
+<tr><th>触发条件</th><th>级别</th><th>动作</th></tr>
+<tr><td>同供应商3天≥3条新工单</td><td><span class="badge-sm tag-red">🔴高</span></td><td>启动专项审计</td></tr>
+<tr><td>同标签7天≥3次</td><td><span class="badge-sm tag-amber">🟡中</span></td><td>评估系统性风险</td></tr>
+<tr><td>工单>10天未解决</td><td><span class="badge-sm tag-red">🔴高</span></td><td>升级管理群</td></tr>
+<tr><td>全部方案超期</td><td><span class="badge-sm tag-red">🔴高</span></td><td>立即电话沟通</td></tr>
+<tr><td>P0>3天未in_progress</td><td><span class="badge-sm tag-amber">🟡中</span></td><td>确认负责人</td></tr>
+<tr><td>同类型30天内复发</td><td><span class="badge-sm tag-red">🔴高</span></td><td>上次方案未落地</td></tr>
+<tr><td>方案超期>5天无进展</td><td><span class="badge-sm tag-amber">🟡中</span></td><td>升级催促</td></tr>
+<tr><td>标题相似>80%+同供应商</td><td><span class="badge-sm tag-amber">🟡中</span></td><td>确认合并</td></tr>
+</table>
+</div>
+
+<!-- Vendor Profiles -->
+<div style="margin-top:4px">
+<div style="font-size:18px;font-weight:700;margin-bottom:12px">🏭 供应商风险画像</div>
+<style>
+.ven-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:12px;margin-bottom:24px}
+.ven-card{background:var(--surface);border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow);overflow:hidden}
+.ven-head{padding:12px 16px;font-weight:700;font-size:14px;border-bottom:1px solid var(--border)}
+.ven-body{padding:12px 16px;font-size:12px;line-height:1.8}
+.ven-body ul{margin:2px 0 8px;padding-left:16px}
+</style>
+<div class="ven-grid">
+<div class="ven-card" style="border-top:3px solid var(--blue)">
+<div class="ven-head">钱燕线 · 新阳南宁+洛阳</div>
+<div class="ven-body">
+<strong>✅</strong> 处理速度快、复盘质量高<br>
+<strong>⚠️</strong> 南宁客服易复发、得物线近期密集、舆情指令有漏洞<br>
+<strong>💡</strong> 每月客服基础抽查 + 关注得物趋势
+</div></div>
+<div class="ven-card" style="border-top:3px solid var(--red)">
+<div class="ven-head">刘倩线 · 易网临汾+徽音郑州</div>
+<div class="ven-body">
+<strong>✅</strong> 徽音复盘产出质量高<br>
+<strong>⚠️</strong> <span style="color:var(--red)">超期率最高</span>：2条超期、所有超期方案都在此线<br>
+<strong>💡</strong> <strong>当前最需介入</strong>：1v1逐条过、临汾专项跟进
+</div></div>
+<div class="ven-card" style="border-top:3px solid var(--green)">
+<div class="ven-head">张思语线 · 绥阳+诺达+淘金+驻马店</div>
+<div class="ven-body">
+<strong>✅</strong> 绥阳质检改善彻底、工单量少<br>
+<strong>⚠️</strong> 诺达新增商汤工单、疑似重复TK-021/022<br>
+<strong>💡</strong> 确认重复工单、关注诺达进展、抽查淘金/驻马店
+</div></div>
+</div>
+</div>
 </div>
 <script>
 var solutions = [];
