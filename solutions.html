@@ -3,660 +3,836 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>方案库</title>
+<title>方案库 · 龙虾学习系统</title>
 <style>
+:root {
+  --bg: #f7f6f3; --surface: #ffffff; --text: #1c1917; --text-secondary: #78716c;
+  --border: #e7e5e4; --border-light: #f5f5f4;
+  --blue: #2563eb; --blue-50: #eff6ff; --blue-100: #dbeafe;
+  --red: #dc2626; --red-50: #fef2f2; --red-100: #fee2e2;
+  --green: #16a34a; --green-50: #f0fdf4; --green-100: #dcfce7;
+  --amber: #d97706; --amber-50: #fffbeb; --amber-100: #fef3c7;
+  --slate: #78716c; --purple: #7c3aed; --purple-50: #f5f3ff;
+  --radius: 14px; --radius-sm: 10px; --radius-xs: 7px;
+  --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.03);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.05);
+}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,sans-serif;background:#f1f5f9;color:#0f172a}
-.header{background:linear-gradient(135deg,#0f172a,#1e293b,#0f3460);color:#fff;padding:14px 20px;display:flex;justify-content:space-between;align-items:center}
-.header h1{font-size:18px}
-.header a{color:#94a3b8;font-size:12px;text-decoration:none}
-.filters{display:flex;gap:8px;padding:12px 16px;background:#fff;border-bottom:1px solid #e2e8f0;flex-wrap:wrap;align-items:center}
-.filters select,.filters input{padding:6px 10px;border:1px solid #e2e8f0;border-radius:6px;font-size:12px;outline:none}
-.filters input{flex:1;min-width:150px;max-width:300px}
-.container{max-width:1100px;margin:0 auto;padding:16px}
-.sol-list{display:flex;flex-direction:column;gap:8px}
-.sol-card{background:#fff;border-radius:8px;border:1px solid #e2e8f0;overflow:hidden}
-.sol-header{display:flex;align-items:center;gap:10px;padding:10px 14px;font-size:12px;background:#f8fafc;flex-wrap:wrap}
-.sol-id{font-family:monospace;color:#94a3b8;font-size:11px}
-.cat-tag{font-size:10px;padding:2px 8px;border-radius:4px;background:#eff6ff;color:#3b82f6;font-weight:600}
-.prio-tag{font-size:10px;padding:2px 8px;border-radius:4px;font-weight:700}
-.prio-tag.P0{background:#fee2e2;color:#dc2626}
-.prio-tag.P1{background:#fef3c7;color:#d97706}
-.prio-tag.P2{background:#d1fae5;color:#059669}
-.prio-tag.P3{background:#f1f5f9;color:#64748b}
-.sol-body{padding:10px 14px}
-.sol-body ol{padding-left:20px;font-size:13px;color:#334155;line-height:1.8}
-.sol-meta{font-size:11px;color:#94a3b8;margin-top:6px}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;font-size:14px;-webkit-font-smoothing:antialiased}
+.app-header{background:linear-gradient(135deg,#1c1917,#292524,#1c1917);color:#fff;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;gap:16px;position:sticky;top:0;z-index:100;box-shadow:0 1px 3px rgba(0,0,0,0.2)}
+.header-brand{display:flex;align-items:center;gap:10px;font-size:16px;font-weight:700}
+.header-nav{display:flex;gap:6px;flex-wrap:wrap}
+.header-nav a{color:#a8a29e;text-decoration:none;font-size:12px;padding:6px 12px;border-radius:var(--radius-xs);transition:all .2s}
+.header-nav a:hover,.header-nav a.active{color:#fff;background:rgba(255,255,255,0.08)}
+.container{max-width:1200px;margin:0 auto;padding:20px}
+
+/* Top stats */
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:20px}
+.stat-card{background:var(--surface);border-radius:var(--radius-sm);padding:14px 16px;border:1px solid var(--border);box-shadow:var(--shadow)}
+.stat-label{font-size:11px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.stat-value{font-size:24px;font-weight:700}
+.stat-value.red{color:var(--red)} .stat-value.green{color:var(--green)} .stat-value.blue{color:var(--blue)} .stat-value.amber{color:var(--amber)}
+
+/* Section headers */
+.section{margin-bottom:28px}
+.section-title{font-size:18px;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.section-desc{font-size:13px;color:var(--text-secondary);margin-bottom:14px}
+
+/* Tabs */
+.tabs{display:flex;gap:4px;margin-bottom:14px;flex-wrap:wrap}
+.tab{padding:6px 16px;border-radius:var(--radius-xs);font-size:12px;cursor:pointer;border:1px solid var(--border);background:var(--surface);color:var(--text-secondary);transition:all .15s}
+.tab:hover{border-color:var(--blue);color:var(--blue)}
+.tab.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+
+/* Solution chain card */
+.chain-card{background:var(--surface);border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow);margin-bottom:12px;overflow:hidden}
+.chain-header{padding:14px 18px;background:#fafaf9;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;flex-wrap:wrap;cursor:pointer}
+.chain-header:hover{background:#f5f5f4}
+.chain-id{font-family:monospace;font-size:11px;color:var(--slate)}
+.chain-tag{font-size:10px;padding:2px 8px;border-radius:4px;font-weight:600;white-space:nowrap}
+.chain-tag.red{background:var(--red-100);color:var(--red)}
+.chain-tag.amber{background:var(--amber-100);color:var(--amber)}
+.chain-tag.green{background:var(--green-100);color:var(--green)}
+.chain-tag.blue{background:var(--blue-100);color:var(--blue)}
+.chain-tag.purple{background:var(--purple-50);color:var(--purple)}
+.prio-tag{font-size:10px;padding:2px 6px;border-radius:4px;font-weight:700}
+.prio-P0{background:var(--red-100);color:var(--red)}
+.prio-P1{background:var(--amber-100);color:var(--amber)}
+.prio-P2{background:var(--green-100);color:var(--green)}
+.chain-body{padding:14px 18px;display:none}
+.chain-body.open{display:block}
+.chain-steps{display:grid;gap:8px}
+.chain-step{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;background:#fafaf9;border-radius:var(--radius-xs);font-size:13px}
+.step-num{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px}
+.step-num.done{background:var(--green-100);color:var(--green)}
+.step-num.next{background:var(--blue-100);color:var(--blue)}
+.step-owner{font-size:11px;color:var(--text-secondary)}
+.chain-meta{font-size:11px;color:var(--slate);margin-top:10px;padding-top:10px;border-top:1px solid var(--border);display:flex;gap:16px;flex-wrap:wrap}
+.chain-meta span{display:flex;align-items:center;gap:4px}
+.trigger-list{list-style:none;padding:0;margin:6px 0}
+.trigger-list li{padding:3px 0;font-size:12px;color:var(--text-secondary)}
+.trigger-list li::before{content:"⚠️ ";color:var(--amber)}
+
+/* Learn section */
+.learn-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
+.learn-card{background:var(--surface);border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow);padding:18px}
+.learn-card h4{font-size:15px;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.learn-path{list-style:none;padding:0}
+.learn-path li{padding:4px 0;font-size:13px;display:flex;align-items:flex-start;gap:6px}
+.learn-path li::before{content:"□";color:var(--slate);font-size:14px}
+
+/* Vendor profile */
+.vendor-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:14px}
+.vendor-card{background:var(--surface);border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow);overflow:hidden}
+.vendor-card .ven-head{padding:14px 18px;font-weight:700;font-size:15px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.vendor-card .ven-body{padding:14px 18px;font-size:13px}
+.vendor-card .ven-body ul{margin:4px 0;padding-left:20px}
+.vendor-card .ven-body li{padding:2px 0}
+.tag-strength{font-size:10px;padding:1px 6px;border-radius:4px;background:var(--green-100);color:var(--green)}
+.tag-risk{font-size:10px;padding:1px 6px;border-radius:4px;background:var(--red-100);color:var(--red)}
+
+/* Alert rules */
+.rules-table{width:100%;border-collapse:collapse;font-size:13px;background:var(--surface);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+.rules-table th{text-align:left;padding:10px 14px;background:#fafaf9;font-size:11px;text-transform:uppercase;color:var(--text-secondary);font-weight:600;border-bottom:1px solid var(--border)}
+.rules-table td{padding:10px 14px;border-bottom:1px solid var(--border-light)}
+.rules-table tr:last-child td{border-bottom:none}
+.badge{font-size:10px;padding:2px 8px;border-radius:4px;font-weight:600}
+.badge-red{background:var(--red-100);color:var(--red)}
+.badge-amber{background:var(--amber-100);color:var(--amber)}
+
+/* Search */
+.search-bar{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;align-items:center}
+.search-bar input,.search-bar select{padding:8px 12px;border:1px solid var(--border);border-radius:var(--radius-xs);font-size:13px;outline:none;background:var(--surface)}
+.search-bar input:focus,.search-bar select:focus{border-color:var(--blue);box-shadow:0 0 0 2px var(--blue-100)}
+.search-bar input{flex:1;min-width:200px;max-width:400px}
+
+/* Report template preview */
+.template-box{background:#1c1917;color:#e7e5e4;padding:16px 20px;border-radius:var(--radius-sm);font-family:monospace;font-size:12px;line-height:1.8;white-space:pre-wrap;max-height:400px;overflow-y:auto}
+
+/* Exercise card */
+.exercise-card{background:linear-gradient(135deg,var(--purple-50),#faf5ff);border:2px dashed var(--purple);border-radius:var(--radius);padding:18px;margin-bottom:12px}
+.exercise-card h4{color:var(--purple);margin-bottom:8px}
+.exercise-card ol{padding-left:20px;font-size:13px;line-height:1.8}
+
+/* Responsive */
+@media(max-width:768px){
+  .app-header{padding:12px 16px}
+  .container{padding:12px}
+  .vendor-grid,.learn-grid{grid-template-columns:1fr}
+  .stats-row{grid-template-columns:repeat(2,1fr)}
+}
 </style>
 </head>
 <body>
-<div class="header">
-  <h1>📚 方案库</h1>
-  <a href="https://laix852-dev.github.io/ticket-kanban/">← 返回看板</a>
+<div class="app-header">
+  <div class="header-brand">📚 方案库 · 龙虾学习系统</div>
+  <div class="header-nav">
+    <a href="https://laix852-dev.github.io/ticket-kanban/">← 返回看板</a>
+    <a href="#patterns" onclick="scrollToSection('patterns')">问题模式</a>
+    <a href="#solutions" onclick="scrollToSection('solutions')">方案明细</a>
+    <a href="#learn" onclick="scrollToSection('learn')">学习系统</a>
+    <a href="#vendors" onclick="scrollToSection('vendors')">供应商画像</a>
+    <a href="#rules" onclick="scrollToSection('rules')">检测规则</a>
+    <a href="#reports" onclick="scrollToSection('reports')">报告模板</a>
+  </div>
 </div>
-<div class="filters">
-  <select id="fCat" onchange="filter()"><option value="all">全部分类</option><option value="其他">其他</option><option value="培训管理">培训管理</option><option value="客户投诉">客户投诉</option><option value="数据管理">数据管理</option><option value="涉政漏判">涉政漏判</option><option value="漏放处理">漏放处理</option><option value="质检管理">质检管理</option></select>
-  <select id="fPrio" onchange="filter()"><option value="all">全部优先级</option><option>P0</option><option>P1</option><option>P2</option><option>P3</option></select>
-  <input type="text" id="fSearch" placeholder="搜索方案..." oninput="filter()">
-  <span style="font-size:12px;color:#94a3b8" id="count"></span>
+<div class="container">
+
+<!-- Stats -->
+<div class="stats-row">
+  <div class="stat-card"><div class="stat-label">问题模式</div><div class="stat-value blue">8</div></div>
+  <div class="stat-card"><div class="stat-label">方案条目</div><div class="stat-value">46</div></div>
+  <div class="stat-card"><div class="stat-label">历史案例</div><div class="stat-value green">16</div></div>
+  <div class="stat-card"><div class="stat-label">供应商</div><div class="stat-value">8</div></div>
+  <div class="stat-card"><div class="stat-label">预警规则</div><div class="stat-value amber">8</div></div>
+  <div class="stat-card"><div class="stat-label">学习路径</div><div class="stat-value purple">4</div></div>
 </div>
-<div class="container"><div class="sol-list" id="list">
-    <div class="sol-card" data-cat="培训管理" data-vendor="河南新阳科技（南宁）" data-prio="P0">
-      <div class="sol-header">
-        <span class="sol-id">SOL-001</span>
-        <span class="cat-tag">培训管理</span>
-        <span class="prio-tag P0">P0</span>
-        <span class="impact-tag">🔴</span>
-        <span>河南新阳科技（南宁）</span>
-      </div>
-      <div class="sol-body">
-        <ol><li>暂停该小二在线客服权限，完成练习并通过考核后再恢复 · 梁宁 · T+1</li></ol>
-        <div class="sol-meta">来源: TK-2026-001 · 使用 1 次</div>
-      </div>
+
+<!-- Problem Patterns -->
+<div class="section" id="patterns">
+<div class="section-title">🔬 问题模式库</div>
+<div class="section-desc">从 16 条真实工单中提炼的 8 类高频问题，含完整方案链、触发信号和预防措施。展开查看完整方案。</div>
+
+<div class="chain-card" id="pat-shezheng">
+  <div class="chain-header" onclick="this.parentElement.querySelector('.chain-body').classList.toggle('open')">
+    <span class="chain-tag red">高频 ⭐⭐⭐⭐⭐</span>
+    <strong>涉政漏放</strong>
+    <span class="prio-tag prio-P0">P0</span>
+    <span style="font-size:11px;color:var(--slate)">出现 4 起 · 3-7天解决 · 全部完结</span>
+  </div>
+  <div class="chain-body">
+    <div style="margin-bottom:10px"><strong>触发信号：</strong></div>
+    <ul class="trigger-list">
+      <li>审核员不了解涉政敏感人物（如"任大炮"→任志强）</li>
+      <li>关键词库缺失（如"富平"未覆盖）</li>
+      <li>机审+DHS 命中后，人审未跟进拦截</li>
+      <li>一审不通过→回扫通过，两轮结果矛盾</li>
+    </ul>
+    <div style="margin:12px 0 8px"><strong>标准方案链（6 步）：</strong></div>
+    <div class="chain-steps">
+      <div class="chain-step"><span class="step-num done">1</span><div><strong>关键词排查 + 数据回扫</strong><br><span class="step-owner">供应商管理岗 · T+1</span><br><small>排查范围需覆盖变体/别称/代称，如"大炮""皇帝"等</small></div></div>
+      <div class="chain-step"><span class="step-num done">2</span><div><strong>初版复盘输出 + 全员通报</strong><br><span class="step-owner">供应商管理岗 · T+1</span></div></div>
+      <div class="chain-step"><span class="step-num done">3</span><div><strong>反华人物专项培训 + 涉政人物清单宣导</strong><br><span class="step-owner">培训侧 · T+3</span><br><small>含别称/代称/隐喻对照表</small></div></div>
+      <div class="chain-step"><span class="step-num done">4</span><div><strong>闭卷测试验收</strong><br><span class="step-owner">培训侧 · T+7</span><br><small>准确率目标 100%，未达标需补训</small></div></div>
+      <div class="chain-step"><span class="step-num done">5</span><div><strong>回扫流程优化：涉政增加专项复核环节</strong><br><span class="step-owner">技术/质量侧 · T+5</span></div></div>
+      <div class="chain-step"><span class="step-num done">6</span><div><strong>定期抽问 + 案例持续收集</strong><br><span class="step-owner">质量侧 · 持续</span><br><small>每两周涉政/反华案例抽问</small></div></div>
     </div>
-    <div class="sol-card" data-cat="培训管理" data-vendor="河南新阳科技（南宁）" data-prio="P0">
-      <div class="sol-header">
-        <span class="sol-id">SOL-002</span>
-        <span class="cat-tag">培训管理</span>
-        <span class="prio-tag P0">P0</span>
-        <span class="impact-tag">🔴</span>
-        <span>河南新阳科技（南宁）</span>
-      </div>
-      <div class="sol-body">
-        <ol><li>逐一核查团队内所有客服小二是否掌握行政区查询等基础操作 · 梁宁 · T+3</li></ol>
-        <div class="sol-meta">来源: TK-2026-001 · 使用 1 次</div>
-      </div>
+    <div class="chain-meta">
+      <span>📋 TK-009</span><span>📋 TK-010</span><span>📋 TK-017</span><span>📋 TK-018</span>
+      <span>💰 处罚 ¥750-1500</span>
+      <span>🔑 关键词库更新是关键预防</span>
     </div>
-    <div class="sol-card" data-cat="培训管理" data-vendor="河南新阳科技（南宁）" data-prio="P0">
-      <div class="sol-header">
-        <span class="sol-id">SOL-003</span>
-        <span class="cat-tag">培训管理</span>
-        <span class="prio-tag P0">P0</span>
-        <span class="impact-tag">🔴</span>
-        <span>河南新阳科技（南宁）</span>
-      </div>
-      <div class="sol-body">
-        <ol><li>建立客服小二错误预警机制：单日同一错误≥2次自动同步管理方 · 梁宁/来昕怡 · T+5</li></ol>
-        <div class="sol-meta">来源: TK-2026-001 · 使用 1 次</div>
-      </div>
+  </div>
+</div>
+
+<div class="chain-card" id="pat-renxiao">
+  <div class="chain-header" onclick="this.parentElement.querySelector('.chain-body').classList.toggle('open')">
+    <span class="chain-tag red">高频 ⭐⭐⭐⭐</span>
+    <strong>人效不达标</strong>
+    <span class="prio-tag prio-P0">P0</span>
+    <span style="font-size:11px;color:var(--red)">当前 1 条超期中</span>
+  </div>
+  <div class="chain-body">
+    <div style="margin-bottom:10px"><strong>触发信号：</strong></div>
+    <ul class="trigger-list">
+      <li>日审核量级远低于标准值（如 17 vs 35-40 条）</li>
+      <li>新人效率爬坡慢</li>
+      <li>QC 直播间优先级不明确</li>
+      <li>黑灰产识别能力不足</li>
+    </ul>
+    <div style="margin:12px 0 8px"><strong>标准方案链（7 步）：</strong></div>
+    <div class="chain-steps">
+      <div class="chain-step"><span class="step-num done">1</span><div><strong>人员审核录屏分析</strong><br><span class="step-owner">管理岗 · T+6</span><br><small>找到审核效率低的痛点</small></div></div>
+      <div class="chain-step"><span class="step-num done">2</span><div><strong>SKU 时长测算</strong><br><span class="step-owner">管理岗 · T+13</span><br><small>根据 SKU 资质测算单 SKU 所需审核时长</small></div></div>
+      <div class="chain-step"><span class="step-num next">3</span><div><strong>审核 SOP 优化</strong><br><span class="step-owner">管理岗 · T+10</span><br><small>联动驻场进行流程检查和技巧传授。⚠️ 常见超期环节</small></div></div>
+      <div class="chain-step"><span class="step-num next">4</span><div><strong>QC 直播间优先级明确</strong><br><span class="step-owner">客户侧 · T+11</span><br><small>需与客户确认，外部依赖风险</small></div></div>
+      <div class="chain-step"><span class="step-num next">5</span><div><strong>新人培训计划 + 效率爬坡</strong><br><span class="step-owner">管理岗 · T+13</span></div></div>
+      <div class="chain-step"><span class="step-num next">6</span><div><strong>现场管理密切关注审核状态</strong><br><span class="step-owner">管理岗 · 持续</span><br><small>异常及时介入上报</small></div></div>
+      <div class="chain-step"><span class="step-num next">7</span><div><strong>人效达标：核心 15条/日，尾部 12条/日</strong><br><span class="step-owner">管理岗 · T+16</span></div></div>
     </div>
-    <div class="sol-card" data-cat="培训管理" data-vendor="河南新阳科技（南宁）" data-prio="P0">
-      <div class="sol-header">
-        <span class="sol-id">SOL-004</span>
-        <span class="cat-tag">培训管理</span>
-        <span class="prio-tag P0">P0</span>
-        <span class="impact-tag">🔴</span>
-        <span>河南新阳科技（南宁）</span>
-      </div>
-      <div class="sol-body">
-        <ol><li>制定客服小二定期考核表（月度），确保基础操作不退化 · 梁宁 · T+10</li></ol>
-        <div class="sol-meta">来源: TK-2026-001 · 使用 1 次</div>
-      </div>
+    <div class="chain-meta">
+      <span>📋 TK-011（超期 15 天）</span>
+      <span>💰 处罚 ¥1200</span>
+      <span>⚠️ SOP优化和新人培训易超期</span>
+      <span>💡 建议拆分为小里程碑</span>
     </div>
-    <div class="sol-card" data-cat="培训管理" data-vendor="河南新阳科技（南宁）" data-prio="P0">
-      <div class="sol-header">
-        <span class="sol-id">SOL-005</span>
-        <span class="cat-tag">培训管理</span>
-        <span class="prio-tag P0">P0</span>
-        <span class="impact-tag">🔴</span>
-        <span>河南新阳科技（南宁）</span>
-      </div>
-      <div class="sol-body">
-        <ol><li>将本次案例作为反面教材纳入新小二入职培训 · 梁宁 · 持续</li></ol>
-        <div class="sol-meta">来源: TK-2026-001 · 使用 1 次</div>
-      </div>
+  </div>
+</div>
+
+<div class="chain-card" id="pat-zhijian">
+  <div class="chain-header" onclick="this.parentElement.querySelector('.chain-body').classList.toggle('open')">
+    <span class="chain-tag amber">高风险 ⭐⭐⭐</span>
+    <strong>质检管理</strong>
+    <span class="prio-tag prio-P0">P0</span>
+    <span style="font-size:11px;color:var(--green)">已完结 · 标杆案例</span>
+  </div>
+  <div class="chain-body">
+    <div style="margin-bottom:10px"><strong>触发信号：</strong></div>
+    <ul class="trigger-list">
+      <li>单人次品率突然飙升（如 0.18%→0.66%，3 倍于正常值）</li>
+      <li>全组次品暴增（如 8 条→37 条，+362%）</li>
+      <li>日报正常发送但无异常标注</li>
+      <li>管理侧对数据异常无反应</li>
+    </ul>
+    <div style="margin:12px 0 8px"><strong>标准方案链（7 步）：</strong></div>
+    <div class="chain-steps">
+      <div class="chain-step"><span class="step-num done">1</span><div><strong>日度异常预警机制</strong><br><span class="step-owner">管理岗 · 本周</span><br><small>单人次品≥5条标注姓名+类型；次品环比>100%追加原因</small></div></div>
+      <div class="chain-step"><span class="step-num done">2</span><div><strong>人员专项纠偏</strong><br><span class="step-owner">管理岗 · 本周</span><br><small>全量回查 + 针对性培训 + 加抽检</small></div></div>
+      <div class="chain-step"><span class="step-num done">3</span><div><strong>补充缺失日报</strong><br><span class="step-owner">管理岗 · 本周</span></div></div>
+      <div class="chain-step"><span class="step-num done">4</span><div><strong>异常响应 SOP</strong><br><span class="step-owner">管理岗 · 2周内</span><br><small>次品率>0.5% → 暂停审核→回查→培训→重新上线</small></div></div>
+      <div class="chain-step"><span class="step-num done">5</span><div><strong>日报模板升级</strong><br><span class="step-owner">管理岗 · 2周内</span><br><small>人员排名 + TOP3次品类型 + 环比变化</small></div></div>
+      <div class="chain-step"><span class="step-num done">6</span><div><strong>管理岗 KPI 明确</strong><br><span class="step-owner">管理岗 · 1个月</span><br><small>异常响应≤4小时，日报覆盖率100%</small></div></div>
+      <div class="chain-step"><span class="step-num done">7</span><div><strong>系统优化：OCR二次校验 + 关键字符高亮</strong><br><span class="step-owner">管理岗 · 1个月</span></div></div>
     </div>
-    <div class="sol-card" data-cat="质检管理" data-vendor="山西易网视界（临汾）" data-prio="P0">
-      <div class="sol-header">
-        <span class="sol-id">SOL-006</span>
-        <span class="cat-tag">质检管理</span>
-        <span class="prio-tag P0">P0</span>
-        <span class="impact-tag">🟡</span>
-        <span>山西易网视界（临汾）</span>
-      </div>
-      <div class="sol-body">
-        <ol><li>统一机审/初审/复审/清晰度判定标准 · 张丰平 · 2026-06-12</li></ol>
-        <div class="sol-meta">来源: TK-2026-002 · 使用 1 次</div>
-      </div>
+    <div class="chain-meta">
+      <span>📋 TK-003（标杆）</span>
+      <span>💰 处罚 ¥1500</span>
+      <span>✅ 7天闭环 · 此后无复发</span>
+      <span>🔑 从制度层面彻底解决</span>
     </div>
-    <div class="sol-card" data-cat="质检管理" data-vendor="山西易网视界（临汾）" data-prio="P0">
-      <div class="sol-header">
-        <span class="sol-id">SOL-007</span>
-        <span class="cat-tag">质检管理</span>
-        <span class="prio-tag P0">P0</span>
-        <span class="impact-tag">🟡</span>
-        <span>山西易网视界（临汾）</span>
-      </div>
-      <div class="sol-body">
-        <ol><li>对PIC进行交叉复核训练，减少主观偏差 · 张丰平 · 2026-06-19</li></ol>
-        <div class="sol-meta">来源: TK-2026-002 · 使用 1 次</div>
-      </div>
+  </div>
+</div>
+
+<div class="chain-card" id="pat-kefu">
+  <div class="chain-header" onclick="this.parentElement.querySelector('.chain-body').classList.toggle('open')">
+    <span class="chain-tag red">高频 ⭐⭐⭐⭐</span>
+    <strong>客服投诉</strong>
+    <span class="prio-tag prio-P0">P0</span>
+    <span style="font-size:11px;color:var(--slate)">出现 2 起 · 全部完结</span>
+  </div>
+  <div class="chain-body">
+    <div style="margin-bottom:10px"><strong>触发信号：</strong></div>
+    <ul class="trigger-list">
+      <li>甲方直接投诉（比内部发现严重一级）</li>
+      <li>客服基础操作出错（如遗漏行政区选项）</li>
+      <li>客服响应超时（未及时回复用户消息）</li>
+      <li>已知问题已预警但未落实（预警→发生有空窗期）</li>
+    </ul>
+    <div style="margin:12px 0 8px"><strong>标准方案链（5 步）：</strong></div>
+    <div class="chain-steps">
+      <div class="chain-step"><span class="step-num done">1</span><div><strong>立即排查</strong><br><span class="step-owner">对接人+管理岗 · T+0</span><br><small>排班记录 + 响应记录 + 聊天记录</small></div></div>
+      <div class="chain-step"><span class="step-num done">2</span><div><strong>建立响应时效监控 + 超时自动告警</strong><br><span class="step-owner">技术/管理 · T+5</span></div></div>
+      <div class="chain-step"><span class="step-num done">3</span><div><strong>评估人力是否充足，调整排班</strong><br><span class="step-owner">对接人 · T+7</span></div></div>
+      <div class="chain-step"><span class="step-num done">4</span><div><strong>向甲方提交事件说明及改进措施</strong><br><span class="step-owner">对接人 · T+2</span><br><small>修复客户信任关系</small></div></div>
+      <div class="chain-step"><span class="step-num done">5</span><div><strong>将案例纳入培训 + 建立预警机制</strong><br><span class="step-owner">管理岗 · 持续</span><br><small>同供应商不重复出现同类问题</small></div></div>
     </div>
-    <div class="sol-card" data-cat="培训管理" data-vendor="贵州硅易（绥阳）" data-prio="P0">
-      <div class="sol-header">
-        <span class="sol-id">SOL-008</span>
-        <span class="cat-tag">培训管理</span>
-        <span class="prio-tag P0">P0</span>
-        <span class="impact-tag">🔴</span>
-        <span>贵州硅易（绥阳）</span>
-      </div>
-      <div class="sol-body">
-        <ol><li>日度异常预警：单人次品≥5条标注姓名+类型；次品环比>100%追加原因 · 付林 · 本周</li></ol>
-        <div class="sol-meta">来源: TK-2026-003 · 使用 1 次</div>
-      </div>
+    <div class="chain-meta">
+      <span>📋 TK-001</span><span>📋 TK-013</span>
+      <span>💰 处罚 ¥1000-1500</span>
+      <span>🚨 月内2起投诉→启动客服审计</span>
     </div>
-    <div class="sol-card" data-cat="培训管理" data-vendor="贵州硅易（绥阳）" data-prio="P0">
-      <div class="sol-header">
-        <span class="sol-id">SOL-009</span>
-        <span class="cat-tag">培训管理</span>
-        <span class="prio-tag P0">P0</span>
-        <span class="impact-tag">🔴</span>
-        <span>贵州硅易（绥阳）</span>
-      </div>
-      <div class="sol-body">
-        <ol><li>王钦鹏专项纠偏：48条逐条回查 + 车牌录入培训 + 3天抽检1.5倍 · 付林 · 本周</li></ol>
-        <div class="sol-meta">来源: TK-2026-003 · 使用 1 次</div>
-      </div>
+  </div>
+</div>
+
+<div class="chain-card" id="pat-xitong">
+  <div class="chain-header" onclick="this.parentElement.querySelector('.chain-body').classList.toggle('open')">
+    <span class="chain-tag amber">中频 ⭐⭐⭐</span>
+    <strong>审核系统稳定性</strong>
+    <span class="prio-tag prio-P0">P0</span>
+    <span style="font-size:11px;color:var(--slate)">出现 2 起</span>
+  </div>
+  <div class="chain-body">
+    <div style="margin-bottom:10px"><strong>触发信号：</strong></div>
+    <ul class="trigger-list">
+      <li>CMA 登录态过期→审核积压（如 371 条）</li>
+      <li>人工介入率从 30% 飙升至 80%</li>
+      <li>告警只提示积压量，未关联根因</li>
+      <li>数据清理进度不达预期</li>
+    </ul>
+    <div style="margin:12px 0 8px"><strong>标准方案链（6 步）：</strong></div>
+    <div class="chain-steps">
+      <div class="chain-step"><span class="step-num done">1</span><div><strong>修复系统自动续期/自动重试逻辑</strong><br><span class="step-owner">技术侧 · T+3</span></div></div>
+      <div class="chain-step"><span class="step-num done">2</span><div><strong>告警增加关键指标</strong><br><span class="step-owner">技术侧 · T+5</span><br><small>CMA在线数<5 自动@管理方</small></div></div>
+      <div class="chain-step"><span class="step-num done">3</span><div><strong>制定人工应急预案</strong><br><span class="step-owner">管理岗 · T+3</span><br><small>退出→重登→验证三步骤</small></div></div>
+      <div class="chain-step"><span class="step-num done">4</span><div><strong>建立 Dashboard 监控</strong><br><span class="step-owner">技术侧 · T+10</span><br><small>每小时检测登录态/识别率/人审率</small></div></div>
+      <div class="chain-step"><span class="step-num done">5</span><div><strong>上岗前 CMA 状态检查</strong><br><span class="step-owner">管理岗 · 持续</span></div></div>
+      <div class="chain-step"><span class="step-num done">6</span><div><strong>分级升级报备 + 超时提醒触达验证</strong><br><span class="step-owner">管理岗 · T+3</span><br><small>不同积压量级对应不同升级路径</small></div></div>
     </div>
-    <div class="sol-card" data-cat="培训管理" data-vendor="贵州硅易（绥阳）" data-prio="P0">
-      <div class="sol-header">
-        <span class="sol-id">SOL-010</span>
-        <span class="cat-tag">培训管理</span>
-        <span class="prio-tag P0">P0</span>
-        <span class="impact-tag">🔴</span>
-        <span>贵州硅易（绥阳）</span>
-      </div>
-      <div class="sol-body">
-        <ol><li>补充6/7缺失日报，标注异常人员明细 · 付林 · 本周</li></ol>
-        <div class="sol-meta">来源: TK-2026-003 · 使用 1 次</div>
-      </div>
+    <div class="chain-meta">
+      <span>📋 TK-004（当日闭环）</span><span>📋 TK-014（超期中）</span>
+      <span>💰 处罚 ¥1000</span>
+      <span>🔑 告警双重触达（一线+管理）</span>
     </div>
-    <div class="sol-card" data-cat="培训管理" data-vendor="贵州硅易（绥阳）" data-prio="P0">
-      <div class="sol-header">
-        <span class="sol-id">SOL-011</span>
-        <span class="cat-tag">培训管理</span>
-        <span class="prio-tag P0">P0</span>
-        <span class="impact-tag">🔴</span>
-        <span>贵州硅易（绥阳）</span>
-      </div>
-      <div class="sol-body">
-        <ol><li>建立异常响应SOP：次品率>0.5%暂停审核→回查→培训→重新上线 · 付林 · 2周内</li></ol>
-        <div class="sol-meta">来源: TK-2026-003 · 使用 1 次</div>
-      </div>
+  </div>
+</div>
+
+<div class="chain-card" id="pat-peixun">
+  <div class="chain-header" onclick="this.parentElement.querySelector('.chain-body').classList.toggle('open')">
+    <span class="chain-tag amber">中频 ⭐⭐⭐</span>
+    <strong>培训考核</strong>
+    <span class="prio-tag prio-P0">P0</span>
+    <span style="font-size:11px;color:var(--red)">当前 1 条超期中</span>
+  </div>
+  <div class="chain-body">
+    <div style="margin-bottom:10px"><strong>触发信号：</strong></div>
+    <ul class="trigger-list">
+      <li>培训专员漏指派任务（如周考）</li>
+      <li>工作事项繁忙导致遗漏</li>
+      <li>组长和管理未及时发现</li>
+      <li>周期性考核任务无自动提醒</li>
+    </ul>
+    <div style="margin:12px 0 8px"><strong>标准方案链（2 步）：</strong></div>
+    <div class="chain-steps">
+      <div class="chain-step"><span class="step-num next">1</span><div><strong>建立任务清单 + 2h 响应机制</strong><br><span class="step-owner">培训专员 · T+1</span><br><small>群内关键任务信息必须在 2 小时内响应确认</small></div></div>
+      <div class="chain-step"><span class="step-num next">2</span><div><strong>组长每周检查执行状态</strong><br><span class="step-owner">各组长 · T+4</span><br><small>周期性任务设置日历/POPO 自动提醒</small></div></div>
     </div>
-    <div class="sol-card" data-cat="培训管理" data-vendor="贵州硅易（绥阳）" data-prio="P0">
-      <div class="sol-header">
-        <span class="sol-id">SOL-012</span>
-        <span class="cat-tag">培训管理</span>
-        <span class="prio-tag P0">P0</span>
-        <span class="impact-tag">🔴</span>
-        <span>贵州硅易（绥阳）</span>
-      </div>
-      <div class="sol-body">
-        <ol><li>日报模板升级：增加人员排名表、TOP3次品类型、环比变化 · 付林 · 2周内</li></ol>
-        <div class="sol-meta">来源: TK-2026-003 · 使用 1 次</div>
-      </div>
+    <div class="chain-meta">
+      <span>📋 TK-012（超期 6 天，0/2 完成）</span>
+      <span>💰 处罚 ¥1200</span>
+      <span>💡 根本解法：周期性任务自动提醒</span>
     </div>
-    <div class="sol-card" data-cat="培训管理" data-vendor="贵州硅易（绥阳）" data-prio="P0">
-      <div class="sol-header">
-        <span class="sol-id">SOL-013</span>
-        <span class="cat-tag">培训管理</span>
-        <span class="prio-tag P0">P0</span>
-        <span class="impact-tag">🔴</span>
-        <span>贵州硅易（绥阳）</span>
-      </div>
-      <div class="sol-body">
-        <ol><li>管理岗KPI明确：异常响应≤4小时，日报覆盖率100% · 付林 · 1个月</li></ol>
-        <div class="sol-meta">来源: TK-2026-003 · 使用 1 次</div>
-      </div>
+  </div>
+</div>
+</div>
+<!-- Solution Detail Library -->
+<div class="section" id="solutions">
+<div class="section-title">📋 方案明细库</div>
+<div class="section-desc">从所有已完结工单中提取的 46 条可复用方案，按问题类型和供应商分类。</div>
+<div class="search-bar">
+  <input type="text" id="solSearch" placeholder="搜索方案..." oninput="filterSols()">
+  <select id="solCat" onchange="filterSols()">
+    <option value="all">全部分类</option>
+    <option value="培训管理">培训管理</option>
+    <option value="涉政漏判">涉政漏判</option>
+    <option value="质检管理">质检管理</option>
+    <option value="客户投诉">客户投诉</option>
+    <option value="数据管理">数据管理</option>
+    <option value="漏放处理">漏放处理</option>
+    <option value="其他">其他</option>
+  </select>
+  <select id="solPrio" onchange="filterSols()">
+    <option value="all">全部优先级</option><option>P0</option><option>P1</option><option>P2</option>
+  </select>
+  <select id="solVendor" onchange="filterSols()">
+    <option value="all">全部供应商</option>
+    <option value="河南新阳科技（南宁）">新阳南宁</option>
+    <option value="河南新阳科技（洛阳）">新阳洛阳</option>
+    <option value="山西易网视界（临汾）">易网临汾</option>
+    <option value="河南徽音网络科技">徽音郑州</option>
+    <option value="贵州硅易（绥阳）">硅易绥阳</option>
+  </select>
+  <span style="font-size:12px;color:var(--slate)" id="solCount"></span>
+</div>
+<div id="solList"></div>
+</div>
+
+<!-- Learning System -->
+<div class="section" id="learn">
+<div class="section-title">🎓 龙虾学习系统</div>
+<div class="section-desc">分角色学习路径、模拟练习、每周速递和学习激励机制。</div>
+
+<div class="tabs" id="learnTabs">
+  <span class="tab active" onclick="switchLearnTab('paths')">学习路径</span>
+  <span class="tab" onclick="switchLearnTab('exercises')">模拟练习</span>
+  <span class="tab" onclick="switchLearnTab('quick')">学习速递</span>
+  <span class="tab" onclick="switchLearnTab('newbie')">新人7天包</span>
+</div>
+
+<div id="learn-tab-paths">
+<div class="learn-grid">
+  <div class="learn-card">
+    <h4>🪪 对接人路径</h4>
+    <div style="font-size:12px;color:var(--text-secondary);margin-bottom:8px">钱燕 · 刘倩 · 张思语</div>
+    <ul class="learn-path">
+      <li>阶段1：读 3 个标杆案例，学会判断"好的复盘长什么样"</li>
+      <li>阶段2：读 2 个反面案例，学会识别"敷衍的归因"</li>
+      <li>阶段3：做 3 道模拟题，练习从数据中发现问题</li>
+      <li>阶段4：本周尝试在日报发出前预判"哪些工单今天会有进展"</li>
+    </ul>
+  </div>
+  <div class="learn-card">
+    <h4>🏭 供应商管理岗路径</h4>
+    <div style="font-size:12px;color:var(--text-secondary);margin-bottom:8px">牛欢欢 · 郭嘉锋 · 梁宁 · 付林</div>
+    <ul class="learn-path">
+      <li>阶段1：读 TK-003（质检标杆），学"从数据异常到制度修复"</li>
+      <li>阶段2：读 TK-011（反面案例），学"方案为什么超期"</li>
+      <li>阶段3：用自己的基地数据做一次"如果我是来昕怡，我会发什么工单"</li>
+      <li>阶段4：本周日报中增加"异常标注"模块</li>
+    </ul>
+  </div>
+  <div class="learn-card">
+    <h4>👤 审核员/客服一线路径</h4>
+    <div style="font-size:12px;color:var(--text-secondary);margin-bottom:8px">各基地一线人员</div>
+    <ul class="learn-path">
+      <li>阶段1：读涉政漏放案例，更新"敏感人物清单"</li>
+      <li>阶段2：读客服投诉案例，学"什么情况下必须实时同步"</li>
+      <li>阶段3：做 2 道识别题（给定内容，判断是否该拦截）</li>
+      <li>阶段4：在团队里分享一次"我最近学到的案例"</li>
+    </ul>
+  </div>
+  <div class="learn-card">
+    <h4>🎯 龙虾核心路径</h4>
+    <div style="font-size:12px;color:var(--text-secondary);margin-bottom:8px">来昕怡 · Tom</div>
+    <ul class="learn-path">
+      <li>阶段1：纵观 16 条工单，画出"问题类型-供应商"矩阵</li>
+      <li>阶段2：识别 3 个系统性风险信号</li>
+      <li>阶段3：设计 1 个新的预警规则</li>
+      <li>阶段4：推动 1 项制度性改进落地</li>
+    </ul>
+  </div>
+</div>
+
+<div style="margin-top:18px">
+  <div class="section-title" style="font-size:15px">🦞 龙虾学分</div>
+  <table class="rules-table" style="font-size:12px">
+    <tr><th>行为</th><th>学分</th></tr>
+    <tr><td>完成一个案例学习 + 群内回复收获</td><td style="color:var(--blue);font-weight:600">+5</td></tr>
+    <tr><td>完成一道模拟题（≥5分及格）</td><td style="color:var(--blue);font-weight:600">+10</td></tr>
+    <tr><td>主动发现并上报问题（比客户先发现）</td><td style="color:var(--green);font-weight:600">+20</td></tr>
+    <tr><td>提供的方案被纳入标准方案库</td><td style="color:var(--purple);font-weight:600">+30</td></tr>
+    <tr><td>月度零工单（整月无新增工单）</td><td style="color:var(--amber);font-weight:600">+50</td></tr>
+  </table>
+</div>
+</div>
+
+<div id="learn-tab-exercises" style="display:none">
+<div class="exercise-card">
+  <h4>🎮 模拟练习 #1：涉政内容识别</h4>
+  <p style="font-size:12px;color:var(--text-secondary);margin-bottom:8px">改编自 TK-009 真实案例</p>
+  <div style="font-size:13px;margin-bottom:10px">
+    <strong>场景：</strong>你是汽车之家论坛审核员。一条评论写道"任大炮也说了同样的话"，回复对象是雷军相关的帖子。机审未命中，DHS 也未提示。
+  </div>
+  <ol>
+    <li>你的第一步动作是什么？（提示：先确认还是先拦截？）</li>
+    <li>你如何判断"任大炮"是否有风险？（提示：你个人知识 + 查询工具）</li>
+    <li>如果一审不通过，回扫时需要注意什么？</li>
+    <li>你建议在制度上做什么改进来防止类似漏放？</li>
+  </ol>
+  <div style="font-size:12px;color:var(--slate);margin-top:8px">
+    <strong>参考答案：</strong>1. 先拦截（暂停发布）再确认 2. 搜索"任大炮"→发现是任志强别称，涉政敏感 3. 回扫不能只看字面，要核查人物关联 4. 建立涉政人物别称/代称对照表，纳入培训
+  </div>
+</div>
+<div class="exercise-card">
+  <h4>🎮 模拟练习 #2：异常数据识别</h4>
+  <p style="font-size:12px;color:var(--text-secondary);margin-bottom:8px">改编自 TK-003 真实案例</p>
+  <div style="font-size:13px;margin-bottom:10px">
+    <strong>场景：</strong>你是基地管理岗。本周数据显示：王小明次品率从 0.18% 升至 0.66%（正常 3 倍），全组次品从 8 条暴增至 37 条（+362%）。日报正常发送，只汇总了数量，未提异常。
+  </div>
+  <ol>
+    <li>你发现了什么异常？（至少列 3 个信号）</li>
+    <li>你作为管理岗应该立刻做什么？（3 个动作）</li>
+    <li>日报内容需要怎么改？（具体改法）</li>
+    <li>如何防止下个月再次发生？（制度层面）</li>
+  </ol>
+  <div style="font-size:12px;color:var(--slate);margin-top:8px">
+    <strong>参考答案：</strong>1. 人员次品率飙升×3、全组暴增+362%、日报无异常标注 2. 暂停该人员审核→逐条回查→针对性培训 3. 日报增加人员排名、TOP3次品类型、环比变化 4. 设置自动阈值告警（次品率>0.5%触发）、管理岗 KPI 明确（异常响应≤4h）
+  </div>
+</div>
+</div>
+
+<div id="learn-tab-quick" style="display:none">
+<div class="learn-card" style="margin-bottom:14px">
+  <h4>📬 龙虾学习速递 | 本周示例</h4>
+  <div style="font-size:13px;line-height:2">
+    <strong>📌 本周必学案例</strong><br>
+    · TK-019 舆情「苏芒」误删 — 当日创建当日闭环，指令传达优化的标杆<br>
+    · TK-011 QC人效不达标 — 反面教材：超期15天仅2/7完成，学习如何避免<br><br>
+    <strong>🔁 本周高频问题预警</strong><br>
+    · 涉政漏放 本月出现 4 次 — 集中在得物线和汽车之家<br>
+    · 低俗导向尺度问题 新出现 — 诺达商汤项目需关注<br><br>
+    <strong>🏆 本周最佳实践</strong><br>
+    · 牛欢欢（洛阳新阳）：1天完结3条得物工单，根因定位精准<br>
+    · 黎俊（新阳南宁）：舆情误删 30 分钟内完成回扫+根因定位<br><br>
+    <strong>🎯 本周练习</strong><br>
+    · 模拟练习 #1 涉政内容识别（面向审核员）<br>
+    · 模拟练习 #2 异常数据识别（面向管理岗）
+  </div>
+</div>
+</div>
+
+<div id="learn-tab-newbie" style="display:none">
+<div class="learn-card">
+  <h4>🎒 龙虾新人 7 天学习计划</h4>
+  <div style="font-size:13px;line-height:2.2">
+    <strong>Day 1-2：了解体系</strong><br>
+    □ 阅读看板，理解工单状态机和字段含义<br>
+    □ 学习案例 TK-001（客服投诉）— 简单但有代表性<br>
+    □ 学习案例 TK-004（系统稳定性）— 快速闭环的标杆<br><br>
+    <strong>Day 3-4：上手分析</strong><br>
+    □ 学习案例 TK-003（质检管理）— 复杂案例的完整拆解<br>
+    □ 做模拟题 1 道<br>
+    □ 在日报中找出 3 条你认为"最重要"的工单，说明理由<br><br>
+    <strong>Day 5-6：独立判断</strong><br>
+    □ 学习案例 TK-011（超期反面案例）— 学会识别风险<br>
+    □ 做模拟题 1 道<br>
+    □ 跟一位对接人旁听一次工单跟进<br><br>
+    <strong>Day 7：总结输出</strong><br>
+    □ 写一篇"如果我是对接人"的短文<br>
+    □ 在学习群分享本周最大收获<br>
+    □ 完成新人自评表
+  </div>
+</div>
+</div>
+</div>
+<!-- Vendor Profiles -->
+<div class="section" id="vendors">
+<div class="section-title">🏭 供应商风险画像</div>
+<div class="section-desc">基于历史工单数据，每条线（对接人）负责的供应商趋势和关注点。</div>
+<div class="vendor-grid">
+  <div class="vendor-card" style="border-left:3px solid var(--blue)">
+    <div class="ven-head"><span>钱燕线</span> <span class="tag-strength">响应快</span></div>
+    <div class="ven-body">
+      <strong>负责：</strong>河南新阳科技（南宁+洛阳）<br><br>
+      <strong>✅ 优势：</strong>
+      <ul><li>洛阳新阳处理速度快（得物3条同日完结）</li><li>牛欢欢复盘质量高，原因定位清晰</li><li>南宁 CMA 系统问题闭环快</li></ul>
+      <strong>⚠️ 风险：</strong>
+      <ul><li>南宁客服类问题易复发（TK-001 基础错误 + TK-013 延庆漏回复）</li><li>洛阳得物线近期工单密集（3天3条）</li><li>舆情指令传达存在漏洞（TK-019 关键词定位错误）</li></ul>
+      <strong>💡 建议：</strong>
+      <ul><li>每月对南宁客服团队做基础操作抽查</li><li>关注得物线趋势，若持续新增建议专项审计</li></ul>
     </div>
-    <div class="sol-card" data-cat="培训管理" data-vendor="贵州硅易（绥阳）" data-prio="P0">
-      <div class="sol-header">
-        <span class="sol-id">SOL-014</span>
-        <span class="cat-tag">培训管理</span>
-        <span class="prio-tag P0">P0</span>
-        <span class="impact-tag">🔴</span>
-        <span>贵州硅易（绥阳）</span>
-      </div>
-      <div class="sol-body">
-        <ol><li>车牌录入系统优化：OCR二次校验或关键字符高亮 + 每周专项回查 · 付林 · 1个月</li></ol>
-        <div class="sol-meta">来源: TK-2026-003 · 使用 1 次</div>
-      </div>
+  </div>
+  <div class="vendor-card" style="border-left:3px solid var(--red)">
+    <div class="ven-head"><span>刘倩线</span> <span class="tag-risk">超期最高</span></div>
+    <div class="ven-body">
+      <strong>负责：</strong>山西易网视界（临汾）+ 河南徽音网络科技<br><br>
+      <strong>✅ 优势：</strong>
+      <ul><li>徽音涉政漏放复盘产出质量高（TK-010 测试覆盖率 97.3%）</li></ul>
+      <strong>⚠️ 风险：</strong>
+      <ul><li><strong>临汾超期率最高</strong>：TK-011 已 15 天，TK-014 已 5 天</li><li>徽音培训体系有漏洞（TK-012 0/2 完成）</li><li>所有含超期方案的工单都属于此线</li></ul>
+      <strong>💡 建议：</strong>
+      <ul><li><strong>当前最需管理侧介入</strong></li><li>建议 1v1 逐条过超期工单</li><li>对临汾启动专项跟进（每周2次进度检查）</li></ul>
     </div>
-    <div class="sol-card" data-cat="数据管理" data-vendor="河南新阳科技（南宁）" data-prio="P0">
-      <div class="sol-header">
-        <span class="sol-id">SOL-015</span>
-        <span class="cat-tag">数据管理</span>
-        <span class="prio-tag P0">P0</span>
-        <span class="impact-tag">🔴</span>
-        <span>河南新阳科技（南宁）</span>
-      </div>
-      <div class="sol-body">
-        <ol><li>修复CMA登录态自动续期逻辑，增加session过期前主动刷新 · 董超 · T+3</li></ol>
-        <div class="sol-meta">来源: TK-2026-004 · 使用 1 次</div>
-      </div>
+  </div>
+  <div class="vendor-card" style="border-left:3px solid var(--green)">
+    <div class="ven-head"><span>张思语线</span> <span class="tag-strength">稳定</span></div>
+    <div class="ven-body">
+      <strong>负责：</strong>贵州硅易（绥阳）+ 诺达 + 淘金 + 驻马店<br><br>
+      <strong>✅ 优势：</strong>
+      <ul><li>绥阳质检管理工单完成质量高（7项方案全部 done）</li><li>历史上工单量较少</li></ul>
+      <strong>⚠️ 风险：</strong>
+      <ul><li>诺达近期新增商汤工单（低俗导向尺度）</li><li>疑似重复工单 TK-021/022</li><li>淘金和驻马店长期无工单，可能未被充分监控</li></ul>
+      <strong>💡 建议：</strong>
+      <ul><li>确认 TK-021/022 是否合并</li><li>关注诺达尺度拉齐进展</li><li>建议抽查淘金/驻马店基地运行状况</li></ul>
     </div>
-    <div class="sol-card" data-cat="数据管理" data-vendor="河南新阳科技（南宁）" data-prio="P0">
-      <div class="sol-header">
-        <span class="sol-id">SOL-016</span>
-        <span class="cat-tag">数据管理</span>
-        <span class="prio-tag P0">P0</span>
-        <span class="impact-tag">🔴</span>
-        <span>河南新阳科技（南宁）</span>
-      </div>
-      <div class="sol-body">
-        <ol><li>巡检车告警机器人增加CMA在线数字段，在线数<5自动@管理方 · 董超 · T+5</li></ol>
-        <div class="sol-meta">来源: TK-2026-004 · 使用 1 次</div>
-      </div>
-    </div>
-    <div class="sol-card" data-cat="数据管理" data-vendor="河南新阳科技（南宁）" data-prio="P0">
-      <div class="sol-header">
-        <span class="sol-id">SOL-017</span>
-        <span class="cat-tag">数据管理</span>
-        <span class="prio-tag P0">P0</span>
-        <span class="impact-tag">🔴</span>
-        <span>河南新阳科技（南宁）</span>
-      </div>
-      <div class="sol-body">
-        <ol><li>制定CMA掉线应急预案：退出→重登→验证三步骤 · 来昕怡 · T+3</li></ol>
-        <div class="sol-meta">来源: TK-2026-004 · 使用 1 次</div>
-      </div>
-    </div>
-    <div class="sol-card" data-cat="数据管理" data-vendor="河南新阳科技（南宁）" data-prio="P0">
-      <div class="sol-header">
-        <span class="sol-id">SOL-018</span>
-        <span class="cat-tag">数据管理</span>
-        <span class="prio-tag P0">P0</span>
-        <span class="impact-tag">🔴</span>
-        <span>河南新阳科技（南宁）</span>
-      </div>
-      <div class="sol-body">
-        <ol><li>建立CMA健康度dashboard，每小时检测登录态/识别率/人审率 · 董超 · T+10</li></ol>
-        <div class="sol-meta">来源: TK-2026-004 · 使用 1 次</div>
-      </div>
-    </div>
-    <div class="sol-card" data-cat="数据管理" data-vendor="河南新阳科技（南宁）" data-prio="P0">
-      <div class="sol-header">
-        <span class="sol-id">SOL-019</span>
-        <span class="cat-tag">数据管理</span>
-        <span class="prio-tag P0">P0</span>
-        <span class="impact-tag">🔴</span>
-        <span>河南新阳科技（南宁）</span>
-      </div>
-      <div class="sol-body">
-        <ol><li>审核人员上岗前增加CMA状态自查环节，纳入日常checklist · 来昕怡 · 持续</li></ol>
-        <div class="sol-meta">来源: TK-2026-004 · 使用 1 次</div>
-      </div>
-    </div>
-    <div class="sol-card" data-cat="培训管理" data-vendor="河南新阳科技（洛阳）" data-prio="P0">
-      <div class="sol-header">
-        <span class="sol-id">SOL-020</span>
-        <span class="cat-tag">培训管理</span>
-        <span class="prio-tag P0">P0</span>
-        <span class="impact-tag">🔴</span>
-        <span>河南新阳科技（洛阳）</span>
-      </div>
-      <div class="sol-body">
-        <ol><li>全组集中复培涉政敏感人物名单（含任大炮/任志强等），典型一号负面玩梗风险意识 · 郭嘉锋 · T+1（6月25日）</li></ol>
-        <div class="sol-meta">来源: TK-2026-009 · 使用 1 次</div>
-      </div>
-    </div>
-    <div class="sol-card" data-cat="培训管理" data-vendor="河南新阳科技（洛阳）" data-prio="P0">
-      <div class="sol-header">
-        <span class="sol-id">SOL-021</span>
-        <span class="cat-tag">培训管理</span>
-        <span class="prio-tag P0">P0</span>
-        <span class="impact-tag">🔴</span>
-        <span>河南新阳科技（洛阳）</span>
-      </div>
-      <div class="sol-body">
-        <ol><li>整合本案+历史案例，以模拟实操形式全组测试验收，准确率100%为目标值 · 郭嘉锋 · T+3（6月26日）</li></ol>
-        <div class="sol-meta">来源: TK-2026-009 · 使用 1 次</div>
-      </div>
-    </div>
-    <div class="sol-card" data-cat="培训管理" data-vendor="河南新阳科技（洛阳）" data-prio="P0">
-      <div class="sol-header">
-        <span class="sol-id">SOL-022</span>
-        <span class="cat-tag">培训管理</span>
-        <span class="prio-tag P0">P0</span>
-        <span class="impact-tag">🔴</span>
-        <span>河南新阳科技（洛阳）</span>
-      </div>
-      <div class="sol-body">
-        <ol><li>对漏放人韦苏蕾及汽车组其他同学随机抽问，验收其他风险类型知识储备 · 郭嘉锋 · T+3（6月26日）</li></ol>
-        <div class="sol-meta">来源: TK-2026-009 · 使用 1 次</div>
-      </div>
-    </div>
-    <div class="sol-card" data-cat="培训管理" data-vendor="河南新阳科技（洛阳）" data-prio="P0">
-      <div class="sol-header">
-        <span class="sol-id">SOL-023</span>
-        <span class="cat-tag">培训管理</span>
-        <span class="prio-tag P0">P0</span>
-        <span class="impact-tag">🔴</span>
-        <span>河南新阳科技（洛阳）</span>
-      </div>
-      <div class="sol-body">
-        <ol><li>评估DHS删除人审通过涉政数据的兜底保障方案 · 钱燕 · T+5（6月28日）</li></ol>
-        <div class="sol-meta">来源: TK-2026-009 · 使用 1 次</div>
-      </div>
-    </div>
-    <div class="sol-card" data-cat="培训管理" data-vendor="河南新阳科技（洛阳）" data-prio="P0">
-      <div class="sol-header">
-        <span class="sol-id">SOL-024</span>
-        <span class="cat-tag">培训管理</span>
-        <span class="prio-tag P0">P0</span>
-        <span class="impact-tag">🔴</span>
-        <span>河南新阳科技（洛阳）</span>
-      </div>
-      <div class="sol-body">
-        <ol><li>优化回扫流程：涉政相关内容的回扫增加专项复核环节 · 黎俊 · T+5（6月28日）</li></ol>
-        <div class="sol-meta">来源: TK-2026-009 · 使用 1 次</div>
-      </div>
-    </div>
-    <div class="sol-card" data-cat="涉政漏判" data-vendor="河南徽音网络科技" data-prio="P0">
-      <div class="sol-header">
-        <span class="sol-id">SOL-025</span>
-        <span class="cat-tag">涉政漏判</span>
-        <span class="prio-tag P0">P0</span>
-        <span class="impact-tag">🔴</span>
-        <span>河南徽音网络科技</span>
-      </div>
-      <div class="sol-body">
-        <ol><li>问题定级确认：关键词排查（皇帝的、大炮、吃早餐、吃包子、雷军早餐、雷军女孩、雷军吃饭、任大炮、任志强），排查数据已登记；时间段排查完成3751条 · 胡娜娜/许帅领 · T+1</li></ol>
-        <div class="sol-meta">来源: TK-2026-010 · 使用 1 次</div>
-      </div>
-    </div>
-    <div class="sol-card" data-cat="涉政漏判" data-vendor="河南徽音网络科技" data-prio="P0">
-      <div class="sol-header">
-        <span class="sol-id">SOL-026</span>
-        <span class="cat-tag">涉政漏判</span>
-        <span class="prio-tag P0">P0</span>
-        <span class="impact-tag">🔴</span>
-        <span>河南徽音网络科技</span>
-      </div>
-      <div class="sol-body">
-        <ol><li>初版复盘输出：复盘文档已完成，同步全员进行重点宣导 · 胡娜娜 · T+1</li></ol>
-        <div class="sol-meta">来源: TK-2026-010 · 使用 1 次</div>
-      </div>
-    </div>
-    <div class="sol-card" data-cat="涉政漏判" data-vendor="河南徽音网络科技" data-prio="P0">
-      <div class="sol-header">
-        <span class="sol-id">SOL-027</span>
-        <span class="cat-tag">涉政漏判</span>
-        <span class="prio-tag P0">P0</span>
-        <span class="impact-tag">🔴</span>
-        <span>河南徽音网络科技</span>
-      </div>
-      <div class="sol-body">
-        <ol><li>全员通报：重点宣导涉政人物清单——皇帝的（隐喻）、任大炮/任志强、雷军相关变体，防止联想误审 · 许帅领 · T+1</li></ol>
-        <div class="sol-meta">来源: TK-2026-010 · 使用 1 次</div>
-      </div>
-    </div>
-    <div class="sol-card" data-cat="涉政漏判" data-vendor="河南徽音网络科技" data-prio="P0">
-      <div class="sol-header">
-        <span class="sol-id">SOL-028</span>
-        <span class="cat-tag">涉政漏判</span>
-        <span class="prio-tag P0">P0</span>
-        <span class="impact-tag">🔴</span>
-        <span>河南徽音网络科技</span>
-      </div>
-      <div class="sol-body">
-        <ol><li>反华人物专项培训：舆情专员培训已安排；6.25日进行相关测试；持续收集添加涉政案例 · 培训侧 · T+4</li></ol>
-        <div class="sol-meta">来源: TK-2026-010 · 使用 1 次</div>
-      </div>
-    </div>
-    <div class="sol-card" data-cat="涉政漏判" data-vendor="河南徽音网络科技" data-prio="P0">
-      <div class="sol-header">
-        <span class="sol-id">SOL-029</span>
-        <span class="cat-tag">涉政漏判</span>
-        <span class="prio-tag P0">P0</span>
-        <span class="impact-tag">🔴</span>
-        <span>河南徽音网络科技</span>
-      </div>
-      <div class="sol-body">
-        <ol><li>培训验收：培训完成后进行验收，包括闭卷测试和补训 · 培训侧 · T+7</li></ol>
-        <div class="sol-meta">来源: TK-2026-010 · 使用 1 次</div>
-      </div>
-    </div>
-    <div class="sol-card" data-cat="涉政漏判" data-vendor="河南徽音网络科技" data-prio="P0">
-      <div class="sol-header">
-        <span class="sol-id">SOL-030</span>
-        <span class="cat-tag">涉政漏判</span>
-        <span class="prio-tag P0">P0</span>
-        <span class="impact-tag">🔴</span>
-        <span>河南徽音网络科技</span>
-      </div>
-      <div class="sol-body">
-        <ol><li>定期抽问：组长不定期进行涉政案例抽查，每两周涉政/反华案例抽问 · 质量侧 · 持续</li></ol>
-        <div class="sol-meta">来源: TK-2026-010 · 使用 1 次</div>
-      </div>
-    </div>
-    <div class="sol-card" data-cat="客户投诉" data-vendor="河南新阳科技（南宁）" data-prio="P0">
-      <div class="sol-header">
-        <span class="sol-id">SOL-031</span>
-        <span class="cat-tag">客户投诉</span>
-        <span class="prio-tag P0">P0</span>
-        <span class="impact-tag">🔴</span>
-        <span>河南新阳科技（南宁）</span>
-      </div>
-      <div class="sol-body">
-        <ol><li>立即排查延庆区客服排班与响应记录，确认漏回复根因 · 钱燕/周丹 · T+0（6月25日）</li></ol>
-        <div class="sol-meta">来源: TK-2026-013 · 使用 1 次</div>
-      </div>
-    </div>
-    <div class="sol-card" data-cat="客户投诉" data-vendor="河南新阳科技（南宁）" data-prio="P0">
-      <div class="sol-header">
-        <span class="sol-id">SOL-032</span>
-        <span class="cat-tag">客户投诉</span>
-        <span class="prio-tag P0">P0</span>
-        <span class="impact-tag">🔴</span>
-        <span>河南新阳科技（南宁）</span>
-      </div>
-      <div class="sol-body">
-        <ol><li>建立客服响应时效监控，超时X分钟自动告警 · 钱燕 · T+5（6月30日）</li></ol>
-        <div class="sol-meta">来源: TK-2026-013 · 使用 1 次</div>
-      </div>
-    </div>
-    <div class="sol-card" data-cat="客户投诉" data-vendor="河南新阳科技（南宁）" data-prio="P0">
-      <div class="sol-header">
-        <span class="sol-id">SOL-033</span>
-        <span class="cat-tag">客户投诉</span>
-        <span class="prio-tag P0">P0</span>
-        <span class="impact-tag">🔴</span>
-        <span>河南新阳科技（南宁）</span>
-      </div>
-      <div class="sol-body">
-        <ol><li>评估延庆区客服人力是否充足，必要时增配或调整排班 · 钱燕/朱梦阳 · T+7（7月2日）</li></ol>
-        <div class="sol-meta">来源: TK-2026-013 · 使用 1 次</div>
-      </div>
-    </div>
-    <div class="sol-card" data-cat="客户投诉" data-vendor="河南新阳科技（南宁）" data-prio="P0">
-      <div class="sol-header">
-        <span class="sol-id">SOL-034</span>
-        <span class="cat-tag">客户投诉</span>
-        <span class="prio-tag P0">P0</span>
-        <span class="impact-tag">🔴</span>
-        <span>河南新阳科技（南宁）</span>
-      </div>
-      <div class="sol-body">
-        <ol><li>向甲方提交事件说明及改进措施，修复客户关系 · 来昕怡/钱燕 · T+2（6月27日）</li></ol>
-        <div class="sol-meta">来源: TK-2026-013 · 使用 1 次</div>
-      </div>
-    </div>
-    <div class="sol-card" data-cat="漏放处理" data-vendor="河南新阳科技（洛阳）" data-prio="P2">
-      <div class="sol-header">
-        <span class="sol-id">SOL-035</span>
-        <span class="cat-tag">漏放处理</span>
-        <span class="prio-tag P2">P2</span>
-        <span class="impact-tag">🟡</span>
-        <span>河南新阳科技（洛阳）</span>
-      </div>
-      <div class="sol-body">
-        <ol><li>知识储备摸底 · 牛欢欢 · T+3</li></ol>
-        <div class="sol-meta">来源: TK-2026-015 · 使用 1 次</div>
-      </div>
-    </div>
-    <div class="sol-card" data-cat="漏放处理" data-vendor="河南新阳科技（洛阳）" data-prio="P2">
-      <div class="sol-header">
-        <span class="sol-id">SOL-036</span>
-        <span class="cat-tag">漏放处理</span>
-        <span class="prio-tag P2">P2</span>
-        <span class="impact-tag">🟡</span>
-        <span>河南新阳科技（洛阳）</span>
-      </div>
-      <div class="sol-body">
-        <ol><li>人员评估是否汰换 · 杨辉浩 · T+5</li></ol>
-        <div class="sol-meta">来源: TK-2026-015 · 使用 1 次</div>
-      </div>
-    </div>
-    <div class="sol-card" data-cat="漏放处理" data-vendor="河南新阳科技（洛阳）" data-prio="P2">
-      <div class="sol-header">
-        <span class="sol-id">SOL-037</span>
-        <span class="cat-tag">漏放处理</span>
-        <span class="prio-tag P2">P2</span>
-        <span class="impact-tag">🟡</span>
-        <span>河南新阳科技（洛阳）</span>
-      </div>
-      <div class="sol-body">
-        <ol><li>漏放原因定位 · 牛欢欢 · T+2</li></ol>
-        <div class="sol-meta">来源: TK-2026-015 · 使用 1 次</div>
-      </div>
-    </div>
-    <div class="sol-card" data-cat="漏放处理" data-vendor="河南新阳科技（洛阳）" data-prio="P1">
-      <div class="sol-header">
-        <span class="sol-id">SOL-038</span>
-        <span class="cat-tag">漏放处理</span>
-        <span class="prio-tag P1">P1</span>
-        <span class="impact-tag">🟡</span>
-        <span>河南新阳科技（洛阳）</span>
-      </div>
-      <div class="sol-body">
-        <ol><li>漏放原因定位：钱紫玉知违规点但无印象+关键词库缺「富平」 · 牛欢欢 · 2026-06-29</li></ol>
-        <div class="sol-meta">来源: TK-2026-017 · 使用 1 次</div>
-      </div>
-    </div>
-    <div class="sol-card" data-cat="漏放处理" data-vendor="河南新阳科技（洛阳）" data-prio="P1">
-      <div class="sol-header">
-        <span class="sol-id">SOL-039</span>
-        <span class="cat-tag">漏放处理</span>
-        <span class="prio-tag P1">P1</span>
-        <span class="impact-tag">🟡</span>
-        <span>河南新阳科技（洛阳）</span>
-      </div>
-      <div class="sol-body">
-        <ol><li>涉一号内容培训：全员当面验证+关键词库持续完善更新 · 牛欢欢 · 2026-07-01</li></ol>
-        <div class="sol-meta">来源: TK-2026-017 · 使用 1 次</div>
-      </div>
-    </div>
-    <div class="sol-card" data-cat="漏放处理" data-vendor="河南新阳科技（洛阳）" data-prio="P1">
-      <div class="sol-header">
-        <span class="sol-id">SOL-040</span>
-        <span class="cat-tag">漏放处理</span>
-        <span class="prio-tag P1">P1</span>
-        <span class="impact-tag">🟡</span>
-        <span>河南新阳科技（洛阳）</span>
-      </div>
-      <div class="sol-body">
-        <ol><li>数据回扫：各通道关键词+用户ID紧急回查 · 牛欢欢 · 2026-06-29</li></ol>
-        <div class="sol-meta">来源: TK-2026-017 · 使用 1 次</div>
-      </div>
-    </div>
-    <div class="sol-card" data-cat="漏放处理" data-vendor="河南新阳科技（洛阳）" data-prio="P1">
-      <div class="sol-header">
-        <span class="sol-id">SOL-041</span>
-        <span class="cat-tag">漏放处理</span>
-        <span class="prio-tag P1">P1</span>
-        <span class="impact-tag">🟡</span>
-        <span>河南新阳科技（洛阳）</span>
-      </div>
-      <div class="sol-body">
-        <ol><li>提升标签打标准确性（通晒学习+流程重申+状态监控+通道澄清） · 牛欢欢 · 2026-07-04</li></ol>
-        <div class="sol-meta">来源: TK-2026-018 · 使用 1 次</div>
-      </div>
-    </div>
-    <div class="sol-card" data-cat="其他" data-vendor="河南新阳科技（南宁）" data-prio="P2">
-      <div class="sol-header">
-        <span class="sol-id">SOL-042</span>
-        <span class="cat-tag">其他</span>
-        <span class="prio-tag P2">P2</span>
-        <span class="impact-tag">🟡</span>
-        <span>河南新阳科技（南宁）</span>
-      </div>
-      <div class="sol-body">
-        <ol><li>定位误伤前后原因，确认指令误删根因 · 黎俊 · 2026-06-30</li></ol>
-        <div class="sol-meta">来源: TK-2026-019 · 使用 1 次</div>
-      </div>
-    </div>
-    <div class="sol-card" data-cat="其他" data-vendor="河南新阳科技（南宁）" data-prio="P2">
-      <div class="sol-header">
-        <span class="sol-id">SOL-043</span>
-        <span class="cat-tag">其他</span>
-        <span class="prio-tag P2">P2</span>
-        <span class="impact-tag">🟡</span>
-        <span>河南新阳科技（南宁）</span>
-      </div>
-      <div class="sol-body">
-        <ol><li>回扫近一月误伤数据（融媒体/论坛/用户资料） · 黎俊 · 2026-06-30</li></ol>
-        <div class="sol-meta">来源: TK-2026-019 · 使用 1 次</div>
-      </div>
-    </div>
-    <div class="sol-card" data-cat="其他" data-vendor="河南新阳科技（南宁）" data-prio="P2">
-      <div class="sol-header">
-        <span class="sol-id">SOL-044</span>
-        <span class="cat-tag">其他</span>
-        <span class="prio-tag P2">P2</span>
-        <span class="impact-tag">🟡</span>
-        <span>河南新阳科技（南宁）</span>
-      </div>
-      <div class="sol-body">
-        <ol><li>指令传达优化：转发一线时整理具体关键词 · 吴胜海 · 持续</li></ol>
-        <div class="sol-meta">来源: TK-2026-019 · 使用 1 次</div>
-      </div>
-    </div>
-    <div class="sol-card" data-cat="其他" data-vendor="河南新阳科技（南宁）" data-prio="P2">
-      <div class="sol-header">
-        <span class="sol-id">SOL-045</span>
-        <span class="cat-tag">其他</span>
-        <span class="prio-tag P2">P2</span>
-        <span class="impact-tag">🟡</span>
-        <span>河南新阳科技（南宁）</span>
-      </div>
-      <div class="sol-body">
-        <ol><li>舆情指令不再一刀切，明确拦截敏感点 · 朱莹 · 持续</li></ol>
-        <div class="sol-meta">来源: TK-2026-019 · 使用 1 次</div>
-      </div>
-    </div>
-    <div class="sol-card" data-cat="其他" data-vendor="河南新阳科技（南宁）" data-prio="P2">
-      <div class="sol-header">
-        <span class="sol-id">SOL-046</span>
-        <span class="cat-tag">其他</span>
-        <span class="prio-tag P2">P2</span>
-        <span class="impact-tag">🟡</span>
-        <span>河南新阳科技（南宁）</span>
-      </div>
-      <div class="sol-body">
-        <ol><li>排查是否有未经确认即删除的漏报备案例 · 吴胜海 · 2026-07-01</li></ol>
-        <div class="sol-meta">来源: TK-2026-019 · 使用 1 次</div>
-      </div>
-    </div></div></div>
+  </div>
+</div>
+
+<!-- Add historical case cards -->
+<div class="section" style="margin-top:24px">
+<div class="section-title" style="font-size:15px">📖 历史经典案例</div>
+<div class="vendor-grid">
+  <div class="learn-card" style="border-left:3px solid var(--green)">
+    <h4>🥇 TK-003 绥阳质检管理（标杆）</h4>
+    <div style="font-size:12px;color:var(--text-secondary)">王钦鹏次品率 0.18%→0.66%，全组暴增 362%</div>
+    <div style="font-size:13px;margin-top:8px">7项方案从制度层面彻底解决。6/9创建→6/16完结，<strong>7天闭环</strong>。此后绥阳再无类似问题。</div>
+  </div>
+  <div class="learn-card" style="border-left:3px solid var(--green)">
+    <h4>🥈 TK-004 CMA 积压（快速闭环）</h4>
+    <div style="font-size:12px;color:var(--text-secondary)">CMA频繁掉线致审核积压 371 条，人审率 30%→80%</div>
+    <div style="font-size:13px;margin-top:8px">技术修复+告警+应急预案+Dashboard。6/15 <strong>当日创建当日完结</strong>。</div>
+  </div>
+  <div class="learn-card" style="border-left:3px solid var(--red)">
+    <h4>⚠️ TK-011 QC 人效（反面案例）</h4>
+    <div style="font-size:12px;color:var(--text-secondary)">人效 17 条/日 vs 目标 35-40，临汾易网</div>
+    <div style="font-size:13px;margin-top:8px">已<strong style="color:var(--red)">超期 15 天</strong>，7项方案仅完成 2 项。SOP优化和优先级确认依赖外部协调。</div>
+  </div>
+  <div class="learn-card" style="border-left:3px solid var(--green)">
+    <h4>🥉 TK-019 舆情误删（当日闭环）</h4>
+    <div style="font-size:12px;color:var(--text-secondary)">"苏芒"舆情指令误删，通告群关键词覆盖不全</div>
+    <div style="font-size:13px;margin-top:8px">6项方案覆盖根因定位、回扫、指令优化、废止一刀切。<strong>当日闭环</strong>。</div>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- Detection Rules -->
+<div class="section" id="rules">
+<div class="section-title">🚨 异常检测与预警规则</div>
+<div class="section-desc">自动检测触发条件，标注严重级别和建议动作。</div>
+<table class="rules-table">
+  <tr><th>触发条件</th><th>级别</th><th>建议动作</th></tr>
+  <tr><td>同一供应商 3 天内新增 ≥3 条工单</td><td><span class="badge badge-red">🔴 高</span></td><td>启动专项审计</td></tr>
+  <tr><td>同一标签 7 天内出现 ≥3 次</td><td><span class="badge badge-amber">🟡 中</span></td><td>评估标签关联的系统性风险</td></tr>
+  <tr><td>工单超过 10 天未解决</td><td><span class="badge badge-red">🔴 高</span></td><td>升级至管理群</td></tr>
+  <tr><td>全部方案超期（done=0 且 all overdue）</td><td><span class="badge badge-red">🔴 高</span></td><td>立即电话沟通</td></tr>
+  <tr><td>P0 超过 3 天未进入 in_progress</td><td><span class="badge badge-amber">🟡 中</span></td><td>确认负责人和启动时间</td></tr>
+  <tr><td>同一问题类型在 30 天内复发</td><td><span class="badge badge-red">🔴 高</span></td><td>上次方案未落地，需深度复盘</td></tr>
+  <tr><td>方案 deadline 已过 5 天仍无进展</td><td><span class="badge badge-amber">🟡 中</span></td><td>升级催促</td></tr>
+  <tr><td>标题相似度 >80% + 同供应商 + 同日</td><td><span class="badge badge-amber">🟡 中</span></td><td>确认是否合并（疑似重复）</td></tr>
+</table>
+</div>
+
+<!-- Report Templates -->
+<div class="section" id="reports">
+<div class="section-title">📰 报告模板</div>
+<div class="section-desc">早报、晚报、周报的标准模板。点击标签切换查看。</div>
+<div class="tabs" id="reportTabs">
+  <span class="tab active" onclick="switchReportTab('morning')">早报模板</span>
+  <span class="tab" onclick="switchReportTab('evening')">晚报模板</span>
+  <span class="tab" onclick="switchReportTab('weekly')">周报模板</span>
+  <span class="tab" onclick="switchReportTab('push')">推送策略</span>
+</div>
+
+<div id="report-tab-morning">
+<div class="template-box">📰 工单早报 | 2026年MM月DD日（周X）
+
+一、总体概览
+📊 总工单 X 条 | 🔴 未完结 X 条 | ✅ 已完结 X 条 | ⚠️ 含超期 X 条
+
+二、历史问题动态
+（长期未完结工单的状态变化，标注是否有进展）
+
+三、今日新增工单
+（今日创建的工单，按优先级排序）
+
+四、重点工单详情
+（P0 工单逐个展开：标题、供应商、状态、方案进度、超期方案、建议）
+
+五、行动指南
+🔴 高优：
+· TK-XXX 含N项超期方案 — 建议立即电话联系
+
+🟡 跟进：
+· TK-XXX P0待处理超过N天
+
+📚 历史相似案例：
+· 类似问题 TK-XXX 在 X 天内解决，关键动作是 XXX
+
+六、按对接人摘要
+（每人各自负责供应商的工单汇总）
+</div>
+</div>
+
+<div id="report-tab-evening" style="display:none">
+<div class="template-box">📰 工单晚报 | 2026年MM月DD日（周X）
+
+一、今日动态
+📥 新增 X 条 | ✅ 解决 X 条 | 🔄 进展 X 条
+
+二、今日变化明细
+
+📥 新增工单（X条）
+· TK-XXX 标题 | 供应商 | 优先级 | 状态
+
+✅ 今日解决（X条）
+· TK-XXX 标题 | 供应商 | 优先级 | 关键结果
+
+🔄 进展更新（X条）
+· TK-XXX 标题 | 供应商 | 优先级 | 方案完成度 | 进展
+
+三、未完结工单状态（按P0/P1/P2分组，标注超期天数和方案完成度）
+
+四、明日关注
+🔴 需立即跟进的超期方案
+🟡 即将到期方案（未来2天）
+📊 供应商超期分布
+📌 备注/亮点
+</div>
+</div>
+
+<div id="report-tab-weekly" style="display:none">
+<div class="template-box">📊 工单周报 | 第N周（MM/DD - MM/DD）
+
+│ 指标          │ 本周  │ 上周  │ 环比  │
+│ 新增工单      │ X     │ X     │ ±X%  │
+│ 解决工单      │ X     │ X     │ ±X%  │
+│ 平均解决天数  │ X     │ X     │ ±X%  │
+│ 当前未完结    │ X     │ X     │ ±X%  │
+│ 含超期方案    │ X     │ X     │ ±X%  │
+│ P0 工单       │ X     │ X     │ ±X%  │
+
+📋 本周完结工单（逐条：ID/标题/供应商/天数）
+📋 超期未结工单（逐条：ID/标题/供应商/超期天数/方案完成度）
+📊 供应商分析表
+│ 供应商 │ 工单数 │ 已完结 │ 未完结 │ 平均天数 │ P0数 │
+🚨 需升级关注
+📈 趋势分析
+</div>
+</div>
+
+<div id="report-tab-push" style="display:none">
+<div style="font-size:13px;line-height:2">
+  <strong>方式一：按对接人拆分推送</strong><br>
+  · 每人只收到自己负责供应商的工单<br>
+  · 使用对应模板填入个人数据<br><br>
+  <strong>方式二：完整版群推送</strong><br>
+  · 推送到 POPO 群 8485321<br>
+  · 使用完整晚报格式<br><br>
+  <strong>POPO 推送：</strong><br>
+  · popo-cli（如已安装）：<code>popo-cli send --group 8485321 --message "..."</code><br>
+  · POPO API：<code>POST {server}/im/send-msg</code>，需 Server URL + App Key + Secret<br><br>
+  <strong>推送失败处理：</strong><br>
+  · 保存文件到 outputs/ 目录供手动发送<br>
+  · 文件名格式：<code>早报-2026-06-30.txt</code>
+</div>
+</div>
+</div>
+
+</div><!-- end container -->
+
 <script>
-function filter(){
-  var cat=document.getElementById('fCat').value;
-  var prio=document.getElementById('fPrio').value;
-  var q=document.getElementById('fSearch').value.toLowerCase();
-  var cards=document.querySelectorAll('.sol-card');
-  var n=0;
-  cards.forEach(function(c){
-    var s=true;
-    if(cat!=='all'&&c.dataset.cat!==cat)s=false;
-    if(prio!=='all'&&c.dataset.prio!==prio)s=false;
-    if(q&&c.textContent.toLowerCase().indexOf(q)===-1)s=false;
-    c.style.display=s?'':'none';
-    if(s)n++;
-  });
-  document.getElementById('count').textContent=n+' / '+cards.length+' 条';
+// Solution data - extracted from real tickets
+const SOLUTIONS = [
+  {id:"SOL-001",cat:"培训管理",prio:"P0",vendor:"河南新阳科技（南宁）",ticket:"TK-2026-001",action:"暂停该小二在线客服权限，完成练习并通过考核后再恢复",owner:"梁宁",deadline:"T+1"},
+  {id:"SOL-002",cat:"培训管理",prio:"P0",vendor:"河南新阳科技（南宁）",ticket:"TK-2026-001",action:"逐一核查团队内所有客服小二是否掌握行政区查询等基础操作",owner:"梁宁",deadline:"T+3"},
+  {id:"SOL-003",cat:"培训管理",prio:"P0",vendor:"河南新阳科技（南宁）",ticket:"TK-2026-001",action:"建立客服小二错误预警机制：单日同一错误≥2次自动同步管理方",owner:"梁宁/来昕怡",deadline:"T+5"},
+  {id:"SOL-004",cat:"培训管理",prio:"P0",vendor:"河南新阳科技（南宁）",ticket:"TK-2026-001",action:"制定客服小二定期考核表（月度），确保基础操作不退化",owner:"梁宁",deadline:"T+10"},
+  {id:"SOL-005",cat:"培训管理",prio:"P0",vendor:"河南新阳科技（南宁）",ticket:"TK-2026-001",action:"将本次案例作为反面教材纳入新小二入职培训",owner:"梁宁",deadline:"持续"},
+  {id:"SOL-006",cat:"质检管理",prio:"P0",vendor:"山西易网视界（临汾）",ticket:"TK-2026-002",action:"统一机审/初审/复审/清晰度判定标准",owner:"张丰平",deadline:"2026-06-12"},
+  {id:"SOL-007",cat:"质检管理",prio:"P0",vendor:"山西易网视界（临汾）",ticket:"TK-2026-002",action:"对PIC进行交叉复核训练，减少主观偏差",owner:"张丰平",deadline:"2026-06-19"},
+  {id:"SOL-008",cat:"质检管理",prio:"P0",vendor:"贵州硅易（绥阳）",ticket:"TK-2026-003",action:"日度异常预警：单人次品≥5条标注姓名+类型；次品环比>100%追加原因",owner:"付林",deadline:"本周"},
+  {id:"SOL-009",cat:"质检管理",prio:"P0",vendor:"贵州硅易（绥阳）",ticket:"TK-2026-003",action:"王钦鹏专项纠偏：48条逐条回查 + 车牌录入培训 + 3天抽检1.5倍",owner:"付林",deadline:"本周"},
+  {id:"SOL-010",cat:"质检管理",prio:"P0",vendor:"贵州硅易（绥阳）",ticket:"TK-2026-003",action:"补充6/7缺失日报，标注异常人员明细",owner:"付林",deadline:"本周"},
+  {id:"SOL-011",cat:"质检管理",prio:"P0",vendor:"贵州硅易（绥阳）",ticket:"TK-2026-003",action:"建立异常响应SOP：次品率>0.5%暂停审核→回查→培训→重新上线",owner:"付林",deadline:"2周内"},
+  {id:"SOL-012",cat:"质检管理",prio:"P0",vendor:"贵州硅易（绥阳）",ticket:"TK-2026-003",action:"日报模板升级：增加人员排名表、TOP3次品类型、环比变化",owner:"付林",deadline:"2周内"},
+  {id:"SOL-013",cat:"质检管理",prio:"P0",vendor:"贵州硅易（绥阳）",ticket:"TK-2026-003",action:"管理岗KPI明确：异常响应≤4小时，日报覆盖率100%",owner:"付林",deadline:"1个月"},
+  {id:"SOL-014",cat:"质检管理",prio:"P0",vendor:"贵州硅易（绥阳）",ticket:"TK-2026-003",action:"车牌录入系统优化：OCR二次校验或关键字符高亮 + 每周专项回查",owner:"付林",deadline:"1个月"},
+  {id:"SOL-015",cat:"数据管理",prio:"P0",vendor:"河南新阳科技（南宁）",ticket:"TK-2026-004",action:"修复CMA登录态自动续期逻辑，增加session过期前主动刷新",owner:"董超",deadline:"T+3"},
+  {id:"SOL-016",cat:"数据管理",prio:"P0",vendor:"河南新阳科技（南宁）",ticket:"TK-2026-004",action:"巡检车告警机器人增加CMA在线数字段，在线数<5自动@管理方",owner:"董超",deadline:"T+5"},
+  {id:"SOL-017",cat:"数据管理",prio:"P0",vendor:"河南新阳科技（南宁）",ticket:"TK-2026-004",action:"制定CMA掉线应急预案：退出→重登→验证三步骤",owner:"来昕怡",deadline:"T+3"},
+  {id:"SOL-018",cat:"数据管理",prio:"P0",vendor:"河南新阳科技（南宁）",ticket:"TK-2026-004",action:"建立CMA健康度dashboard，每小时检测登录态/识别率/人审率",owner:"董超",deadline:"T+10"},
+  {id:"SOL-019",cat:"数据管理",prio:"P0",vendor:"河南新阳科技（南宁）",ticket:"TK-2026-004",action:"审核人员上岗前增加CMA状态自查环节，纳入日常checklist",owner:"来昕怡",deadline:"持续"},
+  {id:"SOL-020",cat:"培训管理",prio:"P0",vendor:"河南新阳科技（洛阳）",ticket:"TK-2026-009",action:"全组集中复培涉政敏感人物名单（含任大炮/任志强等）",owner:"郭嘉锋",deadline:"T+1"},
+  {id:"SOL-021",cat:"培训管理",prio:"P0",vendor:"河南新阳科技（洛阳）",ticket:"TK-2026-009",action:"整合本案+历史案例，以模拟实操形式全组测试验收，准确率100%",owner:"郭嘉锋",deadline:"T+3"},
+  {id:"SOL-022",cat:"培训管理",prio:"P0",vendor:"河南新阳科技（洛阳）",ticket:"TK-2026-009",action:"对漏放人韦苏蕾及汽车组其他同学随机抽问，验收风险类型知识储备",owner:"郭嘉锋",deadline:"T+3"},
+  {id:"SOL-023",cat:"培训管理",prio:"P0",vendor:"河南新阳科技（洛阳）",ticket:"TK-2026-009",action:"评估DHS删除人审通过涉政数据的兜底保障方案",owner:"钱燕",deadline:"T+5"},
+  {id:"SOL-024",cat:"培训管理",prio:"P0",vendor:"河南新阳科技（洛阳）",ticket:"TK-2026-009",action:"优化回扫流程：涉政相关内容的回扫增加专项复核环节",owner:"黎俊",deadline:"T+5"},
+  {id:"SOL-025",cat:"涉政漏判",prio:"P0",vendor:"河南徽音网络科技",ticket:"TK-2026-010",action:"问题定级确认：关键词排查（皇帝的、大炮、任大炮等9个关键词），时间段排查3751条",owner:"胡娜娜/许帅领",deadline:"T+1"},
+  {id:"SOL-026",cat:"涉政漏判",prio:"P0",vendor:"河南徽音网络科技",ticket:"TK-2026-010",action:"初版复盘输出：复盘文档已完成，同步全员进行重点宣导",owner:"胡娜娜",deadline:"T+1"},
+  {id:"SOL-027",cat:"涉政漏判",prio:"P0",vendor:"河南徽音网络科技",ticket:"TK-2026-010",action:"全员通报：重点宣导涉政人物清单——皇帝的、任大炮/任志强、雷军相关变体",owner:"许帅领",deadline:"T+1"},
+  {id:"SOL-028",cat:"涉政漏判",prio:"P0",vendor:"河南徽音网络科技",ticket:"TK-2026-010",action:"反华人物专项培训：舆情专员培训+6.25测试+持续收集涉政案例",owner:"培训侧",deadline:"T+4"},
+  {id:"SOL-029",cat:"涉政漏判",prio:"P0",vendor:"河南徽音网络科技",ticket:"TK-2026-010",action:"培训验收：闭卷测试和补训",owner:"培训侧",deadline:"T+7"},
+  {id:"SOL-030",cat:"涉政漏判",prio:"P0",vendor:"河南徽音网络科技",ticket:"TK-2026-010",action:"定期抽问：组长不定期进行涉政案例抽查，每两周涉政/反华案例抽问",owner:"质量侧",deadline:"持续"},
+  {id:"SOL-031",cat:"客户投诉",prio:"P0",vendor:"河南新阳科技（南宁）",ticket:"TK-2026-013",action:"立即排查延庆区客服排班与响应记录，确认漏回复根因",owner:"钱燕/周丹",deadline:"T+0"},
+  {id:"SOL-032",cat:"客户投诉",prio:"P0",vendor:"河南新阳科技（南宁）",ticket:"TK-2026-013",action:"建立客服响应时效监控，超时X分钟自动告警",owner:"钱燕",deadline:"T+5"},
+  {id:"SOL-033",cat:"客户投诉",prio:"P0",vendor:"河南新阳科技（南宁）",ticket:"TK-2026-013",action:"评估延庆区客服人力是否充足，必要时增配或调整排班",owner:"钱燕/朱梦阳",deadline:"T+7"},
+  {id:"SOL-034",cat:"客户投诉",prio:"P0",vendor:"河南新阳科技（南宁）",ticket:"TK-2026-013",action:"向甲方提交事件说明及改进措施，修复客户关系",owner:"来昕怡/钱燕",deadline:"T+2"},
+  {id:"SOL-035",cat:"漏放处理",prio:"P2",vendor:"河南新阳科技（洛阳）",ticket:"TK-2026-015",action:"知识储备摸底",owner:"牛欢欢",deadline:"T+3"},
+  {id:"SOL-036",cat:"漏放处理",prio:"P2",vendor:"河南新阳科技（洛阳）",ticket:"TK-2026-015",action:"人员评估是否汰换",owner:"杨辉浩",deadline:"T+5"},
+  {id:"SOL-037",cat:"漏放处理",prio:"P2",vendor:"河南新阳科技（洛阳）",ticket:"TK-2026-015",action:"漏放原因定位",owner:"牛欢欢",deadline:"T+2"},
+  {id:"SOL-038",cat:"漏放处理",prio:"P1",vendor:"河南新阳科技（洛阳）",ticket:"TK-2026-017",action:"漏放原因定位：钱紫玉知违规点但无印象+关键词库缺「富平」",owner:"牛欢欢",deadline:"2026-06-29"},
+  {id:"SOL-039",cat:"漏放处理",prio:"P1",vendor:"河南新阳科技（洛阳）",ticket:"TK-2026-017",action:"涉一号内容培训：全员当面验证+关键词库持续完善更新",owner:"牛欢欢",deadline:"2026-07-01"},
+  {id:"SOL-040",cat:"漏放处理",prio:"P1",vendor:"河南新阳科技（洛阳）",ticket:"TK-2026-017",action:"数据回扫：各通道关键词+用户ID紧急回查",owner:"牛欢欢",deadline:"2026-06-29"},
+  {id:"SOL-041",cat:"漏放处理",prio:"P1",vendor:"河南新阳科技（洛阳）",ticket:"TK-2026-018",action:"提升标签打标准确性（通晒学习+流程重申+状态监控+通道澄清）",owner:"牛欢欢",deadline:"2026-07-04"},
+  {id:"SOL-042",cat:"其他",prio:"P2",vendor:"河南新阳科技（南宁）",ticket:"TK-2026-019",action:"定位误伤前后原因，确认指令误删根因",owner:"黎俊",deadline:"2026-06-30"},
+  {id:"SOL-043",cat:"其他",prio:"P2",vendor:"河南新阳科技（南宁）",ticket:"TK-2026-019",action:"回扫近一月误伤数据（融媒体/论坛/用户资料）",owner:"黎俊",deadline:"2026-06-30"},
+  {id:"SOL-044",cat:"其他",prio:"P2",vendor:"河南新阳科技（南宁）",ticket:"TK-2026-019",action:"指令传达优化：转发一线时整理具体关键词",owner:"吴胜海",deadline:"持续"},
+  {id:"SOL-045",cat:"其他",prio:"P2",vendor:"河南新阳科技（南宁）",ticket:"TK-2026-019",action:"舆情指令不再一刀切，明确拦截敏感点",owner:"朱莹",deadline:"持续"},
+  {id:"SOL-046",cat:"其他",prio:"P2",vendor:"河南新阳科技（南宁）",ticket:"TK-2026-019",action:"排查是否有未经确认即删除的漏报备案例",owner:"吴胜海",deadline:"2026-07-01"}
+];
+
+function renderSols(data) {
+  var list = document.getElementById('solList');
+  var html = data.map(function(s){
+    return '<div class="chain-card" data-cat="'+s.cat+'" data-prio="'+s.prio+'" data-vendor="'+s.vendor+'">'+
+      '<div class="chain-header">'+
+        '<span class="chain-id">'+s.id+'</span>'+
+        '<span class="chain-tag blue">'+s.cat+'</span>'+
+        '<span class="prio-tag prio-'+s.prio+'">'+s.prio+'</span>'+
+        '<span>'+s.vendor+'</span>'+
+        '<span style="margin-left:auto;font-size:11px;color:var(--slate)">'+s.ticket+'</span>'+
+      '</div>'+
+      '<div class="chain-body open" style="padding:10px 14px">'+
+        '<div style="font-size:13px">'+s.action+'</div>'+
+        '<div class="chain-meta"><span>👤 '+s.owner+'</span><span>⏰ '+s.deadline+'</span></div>'+
+      '</div></div>';
+  }).join('');
+  list.innerHTML = html;
+  document.getElementById('solCount').textContent = data.length+' / '+SOLUTIONS.length+' 条';
 }
-filter();
+
+function filterSols() {
+  var cat = document.getElementById('solCat').value;
+  var prio = document.getElementById('solPrio').value;
+  var vendor = document.getElementById('solVendor').value;
+  var q = document.getElementById('solSearch').value.toLowerCase();
+  var filtered = SOLUTIONS.filter(function(s){
+    if(cat!=='all' && s.cat!==cat) return false;
+    if(prio!=='all' && s.prio!==prio) return false;
+    if(vendor!=='all' && s.vendor!==vendor) return false;
+    if(q && s.action.toLowerCase().indexOf(q)===-1 && s.owner.toLowerCase().indexOf(q)===-1 && s.id.toLowerCase().indexOf(q)===-1) return false;
+    return true;
+  });
+  renderSols(filtered);
+}
+
+function switchLearnTab(tab) {
+  document.querySelectorAll('#learnTabs .tab').forEach(function(t){t.classList.remove('active')});
+  document.querySelectorAll('[id^="learn-tab-"]').forEach(function(d){d.style.display='none'});
+  var tabEl = document.querySelector('#learnTabs .tab:nth-child('+
+    ({paths:1,exercises:2,quick:3,newbie:4}[tab])+')');
+  if(tabEl) tabEl.classList.add('active');
+  document.getElementById('learn-tab-'+tab).style.display='block';
+}
+
+function switchReportTab(tab) {
+  document.querySelectorAll('#reportTabs .tab').forEach(function(t){t.classList.remove('active')});
+  document.querySelectorAll('[id^="report-tab-"]').forEach(function(d){d.style.display='none'});
+  var tabEl = document.querySelector('#reportTabs .tab:nth-child('+
+    ({morning:1,evening:2,weekly:3,push:4}[tab])+')');
+  if(tabEl) tabEl.classList.add('active');
+  document.getElementById('report-tab-'+tab).style.display='block';
+}
+
+function scrollToSection(id) {
+  document.getElementById(id).scrollIntoView({behavior:'smooth'});
+  document.querySelectorAll('.header-nav a').forEach(function(a){a.classList.remove('active')});
+  var link = document.querySelector('.header-nav a[href="#'+id+'"]');
+  if(link) link.classList.add('active');
+}
+
+// Init
+renderSols(SOLUTIONS);
 </script>
 </body>
 </html>
