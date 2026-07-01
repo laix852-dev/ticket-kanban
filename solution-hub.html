@@ -1192,10 +1192,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function doMatch() {
   var q = document.getElementById('matchInput').value.trim();
-  if (!q || q.length < 2) return;
+  if (!q || q.length < 2) { document.getElementById('matchResult').style.display='block'; document.getElementById('matchResult').innerHTML='<div style="background:rgba(255,255,255,0.05);padding:16px;border-radius:8px;color:#a8a29e">请输入至少2个字</div>'; return; }
   
   var result = document.getElementById('matchResult');
+  if (!result) return;
   result.style.display = 'block';
+  try {
   
   // 1. Score patterns
   var patternScores = PATTERNS.map(function(p) {
@@ -1328,6 +1330,7 @@ function doMatch() {
   }
   
   result.innerHTML = html;
+  } catch(e) { result.innerHTML = '<div style="background:rgba(255,255,255,0.05);padding:16px;border-radius:8px;color:var(--red)">⚠ 分析出错：' + e.message + '</div>'; }
 }
 
 
