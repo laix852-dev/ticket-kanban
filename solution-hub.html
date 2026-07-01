@@ -444,7 +444,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hira
 <!-- Solution Detail Library -->
 <div class="section" id="solutions">
 <div class="section-title">📋 方案明细库</div>
-<div class="section-desc">从所有已完结工单中提取的 84 条可复用方案，按问题类型和供应商分类。</div>
+<div class="section-desc">从所有已完结工单中提取的 <span id="solDescCount">84</span> 条可复用方案，按问题类型和供应商分类。</div>
 <div class="search-bar">
   <input type="text" id="solSearch" placeholder="搜索方案..." oninput="filterSols()">
   <select id="solCat" onchange="filterSols()">
@@ -1362,6 +1362,8 @@ function updateStats() {
   document.getElementById('statVendor').textContent = vendors.size;
   var tickets = new Set(SOLUTIONS.map(function(s) { return s.ticket; }));
   document.getElementById('statTicket').textContent = tickets.size;
+  document.getElementById('solDescCount').textContent = SOLUTIONS.length;
+  document.getElementById('statPat').textContent = Object.keys(PATTERNS).length || 8;
 }
 function scrollToSection(id) {
   var el = document.getElementById(id);
@@ -1387,36 +1389,43 @@ function loadLiveData() {
 }
 
 function updatePatternStats(tickets) {
-  // Update pattern card status indicators
   var patStatus = {
-    'pat-shezheng': { tags: ['涉政','反华','漏放'], status: 'resolved' },
-    'pat-renxiao': { tags: ['人效','QC'], status: 'overdue' },
-    'pat-peixun': { tags: ['培训','周考','考核'], status: 'overdue' },
-    'pat-xitong': { tags: ['CMA','系统','卡审'], status: 'unresolved' }
+    'pat-shezheng': { tags: ['涉政','反华','漏放'], prefix: '出现 ' },
+    'pat-renxiao': { tags: ['人效','QC'], prefix: '出现 ' },
+    'pat-peixun': { tags: ['培训','周考','考核'], prefix: '出现 ' },
+    'pat-xitong': { tags: ['CMA','系统','卡审'], prefix: '出现 ' },
+    'pat-kefu': { tags: ['客服','投诉','回复'], prefix: '出现 ' },
+    'pat-zhijian': { tags: ['质检','次品','纠偏'], prefix: '出现 ' },
+    'pat-yuqing': { tags: ['舆情','指令','误删'], prefix: '出现 ' },
+    'pat-chidu': { tags: ['尺度','拉齐','低俗'], prefix: '出现 ' }
   };
   
   for (var pid in patStatus) {
     var cfg = patStatus[pid];
     var related = tickets.filter(function(t) {
       return cfg.tags.some(function(tag) {
-        return (t.title||'').indexOf(tag) >= 0 || (t.tags||[]).indexOf(tag) >= 0;
+        return (t.title||'').indexOf(tag) >= 0 || (t.tags||[]).indexOf(tag) >= 0 ||
+               (t.summary||'').indexOf(tag) >= 0;
       });
     });
     var overdue = related.filter(function(t) { return t.status === 'overdue'; });
     var unresolved = related.filter(function(t) { return t.status !== 'resolved' && t.status !== 'closed'; });
+    var resolved = related.filter(function(t) { return t.status === 'resolved' || t.status === 'closed'; });
     
     var el = document.getElementById(pid);
     if (!el) continue;
     var statusEl = el.querySelector('.chain-header span:last-child');
     if (!statusEl) continue;
     
+    var text = cfg.prefix + related.length + ' 起';
     if (overdue.length > 0) {
-      statusEl.innerHTML = '<span style="color:var(--red)">当前 ' + overdue.length + ' 条超期中</span>';
+      text += ' · <span style="color:var(--red)">' + overdue.length + ' 条超期中</span>';
     } else if (unresolved.length > 0) {
-      statusEl.innerHTML = '<span style="color:var(--amber)">' + unresolved.length + ' 条处理中</span>';
-    } else {
-      statusEl.innerHTML = '<span style="color:var(--green)">暂无活跃工单</span>';
+      text += ' · ' + unresolved.length + ' 条处理中';
+    } else if (related.length > 0) {
+      text += ' · ' + resolved.length + ' 条已完结';
     }
+    statusEl.innerHTML = text;
   }
 }
 
