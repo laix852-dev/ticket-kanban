@@ -1372,6 +1372,138 @@ function scrollToSection(id) {
   if(link) link.classList.add('active');
 }
 
+
+// 自动更新：拉取 tickets.json 更新动态数据
+function loadLiveData() {
+  fetch('https://raw.githubusercontent.com/laix852-dev/ticket-kanban/public/tickets.json')
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      var tickets = data.tickets || data;
+      updatePatternStats(tickets);
+      updateVendorStats(tickets);
+      updateRuleAlerts(tickets);
+    })
+    .catch(function() { /* 静默失败，不影响页面使用 */ });
+}
+
+function updatePatternStats(tickets) {
+  // Update pattern card status indicators
+  var patStatus = {
+    'pat-shezheng': { tags: ['涉政','反华','漏放'], status: 'resolved' },
+    'pat-renxiao': { tags: ['人效','QC'], status: 'overdue' },
+    'pat-peixun': { tags: ['培训','周考','考核'], status: 'overdue' },
+    'pat-xitong': { tags: ['CMA','系统','卡审'], status: 'unresolved' }
+  };
+  
+  for (var pid in patStatus) {
+    var cfg = patStatus[pid];
+    var related = tickets.filter(function(t) {
+      return cfg.tags.some(function(tag) {
+        return (t.title||'').indexOf(tag) >= 0 || (t.tags||[]).indexOf(tag) >= 0;
+      });
+    });
+    var overdue = related.filter(function(t) { return t.status === 'overdue'; });
+    var unresolved = related.filter(function(t) { return t.status !== 'resolved' && t.status !== 'closed'; });
+    
+    var el = document.getElementById(pid);
+    if (!el) continue;
+    var statusEl = el.querySelector('.chain-header span:last-child');
+    if (!statusEl) continue;
+    
+    if (overdue.length > 0) {
+      statusEl.innerHTML = '<span style="color:var(--red)">当前 ' + overdue.length + ' 条超期中</span>';
+    } else if (unresolved.length > 0) {
+      statusEl.innerHTML = '<span style="color:var(--amber)">' + unresolved.length + ' 条处理中</span>';
+    } else {
+      statusEl.innerHTML = '<span style="color:var(--green)">暂无活跃工单</span>';
+    }
+  }
+}
+
+function updateVendorStats(tickets) {
+  // Update vendor card stats with live data
+  var vendorMap = {
+    '钱燕': ['河南新阳科技'],
+    '刘倩': ['山西易网视界', '河南徽音'],
+    '张思语': ['贵州硅易', '河南诺达', '四川淘金', '驻马店']
+  };
+  
+  var cards = document.querySelectorAll('.ven-card');
+  cards.forEach(function(card) {
+    var name = card.querySelector('.ven-head').textContent.trim();
+    var contact = '';
+    for (var c in vendorMap) {
+      if (name.indexOf(c) >= 0) { contact = c; break; }
+    }
+    if (!contact) return;
+    
+    var related = tickets.filter(function(t) {
+      return vendorMap[contact].some(function(v) {
+        return (t.vendor||'').indexOf(v) >= 0;
+      });
+    });
+    var unresolved = related.filter(function(t) { return t.status !== 'resolved' && t.status !== 'closed'; });
+    var overdue = unresolved.filter(function(t) { return t.status === 'overdue'; });
+    
+    // Add or update a stats line
+    var statLine = card.querySelector('.ven-stats');
+    if (!statLine) {
+      statLine = document.createElement('div');
+      statLine.className = 'ven-stats';
+      statLine.style.cssText = 'margin-top:8px;padding-top:8px;border-top:1px solid var(--border);font-size:12px';
+      card.querySelector('.ven-body').appendChild(statLine);
+    }
+    statLine.innerHTML = '<strong>实时：</strong>未完结 ' + unresolved.length + ' 条' +
+      (overdue.length > 0 ? ' · <span style="color:var(--red)">超期 ' + overdue.length + ' 条</span>' : '') +
+      ' · 总工单 ' + related.length + ' 条';
+  });
+}
+
+function updateRuleAlerts(tickets) {
+  // Highlight currently triggered rules
+  var today = new Date().toISOString().slice(0,10);
+  
+  // Check: 工单>10天未解决
+  var oldTickets = tickets.filter(function(t) {
+    if (t.status === 'resolved' || t.status === 'closed') return false;
+    var days = Math.floor((new Date() - new Date(t.createdDate)) / 86400000);
+    return days > 10;
+  });
+  
+  // Check: P0>3天未in_progress
+  var stuckP0 = tickets.filter(function(t) {
+    if (t.priority !== 'P0') return false;
+    if (t.status === 'resolved' || t.status === 'closed' || t.status === 'in_progress') return false;
+    var days = Math.floor((new Date() - new Date(t.createdDate)) / 86400000);
+    return days > 3;
+  });
+  
+  // Check: 全部方案超期
+  var allOverdue = tickets.filter(function(t) {
+    if (t.status === 'resolved' || t.status === 'closed') return false;
+    var sols = t.solutions || [];
+    if (sols.length === 0) return false;
+    return sols.every(function(s) { return s.status === 'overdue'; });
+  });
+  
+  // Update rule table with live counts
+  var rules = document.querySelectorAll('.rules-tbl tr');
+  if (rules.length >= 4) {
+    if (oldTickets.length > 0) {
+      rules[3].cells[2].innerHTML = '升级管理群 <span style="color:var(--red);font-weight:600">（当前' + oldTickets.length + '条触发）</span>';
+    }
+    if (allOverdue.length > 0) {
+      rules[4].cells[2].innerHTML = '立即电话沟通 <span style="color:var(--red);font-weight:600">（当前' + allOverdue.length + '条触发）</span>';
+    }
+    if (stuckP0.length > 0) {
+      rules[5].cells[2].innerHTML = '确认负责人 <span style="color:var(--amber);font-weight:600">（当前' + stuckP0.length + '条触发）</span>';
+    }
+  }
+}
+
+// Run after page init
+setTimeout(loadLiveData, 500);
+
 // Init
 try {
   updateStats();
