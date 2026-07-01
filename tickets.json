@@ -1515,22 +1515,22 @@
         {
           "step": 1,
           "action": "开展低俗内容判定尺度复训，统一全员判定标准",
-          "owner": "TBD",
-          "deadline": "TBD",
+          "owner": "张少鹏",
+          "deadline": "7月3日",
           "status": "pending"
         },
         {
           "step": 2,
           "action": "梳理汇总通过+不通过典型案例，形成标准化参考样本",
-          "owner": "TBD",
-          "deadline": "TBD",
+          "owner": "张少鹏",
+          "deadline": "7月3日",
           "status": "pending"
         },
         {
           "step": 3,
           "action": "组织全员专项验收，确保整改落地到位",
-          "owner": "TBD",
-          "deadline": "TBD",
+          "owner": "张少鹏",
+          "deadline": "7月8日",
           "status": "pending"
         }
       ],
@@ -1542,6 +1542,10 @@
         {
           "time": "07/01 10:17",
           "event": "工单群已建立，群号8576437"
+        },
+        {
+          "time": "07/01 12:38",
+          "event": "钱燕指定负责人张少鹏，跟进人杨进，截止时间：方案1&2→7/3，方案3→7/8"
         }
       ],
       "tags": [
@@ -1549,7 +1553,7 @@
         "尺度拉齐",
         "低俗审核"
       ],
-      "progress": "工单已创建，待分配负责人和截止时间。",
+      "progress": "张少鹏负责方案执行，杨进跟进。方案1&2 7/3完成，方案3 7/8前完成。",
       "manualPenalty": null,
       "penaltyConfirmed": false,
       "penaltyConfirmedBy": null,
