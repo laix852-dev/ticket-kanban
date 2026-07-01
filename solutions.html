@@ -160,71 +160,28 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hira
   <div class="stat-card"><div class="stat-label">学习路径</div><div class="stat-value purple">4</div></div>
 </div>
 
-<!-- 活学活用 -->
-<div class="section" id="match" style="background:linear-gradient(135deg,var(--blue-50),#f0f7ff);border-radius:var(--radius);padding:20px;border:1px solid var(--blue-100);margin-bottom:24px">
-<div class="section-title">🧠 活学活用 · 智能匹配</div>
-<div class="section-desc">描述你遇到的问题，自动匹配历史方案和问题模式。输入越具体，匹配越精准。</div>
-<div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap">
-  <input type="text" id="matchInput" placeholder="例如：审核员把任大炮的评论放过了、客服回复太慢被投诉、次品率突然翻了三倍..." 
-    style="flex:1;min-width:300px;padding:10px 14px;border:2px solid var(--blue-100);border-radius:var(--radius-xs);font-size:14px;outline:none"
-    onkeydown="if(event.key==='Enter')doMatch()">
-  <button onclick="doMatch()" style="padding:10px 20px;background:var(--blue);color:#fff;border:none;border-radius:var(--radius-xs);font-size:14px;font-weight:600;cursor:pointer">🔍 匹配方案</button>
+<!-- 智能方案引擎 -->
+<div class="section" id="match" style="background:linear-gradient(135deg,#1c1917,#292524);border-radius:var(--radius);padding:24px;margin-bottom:24px;color:#fff">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:6px">
+  <span style="font-size:22px">🧠</span>
+  <div class="section-title" style="color:#fff;margin:0">智能方案引擎</div>
 </div>
-<div id="matchResult" style="display:none"></div>
+<div class="section-desc" style="color:#a8a29e;margin-bottom:16px">输入问题描述，自动识别类型、匹配历史方案、生成完整工单方案。一步到位。</div>
+
+<div style="display:flex;gap:10px;margin-bottom:8px;flex-wrap:wrap">
+  <input type="text" id="matchInput" 
+    placeholder="粘贴工单标题或问题描述，例如：审核员把涉政评论放过了、客服回复超时被投诉、质检次品率突然翻了三倍..."
+    style="flex:1;min-width:300px;padding:12px 16px;border:2px solid rgba(255,255,255,0.15);border-radius:var(--radius-xs);font-size:14px;background:rgba(255,255,255,0.06);color:#fff;outline:none"
+    onkeydown="if(event.key==='Enter')doMatch()"
+    oninput="if(this.value.length>=5)doMatch()">
+  <button onclick="doMatch()" id="matchBtn" style="padding:12px 24px;background:var(--blue);color:#fff;border:none;border-radius:var(--radius-xs);font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap">🔍 分析</button>
+</div>
+<div style="font-size:11px;color:#78716c">输入5个字以上自动分析 · 支持粘贴整段工单摘要</div>
+
+<div id="matchResult" style="display:none;margin-top:16px"></div>
 </div>
 
-<!-- 方案生成器 -->
-<div class="section" id="generate" style="background:linear-gradient(135deg,#fef3c7,#fffbeb);border-radius:var(--radius);padding:20px;border:1px solid var(--amber-100);margin-bottom:24px">
-<div class="section-title">⚡ 方案生成器</div>
-<div class="section-desc">选择问题类型和供应商，自动生成完整的解决方案模板。生成后一键复制，直接粘贴到工单里。</div>
-<div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;align-items:flex-end">
-  <div>
-    <div style="font-size:11px;color:var(--text-secondary);margin-bottom:4px">问题类型</div>
-    <select id="genType" onchange="genPreview()" style="padding:8px 12px;border:1px solid var(--border);border-radius:6px;font-size:13px;background:#fff;outline:none">
-      <option value="">-- 选择问题类型 --</option>
-      <option value="涉政漏放">涉政漏放</option>
-      <option value="人效不达标">人效不达标</option>
-      <option value="质检管理">质检管理</option>
-      <option value="客服投诉">客服投诉</option>
-      <option value="系统稳定性">审核系统稳定性</option>
-      <option value="培训考核">培训考核</option>
-      <option value="舆情指令误操作">舆情指令误操作</option>
-      <option value="尺度拉齐">尺度拉齐</option>
-    </select>
-  </div>
-  <div>
-    <div style="font-size:11px;color:var(--text-secondary);margin-bottom:4px">供应商</div>
-    <select id="genVendor" onchange="genPreview()" style="padding:8px 12px;border:1px solid var(--border);border-radius:6px;font-size:13px;background:#fff;outline:none">
-      <option value="">-- 选择供应商 --</option>
-      <option value="河南新阳科技（南宁）">新阳南宁</option>
-      <option value="河南新阳科技（洛阳）">新阳洛阳</option>
-      <option value="山西易网视界（临汾）">易网临汾</option>
-      <option value="河南徽音网络科技">徽音郑州</option>
-      <option value="贵州硅易（绥阳）">硅易绥阳</option>
-      <option value="河南诺达信息科技">诺达</option>
-    </select>
-  </div>
-  <div>
-    <div style="font-size:11px;color:var(--text-secondary);margin-bottom:4px">优先级</div>
-    <select id="genPrio" onchange="genPreview()" style="padding:8px 12px;border:1px solid var(--border);border-radius:6px;font-size:13px;background:#fff;outline:none">
-      <option value="P0">P0</option>
-      <option value="P1">P1</option>
-      <option value="P2">P2</option>
-    </select>
-  </div>
-  <div>
-    <div style="font-size:11px;color:var(--text-secondary);margin-bottom:4px">创建日期</div>
-    <input type="date" id="genDate" onchange="genPreview()" style="padding:8px 12px;border:1px solid var(--border);border-radius:6px;font-size:13px;background:#fff;outline:none">
-  </div>
-</div>
-<div id="genPreview" style="display:none">
-  <div style="background:#1c1917;color:#e7e5e4;padding:16px 20px;border-radius:var(--radius-sm);font-family:monospace;font-size:12px;line-height:1.9;white-space:pre-wrap;position:relative;margin-bottom:8px" id="genOutput"></div>
-  <button onclick="copyGen()" style="padding:8px 16px;background:var(--amber);color:#fff;border:none;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px" id="genCopyBtn">📋 复制方案到剪贴板</button>
-  <span id="genCopied" style="display:none;color:var(--green);font-size:13px;margin-left:10px">✅ 已复制</span>
-</div>
-</div>
-
-<!-- Problem Patterns -->
+<!-- Problem Patterns --><!-- Problem Patterns -->
 <div class="section" id="patterns">
 <div class="section-title">🔬 问题模式库</div>
 <div class="section-desc">从 16 条真实工单中提炼的 8 类高频问题，含完整方案链、触发信号和预防措施。展开查看完整方案。</div>
@@ -1233,93 +1190,155 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function doMatch() {
   var q = document.getElementById('matchInput').value.trim();
-  if (!q) return;
-  
-  // Score each pattern
-  var scored = PATTERNS.map(function(p) {
-    var score = 0;
-    var kw = p.keywords.split(' ');
-    kw.forEach(function(w) {
-      if (q.indexOf(w) >= 0) score += 10;
-      // Partial match for longer keywords
-      if (w.length >= 3 && q.toLowerCase().indexOf(w.toLowerCase()) >= 0) score += 5;
-    });
-    return {pattern:p, score:score};
-  });
-  scored.sort(function(a,b){ return b.score - a.score; });
-  
-  // Score individual solutions
-  var solScored = SOLUTIONS.map(function(s) {
-    var score = 0;
-    var txt = (s.action + ' ' + s.cat + ' ' + s.owner).toLowerCase();
-    var words = q.toLowerCase().split(/[\s,，。！？]+/);
-    words.forEach(function(w) {
-      if (w.length >= 2 && txt.indexOf(w) >= 0) score += 3;
-    });
-    // Bonus for matching category
-    var topPattern = scored[0];
-    if (topPattern && topPattern.score > 0 && s.cat === topPattern.pattern.name) score += 5;
-    // Bonus for matching keywords from top pattern
-    if (topPattern && topPattern.score > 0) {
-      topPattern.pattern.keywords.split(' ').forEach(function(kw) {
-        if (kw.length >= 2 && s.action.indexOf(kw) >= 0) score += 2;
-      });
-    }
-    return {sol:s, score:score};
-  });
-  solScored.sort(function(a,b){ return b.score - a.score; });
-  
-  var topMatches = scored.filter(function(x){ return x.score > 0; });
-  var topSols = solScored.filter(function(x){ return x.score > 0; }).slice(0, 5);
+  if (!q || q.length < 2) return;
   
   var result = document.getElementById('matchResult');
   result.style.display = 'block';
   
-  var html = '';
+  // 1. Score patterns
+  var patternScores = PATTERNS.map(function(p) {
+    var score = 0;
+    p.keywords.split(' ').forEach(function(kw) {
+      if (q.indexOf(kw) >= 0) score += 10;
+      if (kw.length >= 3 && q.toLowerCase().indexOf(kw.toLowerCase()) >= 0) score += 5;
+    });
+    return {pattern:p, score:score};
+  });
+  patternScores.sort(function(a,b){ return b.score - a.score; });
+  var best = patternScores[0];
   
-  if (topMatches.length === 0) {
-    html += '<div style="padding:20px;text-align:center;color:var(--text-secondary);font-size:14px">没找到匹配的模式，试试换一种描述方式？<br><small>提示：用具体的关键词，比如"审核员漏放了涉政内容"而不是"出了个问题"</small></div>';
-  } else {
-    var best = topMatches[0];
-    html += '<div style="margin-bottom:14px;padding:14px 18px;background:#fff;border-radius:var(--radius-sm);border:2px solid var(--blue)">';
-    html += '<div style="font-size:11px;color:var(--blue);font-weight:600;margin-bottom:4px">🎯 最佳匹配 · 问题类型</div>';
-    html += '<div style="font-size:18px;font-weight:700;margin-bottom:4px">' + best.pattern.name + ' <span class="prio-tag prio-' + best.pattern.priority + '" style="font-size:11px">' + best.pattern.priority + '</span></div>';
-    html += '<div style="font-size:13px;color:var(--text-secondary);margin-bottom:8px">' + best.score + ' 分匹配 · 关联工单：' + best.pattern.tickets + '</div>';
-    html += '<div style="font-size:13px;background:#fafaf9;padding:8px 12px;border-radius:6px"><strong>推荐方案链：</strong>' + best.pattern.steps + '</div>';
-    html += '</div>';
+  // 2. Score individual solutions
+  var solScores = SOLUTIONS.map(function(s) {
+    var score = 0;
+    var txt = (s.action + ' ' + s.cat + ' ' + s.owner).toLowerCase();
+    q.toLowerCase().split(/[\s,，。！？]+/).forEach(function(w) {
+      if (w.length >= 2 && txt.indexOf(w) >= 0) score += 3;
+    });
+    if (best && best.score > 0 && s.cat === best.pattern.name) score += 5;
+    best && best.pattern.keywords.split(' ').forEach(function(kw) {
+      if (kw.length >= 2 && s.action.indexOf(kw) >= 0) score += 2;
+    });
+    return {sol:s, score:score};
+  });
+  solScores.sort(function(a,b){ return b.score - a.score; });
+  var topSols = solScores.filter(function(x){ return x.score > 0; }).slice(0, 5);
+  
+  // 3. Detect vendor from input
+  var vendorMap = {
+    '南宁':'河南新阳科技（南宁）','新阳南宁':'河南新阳科技（南宁）',
+    '洛阳':'河南新阳科技（洛阳）','新阳洛阳':'河南新阳科技（洛阳）',
+    '临汾':'山西易网视界（临汾）','易网':'山西易网视界（临汾）',
+    '徽音':'河南徽音网络科技','郑州':'河南徽音网络科技',
+    '绥阳':'贵州硅易（绥阳）','硅易':'贵州硅易（绥阳）',
+    '诺达':'河南诺达信息科技',
+    '淘金':'四川淘金（忻州）','忻州':'四川淘金（忻州）',
+    '驻马店':'驻马店网创运营'
+  };
+  var detectedVendor = '';
+  for (var k in vendorMap) {
+    if (q.indexOf(k) >= 0) { detectedVendor = vendorMap[k]; break; }
+  }
+  
+  // 4. Auto-detect priority from input
+  var detectedPrio = 'P1';
+  if (/P0|p0|紧急|重大|严重|投诉|漏放|事故|涉政/.test(q)) detectedPrio = 'P0';
+  else if (/P2|p2|轻微|个例|优化/.test(q)) detectedPrio = 'P2';
+  
+  var html = '';
+  var hasMatch = best && best.score > 0;
+  
+  // === MATCH RESULT ===
+  html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">';
+  
+  // Left column: pattern match
+  html += '<div style="background:rgba(255,255,255,0.05);border-radius:var(--radius-sm);padding:16px;border:1px solid rgba(255,255,255,0.08)">';
+  html += '<div style="font-size:11px;color:#a8a29e;margin-bottom:6px;text-transform:uppercase;letter-spacing:1px">🎯 类型识别</div>';
+  
+  if (hasMatch) {
+    html += '<div style="font-size:20px;font-weight:700;margin-bottom:4px">' + best.pattern.name + '</div>';
+    html += '<div style="font-size:12px;color:#a8a29e;margin-bottom:8px">匹配度 ' + best.score + ' 分 · 历史 ' + best.pattern.tickets + '</div>';
+    html += '<div style="font-size:12px;background:rgba(37,99,235,0.15);padding:8px 12px;border-radius:6px;line-height:1.8">' +
+      '<span style="color:#93c5fd">方案链：</span>' + best.pattern.steps + '</div>';
     
-    // Other possible patterns
-    var others = topMatches.slice(1, 3);
-    if (others.length > 0) {
-      html += '<div style="font-size:12px;color:var(--text-secondary);margin-bottom:8px">也可能涉及：';
-      others.forEach(function(m, i) {
-        html += '<span style="background:var(--amber-50);padding:2px 8px;border-radius:4px;margin:0 4px">' + m.pattern.name + '（' + m.score + '分）</span>';
+    // Show alternatives
+    var alt = patternScores.filter(function(x,i){ return i>0 && x.score > 0; });
+    if (alt.length > 0) {
+      html += '<div style="font-size:11px;color:#78716c;margin-top:8px">也可能：';
+      alt.slice(0,2).forEach(function(a) {
+        html += '<span style="margin-left:6px;background:rgba(255,255,255,0.06);padding:1px 6px;border-radius:3px">' + a.pattern.name + '</span>';
       });
       html += '</div>';
     }
+  } else {
+    html += '<div style="font-size:14px;color:#a8a29e">未匹配到明确类型</div>';
+    html += '<div style="font-size:11px;color:#78716c;margin-top:6px">试试用更具体的词描述，如"漏放""次品""投诉"等</div>';
   }
+  html += '</div>';
   
-  // Top solutions
-  if (topSols.length > 0) {
-    html += '<div style="margin-top:12px;font-size:13px;font-weight:600;color:var(--text)">📋 相关方案（前' + topSols.length + '条）：</div>';
-    topSols.forEach(function(item) {
-      html += '<div class="sol-card" style="margin-top:6px">'+
-        '<div class="sol-header">'+
-          '<span class="sol-id">'+item.sol.id+'</span>'+
-          '<span class="sol-tag">'+item.sol.cat+'</span>'+
-          '<span class="prio-tag prio-'+item.sol.prio+'">'+item.sol.prio+'</span>'+
-          '<span>'+item.sol.vendor+'</span>'+
-          '<span style="margin-left:auto;font-size:10px;color:var(--blue)">'+item.score+'分</span>'+
-        '</div>'+
-        '<div class="sol-body"><div style="font-size:13px">'+item.sol.action+'</div>'+
-        '<div class="sol-meta"><span>👤 '+item.sol.owner+'</span><span>⏰ '+item.sol.deadline+'</span><span>📋 '+item.sol.ticket+'</span></div></div>'+
-      '</div>';
+  // Right column: generated solution plan
+  html += '<div style="background:rgba(255,255,255,0.05);border-radius:var(--radius-sm);padding:16px;border:1px solid rgba(255,255,255,0.08);position:relative">';
+  html += '<div style="font-size:11px;color:#a8a29e;margin-bottom:6px;text-transform:uppercase;letter-spacing:1px">⚡ 生成方案</div>';
+  
+  if (hasMatch && GEN_TEMPLATES[best.pattern.name]) {
+    var tpl = GEN_TEMPLATES[best.pattern.name];
+    var vendor = detectedVendor || '（待填）';
+    var contact = VENDOR_CONTACTS[vendor] || '（待确认）';
+    var today = new Date().toISOString().slice(0,10);
+    
+    var plan = '优先级：' + detectedPrio + ' | 供应商：' + vendor + ' | ' + contact + ' | ' + today + '\n\n';
+    plan += '📝 影响：\n' + tpl.impact.replace(/\\n/g,'\n').substring(0,120) + '...\n\n';
+    plan += '🔧 方案（' + tpl.steps.length + '步）：\n';
+    tpl.steps.forEach(function(s, i) {
+      plan += (i+1) + '. ' + s.action + ' · ' + s.owner + ' · ' + s.deadline + '\n';
     });
+    
+    html += '<pre style="font-size:11px;color:#e7e5e4;white-space:pre-wrap;line-height:1.7;max-height:280px;overflow-y:auto;margin:0;font-family:inherit" id="genOutput">' + plan + '</pre>';
+    html += '<button onclick="copyUnified()" id="genCopyBtn" style="margin-top:10px;padding:8px 16px;background:var(--green);color:#fff;border:none;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;width:100%">📋 一键复制方案</button>';
+    html += '<span id="genCopied" style="display:none;position:absolute;bottom:16px;right:16px;color:var(--green);font-size:13px">✅ 已复制</span>';
+  } else {
+    // Fallback: show top matching solutions
+    html += '<div style="font-size:12px;color:#a8a29e">无匹配模板，展示最相关方案：</div>';
+    if (topSols.length > 0) {
+      topSols.slice(0,4).forEach(function(item) {
+        html += '<div style="font-size:11px;padding:4px 8px;margin:4px 0;background:rgba(255,255,255,0.04);border-radius:4px;color:#e7e5e4">' +
+          item.sol.id + ' ' + item.sol.action.substring(0,80) + '...</div>';
+      });
+    } else {
+      html += '<div style="font-size:12px;color:#78716c">试试更详细的描述，或在方案明细库中搜索</div>';
+    }
+    html += '<a href="#solutions" onclick="scrollToSection('solutions')" style="display:block;margin-top:10px;padding:8px 16px;background:rgba(255,255,255,0.1);color:#fff;border:none;border-radius:6px;font-size:13px;text-align:center;text-decoration:none;cursor:pointer">📋 浏览方案明细库</a>';
+  }
+  html += '</div>';
+  
+  html += '</div>'; // end grid
+  
+  // Bottom: matching individual solutions
+  if (topSols.length > 0) {
+    html += '<div style="margin-top:14px;padding:12px 16px;background:rgba(255,255,255,0.03);border-radius:var(--radius-sm);border:1px solid rgba(255,255,255,0.05)">';
+    html += '<div style="font-size:11px;color:#a8a29e;margin-bottom:6px">📋 匹配到的历史方案（' + topSols.length + '条）</div>';
+    html += '<div style="display:flex;flex-wrap:wrap;gap:6px">';
+    topSols.forEach(function(item) {
+      html += '<span style="font-size:11px;padding:3px 8px;background:rgba(37,99,235,0.1);border-radius:4px;color:#93c5fd;cursor:pointer" ' +
+        'onclick="navigator.clipboard.writeText('' + item.sol.action.replace(/'/g, "\\'") + ' · ' + item.sol.owner + ' · ' + item.sol.deadline + '')" ' +
+        'title="点击复制">' + item.sol.id + ' ' + item.sol.action.substring(0,50) + '... (' + item.score + '分)</span>';
+    });
+    html += '</div></div>';
   }
   
   result.innerHTML = html;
 }
 
+function copyUnified() {
+  var txt = document.getElementById('genOutput').textContent;
+  navigator.clipboard.writeText(txt).then(function() {
+    document.getElementById('genCopyBtn').style.display = 'none';
+    document.getElementById('genCopied').style.display = 'inline';
+    setTimeout(function() {
+      document.getElementById('genCopyBtn').style.display = 'block';
+      document.getElementById('genCopied').style.display = 'none';
+    }, 2000);
+  });
+}
 function updateStats() {
   document.getElementById('statTotal').textContent = SOLUTIONS.length;
   var cats = new Set(SOLUTIONS.map(function(s) { return s.cat; }));
