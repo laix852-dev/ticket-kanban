@@ -144,7 +144,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hira
     <a href="#generate" onclick="scrollToSection('generate')">方案生成</a>
     <a href="#match" onclick="scrollToSection('match')">活学活用</a>
     <a href="#patterns" onclick="scrollToSection('patterns')">问题模式</a>
-    <a href="#solutions" onclick="scrollToSection(&quot;solutions&quot;)">方案明细</a>
+    <a href="#solutions" onclick="scrollToSection('solutions')">方案明细</a>
     <a href="#learn" onclick="scrollToSection('learn')">学习系统</a>
     <a href="#vendors" onclick="scrollToSection('vendors')">供应商画像</a>
     <a href="#rules" onclick="scrollToSection('rules')">检测规则</a>
@@ -1309,7 +1309,7 @@ function doMatch() {
     } else {
       html += '<div style="font-size:12px;color:#78716c">试试更详细的描述，或在方案明细库中搜索</div>';
     }
-    html += '<a href="#solutions" onclick="scrollToSection(&quot;solutions&quot;)" style="display:block;margin-top:10px;padding:8px 16px;background:rgba(255,255,255,0.1);color:#fff;border:none;border-radius:6px;font-size:13px;text-align:center;text-decoration:none;cursor:pointer">📋 浏览方案明细库</a>';
+    html += '<a href="#solutions" onclick="scrollToSection('solutions')" style="display:block;margin-top:10px;padding:8px 16px;background:rgba(255,255,255,0.1);color:#fff;border:none;border-radius:6px;font-size:13px;text-align:center;text-decoration:none;cursor:pointer">📋 浏览方案明细库</a>';
   }
   html += '</div>';
   
