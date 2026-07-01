@@ -61,6 +61,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hira
 .prio-P2{background:var(--green-100);color:var(--green)}
 .chain-body{padding:14px 18px;display:none}
 .chain-body.open{display:block}
+.sol-card{background:var(--surface);border-radius:8px;border:1px solid var(--border);overflow:hidden;transition:box-shadow .2s}
+.sol-card:hover{box-shadow:var(--shadow-md)}
+.sol-header{display:flex;align-items:center;gap:10px;padding:10px 14px;font-size:12px;background:#fafaf9;flex-wrap:wrap}
+.sol-id{font-family:monospace;color:var(--slate);font-size:11px}
+.sol-tag{font-size:10px;padding:2px 8px;border-radius:4px;background:var(--blue-50);color:var(--blue);font-weight:600}
+.sol-body{padding:10px 14px}
+.sol-meta{font-size:11px;color:var(--slate);margin-top:6px;display:flex;gap:14px}
 .chain-steps{display:grid;gap:8px}
 .chain-step{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;background:#fafaf9;border-radius:var(--radius-xs);font-size:13px}
 .step-num{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px}
@@ -107,7 +114,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hira
 .search-bar input{flex:1;min-width:200px;max-width:400px}
 
 /* Report template preview */
-.template-box{background:#1c1917;color:#e7e5e4;padding:16px 20px;border-radius:var(--radius-sm);font-family:monospace;font-size:12px;line-height:1.8;white-space:pre-wrap;max-height:400px;overflow-y:auto}
+.template-box{background:#1c1917;position:relative
+.copy-btn{padding:4px 10px;border:1px solid rgba(255,255,255,0.2);border-radius:6px;background:rgba(255,255,255,0.08);color:#a8a29e;cursor:pointer;font-size:11px;transition:all .2s}
+.copy-btn:hover{background:rgba(255,255,255,0.15);color:#fff}
+.copy-btn.copied{background:var(--green);color:#fff;border-color:var(--green)};color:#e7e5e4;padding:16px 20px;border-radius:var(--radius-sm);font-family:monospace;font-size:12px;line-height:1.8;white-space:pre-wrap;max-height:400px;overflow-y:auto}
 
 /* Exercise card */
 .exercise-card{background:linear-gradient(135deg,var(--purple-50),#faf5ff);border:2px dashed var(--purple);border-radius:var(--radius);padding:18px;margin-bottom:12px}
@@ -140,11 +150,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hira
 
 <!-- Stats -->
 <div class="stats-row">
-  <div class="stat-card"><div class="stat-label">问题模式</div><div class="stat-value blue">8</div></div>
-  <div class="stat-card"><div class="stat-label">方案条目</div><div class="stat-value">84</div></div>
-  <div class="stat-card"><div class="stat-label">历史案例</div><div class="stat-value green">16</div></div>
-  <div class="stat-card"><div class="stat-label">供应商</div><div class="stat-value">8</div></div>
-  <div class="stat-card"><div class="stat-label">预警规则</div><div class="stat-value amber">8</div></div>
+  <div class="stat-card"><div class="stat-label">问题模式</div><div class="stat-value blue">6</div></div>
+  <div class="stat-card"><div class="stat-label">方案条目</div><div class="stat-value" id="statTotal">-</div></div>
+  <div class="stat-card"><div class="stat-label">分类数</div><div class="stat-value green" id="statCat">-</div></div>
+  <div class="stat-card"><div class="stat-label">供应商</div><div class="stat-value" id="statVendor">-</div></div>
+  <div class="stat-card"><div class="stat-label">来源工单</div><div class="stat-value amber" id="statTicket">-</div></div>
   <div class="stat-card"><div class="stat-label">学习路径</div><div class="stat-value purple">4</div></div>
 </div>
 
@@ -624,6 +634,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hira
 </div>
 
 <div id="report-tab-morning">
+<button class="copy-btn" style="position:absolute;top:8px;right:12px;z-index:1" onclick="copyTemplate(this,'report-tab-morning')">📋 复制</button>
 <div class="template-box">📰 工单早报 | 2026年MM月DD日（周X）
 
 一、总体概览
@@ -654,6 +665,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hira
 </div>
 
 <div id="report-tab-evening" style="display:none">
+<button class="copy-btn" style="position:absolute;top:8px;right:12px;z-index:1" onclick="copyTemplate(this,'report-tab-evening')">📋 复制</button>
 <div class="template-box">📰 工单晚报 | 2026年MM月DD日（周X）
 
 一、今日动态
@@ -681,6 +693,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hira
 </div>
 
 <div id="report-tab-weekly" style="display:none">
+<button class="copy-btn" style="position:absolute;top:8px;right:12px;z-index:1" onclick="copyTemplate(this,'report-tab-weekly')">📋 复制</button>
 <div class="template-box">📊 工单周报 | 第N周（MM/DD - MM/DD）
 
 │ 指标          │ 本周  │ 上周  │ 环比  │
@@ -831,17 +844,17 @@ function renderPage() {
   var pageData = currentData.slice(start, end);
   
   var html = pageData.map(function(s){
-    return '<div class="chain-card" data-cat="'+s.cat+'" data-prio="'+s.prio+'" data-vendor="'+s.vendor+'">'+
-      '<div class="chain-header">'+
-        '<span class="chain-id">'+s.id+'</span>'+
-        '<span class="chain-tag blue">'+s.cat+'</span>'+
+    return '<div class="sol-card" data-cat="'+s.cat+'" data-prio="'+s.prio+'" data-vendor="'+s.vendor+'">'+
+      '<div class="sol-header">'+
+        '<span class="sol-id">'+s.id+'</span>'+
+        '<span class="sol-tag">'+s.cat+'</span>'+
         '<span class="prio-tag prio-'+s.prio+'">'+s.prio+'</span>'+
         '<span>'+s.vendor+'</span>'+
         '<span style="margin-left:auto;font-size:11px;color:var(--slate)">'+s.ticket+'</span>'+
       '</div>'+
-      '<div class="chain-body open" style="padding:10px 14px">'+
+      '<div class="sol-body">'+
         '<div style="font-size:13px">'+s.action+'</div>'+
-        '<div class="chain-meta"><span>👤 '+s.owner+'</span><span>⏰ '+s.deadline+'</span></div>'+
+        '<div class="sol-meta"><span>👤 '+s.owner+'</span><span>⏰ '+s.deadline+'</span></div>'+
       '</div></div>';
   }).join('');
   
@@ -912,6 +925,25 @@ function switchReportTab(tab) {
   document.getElementById('report-tab-'+tab).style.display='block';
 }
 
+
+function copyTemplate(btn, tabId) {
+  var box = document.getElementById(tabId).querySelector('.template-box');
+  navigator.clipboard.writeText(box.textContent).then(function() {
+    btn.textContent = '✅ 已复制';
+    btn.classList.add('copied');
+    setTimeout(function() { btn.textContent = '📋 复制'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+function updateStats() {
+  document.getElementById('statTotal').textContent = SOLUTIONS.length;
+  var cats = new Set(SOLUTIONS.map(function(s) { return s.cat; }));
+  document.getElementById('statCat').textContent = cats.size;
+  var vendors = new Set(SOLUTIONS.map(function(s) { return s.vendor; }));
+  document.getElementById('statVendor').textContent = vendors.size;
+  var tickets = new Set(SOLUTIONS.map(function(s) { return s.ticket; }));
+  document.getElementById('statTicket').textContent = tickets.size;
+}
 function scrollToSection(id) {
   document.getElementById(id).scrollIntoView({behavior:'smooth'});
   document.querySelectorAll('.header-nav a').forEach(function(a){a.classList.remove('active')});
@@ -920,6 +952,7 @@ function scrollToSection(id) {
 }
 
 // Init
+updateStats();
 renderSols(SOLUTIONS);
 </script>
 </body>
