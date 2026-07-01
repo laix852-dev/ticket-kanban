@@ -1658,14 +1658,14 @@
           "action": "数据回查：完成6月28日爱诗直播该时段全量数据回查，确认是否有其他漏判",
           "owner": "赵培育",
           "deadline": "T+1",
-          "status": "in_progress"
+          "status": "done"
         },
         {
           "step": 2,
           "action": "大屏盯看机制：建立高频违规数据大屏集中盯看流程，发现异常立即响应",
           "owner": "赵培育",
           "deadline": "T+3",
-          "status": "in_progress"
+          "status": "done"
         },
         {
           "step": 3,
@@ -1679,14 +1679,14 @@
           "action": "案例复盘宣导：将本次漏判案例纳入培训材料，全员宣导「正常画面≠无风险」意识",
           "owner": "赵培育",
           "deadline": "T+2",
-          "status": "in_progress"
+          "status": "done"
         },
         {
           "step": 5,
           "action": "警惕度管理培训：针对跨直播间审核场景，加强审核员警惕度管理和注意力分配培训",
           "owner": "赵培育（待指定）",
           "deadline": "持续",
-          "status": "in_progress"
+          "status": "done"
         }
       ],
       "timeline": [
@@ -1705,6 +1705,10 @@
         {
           "time": "07/01 14:42",
           "event": "张思语确认P2方案，指定处理人：赵培育(1/2/4/5)、吴婉婉(3)"
+        },
+        {
+          "time": "07/01 16:02",
+          "event": "赵培育汇报：①数据回查②大屏盯看④案例复盘⑤培训 已完成"
         }
       ],
       "tags": [
@@ -1713,7 +1717,7 @@
         "直播",
         "客户投诉"
       ],
-      "progress": "方案已确认，指定处理人，进入执行阶段",
+      "progress": "方案①/②/④/⑤已完成(赵培育)，方案③协助帮盯待吴婉婉处理",
       "manualPenalty": null,
       "penaltyConfirmed": false,
       "penaltyConfirmedBy": null
