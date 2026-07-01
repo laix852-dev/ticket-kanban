@@ -1644,7 +1644,7 @@
       "title": "河南诺达爱诗直播6.28色情漏判",
       "author": "wb.wuwanwan01",
       "vendor": "河南诺达信息科技",
-      "status": "pending",
+      "status": "in_progress",
       "priority": "P2",
       "sourceGroup": "",
       "createdDate": "2026-07-01",
@@ -1656,37 +1656,37 @@
         {
           "step": 1,
           "action": "数据回查：完成6月28日爱诗直播该时段全量数据回查，确认是否有其他漏判",
-          "owner": "待指定",
+          "owner": "赵培育",
           "deadline": "T+1",
-          "status": "pending"
+          "status": "in_progress"
         },
         {
           "step": 2,
           "action": "大屏盯看机制：建立高频违规数据大屏集中盯看流程，发现异常立即响应",
-          "owner": "待指定",
+          "owner": "赵培育",
           "deadline": "T+3",
-          "status": "pending"
+          "status": "in_progress"
         },
         {
           "step": 3,
           "action": "协助帮盯机制：明确直播间数量阈值，超出时启动协助帮盯流程，确保不出现空档",
-          "owner": "待指定",
+          "owner": "吴婉婉",
           "deadline": "T+3",
-          "status": "pending"
+          "status": "in_progress"
         },
         {
           "step": 4,
           "action": "案例复盘宣导：将本次漏判案例纳入培训材料，全员宣导「正常画面≠无风险」意识",
-          "owner": "待指定",
+          "owner": "赵培育",
           "deadline": "T+2",
-          "status": "pending"
+          "status": "in_progress"
         },
         {
           "step": 5,
           "action": "警惕度管理培训：针对跨直播间审核场景，加强审核员警惕度管理和注意力分配培训",
-          "owner": "待指定",
+          "owner": "赵培育（待指定）",
           "deadline": "持续",
-          "status": "pending"
+          "status": "in_progress"
         }
       ],
       "timeline": [
@@ -1701,6 +1701,10 @@
         {
           "time": "07/01",
           "event": "工单创建，方案待确认"
+        },
+        {
+          "time": "07/01 14:42",
+          "event": "张思语确认P2方案，指定处理人：赵培育(1/2/4/5)、吴婉婉(3)"
         }
       ],
       "tags": [
@@ -1709,7 +1713,7 @@
         "直播",
         "客户投诉"
       ],
-      "progress": "已完成初步回查，方案待供应商管理确认",
+      "progress": "方案已确认，指定处理人，进入执行阶段",
       "manualPenalty": null,
       "penaltyConfirmed": false,
       "penaltyConfirmedBy": null
