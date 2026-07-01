@@ -1359,7 +1359,9 @@ function updateStats() {
   document.getElementById('statTicket').textContent = tickets.size;
 }
 function scrollToSection(id) {
-  document.getElementById(id).scrollIntoView({behavior:'smooth'});
+  var el = document.getElementById(id);
+  if (!el) return;
+  el.scrollIntoView({behavior:'smooth'});
   document.querySelectorAll('.header-nav a').forEach(function(a){a.classList.remove('active')});
   var link = document.querySelector('.header-nav a[href="#'+id+'"]');
   if(link) link.classList.add('active');
