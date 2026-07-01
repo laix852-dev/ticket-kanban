@@ -138,6 +138,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hira
   <div class="header-brand">📚 方案库 · 龙虾学习系统</div>
   <div class="header-nav">
     <a href="https://laix852-dev.github.io/ticket-kanban/">← 返回看板</a>
+    <a href="#generate" onclick="scrollToSection('generate')">方案生成</a>
     <a href="#match" onclick="scrollToSection('match')">活学活用</a>
     <a href="#patterns" onclick="scrollToSection('patterns')">问题模式</a>
     <a href="#solutions" onclick="scrollToSection('solutions')">方案明细</a>
@@ -170,6 +171,57 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hira
   <button onclick="doMatch()" style="padding:10px 20px;background:var(--blue);color:#fff;border:none;border-radius:var(--radius-xs);font-size:14px;font-weight:600;cursor:pointer">🔍 匹配方案</button>
 </div>
 <div id="matchResult" style="display:none"></div>
+</div>
+
+<!-- 方案生成器 -->
+<div class="section" id="generate" style="background:linear-gradient(135deg,#fef3c7,#fffbeb);border-radius:var(--radius);padding:20px;border:1px solid var(--amber-100);margin-bottom:24px">
+<div class="section-title">⚡ 方案生成器</div>
+<div class="section-desc">选择问题类型和供应商，自动生成完整的解决方案模板。生成后一键复制，直接粘贴到工单里。</div>
+<div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;align-items:flex-end">
+  <div>
+    <div style="font-size:11px;color:var(--text-secondary);margin-bottom:4px">问题类型</div>
+    <select id="genType" onchange="genPreview()" style="padding:8px 12px;border:1px solid var(--border);border-radius:6px;font-size:13px;background:#fff;outline:none">
+      <option value="">-- 选择问题类型 --</option>
+      <option value="涉政漏放">涉政漏放</option>
+      <option value="人效不达标">人效不达标</option>
+      <option value="质检管理">质检管理</option>
+      <option value="客服投诉">客服投诉</option>
+      <option value="系统稳定性">审核系统稳定性</option>
+      <option value="培训考核">培训考核</option>
+      <option value="舆情指令误操作">舆情指令误操作</option>
+      <option value="尺度拉齐">尺度拉齐</option>
+    </select>
+  </div>
+  <div>
+    <div style="font-size:11px;color:var(--text-secondary);margin-bottom:4px">供应商</div>
+    <select id="genVendor" onchange="genPreview()" style="padding:8px 12px;border:1px solid var(--border);border-radius:6px;font-size:13px;background:#fff;outline:none">
+      <option value="">-- 选择供应商 --</option>
+      <option value="河南新阳科技（南宁）">新阳南宁</option>
+      <option value="河南新阳科技（洛阳）">新阳洛阳</option>
+      <option value="山西易网视界（临汾）">易网临汾</option>
+      <option value="河南徽音网络科技">徽音郑州</option>
+      <option value="贵州硅易（绥阳）">硅易绥阳</option>
+      <option value="河南诺达信息科技">诺达</option>
+    </select>
+  </div>
+  <div>
+    <div style="font-size:11px;color:var(--text-secondary);margin-bottom:4px">优先级</div>
+    <select id="genPrio" onchange="genPreview()" style="padding:8px 12px;border:1px solid var(--border);border-radius:6px;font-size:13px;background:#fff;outline:none">
+      <option value="P0">P0</option>
+      <option value="P1">P1</option>
+      <option value="P2">P2</option>
+    </select>
+  </div>
+  <div>
+    <div style="font-size:11px;color:var(--text-secondary);margin-bottom:4px">创建日期</div>
+    <input type="date" id="genDate" onchange="genPreview()" style="padding:8px 12px;border:1px solid var(--border);border-radius:6px;font-size:13px;background:#fff;outline:none">
+  </div>
+</div>
+<div id="genPreview" style="display:none">
+  <div style="background:#1c1917;color:#e7e5e4;padding:16px 20px;border-radius:var(--radius-sm);font-family:monospace;font-size:12px;line-height:1.9;white-space:pre-wrap;position:relative;margin-bottom:8px" id="genOutput"></div>
+  <button onclick="copyGen()" style="padding:8px 16px;background:var(--amber);color:#fff;border:none;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px" id="genCopyBtn">📋 复制方案到剪贴板</button>
+  <span id="genCopied" style="display:none;color:var(--green);font-size:13px;margin-left:10px">✅ 已复制</span>
+</div>
 </div>
 
 <!-- Problem Patterns -->
@@ -1035,6 +1087,149 @@ var PATTERNS = [
   {name:"舆情指令误操作",keywords:"舆情 指令 误删 误伤 关键词 定位 搜索 一刀切 苏芒 传达 通告 从严 尺度",steps:"定位误伤→回扫数据→指令优化→明确尺度→废止一刀切→排查漏报备",tickets:"TK-019",priority:"P2"},
   {name:"尺度拉齐",keywords:"尺度 拉齐 低俗 导向 标准不一 不一致 偏差 商汤 摸底 对齐 判定标准 案例汇总",steps:"汇总案例→统一文档→人员摸底→专项培训",tickets:"TK-021 TK-022",priority:"P1"}
 ];
+
+
+// 方案生成器
+var GEN_TEMPLATES = {
+  "涉政漏放": {
+    steps: [
+      {action:"关键词排查 + 数据回扫（覆盖变体/别称/代称）",owner:"管理岗",deadline:"T+1"},
+      {action:"初版复盘输出 + 全员通报",owner:"管理岗",deadline:"T+1"},
+      {action:"涉政人物专项培训 + 敏感人物清单宣导（含别称/代称/隐喻对照表）",owner:"培训侧",deadline:"T+3"},
+      {action:"闭卷测试验收，准确率目标100%，未达标需补训",owner:"培训侧",deadline:"T+7"},
+      {action:"回扫流程优化：涉政内容增加专项复核环节",owner:"技术/质量侧",deadline:"T+5"},
+      {action:"定期抽问 + 案例持续收集（每两周一次）",owner:"质量侧",deadline:"持续"}
+    ],
+    impact: "🔴 重大影响：涉政内容漏放，存在政治风险，若被外部发现可升级为重大事故\n🟡 流程漏洞：审核员对敏感人物缺乏认知，关键词库覆盖不全"
+  },
+  "人效不达标": {
+    steps: [
+      {action:"人员审核录屏分析，找到效率痛点",owner:"管理岗",deadline:"T+6"},
+      {action:"SKU时长测算，根据资质测算单SKU审核时长",owner:"管理岗",deadline:"T+13"},
+      {action:"审核SOP优化，联动驻场进行流程检查和技巧传授",owner:"管理岗",deadline:"T+10"},
+      {action:"QC直播间优先级明确",owner:"客户侧",deadline:"T+11"},
+      {action:"新人培训计划 + 效率爬坡跟踪",owner:"管理岗",deadline:"T+13"},
+      {action:"现场管理密切关注审核状态，异常及时介入上报",owner:"管理岗",deadline:"持续"},
+      {action:"人效达标验收：核心15条/日，尾部12条/日",owner:"管理岗",deadline:"T+16"}
+    ],
+    impact: "🟡 中等影响：人效未达标，影响客户交付预期\n🟡 QC直播间优先级不明确，影响审核效率"
+  },
+  "质检管理": {
+    steps: [
+      {action:"日度异常预警：单人次品≥5条标注姓名+类型，次品环比>100%追加原因",owner:"管理岗",deadline:"本周"},
+      {action:"人员专项纠偏：全量回查 + 针对性培训 + 加抽检",owner:"管理岗",deadline:"本周"},
+      {action:"补充缺失日报，标注异常人员明细",owner:"管理岗",deadline:"本周"},
+      {action:"建立异常响应SOP：次品率>0.5% → 暂停审核→回查→培训→重新上线",owner:"管理岗",deadline:"2周内"},
+      {action:"日报模板升级：人员排名表 + TOP3次品类型 + 环比变化",owner:"管理岗",deadline:"2周内"},
+      {action:"管理岗KPI明确：异常响应≤4小时，日报覆盖率100%",owner:"管理岗",deadline:"1个月"},
+      {action:"系统优化：OCR二次校验或关键字符高亮 + 每周专项回查",owner:"管理岗",deadline:"1个月"}
+    ],
+    impact: "🔴 质量失控：次品暴增，管理侧无阻断，错误数据进入后续链路\n🔴 人员风险：高次品人员仍正常上线，无纠偏或轮换"
+  },
+  "客服投诉": {
+    steps: [
+      {action:"立即排查：排班记录 + 响应记录 + 聊天记录，确认根因",owner:"对接人+管理岗",deadline:"T+0"},
+      {action:"建立客服响应时效监控，超时X分钟自动告警",owner:"技术/管理",deadline:"T+5"},
+      {action:"评估人力是否充足，必要时增配或调整排班",owner:"对接人",deadline:"T+7"},
+      {action:"向甲方提交事件说明及改进措施，修复客户关系",owner:"对接人",deadline:"T+2"},
+      {action:"将案例纳入培训 + 建立预警机制（同供应商不重复发生）",owner:"管理岗",deadline:"持续"}
+    ],
+    impact: "🔴 客户信任：甲方直接投诉，影响业务合作关系\n🟡 服务质量：客服响应时效不达标，存在KPI扣分风险"
+  },
+  "系统稳定性": {
+    steps: [
+      {action:"修复系统自动续期/自动重试逻辑",owner:"技术侧",deadline:"T+3"},
+      {action:"告警增加关键指标：CMA在线数<5自动@管理方",owner:"技术侧",deadline:"T+5"},
+      {action:"制定人工应急预案：退出→重登→验证三步骤",owner:"管理岗",deadline:"T+3"},
+      {action:"建立Dashboard监控：每小时检测登录态/识别率/人审率",owner:"技术侧",deadline:"T+10"},
+      {action:"审核人员上岗前增加CMA状态自查环节",owner:"管理岗",deadline:"持续"},
+      {action:"建立分级升级报备机制 + 超时提醒触达验证",owner:"管理岗",deadline:"T+3"}
+    ],
+    impact: "🔴 审核时效：系统异常导致审核积压，人工介入率飙升\n🔴 人工成本：大量审核员被迫手工处理，效率大幅下降"
+  },
+  "培训考核": {
+    steps: [
+      {action:"建立任务清单 + 2小时响应机制：群内关键任务信息必须在2小时内响应确认",owner:"培训专员",deadline:"T+1"},
+      {action:"组长每周检查执行状态 + 周期性任务设置日历/POPO自动提醒",owner:"各组长",deadline:"T+4"}
+    ],
+    impact: "🟡 中等影响：培训考核遗漏，影响团队能力评估和后续培训安排"
+  },
+  "舆情指令误操作": {
+    steps: [
+      {action:"定位误伤原因，确认指令误删根因（是不知道规则还是理解错了）",owner:"管理岗",deadline:"当日"},
+      {action:"回扫近一月误伤数据：融媒体/论坛/用户资料等通道全覆盖",owner:"管理岗",deadline:"当日"},
+      {action:"指令传达优化：转发一线时整理具体关键词（确保能通过关键词搜到指令）",owner:"管理岗",deadline:"持续"},
+      {action:"明确处理尺度：查删负面 / 无法提及 / 其他（不再一刀切）",owner:"管理岗",deadline:"持续"},
+      {action:"舆情指令不再一刀切，明确拦截敏感点",owner:"客户侧",deadline:"持续"},
+      {action:"排查是否有未经确认即删除的漏报备案例",owner:"管理岗",deadline:"T+1"}
+    ],
+    impact: "🟡 内容误删，影响平台内容完整性\n🟡 指令传达与解读流程存在漏洞"
+  },
+  "尺度拉齐": {
+    steps: [
+      {action:"汇总客户反馈中的同类型案例，形成案例库",owner:"管理岗",deadline:"T+3"},
+      {action:"组织尺度对齐会议 + 输出统一判定标准文档",owner:"管理岗",deadline:"T+5"},
+      {action:"人员摸底考核，用边界案例测试验收尺度执行一致性",owner:"管理岗",deadline:"T+7"},
+      {action:"对偏差人员进行专项培训拉齐 + 尺度文档每季度回顾更新",owner:"管理岗",deadline:"T+10 / 每季度"}
+    ],
+    impact: "🟡 审核尺度不统一，可能导致客户投诉\n🟡 组内人员执行标准不一致，存在质量隐患"
+  }
+};
+
+var VENDOR_CONTACTS = {
+  "河南新阳科技（南宁）":"钱燕",
+  "河南新阳科技（洛阳）":"钱燕",
+  "山西易网视界（临汾）":"刘倩",
+  "河南徽音网络科技":"刘倩",
+  "贵州硅易（绥阳）":"张思语",
+  "河南诺达信息科技":"张思语"
+};
+
+function genPreview() {
+  var type = document.getElementById('genType').value;
+  if (!type) { document.getElementById('genPreview').style.display='none'; return; }
+  
+  var vendor = document.getElementById('genVendor').value || '（待填）';
+  var prio = document.getElementById('genPrio').value;
+  var dateVal = document.getElementById('genDate').value;
+  var today = dateVal || new Date().toISOString().slice(0,10);
+  var contact = VENDOR_CONTACTS[vendor] || '（待确认）';
+  
+  var tpl = GEN_TEMPLATES[type];
+  if (!tpl) return;
+  
+  var out = '📋 工单方案 | ' + type + ' | ' + prio + '\n';
+  out += '供应商：' + vendor + ' | 对接人：' + contact + ' | 创建日期：' + today + '\n\n';
+  out += '📝 影响分析：\n' + tpl.impact + '\n\n';
+  out += '🔧 解决方案（' + tpl.steps.length + '步）：\n';
+  tpl.steps.forEach(function(s, i) {
+    out += (i+1) + '. ' + s.action + '\n';
+    out += '   负责人：' + s.owner + ' | DDL：' + s.deadline + '\n';
+  });
+  out += '\n📊 处罚参考：' + prio + ' 监管反馈 ' + (prio==='P0'?'¥1000':'¥500') + (prio==='P0'?' + 重大影响×1.5':'') + '\n';
+  out += '关联工单参考：' + (type==='涉政漏放'?'TK-009 TK-010 TK-017 TK-018':type==='人效不达标'?'TK-011':type==='质检管理'?'TK-003 TK-002':type==='客服投诉'?'TK-001 TK-013':type==='系统稳定性'?'TK-004 TK-014':type==='培训考核'?'TK-012':type==='舆情指令误操作'?'TK-019':type==='尺度拉齐'?'TK-021':'') + '\n';
+  
+  document.getElementById('genOutput').textContent = out;
+  document.getElementById('genPreview').style.display = 'block';
+}
+
+function copyGen() {
+  var txt = document.getElementById('genOutput').textContent;
+  navigator.clipboard.writeText(txt).then(function() {
+    document.getElementById('genCopyBtn').style.display = 'none';
+    document.getElementById('genCopied').style.display = 'inline';
+    setTimeout(function() {
+      document.getElementById('genCopyBtn').style.display = 'flex';
+      document.getElementById('genCopied').style.display = 'none';
+    }, 2000);
+  });
+}
+
+// Set today's date by default
+document.addEventListener('DOMContentLoaded', function() {
+  var d = document.getElementById('genDate');
+  if (d) d.value = new Date().toISOString().slice(0,10);
+});
 
 function doMatch() {
   var q = document.getElementById('matchInput').value.trim();
