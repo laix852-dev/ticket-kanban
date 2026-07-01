@@ -1363,7 +1363,6 @@ function updateStats() {
   var tickets = new Set(SOLUTIONS.map(function(s) { return s.ticket; }));
   document.getElementById('statTicket').textContent = tickets.size;
   document.getElementById('solDescCount').textContent = SOLUTIONS.length;
-  document.getElementById('statPat').textContent = Object.keys(PATTERNS).length || 8;
 }
 function scrollToSection(id) {
   var el = document.getElementById(id);
